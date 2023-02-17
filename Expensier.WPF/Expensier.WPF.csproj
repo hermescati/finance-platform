@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Styles\Fonts\sfpro-blackitalic.OTF" />
+    <None Remove="Styles\Fonts\sfpro-bold.OTF" />
+    <None Remove="Styles\Fonts\sfpro-heavyitalic.OTF" />
+    <None Remove="Styles\Fonts\sfpro-lightitalic.OTF" />
+    <None Remove="Styles\Fonts\sfpro-medium.OTF" />
+    <None Remove="Styles\Fonts\sfpro-regular.OTF" />
+    <None Remove="Styles\Fonts\sfpro-semibolditalic.OTF" />
+    <None Remove="Styles\Fonts\sfpro-thinitalic.OTF" />
+    <None Remove="Styles\Fonts\sfpro-ultralightitalic.OTF" />
+    <None Remove="Styles\Images\default_profile_picture.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Expensier.API\Expensier.API.csproj" />
+    <ProjectReference Include="..\Expensier.Doman\Expensier.Domain.csproj" />
+    <ProjectReference Include="..\Expensier.EntityFramework\Expensier.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Styles\Fonts\sfpro-blackitalic.OTF">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Fonts\sfpro-bold.OTF">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Fonts\sfpro-heavyitalic.OTF">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Fonts\sfpro-lightitalic.OTF">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Fonts\sfpro-medium.OTF">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Fonts\sfpro-regular.OTF">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Fonts\sfpro-semibolditalic.OTF">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Fonts\sfpro-thinitalic.OTF">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Fonts\sfpro-ultralightitalic.OTF">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Images\default_profile_picture.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

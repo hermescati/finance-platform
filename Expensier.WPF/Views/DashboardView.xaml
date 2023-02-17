@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="Expensier.WPF.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Expensier.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="852" d:DesignWidth="1304">
+
+
+    <Border
+        Width="Auto"
+        Height="Auto" 
+        Padding="52" 
+        CornerRadius="24"
+        Background="{StaticResource PrimaryColor}">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <DockPanel
+                    x:Name="SummaryGraph"
+                    Width="Auto"
+                    VerticalAlignment="Center">
+                        <Label
+                        DockPanel.Dock="Left"
+                        Style="{StaticResource Heading}"
+                        Content="Spending summary"/>
+                        <ComboBox
+                        Width="137"
+                        Height="32"
+                        DockPanel.Dock="Right">
+                            <ComboBoxItem Content="this week" IsSelected="True"/>
+                            <ComboBoxItem Content="this month"/>
+                            <ComboBoxItem Content="this year"/>
+                        </ComboBox>
+                    </DockPanel>
+                    <Rectangle
+                    Width="574"
+                    Height="224"
+                    Margin="0, 38, 0, 0"
+                    Fill="{StaticResource InactiveColor}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <DockPanel
+                    x:Name="ExpenditureGraph"
+                    VerticalAlignment="Center">
+                        <Label
+                        DockPanel.Dock="Left"
+                        Style="{StaticResource Heading}"
+                        Content="Expenditure"/>
+                        <ComboBox
+                        Width="137"
+                        Height="32"
+                        DockPanel.Dock="Left">
+                            <ComboBoxItem Content="this week" IsSelected="True"/>
+                            <ComboBoxItem Content="this month"/>
+                            <ComboBoxItem Content="this year"/>
+                        </ComboBox>
+                    </DockPanel>
+                    <Rectangle
+                    Width="500"
+                    Height="224"
+                    Margin="0, 38, 0, 0"
+                    Fill="{StaticResource InactiveColor}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <DockPanel
+                    x:Name="RecentExpenses"
+                    Width="Auto"
+                    VerticalAlignment="Center">
+                        <Label
+                        DockPanel.Dock="Left"
+                        Style="{StaticResource Heading}"
+                        Content="Recent expenses"/>
+                        <Image/>
+                    </DockPanel>
+                    <Rectangle
+                    Width="342"
+                    Height="308"
+                    Margin="0, 38, 0, 0"
+                    Fill="{StaticResource InactiveColor}"/>
+                </StackPanel>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <DockPanel
+                        x:Name="Subcriptions"
+                        Width="Auto"
+                        VerticalAlignment="Center">
+                            <Label
+                            DockPanel.Dock="Left"
+                            Style="{StaticResource Heading}"
+                            Content="Subcriptions"/>
+                            <Image/>
+                        </DockPanel>
+                        <Rectangle
+                        Width="774"
+                        Height="40"
+                        Margin="0, 38, 0, 0"
+                        Fill="{StaticResource InactiveColor}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2">
+                        <Border
+                        Width="774"
+                        Height="204"
+                        Padding="48, 27, 48, 27"
+                        CornerRadius="20"
+                        Background="{StaticResource BackgroundGradientColor}">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel
+                                Width="110">
+                                    <Label
+                                    Padding="0, 20, 0, 16"
+                                    Style="{StaticResource Heading}"
+                                    Content="Watchlist"/>
+                                    <TextBlock
+                                    Padding="0, 0, 0, 28"
+                                    TextWrapping="Wrap"
+                                    Style="{StaticResource NormalText-TextBlock}"
+                                    Text="Keep track of your favorite cryptos"/>
+                                    <Button 
+                                    Width="110"
+                                    Height="28"
+                                        Style="{StaticResource SmallButton}"
+                                    Content="See all"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </Border>
+
+</UserControl>

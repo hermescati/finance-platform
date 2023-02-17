@@ -1,0 +1,15 @@
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\bin\Debug\net6.0\Expensier.API.deps.json
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\bin\Debug\net6.0\Expensier.API.dll
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\bin\Debug\net6.0\Expensier.API.pdb
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\Expensier.API.csproj.AssemblyReference.cache
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\Expensier.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\Expensier.API.AssemblyInfoInputs.cache
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\Expensier.API.AssemblyInfo.cs
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\Expensier.API.csproj.CoreCompileInputs.cache
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\Expensier.API.dll
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\refint\Expensier.API.dll
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\Expensier.API.pdb
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\ref\Expensier.API.dll
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\bin\Debug\net6.0\Expensier.Domain.dll
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\bin\Debug\net6.0\Expensier.Domain.pdb
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.API\obj\Debug\net6.0\Expensier.API.csproj.CopyComplete

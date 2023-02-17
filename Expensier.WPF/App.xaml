@@ -1,0 +1,36 @@
+﻿<Application x:Class="Expensier.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:Expensier.WPF.ViewModels"
+             xmlns:views="clr-namespace:Expensier.WPF.Views"
+             xmlns:local="clr-namespace:Expensier.WPF">
+    
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Styles.xaml"/>
+                <ResourceDictionary Source="/Styles/FontStyles.xaml"/>
+                <ResourceDictionary Source="/Styles/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
+                <views:DashboardView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:ExpensesViewModel}">
+                <views:ExpensesView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:WalletViewModel}">
+                <views:WalletView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                <views:LoginView LoginCommand="{Binding LoginCommand}"/>
+            </DataTemplate>
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>
