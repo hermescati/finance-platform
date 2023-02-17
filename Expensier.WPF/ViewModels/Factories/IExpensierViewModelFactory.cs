@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expensier.WPF.State.Navigators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Expensier.WPF.ViewModels.Factories
 {
-    public interface IExpensierViewModelFactory<T> where T : ViewModelBase
+    public interface IExpensierViewModelFactory
     {
-        T CreateViewModel();
+        ViewModelBase CreateViewModel(ViewType viewType);
     }
 }

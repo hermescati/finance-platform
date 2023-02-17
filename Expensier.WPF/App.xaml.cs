@@ -63,16 +63,33 @@ namespace Expensier.WPF
             string apiKey = ConfigurationManager.AppSettings.Get("ApiKey");
             services.AddSingleton<APIClientFactory>(new APIClientFactory(apiKey)); 
 
-            services.AddSingleton<IExpensierViewModelAbstractFactory, ExpensierViewModelAbstractFactory>();
+            services.AddSingleton<IExpensierViewModelFactory, ExpensierViewModelFactory>();
+            services.AddSingleton<DashboardViewModel>();
+            services.AddSingleton<ExpensesViewModel>();
+            services.AddSingleton<WalletViewModel>();
+            services.AddSingleton<DelegateRenavigator<DashboardViewModel>>();
 
-            services.AddSingleton<IExpensierViewModelFactory<LoginViewModel>>((services) =>
-                new LoginViewModelFactory(services.GetRequiredService<IAuthenticator>(), 
-                new ViewModelFactoryRenavigator<DashboardViewModel>(services.GetRequiredService<INavigator>(),
-                services.GetRequiredService<IExpensierViewModelFactory<DashboardViewModel>>())));
+            services.AddSingleton<CreateViewModel<DashboardViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<DashboardViewModel>();
+            });
 
-            services.AddSingleton<IExpensierViewModelFactory<DashboardViewModel>, DashboardViewModelFactory>();
-            services.AddSingleton<IExpensierViewModelFactory<ExpensesViewModel>, ExpensesViewModelFactory>();
-            services.AddSingleton<IExpensierViewModelFactory<WalletViewModel>, WalletViewModelFactory>();
+            services.AddSingleton<CreateViewModel<ExpensesViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<ExpensesViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<WalletViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<WalletViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<LoginViewModel>>(services =>
+            {
+                return () => new LoginViewModel(
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<DelegateRenavigator<DashboardViewModel>>());
+            });
 
             services.AddScoped<INavigator, Navigator>();
             services.AddScoped<IAuthenticator, Authenticator>();

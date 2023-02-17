@@ -15,11 +15,11 @@ namespace Expensier.WPF.Commands
         public event EventHandler? CanExecuteChanged;
 
         private readonly INavigator _navigatior;
-        private readonly IExpensierViewModelAbstractFactory _viewModelFactory;
+        private readonly IExpensierViewModelFactory _viewModelFactory;
 
         public UpdateCurrentViewModelCommand(
             INavigator navigatior, 
-            IExpensierViewModelAbstractFactory viewModelFactory)
+            IExpensierViewModelFactory viewModelFactory)
         {
             _navigatior = navigatior;
             _viewModelFactory = viewModelFactory;

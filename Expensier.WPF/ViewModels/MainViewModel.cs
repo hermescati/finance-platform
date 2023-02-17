@@ -13,12 +13,12 @@ namespace Expensier.WPF.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly IExpensierViewModelAbstractFactory _viewModelFactory;
+        private readonly IExpensierViewModelFactory _viewModelFactory;
         public INavigator Navigator { get; set; }
         public IAuthenticator Authenticator { get; set; }
         public ICommand UpdateCurrentViewModelCommand { get; }
 
-        public MainViewModel(INavigator navigator, IAuthenticator authenticator, IExpensierViewModelAbstractFactory viewModelFactory)
+        public MainViewModel(INavigator navigator, IAuthenticator authenticator, IExpensierViewModelFactory viewModelFactory)
         {
             Navigator = navigator;
             Authenticator = authenticator;
