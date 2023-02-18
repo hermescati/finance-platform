@@ -30,11 +30,11 @@
                     <StackPanel 
                         Orientation="Horizontal"
                         Margin="0, 0, 0, 40">
-                        <Rectangle
+                        <Image
                             Width="60"
                             Height="60"
-                            Fill="Gray"
-                            HorizontalAlignment="Left"/>
+                            HorizontalAlignment="Left"
+                            Source="{StaticResource AppIcon}"/>
                         <WrapPanel 
                             Orientation="Vertical"
                             Margin="16, 0">
@@ -43,13 +43,12 @@
                                 Style="{StaticResource BigHeading}"
                                 Content="Welcome to Expensier"/>
                             <Label
-                                Style="{StaticResource SubHeading2-Medium}"
+                                Style="{StaticResource SubHeading2-Regular}"
                                 Content="Log in to sync your account"/>
                         </WrapPanel>
                     </StackPanel>
                     <WrapPanel 
                         Orientation="Vertical"
-                        Width="Auto"
                         Margin="0, 0, 0, 24">
                         <Label
                             Style="{StaticResource SubHeading}"
