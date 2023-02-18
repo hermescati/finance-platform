@@ -1,6 +1,7 @@
 ﻿using Expensier.Domain.Models;
 using Expensier.Domain.Services.Authentication;
 using Expensier.WPF.Models;
+using Expensier.WPF.State.Accounts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,31 +10,33 @@ using System.Threading.Tasks;
 
 namespace Expensier.WPF.State.Authenticators
 {
-    public class Authenticator : ObservableObject, IAuthenticator
+    public class Authenticator : IAuthenticator
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly AccountStore _accountStore;
 
-        public Authenticator(IAuthenticationService authenticationService)
+        public Authenticator(IAuthenticationService authenticationService, AccountStore accountStore)
         {
             _authenticationService = authenticationService;
+            _accountStore = accountStore;
         }
 
-        private Account _currentUser;
-        public Account CurrentUser 
+        public Account CurrentAccount 
         { 
             get
             {
-                return _currentUser;
+                return _accountStore.CurrentAccount;
             }
             private set
             {
-                _currentUser = value;
-                OnPropertyChanged(nameof(CurrentUser));
-                OnPropertyChanged(nameof(Authenticated));
+                _accountStore.CurrentAccount = value;
+                StateChanged?.Invoke();
             }
         }
 
-        public bool Authenticated => CurrentUser != null;
+        public bool Authenticated => CurrentAccount != null;
+
+        public event Action StateChanged;
 
         public async Task<bool> userLogin(string email, string password)
         {
@@ -41,7 +44,7 @@ namespace Expensier.WPF.State.Authenticators
 
             try
             {
-                CurrentUser = await _authenticationService.userLogin(email, password);
+                CurrentAccount = await _authenticationService.userLogin(email, password);
             }
             catch (Exception)
             {
@@ -54,7 +57,7 @@ namespace Expensier.WPF.State.Authenticators
 
         public void userLogout()
         {
-            CurrentUser = null;
+            CurrentAccount = null;
         }
 
         public async Task<RegistrationResult> userRegister(string firstName, string lastName, string email, string password, string confirmPassword)

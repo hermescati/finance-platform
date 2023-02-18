@@ -14,18 +14,35 @@ namespace Expensier.WPF.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private readonly IExpensierViewModelFactory _viewModelFactory;
-        public INavigator Navigator { get; set; }
-        public IAuthenticator Authenticator { get; set; }
+        private readonly INavigator _navigator;
+        private readonly IAuthenticator _authenticator;
+
+        public bool IsAuthenticated => _authenticator.Authenticated;
+        public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
+
         public ICommand UpdateCurrentViewModelCommand { get; }
 
         public MainViewModel(INavigator navigator, IAuthenticator authenticator, IExpensierViewModelFactory viewModelFactory)
         {
-            Navigator = navigator;
-            Authenticator = authenticator;
+            _navigator = navigator;
+            _authenticator = authenticator;
             _viewModelFactory = viewModelFactory;
 
+            _navigator.StateChanged += Navigator_StateChanged;
+            _authenticator.StateChanged += Authenticator_StateChanged;
+
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navigator, _viewModelFactory);
-            UpdateCurrentViewModelCommand.Execute(ViewType.Register);
+            UpdateCurrentViewModelCommand.Execute(ViewType.Login);
+        }
+
+        private void Authenticator_StateChanged()
+        {
+            OnPropertyChanged(nameof(IsAuthenticated));
+        }
+
+        private void Navigator_StateChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

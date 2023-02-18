@@ -10,8 +10,10 @@ namespace Expensier.WPF.State.Authenticators
 {
     public interface IAuthenticator
     {
-        Account CurrentUser { get; }
+        Account CurrentAccount { get; }
         bool Authenticated { get; }
+
+        event Action StateChanged;
 
         Task<RegistrationResult> userRegister(string firstName, string lastName, string email, string password, string confirmPassword);
         Task<bool> userLogin(string email, string password);

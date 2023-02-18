@@ -6,6 +6,7 @@ using Expensier.Domain.Services.Authentication;
 using Expensier.Doman.Services;
 using Expensier.EntityFramework;
 using Expensier.EntityFramework.Services;
+using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Authenticators;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels;
@@ -91,8 +92,9 @@ namespace Expensier.WPF
                     services.GetRequiredService<DelegateRenavigator<DashboardViewModel>>());
             });
 
-            services.AddScoped<INavigator, Navigator>();
-            services.AddScoped<IAuthenticator, Authenticator>();
+            services.AddSingleton<INavigator, Navigator>();
+            services.AddSingleton<IAuthenticator, Authenticator>();
+            services.AddSingleton<AccountStore, AccountStore>();
             services.AddScoped<MainViewModel>();
 
             services.AddScoped<MainView>(s => new MainView(s.GetRequiredService<MainViewModel>()));

@@ -26,7 +26,7 @@
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Authenticator.Authenticated}" Value="False">
+                            <DataTrigger Binding="{Binding IsAuthenticated}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -40,7 +40,7 @@
                 Width="Auto" 
                 Height="Auto"
                 HorizontalAlignment="Stretch"
-                Content="{Binding Navigator.CurrentViewModel}"/>
+                Content="{Binding CurrentViewModel}"/>
 
         </DockPanel>
 
