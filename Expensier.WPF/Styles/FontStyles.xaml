@@ -36,6 +36,13 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
     </Style>
 
+    <Style x:Key="LinkText" TargetType="Hyperlink">
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource SecondaryColor}"/>
+    </Style>
+
     <Style x:Key="ButtonText" TargetType="Label">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontFamily" Value="SF Pro Display"/>
@@ -67,6 +74,23 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="Foreground" Value="{StaticResource InactiveColor}"/>
+    </Style>
+    
+    <!--Regular-->
+    <Style x:Key="SubHeading2-Regular" TargetType="Label">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+    </Style>
+
+    <Style x:Key="SubHeading2-Regular-TextBox" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
     </Style>
 
 </ResourceDictionary>

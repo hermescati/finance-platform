@@ -80,3 +80,5 @@ C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\
 C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\bin\Debug\net6.0-windows\Microsoft.AspNet.Identity.Core.dll
 C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\obj\Debug\net6.0-windows\Views\LoginView.g.cs
 C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\obj\Debug\net6.0-windows\Views\LoginView.baml
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\obj\Debug\net6.0-windows\Views\RegisterView.g.cs
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\obj\Debug\net6.0-windows\Views\RegisterView.baml

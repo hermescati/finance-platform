@@ -25,7 +25,7 @@ namespace Expensier.WPF.ViewModels
             _viewModelFactory = viewModelFactory;
 
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navigator, _viewModelFactory);
-            UpdateCurrentViewModelCommand.Execute(ViewType.Login);
+            UpdateCurrentViewModelCommand.Execute(ViewType.Register);
         }
     }
 }

@@ -139,8 +139,67 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    
+    <!--CheckBox-->
+    <Style x:Key="CheckBoxTemplate" TargetType="{x:Type CheckBox}">
+        <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource InactiveColor}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid 
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border 
+                            Grid.Column="0"
+                            x:Name="Border" 
+                            CornerRadius="4"
+                            Width="20"
+                            Height="20"
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Image
+                                x:Name="CheckMark"
+                                Source="{StaticResource CheckBoxIcon}"
+                                Visibility="Collapsed"/>
+                        </Border>
+                        <Label
+                            Grid.Column="2"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                            Margin="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+                            <Setter Property="Opacity" TargetName="Border" Value="0.4"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Visibility" TargetName="CheckMark" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-
+    
     <!--Buttons-->
     <Style x:Key="ImagedButton" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource ForegroundColor}"/>
