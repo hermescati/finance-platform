@@ -8,6 +8,7 @@ using Expensier.EntityFramework;
 using Expensier.EntityFramework.Services;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Authenticators;
+using Expensier.WPF.State.Expenses;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels;
 using Expensier.WPF.ViewModels.Factories;
@@ -66,7 +67,9 @@ namespace Expensier.WPF
 
             services.AddSingleton<IExpensierViewModelFactory, ExpensierViewModelFactory>();
             services.AddSingleton<DashboardViewModel>();
-            services.AddSingleton<ExpensesViewModel>();
+            services.AddSingleton<ExpensesViewModel>(services => new ExpensesViewModel(
+                services.GetRequiredService<TransactionViewModel>()));
+            services.AddSingleton<TransactionViewModel>();
             services.AddSingleton<WalletViewModel>();
             services.AddSingleton<DelegateRenavigator<DashboardViewModel>>();
 
@@ -95,6 +98,7 @@ namespace Expensier.WPF
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<IAuthenticator, Authenticator>();
             services.AddSingleton<AccountStore, AccountStore>();
+            services.AddSingleton<TransactionStore, TransactionStore>();
             services.AddScoped<MainViewModel>();
 
             services.AddScoped<MainView>(s => new MainView(s.GetRequiredService<MainViewModel>()));

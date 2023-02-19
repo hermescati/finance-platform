@@ -43,32 +43,7 @@
                 Content="{Binding CurrentViewModel}"/>
 
         </DockPanel>
-
-
-        <!--<Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="248"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0">
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Authenticator.Authenticated}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
-
-                <controls:SidePanel DataContext="{Binding Navigator}"/>
-            </Grid>
-
-            <ContentControl
-                Grid.Column="1"
-                Content="{Binding Navigator.CurrentViewModel}"/>
-        </Grid>-->
+        
     </Border>
 
 </Window>

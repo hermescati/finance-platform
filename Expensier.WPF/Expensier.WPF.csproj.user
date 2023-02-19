@@ -10,6 +10,9 @@
     <Compile Update="Controls\SidePanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\TransactionList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\DashboardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -30,7 +33,13 @@
     <Page Update="Controls\SidePanel.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\TransactionList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ButtonStyles.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Styles\FontStyles.xaml">

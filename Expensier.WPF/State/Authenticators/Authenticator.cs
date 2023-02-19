@@ -1,6 +1,5 @@
 ﻿using Expensier.Domain.Models;
 using Expensier.Domain.Services.Authentication;
-using Expensier.WPF.Models;
 using Expensier.WPF.State.Accounts;
 using System;
 using System.Collections.Generic;

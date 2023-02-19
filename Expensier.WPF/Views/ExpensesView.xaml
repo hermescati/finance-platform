@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Expensier.WPF.Views"
+             xmlns:controls="clr-namespace:Expensier.WPF.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="852" d:DesignWidth="1304">
 
@@ -20,28 +21,42 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
+            
+            <!--#region Expenses-->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="38"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 <Label
-                    Style="{StaticResource Heading}"
+                    Grid.Row="0"
+                    Style="{StaticResource Header_20px}"
                     Content="Expenses"/>
-                <Grid Margin="0, 16, 0, 0">
+                <Grid
+                    Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="16"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="267"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="16"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Button 
                         Grid.Column="0"
-                        Width="98"
+                        Width="100"
                         Height="32"
+                        Style="{StaticResource MenuButton}"
+                        Tag="{StaticResource AddNewIcon}"
                         Content="Add New"/>
                     <Calendar 
                         Grid.Column="2"
-                        Height="32" Grid.ColumnSpan="2" Margin="0,0,227,0"/>
+                        Width="124"
+                        Height="32"/>
                     <Button
                         Grid.Column="4"
                         Width="190"
@@ -50,35 +65,34 @@
                     <Button
                         Grid.Column="6"
                         Width="32"
-                        Height="32"/>
+                        Height="32"
+                        Style="{StaticResource IconButton}"
+                        Tag="{StaticResource ExportIcon}"/>
                 </Grid>
-                <Rectangle
-                    Width="735"
-                    Height="564"
-                    Margin="0, 38, 0, 38"
-                    Fill="{StaticResource InactiveColor}"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label
-                        Grid.Column="0"
-                        Style="{StaticResource NormalText}"
-                        Content="Showing x of y entries"/>
-                    <Rectangle
-                        Grid.Column="2"
-                        Width="144"
-                        Height="24"
-                        Fill="{StaticResource InactiveColor}"/>
-                </Grid>
-            </StackPanel>
-            <StackPanel Grid.Column="2">
+                <controls:TransactionList 
+                    Grid.Row="4"
+                    DataContext="{Binding TransactionViewModel}"/>
+            </Grid>
+            <!--#endregion-->
+            
+            <!--#region Subscriptions-->
+            <Grid 
+                Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 <Label
-                    Style="{StaticResource Heading}"
+                    Grid.Row="0"
+                    Style="{StaticResource Header_20px}"
                     Content="Subscriptions"/>
-                <Grid Margin="0, 16, 0, 0">
+                <Grid 
+                    Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="16"/>
@@ -86,8 +100,10 @@
                     </Grid.ColumnDefinitions>
                     <Button 
                         Grid.Column="0"
-                        Width="98"
+                        Width="100"
                         Height="32"
+                        Style="{StaticResource MenuButton}"
+                        Tag="{StaticResource AddNewIcon}"
                         Content="Add New"/>
                     <Button 
                         Grid.Column="2"
@@ -96,15 +112,19 @@
                         Content="Sort by"/>
                 </Grid>
                 <Rectangle
+                    Grid.Row="4"
                     Width="381"
                     Height="340"
                     Margin="0, 38, 0, 56"
                     Fill="{StaticResource InactiveColor}"/>
                 <Rectangle
+                    Grid.Row="6"
                     Width="381"
                     Height="230"
                     Fill="{StaticResource InactiveColor}"/>
-            </StackPanel>
+            </Grid>
+            <!--#endregion-->
+            
         </Grid>
 
     </Border>

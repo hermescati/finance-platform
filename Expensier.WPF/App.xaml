@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="/Styles/Styles.xaml"/>
                 <ResourceDictionary Source="/Styles/FontStyles.xaml"/>
                 <ResourceDictionary Source="/Styles/Icons.xaml"/>
+                <ResourceDictionary Source="/Styles/ButtonStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">

@@ -9,6 +9,20 @@ namespace Expensier.WPF.State.Accounts
 {
     public class AccountStore
     {
-        public Account CurrentAccount { get; set; }
+        private Account _currentAccount;
+        public Account CurrentAccount
+        {
+            get
+            {
+                return _currentAccount;
+            }
+            set
+            {
+                _currentAccount = value;
+                StateChanged?.Invoke();
+            }
+        }
+
+        public event Action StateChanged;
     }
 }

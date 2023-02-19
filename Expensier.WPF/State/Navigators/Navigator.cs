@@ -1,5 +1,4 @@
 ﻿using Expensier.WPF.Commands;
-using Expensier.WPF.Models;
 using Expensier.WPF.ViewModels;
 using Expensier.WPF.ViewModels.Factories;
 using System;

@@ -4,11 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Expensier.WPF.Controls"
-             
              xmlns:vm="clr-namespace:Expensier.WPF.ViewModels"
              xmlns:converters="clr-namespace:Expensier.WPF.Converters"
              xmlns:navigator="clr-namespace:Expensier.WPF.State.Navigators"
-             
              mc:Ignorable="d" 
              d:DesignHeight="852" d:DesignWidth="224">
 
@@ -73,7 +71,6 @@
         Padding="40, 52, 40, 52" 
         CornerRadius="25"
         Background="{StaticResource PrimaryColor}">
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -82,6 +79,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            
             <StackPanel
                 Grid.Row="0">
                 <Ellipse Height="100" Width="100">
@@ -92,19 +90,21 @@
                 <Label
                     Margin="0, 16, 0, 0"
                     HorizontalContentAlignment="Center"
-                    Style="{StaticResource SubHeading}"
+                    Style="{StaticResource Subheader_16px}"
                     Content="Hi User"/>
             </StackPanel>
+            
             <StackPanel 
                 Grid.Row="2"
                 HorizontalAlignment="Left">
+                
                 <RadioButton
                     Content="Dashboard"
                     Style="{DynamicResource SidePanelButton}"
                     Command="{Binding UpdateCurrentViewModelCommand}"
                     CommandParameter="{x:Static navigator:ViewType.Dashboard}"
                     IsChecked="{
-                        Binding Navigator.CurrentViewModel,
+                        Binding CurrentViewModel,
                         Mode=OneWay,
                         Converter={StaticResource EqualValueToParameterConverter},
                         ConverterParameter={x:Type vm:DashboardViewModel}}">
@@ -115,13 +115,14 @@
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
+                
                 <RadioButton
                     Content="Expenses"
                     Style="{DynamicResource SidePanelButton}"
                     Command="{Binding UpdateCurrentViewModelCommand}"
                     CommandParameter="{x:Static navigator:ViewType.Expenses}"
                     IsChecked="{
-                        Binding Navigator.CurrentViewModel,
+                        Binding CurrentViewModel,
                         Mode=OneWay,
                         Converter={StaticResource EqualValueToParameterConverter},
                         ConverterParameter={x:Type vm:ExpensesViewModel}}">
@@ -132,13 +133,14 @@
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
+                
                 <RadioButton
                     Content="Wallet"
                     Style="{DynamicResource SidePanelButton}"
                     Command="{Binding UpdateCurrentViewModelCommand}"
                     CommandParameter="{x:Static navigator:ViewType.Wallet}"
                     IsChecked="{
-                        Binding Navigator.CurrentViewModel,
+                        Binding CurrentViewModel,
                         Mode=OneWay,
                         Converter={StaticResource EqualValueToParameterConverter},
                         ConverterParameter={x:Type vm:WalletViewModel}}">
@@ -149,10 +151,12 @@
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
+                
                 <Border 
                     BorderThickness="1"
                     CornerRadius="0.5"
                     BorderBrush="{StaticResource InactiveColor}"/>
+                
                 <RadioButton
                     Margin="0, 40, 0, 40"
                     Content="Settings"
@@ -164,6 +168,7 @@
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
+                
                 <RadioButton 
                     Content="Support"
                     Style="{DynamicResource SidePanelButton}">
@@ -174,7 +179,9 @@
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
+                
             </StackPanel>
+            
             <Button 
                 Grid.Row="4"
                 Width="144"
@@ -183,6 +190,7 @@
                 Tag="{StaticResource LogoutIcon}"
                 Content="Log out">
             </Button>
+            
         </Grid>
     </Border>
 </UserControl>

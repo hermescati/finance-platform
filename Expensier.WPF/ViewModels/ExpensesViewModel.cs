@@ -8,5 +8,11 @@ namespace Expensier.WPF.ViewModels
 {
     public class ExpensesViewModel : ViewModelBase
     {
+        public TransactionViewModel TransactionViewModel { get; }
+
+        public ExpensesViewModel(TransactionViewModel recentTransactions)
+        {
+            TransactionViewModel = recentTransactions;
+        }
     }
 }

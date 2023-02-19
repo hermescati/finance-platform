@@ -17,12 +17,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
             <StackPanel 
                 Grid.Column="1"
-                VerticalAlignment="Center">
+                VerticalAlignment="Bottom">
 
                 <!--#region Login Form-->
                 <StackPanel
@@ -40,10 +40,10 @@
                             Margin="16, 0">
                             <Label
                                 Margin="0, 0, 0, 10"
-                                Style="{StaticResource BigHeading}"
+                                Style="{StaticResource Header_24px}"
                                 Content="Welcome to Expensier"/>
                             <Label
-                                Style="{StaticResource SubHeading2-Regular}"
+                                Style="{StaticResource Text_15px}"
                                 Content="Log in to sync your account"/>
                         </WrapPanel>
                     </StackPanel>
@@ -51,8 +51,7 @@
                         Orientation="Vertical"
                         Margin="0, 0, 0, 24">
                         <Label
-                            Style="{StaticResource SubHeading}"
-                            Foreground="{StaticResource ForegroundColor}" 
+                            Style="{StaticResource Subheader_16px}"
                             Content="Email"/>
                         <TextBox
                             Width="351"
@@ -65,8 +64,7 @@
                         Orientation="Vertical"
                         Margin="0, 0, 0, 16">
                         <Label 
-                            Style="{StaticResource SubHeading}" 
-                            Foreground="{StaticResource ForegroundColor}" 
+                            Style="{StaticResource Subheader_16px}" 
                             Content="Password"/>
                         <PasswordBox 
                             x:Name="PasswordBox"
@@ -75,9 +73,9 @@
                             Margin="0, 4, 0, 0"
                             Style="{StaticResource PasswordBoxTemplate}"/>
                     </WrapPanel>
-                    <Label
-                        Style="{StaticResource NormalText}"
-                        Content="Fogot password?"/>
+                    <TextBlock
+                        Style="{StaticResource Text_14px}"
+                        Text="Fogot password?"/>
                     <Button 
                         Margin="0, 40, 0, 0"
                         Width="351"
@@ -96,7 +94,7 @@
                     Width="525"
                     Height="99">
                     <TextBlock 
-                        Style="{StaticResource NormalText-TextBlock}"
+                        Style="{StaticResource Text_14px}"
                         TextAlignment="Center">
                         <Run Text="By clicking &quot;Continue with Google / Facebook&quot; above, you acknowledge that you have"></Run> 
                         <LineBreak/>
@@ -110,48 +108,41 @@
                         Height="17"
                         Margin="0, 48, 0, 0"
                         Orientation="Horizontal">
-                        <Label
-                            Style="{StaticResource NormalText}">
-                            <Label.Content>Need help?</Label.Content>
-                        </Label>
-                        <Label
+                        <TextBlock
+                            Style="{StaticResource Text_14px}"
+                            Text="Need help?"/>
+                        <TextBlock
                             Margin="32, 0, 0, 0"
-                            Style="{StaticResource NormalText}">
-                            <Label.Content>Privacy &amp; Terms</Label.Content>
-                        </Label>
-                        <Label
+                            Style="{StaticResource Text_14px}"
+                            Text="Privacy &amp; Terms"/>
+                        <TextBlock
                             Margin="32, 0, 0, 0"
-                            Style="{StaticResource NormalText}">
-                            <Label.Content>© 2023 Expensier</Label.Content>
-                        </Label>
+                            Style="{StaticResource Text_14px}"
+                            Text="© 2023 Expensier"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
             <!--#endregion-->
 
             <!--#region Signup-->
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <DockPanel 
-                    Grid.Column="2"
-                    Margin="138, 64, 134, 0">
-                    <Label
-                        Style="{StaticResource SubHeading2}"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Left"
-                        Content="Not a member?"/>
-                    <Button
-                        Margin="24, 0, 0, 0"
-                        Width="112"
-                        Height="35"
-                        Style="{StaticResource Button}"
-                        Content="Sign up">
-                    </Button>
-                </DockPanel>
-            </Grid>
+            <StackPanel
+                Grid.Column="2"
+                Width="240"
+                Height="35"
+                Margin="0, 151"
+                Orientation="Horizontal"
+                VerticalAlignment="Top">
+                <Label
+                    Style="{StaticResource Subheader_15px}"
+                    VerticalContentAlignment="Center"
+                    Content="Not a member?"/>
+                <Button
+                    Margin="24, 0, 0, 0"
+                    Width="112"
+                    Height="35"
+                    Style="{StaticResource Button}"
+                    Content="Sign up"/>
+            </StackPanel>
             <!--#endregion-->
         </Grid>
     </Border>

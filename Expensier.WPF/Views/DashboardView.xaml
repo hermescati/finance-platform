@@ -34,7 +34,7 @@
                     VerticalAlignment="Center">
                         <Label
                         DockPanel.Dock="Left"
-                        Style="{StaticResource Heading}"
+                        Style="{StaticResource Header_20px}"
                         Content="Spending summary"/>
                         <ComboBox
                         Width="137"
@@ -57,7 +57,7 @@
                     VerticalAlignment="Center">
                         <Label
                         DockPanel.Dock="Left"
-                        Style="{StaticResource Heading}"
+                        Style="{StaticResource Header_20px}"
                         Content="Expenditure"/>
                         <ComboBox
                         Width="137"
@@ -88,7 +88,7 @@
                     VerticalAlignment="Center">
                         <Label
                         DockPanel.Dock="Left"
-                        Style="{StaticResource Heading}"
+                        Style="{StaticResource Header_20px}"
                         Content="Recent expenses"/>
                         <Image/>
                     </DockPanel>
@@ -111,7 +111,7 @@
                         VerticalAlignment="Center">
                             <Label
                             DockPanel.Dock="Left"
-                            Style="{StaticResource Heading}"
+                            Style="{StaticResource Header_20px}"
                             Content="Subcriptions"/>
                             <Image/>
                         </DockPanel>
@@ -133,12 +133,12 @@
                                 Width="110">
                                     <Label
                                     Padding="0, 20, 0, 16"
-                                    Style="{StaticResource Heading}"
+                                    Style="{StaticResource Header_20px}"
                                     Content="Watchlist"/>
                                     <TextBlock
                                     Padding="0, 0, 0, 28"
                                     TextWrapping="Wrap"
-                                    Style="{StaticResource NormalText-TextBlock}"
+                                    Style="{StaticResource Text_14px}"
                                     Text="Keep track of your favorite cryptos"/>
                                     <Button 
                                     Width="110"
