@@ -1,10 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    
+    <!--Font Family-->
     <FontFamily x:Key="SF Pro Display">//application:,,,/Resources/Fonts/#sfpro</FontFamily>
 
-    <!--Bold-->
-    <Style x:Key="BigHeading" TargetType="Label">
+    
+    <!--#region Label Styles-->
+    <Style x:Key="Header_24px" TargetType="Label">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontFamily" Value="SF Pro Display"/>
         <Setter Property="FontSize" Value="24"/>
@@ -12,7 +15,7 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
     </Style>
 
-    <Style x:Key="Heading" TargetType="Label">
+    <Style x:Key="Header_20px" TargetType="Label">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontFamily" Value="SF Pro Display"/>
         <Setter Property="FontSize" Value="20"/>
@@ -20,7 +23,7 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
     </Style>
 
-    <Style x:Key="SubHeading" TargetType="Label">
+    <Style x:Key="Subheader_16px" TargetType="Label">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontFamily" Value="SF Pro Display"/>
         <Setter Property="FontSize" Value="16"/>
@@ -28,7 +31,7 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
     </Style>
 
-    <Style x:Key="SubHeading2" TargetType="Label">
+    <Style x:Key="Subheader_15px" TargetType="Label">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontFamily" Value="SF Pro Display"/>
         <Setter Property="FontSize" Value="15"/>
@@ -36,61 +39,80 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
     </Style>
 
-    <Style x:Key="LinkText" TargetType="Hyperlink">
+    <Style x:Key="Text_15px" TargetType="Label">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+    </Style>
+    <!--#endregion-->
+    
+    
+    <!--#region Button Text Styles-->
+    <Style x:Key="Button_Text_14px" TargetType="Label">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+    </Style>
+    <Style x:Key="Button_Text_13px" TargetType="Label">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+    </Style>
+    <!--#endregion-->
+
+    
+    <!--#region Transactions-->
+    <Style x:Key="Transaction_Header_12px" TargetType="Label">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+        <Setter Property="Opacity" Value="0.4"/>
+    </Style>
+    <!--#endregion-->
+ 
+
+    <!--#region TextBlock Styles-->
+    <Style x:Key="Transaction_Data_15px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+    </Style>
+
+    <Style x:Key="Subheader_15px_Regular" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+    </Style>
+
+    <Style x:Key="Text_14px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="SF Pro Display"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="Foreground" Value="{StaticResource InactiveColor}"/>
+    </Style>
+    <!--#endregion-->
+    
+    
+    <!--#region Hyperlink Styles-->
+    <Style x:Key="Hyperlink_15px" TargetType="Hyperlink">
         <Setter Property="FontFamily" Value="SF Pro Display"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Foreground" Value="{StaticResource SecondaryColor}"/>
     </Style>
-
-    <Style x:Key="ButtonText" TargetType="Label">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="FontFamily" Value="SF Pro Display"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-    </Style>
-
-    
-    <!--Medium-->
-    <Style x:Key="SubHeading2-Medium" TargetType="Label">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="FontFamily" Value="SF Pro Display"/>
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
-    </Style>
-
-    <Style x:Key="NormalText" TargetType="Label">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="FontFamily" Value="SF Pro Display"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="Foreground" Value="{StaticResource InactiveColor}"/>
-    </Style>
-
-    <Style x:Key="NormalText-TextBlock" TargetType="TextBlock">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="FontFamily" Value="SF Pro Display"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="Foreground" Value="{StaticResource InactiveColor}"/>
-    </Style>
-    
-    <!--Regular-->
-    <Style x:Key="SubHeading2-Regular" TargetType="Label">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="FontFamily" Value="SF Pro Display"/>
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontWeight" Value="Regular"/>
-        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
-    </Style>
-
-    <Style x:Key="SubHeading2-Regular-TextBox" TargetType="TextBlock">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="FontFamily" Value="SF Pro Display"/>
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontWeight" Value="Regular"/>
-        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
-    </Style>
+    <!--#endregion-->
 
 </ResourceDictionary>

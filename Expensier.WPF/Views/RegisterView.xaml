@@ -32,17 +32,17 @@
                         Margin="0, 0, 0, 48">
                         <Label
                             Margin="0, 0, 0, 10"
-                            Style="{StaticResource BigHeading}"
+                            Style="{StaticResource Header_24px}"
                             Content="Sign up with your email"/>
                         <Label
                             Padding="0"
                             VerticalContentAlignment="Center">
                             <TextBlock 
-                                Style="{StaticResource SubHeading2-Regular-TextBox}"
+                                Style="{StaticResource Subheader_15px_Regular}"
                                 TextWrapping="WrapWithOverflow">
                                 <Run Text="Already have an account?"/>
                                 <Hyperlink 
-                                    Style="{StaticResource LinkText}">
+                                    Style="{StaticResource Hyperlink_15px}">
                                     Log in
                                 </Hyperlink>
                             </TextBlock>
@@ -58,7 +58,7 @@
                             Grid.Column="0"
                             Orientation="Vertical">
                             <Label
-                                Style="{StaticResource SubHeading}"
+                                Style="{StaticResource Subheader_16px}"
                                 Foreground="{StaticResource ForegroundColor}" 
                                 Content="First Name"/>
                             <TextBox
@@ -72,7 +72,7 @@
                             Grid.Column="2"
                             Orientation="Vertical">
                             <Label
-                                Style="{StaticResource SubHeading}"
+                                Style="{StaticResource Subheader_16px}"
                                 Foreground="{StaticResource ForegroundColor}" 
                                 Content="Last Name"/>
                             <TextBox
@@ -87,7 +87,7 @@
                         Orientation="Vertical"
                         Margin="0, 0, 0, 24">
                         <Label
-                            Style="{StaticResource SubHeading}"
+                            Style="{StaticResource Subheader_16px}"
                             Foreground="{StaticResource ForegroundColor}" 
                             Content="Email"/>
                         <TextBox
@@ -101,7 +101,7 @@
                         Orientation="Vertical"
                         Margin="0, 0, 0, 24">
                         <Label 
-                            Style="{StaticResource SubHeading}" 
+                            Style="{StaticResource Subheader_16px}" 
                             Foreground="{StaticResource ForegroundColor}" 
                             Content="Password"/>
                         <PasswordBox 
@@ -115,7 +115,7 @@
                         Orientation="Vertical"
                         Margin="0, 0, 0, 16">
                         <Label 
-                            Style="{StaticResource SubHeading}" 
+                            Style="{StaticResource Subheader_16px}" 
                             Foreground="{StaticResource ForegroundColor}" 
                             Content="Confirm password"/>
                         <PasswordBox 
@@ -129,7 +129,7 @@
                         Style="{DynamicResource CheckBoxTemplate}">
                         <CheckBox.Tag>
                             <TextBlock
-                                Style="{StaticResource NormalText-TextBlock}">
+                                Style="{StaticResource Text_14px}">
                                 <Run Text="I agree to the "></Run> 
                                 <Hyperlink Foreground="{StaticResource InactiveColor}">Terms &amp; Conditions</Hyperlink>
                                 <Run Text="and"/>

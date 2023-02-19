@@ -7,6 +7,7 @@
     <Color x:Key="Dominant">#1B191B</Color>
     <Color x:Key="Secondary">#64927C</Color>
     <Color x:Key="Accent">#D94E33</Color>
+    <Color x:Key="MenuButton">#1F1D1F</Color>
     
     
     <!--Color Palette-->
@@ -17,10 +18,11 @@
     <SolidColorBrush x:Key="AccentColor" Color="{StaticResource Accent}"/>
     <SolidColorBrush x:Key="InactiveColor" Color="{StaticResource Foreground}" Opacity="0.4"/>
     <SolidColorBrush x:Key="TransparentColor" Color="{StaticResource Foreground}" Opacity="0.15"/>
-    
+    <SolidColorBrush x:Key="MenuButtonColor" Color="{StaticResource MenuButton}"/>
+
     <SolidColorBrush x:Key="SecondaryGlowColor" Color="{StaticResource Secondary}" Opacity="0.3"/>
     
-    <LinearGradientBrush x:Key="BackgroundGradientColor" StartPoint="0.5, 0" EndPoint="0.5, 1">
+    <LinearGradientBrush x:Name="GradientColor" x:Key="BackgroundGradientColor" StartPoint="0.5, 0" EndPoint="0.5, 1">
         <GradientStop Color="{StaticResource Background}" Offset="0"/>
         <GradientStop Color="#4D000000" Offset="1"/>
     </LinearGradientBrush>
@@ -192,218 +194,6 @@
                             <Setter Property="Opacity" TargetName="Border" Value="0.4"/>
                             <Setter Property="BorderThickness" Value="0"/>
                             <Setter Property="Visibility" TargetName="CheckMark" Value="Visible"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    
-    <!--Buttons-->
-    <Style x:Key="ImagedButton" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource ForegroundColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource BackgroundColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ForegroundColor}"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="FontFamily" Value="SF Pro Display"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Width" Value="Auto"/>
-        <Setter Property="Height" Value="Auto"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="UseLayoutRounding" Value="True"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border 
-                        x:Name="GlowEffect"
-                        Margin="-4"
-                        CornerRadius="22"
-                        BorderThickness="0"
-                        BorderBrush="{StaticResource SecondaryGlowColor}">
-                        <Border
-                            x:Name="Border"
-                            CornerRadius="20"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="16"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image
-                                    Grid.Column="1"
-                                    x:Name="ButtonImage"
-                                    Width="24"
-                                    Height="24"
-                                    Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"/>
-                                <ContentPresenter 
-                                    Grid.Column="3"
-                                    x:Name="ButtonContent"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                    UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
-                            </Grid>
-                        </Border>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="BorderThickness" TargetName="Border" Value="1.5"/>
-                            <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource SecondaryColor}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="ButtonContent" Value="{StaticResource SecondaryColor}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="BorderThickness" TargetName="GlowEffect" Value="4"/>
-                            <Setter Property="BorderThickness" TargetName="Border" Value="1.5"/>
-                            <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource SecondaryColor}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="ButtonContent" Value="{StaticResource SecondaryColor}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Opacity" Value="0.5"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="Button" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource ForegroundColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource BackgroundColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ForegroundColor}"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="FontFamily" Value="SF Pro Display"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Width" Value="Auto"/>
-        <Setter Property="Height" Value="Auto"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="UseLayoutRounding" Value="True"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border 
-                        x:Name="GlowEffect"
-                        Margin="-4"
-                        CornerRadius="22"
-                        BorderThickness="0"
-                        BorderBrush="{StaticResource SecondaryGlowColor}">
-                        <Border
-                            x:Name="Border"
-                            CornerRadius="20"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                            <ContentPresenter 
-                                Grid.Column="3"
-                                x:Name="ButtonContent"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
-                        </Border>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="BorderThickness" TargetName="Border" Value="1.5"/>
-                            <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource SecondaryColor}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="ButtonContent" Value="{StaticResource SecondaryColor}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="BorderThickness" TargetName="GlowEffect" Value="4"/>
-                            <Setter Property="BorderThickness" TargetName="Border" Value="1.5"/>
-                            <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource SecondaryColor}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="ButtonContent" Value="{StaticResource SecondaryColor}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Opacity" Value="0.5"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="SmallButton" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource ForegroundColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource BackgroundColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ForegroundColor}"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="FontFamily" Value="SF Pro Display"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Width" Value="Auto"/>
-        <Setter Property="Height" Value="Auto"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="UseLayoutRounding" Value="True"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border 
-                        x:Name="GlowEffect"
-                        Margin="-4"
-                        CornerRadius="16"
-                        BorderThickness="0"
-                        BorderBrush="{StaticResource SecondaryGlowColor}">
-                        <Border
-                            x:Name="Border"
-                            CornerRadius="14"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                            <ContentPresenter 
-                                Grid.Column="3"
-                                x:Name="ButtonContent"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
-                        </Border>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="BorderThickness" TargetName="Border" Value="1.5"/>
-                            <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource SecondaryColor}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="ButtonContent" Value="{StaticResource SecondaryColor}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="BorderThickness" TargetName="GlowEffect" Value="4"/>
-                            <Setter Property="BorderThickness" TargetName="Border" Value="1.5"/>
-                            <Setter Property="Background" TargetName="Border" Value="{StaticResource PrimaryColor}"/>
-                            <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource SecondaryColor}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="ButtonContent" Value="{StaticResource SecondaryColor}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Opacity" Value="0.5"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
