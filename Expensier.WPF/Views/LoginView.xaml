@@ -6,6 +6,11 @@
              xmlns:local="clr-namespace:Expensier.WPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="852" d:DesignWidth="1552">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    
     <Border
         Width="Auto"
         Height="Auto" 
@@ -54,6 +59,7 @@
                             Style="{StaticResource Subheader_16px}"
                             Content="Email"/>
                         <TextBox
+                            x:Name="EmailAddress"
                             Width="351"
                             Height="45"
                             Margin="0, 4, 0, 0"
@@ -76,15 +82,22 @@
                     <TextBlock
                         Style="{StaticResource Text_14px}"
                         Text="Fogot password?"/>
-                    <Button 
+                    <Button
+                        x:Name="LoginButton"
                         Margin="0, 40, 0, 0"
                         Width="351"
                         Height="45"
                         Style="{StaticResource ImagedButton}"
-                        IsDefault="True"
+                        IsEnabled="False"
                         Tag="{StaticResource LoginIcon}"
                         Content ="Login" 
                         Click="Button_Click"/>
+                    <TextBlock
+                        Margin="0, 16, 0, 0"
+                        DataContext="{Binding ErrorMessageViewModel}"
+                        Text="{Binding Message}"
+                        Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Foreground="{StaticResource AccentColor}"/>
                 </StackPanel>
                 <!--#endregion-->
 

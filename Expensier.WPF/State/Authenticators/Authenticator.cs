@@ -37,21 +37,9 @@ namespace Expensier.WPF.State.Authenticators
 
         public event Action StateChanged;
 
-        public async Task<bool> userLogin(string email, string password)
+        public async Task userLogin(string email, string password)
         {
-            bool success = true;
-
-            try
-            {
-                CurrentAccount = await _authenticationService.userLogin(email, password);
-            }
-            catch (Exception)
-            {
-
-                success = false;
-            }
-
-            return success;
+            CurrentAccount = await _authenticationService.userLogin(email, password);
         }
 
         public void userLogout()

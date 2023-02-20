@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\App.xaml
 12220605064
 
-331367352219
+35-1308063900
 2272067926454
 Controls\SidePanel.xaml;Controls\TransactionList.xaml;MainView.xaml;Styles\ButtonStyles.xaml;Styles\FontStyles.xaml;Styles\Icons.xaml;Styles\Styles.xaml;Views\DashboardView.xaml;Views\ExpensesView.xaml;Views\LoginView.xaml;Views\RegisterView.xaml;Views\WalletView.xaml;
 
-False
+True
 
