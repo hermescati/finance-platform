@@ -32,7 +32,7 @@ namespace Expensier.WPF.Commands
 
         public void Execute(object? parameter)
         {
-            if(parameter is ViewType)
+            if (parameter is ViewType)
             {
                 ViewType viewType = (ViewType)parameter;
                 _navigatior.CurrentViewModel = _viewModelFactory.CreateViewModel(viewType);

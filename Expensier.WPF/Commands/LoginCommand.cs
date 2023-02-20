@@ -1,4 +1,5 @@
-﻿using Expensier.WPF.State.Authenticators;
+﻿using Expensier.Domain.Exceptions;
+using Expensier.WPF.State.Authenticators;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels;
 using System;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace Expensier.WPF.Commands
 {
-    public class LoginCommand : ICommand
+    public class LoginCommand : AsyncCommandBase
     {
         private readonly LoginViewModel _loginViewModel;
         private readonly IAuthenticator _authenticator;
@@ -23,28 +24,26 @@ namespace Expensier.WPF.Commands
             _renavigator = renavigator;
         }
 
-        public event EventHandler? CanExecuteChanged;
-
-        public bool CanExecute(object? parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
-            return true;
-        }
+            _loginViewModel.ErrorMessage = string.Empty;
 
-        public async void Execute(object? parameter)
-        {
             try
             {
-                bool success = await _authenticator.userLogin(_loginViewModel.Email, parameter.ToString());
-
-                if (success)
-                {
-                    _renavigator.Renavigate();
-                }
+                await _authenticator.userLogin(_loginViewModel.Email, parameter.ToString());
+                _renavigator.Renavigate();
+            }
+            catch (UserNotFoundException)
+            {
+                _loginViewModel.ErrorMessage = "Wrong email. Check for typos and try again.";
+            }
+            catch (InvalidPasswordException)
+            {
+                _loginViewModel.ErrorMessage = "Invalid password. Please try again!";
             }
             catch (Exception)
             {
-
-                throw;
+                _loginViewModel.ErrorMessage = "Login failed.";
             }
         }
     }

@@ -25,6 +25,11 @@ namespace Expensier.Domain.Services.Authentication
         {
             Account storedAccount = await _accountService.GetByEmail(email);
 
+            if (storedAccount == null)
+            {
+                throw new UserNotFoundException(email);
+            } 
+            
             PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(storedAccount.Account_Holder_.Password_Hash, password);
             
             if (passwordResult != PasswordVerificationResult.Success)
@@ -39,18 +44,18 @@ namespace Expensier.Domain.Services.Authentication
         {
             RegistrationResult result = RegistrationResult.Success;
 
-            if(password != confirmPassword)
+            if (password != confirmPassword)
             {
                 result = RegistrationResult.PasswordsDoNotMatch;
             }
 
             Account existingUser = await _accountService.GetByEmail(email); 
-            if(existingUser != null)
+            if (existingUser != null)
             {
                 result = RegistrationResult.EmailInUse;
             }
 
-            if(result == RegistrationResult.Success)
+            if (result == RegistrationResult.Success)
             {
                 string hashedPassword = _passwordHasher.HashPassword(password);
 

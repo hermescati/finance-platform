@@ -36,7 +36,7 @@ namespace Expensier.WPF.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(LoginCommand != null)
+            if (LoginCommand != null)
             {
                 string password = PasswordBox.Password;
                 LoginCommand.Execute(password);
