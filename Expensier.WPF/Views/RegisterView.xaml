@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Expensier.WPF.Views"
+             xmlns:local="clr-namespace:Expensier.WPF.Views" xmlns:components="clr-namespace:PasswordBoxMVVM.Components;assembly=PasswordBoxMVVM"
              mc:Ignorable="d" 
              d:DesignHeight="852" d:DesignWidth="1552">
 
@@ -42,7 +42,8 @@
                                 TextWrapping="WrapWithOverflow">
                                 <Run Text="Already have an account?"/>
                                 <Hyperlink 
-                                    Style="{StaticResource Hyperlink_15px}">
+                                    Style="{StaticResource Hyperlink_15px}"
+                                    Command="{Binding ViewLoginCommand}">
                                     Log in
                                 </Hyperlink>
                             </TextBlock>
@@ -104,12 +105,11 @@
                             Style="{StaticResource Subheader_16px}" 
                             Foreground="{StaticResource ForegroundColor}" 
                             Content="Password"/>
-                        <PasswordBox 
-                            x:Name="PasswordBox"
+                        <components:BindablePasswordBox 
                             Width="351"
                             Height="45"
                             Margin="0, 4, 0, 0"
-                            Style="{StaticResource PasswordBoxTemplate}"/>
+                            Password="{Binding Password}"/>
                     </WrapPanel>
                     <WrapPanel 
                         Orientation="Vertical"
@@ -118,12 +118,11 @@
                             Style="{StaticResource Subheader_16px}" 
                             Foreground="{StaticResource ForegroundColor}" 
                             Content="Confirm password"/>
-                        <PasswordBox 
-                            x:Name="ConfirmPasswordBox"
+                        <components:BindablePasswordBox  
                             Width="351"
                             Height="45"
                             Margin="0, 4, 0, 0"
-                            Style="{StaticResource PasswordBoxTemplate}"/>
+                            Password="{Binding ConfirmPassword}"/>
                     </WrapPanel>
                     <CheckBox
                         Style="{DynamicResource CheckBoxTemplate}">
@@ -144,7 +143,8 @@
                         Style="{StaticResource ImagedButton}"
                         IsDefault="True"
                         Tag="{StaticResource CreateAccountIcon}"
-                        Content ="Create Account"/>
+                        Content ="Create Account"
+                        Command="{Binding RegisterCommand}"/>
                 </StackPanel>
                 <!--#endregion-->
                 

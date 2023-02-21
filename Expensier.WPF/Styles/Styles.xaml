@@ -87,7 +87,7 @@
 
 
     <!--PasswordBox-->
-    <Style x:Key="PasswordBoxTemplate" TargetType="PasswordBox">
+    <Style x:Key="PasswordBoxTemplate" TargetType="UserControl">
         <Setter Property="Foreground" Value="{StaticResource InactiveColor}"/>
         <Setter Property="BorderThickness" Value="1.5"/>
         <Setter Property="Width" Value="Auto"/>
@@ -100,7 +100,7 @@
         <Setter Property="UseLayoutRounding" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="PasswordBox">
+                <ControlTemplate TargetType="UserControl">
                     <Border 
                         x:Name="GlowEffect"
                         Margin="-4"
@@ -175,10 +175,6 @@
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <Image
-                                x:Name="CheckMark"
-                                Source="{StaticResource CheckBoxIcon}"
-                                Visibility="Collapsed"/>
                         </Border>
                         <Label
                             Grid.Column="2"
@@ -193,7 +189,6 @@
                             <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
                             <Setter Property="Opacity" TargetName="Border" Value="0.4"/>
                             <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Visibility" TargetName="CheckMark" Value="Visible"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
