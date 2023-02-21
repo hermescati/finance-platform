@@ -115,3 +115,4 @@ C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\
 C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyModel.dll
 C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\bin\Debug\net6.0-windows\Mono.TextTemplating.dll
+C:\Users\herme\Desktop\AUBG\Computer Science\COS 491 - Senior Project\Expensier\Expensier.WPF\bin\Debug\net6.0-windows\PasswordBoxMVVM.dll

@@ -54,7 +54,7 @@ namespace Expensier.WPF {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Expensier.WPF;V1.0.0.0;component/mainview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Expensier.WPF;component/mainview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\MainView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

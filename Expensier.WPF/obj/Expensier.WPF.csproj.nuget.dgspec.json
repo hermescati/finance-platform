@@ -255,11 +255,15 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.1, )"
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
               "version": "[7.0.1, )"
+            },
+            "PasswordBoxMVVM": {
+              "target": "Package",
+              "version": "[1.0.5, )"
             }
           },
           "imports": [

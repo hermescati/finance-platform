@@ -54,7 +54,7 @@ namespace Expensier.WPF.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Expensier.WPF;V1.0.0.0;component/views/expensesview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Expensier.WPF;component/views/expensesview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\ExpensesView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

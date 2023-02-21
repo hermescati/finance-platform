@@ -67,6 +67,7 @@ namespace Expensier.WPF
                     services.AddSingleton<TransactionViewModel>();
                     services.AddSingleton<WalletViewModel>();
                     services.AddSingleton<DelegateRenavigator<DashboardViewModel>>();
+                    services.AddSingleton<DelegateRenavigator<RegisterViewModel>>();
 
                     services.AddSingleton<CreateViewModel<DashboardViewModel>>(services =>
                     {
@@ -83,11 +84,22 @@ namespace Expensier.WPF
                         return () => services.GetRequiredService<WalletViewModel>();
                     });
 
+                    services.AddSingleton<DelegateRenavigator<LoginViewModel>>();
+                    services.AddSingleton<CreateViewModel<RegisterViewModel>>(services =>
+                    {
+                        return () => new RegisterViewModel(
+                            services.GetRequiredService<DelegateRenavigator<LoginViewModel>>(),
+                            services.GetRequiredService<DelegateRenavigator<LoginViewModel>>(),
+                            services.GetRequiredService<IAuthenticator>()
+                        );
+                    });
+
                     services.AddSingleton<CreateViewModel<LoginViewModel>>(services =>
                     {
                         return () => new LoginViewModel(
                             services.GetRequiredService<IAuthenticator>(),
-                            services.GetRequiredService<DelegateRenavigator<DashboardViewModel>>());
+                            services.GetRequiredService<DelegateRenavigator<DashboardViewModel>>(),
+                            services.GetRequiredService<DelegateRenavigator<RegisterViewModel>>());
                     });
 
                     services.AddSingleton<INavigator, Navigator>();

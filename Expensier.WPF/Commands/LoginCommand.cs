@@ -30,7 +30,7 @@ namespace Expensier.WPF.Commands
 
             try
             {
-                await _authenticator.userLogin(_loginViewModel.Email, parameter.ToString());
+                await _authenticator.userLogin(_loginViewModel.Email, _loginViewModel.Password);
                 _renavigator.Renavigate();
             }
             catch (UserNotFoundException)
