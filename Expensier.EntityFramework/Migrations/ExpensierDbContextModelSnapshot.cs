@@ -37,7 +37,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasIndex("Account_Holder_Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.CryptoAsset", b =>
@@ -61,7 +61,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasIndex("Account_Id");
 
-                    b.ToTable("CryptoAssets");
+                    b.ToTable("CryptoAssets", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.Subscription", b =>
@@ -94,7 +94,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasIndex("Account_Id");
 
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.Transaction", b =>
@@ -127,7 +127,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasIndex("Account_Id");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.User", b =>
@@ -160,7 +160,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.Account", b =>
@@ -182,7 +182,7 @@ namespace Expensier.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Expensier.Domain.Models.Crypto", "Crypto", b1 =>
+                    b.OwnsOne("Expensier.Domain.Models.CryptoAsset.Crypto#Expensier.Domain.Models.Crypto", "Crypto", b1 =>
                         {
                             b1.Property<int>("CryptoAssetId")
                                 .HasColumnType("int");
@@ -202,7 +202,7 @@ namespace Expensier.EntityFramework.Migrations
 
                             b1.HasKey("CryptoAssetId");
 
-                            b1.ToTable("CryptoAssets");
+                            b1.ToTable("CryptoAssets", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("CryptoAssetId");
