@@ -9,12 +9,19 @@ using System.Threading.Tasks;
 
 namespace Expensier.EntityFramework
 {
-    public class ExpensierDbContextFactory : IDesignTimeDbContextFactory<ExpensierDbContext>
+    public class ExpensierDbContextFactory
     {
-        public ExpensierDbContext CreateDbContext(string[] args = null)
+        private readonly string _connectionString;
+
+        public ExpensierDbContextFactory(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public ExpensierDbContext CreateDbContext()
         {
             var options = new DbContextOptionsBuilder<ExpensierDbContext>();
-            options.UseSqlServer("Server=localhost\\sqlexpress;Database=expensier_test;Trusted_Connection=True;Encrypt=False;");
+            options.UseSqlServer(_connectionString);
             
             return new ExpensierDbContext(options.Options);
         }

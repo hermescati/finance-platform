@@ -13,7 +13,10 @@ using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels;
 using Expensier.WPF.ViewModels.Factories;
 using Microsoft.AspNet.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -26,84 +29,93 @@ namespace Expensier.WPF
 {
     public partial class App : Application
     {
+
+        private readonly IHost _host;
+
+        public App()
+        {
+            _host = CreateHostBuilder().Build();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args = null)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(c =>
+                {
+                    c.AddJsonFile("appsettings.json");
+                    c.AddEnvironmentVariables();
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    string apiKey = context.Configuration.GetValue<string>("API_KEY");
+                    services.AddSingleton<APIClientFactory>(new APIClientFactory(apiKey));
+
+                    string connectionString = context.Configuration.GetConnectionString("default");
+                    services.AddDbContext<ExpensierDbContext>(d => d.UseSqlServer(connectionString));
+                    services.AddSingleton<ExpensierDbContextFactory>(new ExpensierDbContextFactory(connectionString));
+                    services.AddSingleton<IAuthenticationService, AuthenticationService>();
+                    services.AddSingleton<IDataService<Account>, AccountDataService>();
+                    services.AddSingleton<IAccountService, AccountDataService>();
+                    services.AddSingleton<ICryptoService, CryptoService>();
+
+                    services.AddSingleton<IPasswordHasher, PasswordHasher>();
+
+                    services.AddSingleton<IExpensierViewModelFactory, ExpensierViewModelFactory>();
+                    services.AddSingleton<DashboardViewModel>();
+                    services.AddSingleton<ExpensesViewModel>(services => new ExpensesViewModel(
+                        services.GetRequiredService<TransactionViewModel>()));
+                    services.AddSingleton<TransactionViewModel>();
+                    services.AddSingleton<WalletViewModel>();
+                    services.AddSingleton<DelegateRenavigator<DashboardViewModel>>();
+
+                    services.AddSingleton<CreateViewModel<DashboardViewModel>>(services =>
+                    {
+                        return () => services.GetRequiredService<DashboardViewModel>();
+                    });
+
+                    services.AddSingleton<CreateViewModel<ExpensesViewModel>>(services =>
+                    {
+                        return () => services.GetRequiredService<ExpensesViewModel>();
+                    });
+
+                    services.AddSingleton<CreateViewModel<WalletViewModel>>(services =>
+                    {
+                        return () => services.GetRequiredService<WalletViewModel>();
+                    });
+
+                    services.AddSingleton<CreateViewModel<LoginViewModel>>(services =>
+                    {
+                        return () => new LoginViewModel(
+                            services.GetRequiredService<IAuthenticator>(),
+                            services.GetRequiredService<DelegateRenavigator<DashboardViewModel>>());
+                    });
+
+                    services.AddSingleton<INavigator, Navigator>();
+                    services.AddSingleton<IAuthenticator, Authenticator>();
+                    services.AddSingleton<AccountStore, AccountStore>();
+                    services.AddSingleton<TransactionStore, TransactionStore>();
+                    services.AddScoped<MainViewModel>();
+
+                    services.AddScoped<MainView>(s => new MainView(s.GetRequiredService<MainViewModel>()));
+                });
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            IServiceProvider serviceProvider = CreateServiceProvider();
-            IAuthenticationService authenticationService = serviceProvider.GetRequiredService<IAuthenticationService>();
+            _host.Start();
 
-            Window window = serviceProvider.GetRequiredService<MainView>();
+            Window window = _host.Services.GetRequiredService<MainView>();
             window.Show();
-
-            //authenticationService.userRegister(
-            //    firstName: "Hermes", 
-            //    lastName: "Cati",
-            //    email: "hermescati99@gmail.com",
-            //    password: "HermesParidi1127",
-            //    confirmPassword: "HermesParidi1127"
-            //);
-
-            authenticationService.userLogin(
-                email: "hermescati99@gmail.com",
-                password: "HermeParidi1127"
-            );
 
             base.OnStartup(e);
         }
 
-        private IServiceProvider CreateServiceProvider()
+        protected override async void OnExit(ExitEventArgs e)
         {
-            IServiceCollection services = new ServiceCollection();
+            await _host.StopAsync();
+            _host.Dispose();
 
-            services.AddSingleton<ExpensierDbContextFactory>();
-            services.AddSingleton<IAuthenticationService, AuthenticationService>();
-            services.AddSingleton<IDataService<Account>, AccountDataService>();
-            services.AddSingleton<IAccountService, AccountDataService>();
-            services.AddSingleton<ICryptoService, CryptoService>();
-
-            services.AddSingleton<IPasswordHasher, PasswordHasher>();
-            
-            string apiKey = ConfigurationManager.AppSettings.Get("ApiKey");
-            services.AddSingleton<APIClientFactory>(new APIClientFactory(apiKey)); 
-
-            services.AddSingleton<IExpensierViewModelFactory, ExpensierViewModelFactory>();
-            services.AddSingleton<DashboardViewModel>();
-            services.AddSingleton<ExpensesViewModel>(services => new ExpensesViewModel(
-                services.GetRequiredService<TransactionViewModel>()));
-            services.AddSingleton<TransactionViewModel>();
-            services.AddSingleton<WalletViewModel>();
-            services.AddSingleton<DelegateRenavigator<DashboardViewModel>>();
-
-            services.AddSingleton<CreateViewModel<DashboardViewModel>>(services =>
-            {
-                return () => services.GetRequiredService<DashboardViewModel>();
-            });
-
-            services.AddSingleton<CreateViewModel<ExpensesViewModel>>(services =>
-            {
-                return () => services.GetRequiredService<ExpensesViewModel>();
-            });
-
-            services.AddSingleton<CreateViewModel<WalletViewModel>>(services =>
-            {
-                return () => services.GetRequiredService<WalletViewModel>();
-            });
-
-            services.AddSingleton<CreateViewModel<LoginViewModel>>(services =>
-            {
-                return () => new LoginViewModel(
-                    services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<DelegateRenavigator<DashboardViewModel>>());
-            });
-
-            services.AddSingleton<INavigator, Navigator>();
-            services.AddSingleton<IAuthenticator, Authenticator>();
-            services.AddSingleton<AccountStore, AccountStore>();
-            services.AddSingleton<TransactionStore, TransactionStore>();
-            services.AddScoped<MainViewModel>();
-
-            services.AddScoped<MainView>(s => new MainView(s.GetRequiredService<MainViewModel>()));
-
-            return services.BuildServiceProvider();
+            base.OnExit(e);
         }
     }
 }

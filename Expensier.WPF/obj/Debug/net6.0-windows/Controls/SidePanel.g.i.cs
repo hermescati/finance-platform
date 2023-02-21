@@ -56,7 +56,7 @@ namespace Expensier.WPF.Controls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Expensier.WPF;component/controls/sidepanel.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Expensier.WPF;V1.0.0.0;component/controls/sidepanel.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Controls\SidePanel.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
