@@ -3,9 +3,11 @@ using Expensier.API.Services;
 using Expensier.Domain.Models;
 using Expensier.Domain.Services;
 using Expensier.Domain.Services.Authentication;
+using Expensier.Domain.Services.Transactions;
 using Expensier.Doman.Services;
 using Expensier.EntityFramework;
 using Expensier.EntityFramework.Services;
+using Expensier.WPF.State;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Authenticators;
 using Expensier.WPF.State.Expenses;
@@ -56,29 +58,43 @@ namespace Expensier.WPF
                     services.AddSingleton<IAuthenticationService, AuthenticationService>();
                     services.AddSingleton<IDataService<Account>, AccountDataService>();
                     services.AddSingleton<IAccountService, AccountDataService>();
+                    services.AddSingleton<ITransactionService, TransactionService>();
                     services.AddSingleton<ICryptoService, CryptoService>();
 
                     services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
                     services.AddSingleton<IExpensierViewModelFactory, ExpensierViewModelFactory>();
-                    services.AddSingleton<DashboardViewModel>();
-                    services.AddSingleton<ExpensesViewModel>(services => new ExpensesViewModel(
-                        services.GetRequiredService<TransactionViewModel>()));
-                    services.AddSingleton<TransactionViewModel>();
-                    services.AddSingleton<WalletViewModel>();
+
                     services.AddSingleton<DelegateRenavigator<DashboardViewModel>>();
                     services.AddSingleton<DelegateRenavigator<RegisterViewModel>>();
 
+
+                    services.AddSingleton<DelegateRenavigator<ExpensesViewModel>>();
+                    
+                    services.AddSingleton<DashboardViewModel>();
                     services.AddSingleton<CreateViewModel<DashboardViewModel>>(services =>
                     {
                         return () => services.GetRequiredService<DashboardViewModel>();
                     });
 
+
+                    services.AddSingleton<TransactionViewModel>();
+                    services.AddSingleton<SubscriptionViewModel>();
+                    services.AddSingleton<ModalViewModel>(services => new ModalViewModel(
+                        services.GetRequiredService<ITransactionService>(),
+                        services.GetRequiredService<AccountStore>(),
+                        services.GetRequiredService<DelegateRenavigator<ExpensesViewModel>>()));
+                    services.AddSingleton<ExpensesViewModel>(services => new ExpensesViewModel(
+                        services.GetRequiredService<TransactionViewModel>(),
+                        services.GetRequiredService<SubscriptionViewModel>(),
+                        services.GetRequiredService<ModalViewModel>()));
                     services.AddSingleton<CreateViewModel<ExpensesViewModel>>(services =>
                     {
                         return () => services.GetRequiredService<ExpensesViewModel>();
                     });
 
+
+                    services.AddSingleton<WalletViewModel>();
                     services.AddSingleton<CreateViewModel<WalletViewModel>>(services =>
                     {
                         return () => services.GetRequiredService<WalletViewModel>();
@@ -106,6 +122,7 @@ namespace Expensier.WPF
                     services.AddSingleton<IAuthenticator, Authenticator>();
                     services.AddSingleton<AccountStore, AccountStore>();
                     services.AddSingleton<TransactionStore, TransactionStore>();
+                    services.AddSingleton<SubscriptionStore, SubscriptionStore>();
                     services.AddScoped<MainViewModel>();
 
                     services.AddScoped<MainView>(s => new MainView(s.GetRequiredService<MainViewModel>()));
