@@ -52,8 +52,10 @@ namespace Expensier.WPF
                     string apiKey = context.Configuration.GetValue<string>("API_KEY");
                     services.AddSingleton<APIClientFactory>(new APIClientFactory(apiKey));
 
-                    string connectionString = context.Configuration.GetConnectionString("default");
-                    services.AddDbContext<ExpensierDbContext>(d => d.UseSqlServer(connectionString));
+                    string connectionString = context.Configuration.GetConnectionString("sqlite");
+                    Action<DbContextOptionsBuilder> configureDbContext = con => con.UseSqlite(connectionString);
+
+                    services.AddDbContext<ExpensierDbContext>(configureDbContext);
                     services.AddSingleton<ExpensierDbContextFactory>(new ExpensierDbContextFactory(connectionString));
                     services.AddSingleton<IAuthenticationService, AuthenticationService>();
                     services.AddSingleton<IDataService<Account>, AccountDataService>();
@@ -132,6 +134,12 @@ namespace Expensier.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();
+
+            ExpensierDbContextFactory contextFactory = _host.Services.GetRequiredService<ExpensierDbContextFactory>();
+            using(ExpensierDbContext context = contextFactory.CreateDbContext())
+            {
+                context.Database.Migrate();
+            }
 
             Window window = _host.Services.GetRequiredService<MainView>();
             window.Show();

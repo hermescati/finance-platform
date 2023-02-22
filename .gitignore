@@ -362,3 +362,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignore any files in /bin and /obj Folders
+**/bin/*
+**/obj/*

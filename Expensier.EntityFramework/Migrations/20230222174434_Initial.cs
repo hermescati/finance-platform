@@ -15,14 +15,13 @@ namespace Expensier.EntityFramework.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(name: "First_Name", type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(name: "Last_Name", type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateJoined = table.Column<DateTime>(name: "Date_Joined", type: "datetime2", nullable: false),
-                    ProfilePicture = table.Column<string>(name: "Profile_Picture", type: "nvarchar(max)", nullable: true, defaultValue: "/Styles/Images/default_profile_picture.png")
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FirstName = table.Column<string>(name: "First_Name", type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(name: "Last_Name", type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    PasswordHash = table.Column<string>(name: "Password_Hash", type: "TEXT", nullable: true),
+                    DateJoined = table.Column<DateTime>(name: "Date_Joined", type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,9 +32,9 @@ namespace Expensier.EntityFramework.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountHolderId = table.Column<int>(name: "Account_Holder_Id", type: "int", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AccountHolderId = table.Column<int>(name: "Account_Holder_Id", type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,15 +51,14 @@ namespace Expensier.EntityFramework.Migrations
                 name: "CryptoAssets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountId = table.Column<int>(name: "Account_Id", type: "int", nullable: false),
-                    CryptoSymbol = table.Column<string>(name: "Crypto_Symbol", type: "nvarchar(max)", nullable: false),
-                    CryptoName = table.Column<string>(name: "Crypto_Name", type: "nvarchar(max)", nullable: true),
-                    CryptoPrice = table.Column<double>(name: "Crypto_Price", type: "float", nullable: true),
-                    CryptoChangesPercentage = table.Column<double>(name: "Crypto_ChangesPercentage", type: "float", nullable: true),
-                    PurchasePrice = table.Column<double>(name: "Purchase_Price", type: "float", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    AccountId = table.Column<int>(name: "Account_Id", type: "INTEGER", nullable: false),
+                    CryptoSymbol = table.Column<string>(name: "Crypto_Symbol", type: "TEXT", nullable: false),
+                    CryptoName = table.Column<string>(name: "Crypto_Name", type: "TEXT", nullable: true),
+                    CryptoPrice = table.Column<double>(name: "Crypto_Price", type: "REAL", nullable: true),
+                    CryptoChangesPercentage = table.Column<double>(name: "Crypto_ChangesPercentage", type: "REAL", nullable: true),
+                    PurchasePrice = table.Column<double>(name: "Purchase_Price", type: "REAL", nullable: false),
+                    Amount = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,14 +75,14 @@ namespace Expensier.EntityFramework.Migrations
                 name: "Subscriptions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountId = table.Column<int>(name: "Account_Id", type: "int", nullable: false),
-                    CompanyName = table.Column<string>(name: "Company_Name", type: "nvarchar(max)", nullable: true),
-                    SubscriptionPlan = table.Column<string>(name: "Subscription_Plan", type: "nvarchar(max)", nullable: true),
-                    DueDate = table.Column<DateTime>(name: "Due_Date", type: "datetime2", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false),
-                    SubscriptionType = table.Column<string>(name: "Subscription_Type", type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AccountId = table.Column<int>(name: "Account_Id", type: "INTEGER", nullable: false),
+                    CompanyName = table.Column<string>(name: "Company_Name", type: "TEXT", nullable: true),
+                    SubscriptionPlan = table.Column<string>(name: "Subscription_Plan", type: "TEXT", nullable: true),
+                    DueDate = table.Column<DateTime>(name: "Due_Date", type: "TEXT", nullable: false),
+                    Amount = table.Column<double>(type: "REAL", nullable: false),
+                    SubscriptionType = table.Column<string>(name: "Subscription_Type", type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -101,14 +99,14 @@ namespace Expensier.EntityFramework.Migrations
                 name: "Transactions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountId = table.Column<int>(name: "Account_Id", type: "int", nullable: false),
-                    TransactionName = table.Column<string>(name: "Transaction_Name", type: "nvarchar(max)", nullable: true),
-                    ProcessDate = table.Column<DateTime>(name: "Process_Date", type: "datetime2", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false),
-                    TransactionType = table.Column<string>(name: "Transaction_Type", type: "nvarchar(max)", nullable: true),
-                    IsCredit = table.Column<bool>(name: "Is_Credit", type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AccountId = table.Column<int>(name: "Account_Id", type: "INTEGER", nullable: false),
+                    TransactionName = table.Column<string>(name: "Transaction_Name", type: "TEXT", nullable: true),
+                    ProcessDate = table.Column<DateTime>(name: "Process_Date", type: "TEXT", nullable: false),
+                    Amount = table.Column<double>(type: "REAL", nullable: false),
+                    TransactionType = table.Column<string>(name: "Transaction_Type", type: "TEXT", nullable: true),
+                    IsCredit = table.Column<bool>(name: "Is_Credit", type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
