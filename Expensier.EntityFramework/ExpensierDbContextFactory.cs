@@ -11,17 +11,18 @@ namespace Expensier.EntityFramework
 {
     public class ExpensierDbContextFactory
     {
-        private readonly string _connectionString;
+        private readonly Action<DbContextOptionsBuilder> _configureDbContext;
 
-        public ExpensierDbContextFactory(string connectionString)
+        public ExpensierDbContextFactory(Action<DbContextOptionsBuilder> configureDbContext)
         {
-            _connectionString = connectionString;
+            _configureDbContext = configureDbContext;
         }
 
         public ExpensierDbContext CreateDbContext()
         {
             var options = new DbContextOptionsBuilder<ExpensierDbContext>();
-            options.UseSqlServer(_connectionString);
+            
+            _configureDbContext(options);
             
             return new ExpensierDbContext(options.Options);
         }

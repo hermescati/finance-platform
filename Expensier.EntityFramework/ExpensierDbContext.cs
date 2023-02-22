@@ -23,7 +23,6 @@ namespace Expensier.EntityFramework
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CryptoAsset>().OwnsOne(c => c.Crypto);
-            modelBuilder.Entity<User>().Property(p => p.Profile_Picture).HasDefaultValue("/Styles/Images/default_profile_picture.png");
             base.OnModelCreating(modelBuilder);
         }
     }

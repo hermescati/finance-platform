@@ -14,6 +14,5 @@ namespace Expensier.Domain.Models
         public string? Email { get; set; }
         public string? Password_Hash { get; set; }
         public DateTime Date_Joined { get; set; }
-        public string? Profile_Picture { get; set;}
     }
 }
