@@ -29,7 +29,8 @@ namespace Expensier.WPF.ViewModels
         private void ResetTransactions()
         {
             IEnumerable<TransactionDataModel> transactionViewModels = _transactionStore.TransactionList
-                .Select(t => new TransactionDataModel(t.Transaction_Name, t.Process_Date, t.Amount, t.Is_Credit));
+                .Select(t => new TransactionDataModel(t.Transaction_Name, t.Process_Date, t.Amount, t.Is_Credit))
+                .OrderBy(o => o.ProcessDate);
 
             _transactions.Clear();
             foreach (TransactionDataModel dataModel in transactionViewModels)
