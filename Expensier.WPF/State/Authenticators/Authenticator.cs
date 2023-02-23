@@ -42,9 +42,16 @@ namespace Expensier.WPF.State.Authenticators
             CurrentAccount = await _authenticationService.userLogin(email, password);
         }
 
-        public void userLogout()
+        public async Task userLogout()
         {
-            CurrentAccount = null;
+            try
+            {
+                CurrentAccount = null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<RegistrationResult> userRegister(string firstName, string lastName, string email, string password, string confirmPassword)
