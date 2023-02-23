@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Expensier.WPF.ViewModels;
 
 namespace Expensier.WPF.HostBuilders
 {
@@ -21,6 +22,7 @@ namespace Expensier.WPF.HostBuilders
             {
                 services.AddSingleton<INavigator, Navigator>();
                 services.AddSingleton<IAuthenticator, Authenticator>();
+                services.AddSingleton<IRenavigator, DelegateRenavigator<LoginViewModel>>();
                 services.AddSingleton<AccountStore, AccountStore>();
                 services.AddSingleton<TransactionStore, TransactionStore>();
                 services.AddSingleton<SubscriptionStore, SubscriptionStore>();

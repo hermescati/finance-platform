@@ -15,7 +15,7 @@ namespace Expensier.WPF.HostBuilders
         {
             host.ConfigureServices(services =>
             {
-                services.AddSingleton(s => new MainView(s.GetRequiredService<MainViewModel>()));
+                services.AddSingleton(services => new MainView(services.GetRequiredService<MainViewModel>()));
             });
 
             return host;

@@ -28,6 +28,6 @@ namespace Expensier.WPF.State.Authenticators
         /// <exception cref="Exception">Thrown if the login fails.</exception>
         Task userLogin(string email, string password);
 
-        void userLogout();
+        Task userLogout();
     }
 }
