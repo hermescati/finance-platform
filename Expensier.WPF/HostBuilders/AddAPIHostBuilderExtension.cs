@@ -1,4 +1,5 @@
 ﻿using Expensier.API;
+using Expensier.API.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,7 +18,12 @@ namespace Expensier.WPF.HostBuilders
             host.ConfigureServices((context, services) =>
             {
                 string apiKey = context.Configuration.GetValue<string>("API_KEY");
-                services.AddSingleton<APIClientFactory>(new APIClientFactory(apiKey));
+                services.AddSingleton(new APIKey(apiKey));
+
+                services.AddHttpClient<APIClient>(configure =>
+                {
+                    configure.BaseAddress = new Uri("https://financialmodelingprep.com/api/v3/"); ;
+                });
             });
 
             return host;
