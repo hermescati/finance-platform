@@ -14,26 +14,23 @@ namespace Expensier.API.Services
 {
     public class CryptoService : ICryptoService
     {
-        private readonly APIClientFactory _clientFactory;
+        private readonly APIClient _client;
 
-        public CryptoService(APIClientFactory clientFactory)
+        public CryptoService(APIClient client)
         {
-            _clientFactory = clientFactory;
+            _client = client;
         }
 
         public async Task<Crypto> GetCrypto(string symbol)
         {
-            using (APIClient client = _clientFactory.CreateAPIClient())
-            {
-                var uri = "quote/" + symbol;
-                Crypto crypto = await client.DeserializeResponse<Crypto>(uri);
+            var uri = "quote/" + symbol;
+            Crypto crypto = await _client.DeserializeResponse<Crypto>(uri);
 
-                if (crypto.Price == 0) {
-                    throw new InvalidSymbolException(symbol);
-                }
-
-                return crypto;
+            if (crypto.Price == 0) {
+                throw new InvalidSymbolException(symbol);
             }
+
+            return crypto;
         }
     }
 }

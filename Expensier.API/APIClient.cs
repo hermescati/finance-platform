@@ -1,4 +1,5 @@
-﻿using Expensier.Domain.Models;
+﻿using Expensier.API.Models;
+using Expensier.Domain.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,18 @@ namespace Expensier.API
 {
     public class APIClient : HttpClient
     {
+        private readonly HttpClient _client;
         private readonly string _apiKey;
-        public APIClient(string apiKey)
+
+        public APIClient(HttpClient client, APIKey apiKey)
         {
-            this.BaseAddress = new Uri("https://financialmodelingprep.com/api/v3/");
-            _apiKey = apiKey;
+            _client = client;
+            _apiKey = apiKey.Key;
         }
 
         public async Task<T> DeserializeResponse<T>(string uri)
         {
-            using var response = await GetAsync($"{uri}?apikey={_apiKey}", HttpCompletionOption.ResponseHeadersRead);
+            using var response = await _client.GetAsync($"{uri}?apikey={_apiKey}", HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
 
             if (response.Content is object && response.Content.Headers.ContentType.MediaType == "application/json")
