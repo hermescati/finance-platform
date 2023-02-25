@@ -1,21 +1,20 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <!--#region SidePanel-->
-    
+
     <!--#region Dashboard-->
     <Geometry x:Key="dashboardGeometry1">F1 M48,48z M0,0z M43.3401,13.9001C42.0601,9.56005 38.4401,5.94005 34.1001,4.66005 30.8001,3.70005 28.5201,3.78005 26.9401,4.96005 25.0401,6.38005 24.8201,8.94005 24.8201,10.7601L24.8201,15.7401C24.8201,20.6601,27.0601,23.1601,31.4601,23.1601L37.2001,23.1601C39.0001,23.1601 41.5801,22.9401 43.0001,21.0401 44.2201,19.4801 44.3201,17.2001 43.3401,13.9001L43.3401,13.9001z</Geometry>
     <Geometry x:Key="dashboardGeometry2">F1 M48,48z M0,0z M37.82,26.722C37.3,26.122,36.54,25.782,35.76,25.782L28.6,25.782C25.08,25.782,22.22,22.922,22.22,19.402L22.22,12.242C22.22,11.462 21.88,10.702 21.28,10.182 20.7,9.66201 19.9,9.42201 19.14,9.52201 14.44,10.122 10.12,12.702 7.30004,16.582 4.46004,20.482 3.42004,25.242 4.32004,30.002 5.62004,36.882 11.12,42.382 18.02,43.682 19.12,43.902 20.22,44.002 21.32,44.002 24.94,44.002 28.44,42.882 31.42,40.702 35.3,37.882 37.88,33.562 38.48,28.862 38.58,28.082 38.34,27.302 37.82,26.722L37.82,26.722z</Geometry>
     <DrawingGroup x:Key="Dashboard" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource dashboardGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FFFFFFFF" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource dashboardGeometry2}" />
     </DrawingGroup>
     <DrawingImage x:Key="DashboardIcon" Drawing="{StaticResource Dashboard}" />
-    <!--Selected-->
+    <!--  Selected  -->
     <Geometry x:Key="dashboard_selectedGeometry1">F1 M48,48z M0,0z M43.3401,13.9001C42.0601,9.56005 38.4401,5.94005 34.1001,4.66005 30.8001,3.70005 28.5201,3.78005 26.9401,4.96005 25.0401,6.38005 24.8201,8.94005 24.8201,10.7601L24.8201,15.7401C24.8201,20.6601,27.0601,23.1601,31.4601,23.1601L37.2001,23.1601C39.0001,23.1601 41.5801,22.9401 43.0001,21.0401 44.2201,19.4801 44.3201,17.2001 43.3401,13.9001L43.3401,13.9001z</Geometry>
     <Geometry x:Key="dashboard_selectedGeometry2">F1 M48,48z M0,0z M37.82,26.722C37.3,26.122,36.54,25.782,35.76,25.782L28.6,25.782C25.08,25.782,22.22,22.922,22.22,19.402L22.22,12.242C22.22,11.462 21.88,10.702 21.28,10.182 20.7,9.66201 19.9,9.42201 19.14,9.52201 14.44,10.122 10.12,12.702 7.30004,16.582 4.46004,20.482 3.42004,25.242 4.32004,30.002 5.62004,36.882 11.12,42.382 18.02,43.682 19.12,43.902 20.22,44.002 21.32,44.002 24.94,44.002 28.44,42.882 31.42,40.702 35.3,37.882 37.88,33.562 38.48,28.862 38.58,28.082 38.34,27.302 37.82,26.722L37.82,26.722z</Geometry>
     <DrawingGroup x:Key="DashboardSelected" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
@@ -31,13 +30,13 @@
     <DrawingGroup x:Key="Expenses" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource expensesGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FFFFFFFF" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource expensesGeometry2}" />
     </DrawingGroup>
     <DrawingImage x:Key="ExpensesIcon" Drawing="{StaticResource Expenses}" />
-    <!--Selected-->
+    <!--  Selected  -->
     <Geometry x:Key="expenses_selectedGeometry1">F1 M48,48z M0,0z M41.8201,22.2399C41.8201,32.0199 34.7201,41.1799 25.0201,43.8599 24.3601,44.0399 23.6401,44.0399 22.9801,43.8599 13.2801,41.1799 6.18005,32.0199 6.18005,22.2399L6.18005,13.4599C6.18005,11.8199,7.42005,9.95989,8.96005,9.33989L20.1001,4.77989C22.6001,3.75989,25.4201,3.75989,27.9201,4.77989L39.0601,9.33989C40.5801,9.95989,41.8401,11.8199,41.8401,13.4599L41.8201,22.2399 41.8201,22.2399z</Geometry>
     <Geometry x:Key="expenses_selectedGeometry2">F1 M48,48z M0,0z M29,21C29,19.6739 28.4732,18.4021 27.5355,17.4645 26.5979,16.5268 25.3261,16 24,16 22.6739,16 21.4021,16.5268 20.4645,17.4645 19.5268,18.4021 19,19.6739 19,21 19,23.24 20.48,25.1 22.5,25.74L22.5,31C22.5,31.82 23.18,32.5 24,32.5 24.82,32.5 25.5,31.82 25.5,31L25.5,25.74C26.5121,25.4256 27.3975,24.7963 28.027,23.9437 28.6565,23.0911 28.9974,22.0598 29,21L29,21z</Geometry>
     <DrawingGroup x:Key="ExpensesSelected" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
@@ -55,23 +54,23 @@
     <DrawingGroup x:Key="Wallet" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource walletGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.8" />
+                <SolidColorBrush Opacity="0.8" Color="#FFFFFFFF" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource walletGeometry2}" />
         <GeometryDrawing Geometry="{StaticResource walletGeometry3}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FFFFFFFF" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Geometry="{StaticResource walletGeometry4}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.6" />
+                <SolidColorBrush Opacity="0.6" Color="#FFFFFFFF" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
     </DrawingGroup>
     <DrawingImage x:Key="WalletIcon" Drawing="{StaticResource Wallet}" />
-    <!--Selected-->
+    <!--  Selected  -->
     <Geometry x:Key="wallet_selectedGeometry1">F1 M48,48z M0,0z M25.8,5.03603L25.74,5.17603 19.94,18.636 14.24,18.636C12.88,18.636,11.6,18.896,10.4,19.416L13.9,11.056 13.98,10.876 14.1,10.556C14.16,10.416 14.2,10.296 14.26,10.196 16.88,4.13603 19.84,2.75603 25.8,5.03603L25.8,5.03603z</Geometry>
     <Geometry x:Key="wallet_selectedGeometry2">F1 M48,48z M0,0z M36.578,19.04C35.678,18.78,34.738,18.64,33.758,18.64L19.938,18.64 25.738,5.18004 25.798,5.04004C26.078,5.14004,26.378,5.28004,26.678,5.38004L31.098,7.24004C33.558,8.26004 35.278,9.32004 36.338,10.6 36.518,10.84 36.678,11.06 36.838,11.32 37.018,11.6 37.158,11.88 37.238,12.18 37.318,12.36 37.378,12.52 37.418,12.7 37.938,14.4 37.618,16.46 36.578,19.04L36.578,19.04z</Geometry>
     <Geometry x:Key="wallet_selectedGeometry3">F1 M48,48z M0,0z M43.516,28.3999L43.516,32.2999C43.516,32.6999 43.496,33.0999 43.476,33.4799 43.096,40.4799 39.196,43.9999 31.796,43.9999L16.196,43.9999C15.696,43.9999 15.236,43.9599 14.776,43.8999 8.41595,43.4799 5.01595,40.0799 4.57595,33.7199 4.51595,33.2399 4.47595,32.7799 4.47595,32.2999L4.47595,28.3999C4.47595,24.3799 6.91595,20.9199 10.396,19.4199 11.596,18.8999 12.876,18.6399 14.236,18.6399L33.756,18.6399C34.736,18.6399 35.676,18.7799 36.576,19.0399 38.5821,19.652 40.3389,20.8916 41.5881,22.5764 42.8374,24.2613 43.5131,26.3025 43.516,28.3999L43.516,28.3999z</Geometry>
@@ -79,14 +78,14 @@
     <DrawingGroup x:Key="WalletSelected" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource wallet_selectedGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF64927C" Opacity="0.8" />
+                <SolidColorBrush Opacity="0.8" Color="#FF64927C" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource wallet_selectedGeometry2}" />
         <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource wallet_selectedGeometry3}" />
         <GeometryDrawing Geometry="{StaticResource wallet_selectedGeometry4}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.6" />
+                <SolidColorBrush Opacity="0.6" Color="#FFFFFFFF" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
     </DrawingGroup>
@@ -99,13 +98,13 @@
     <DrawingGroup x:Key="Settings" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource settingsGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FFFFFFFF" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource settingsGeometry2}" />
     </DrawingGroup>
     <DrawingImage x:Key="SettingsIcon" Drawing="{StaticResource Settings}" />
-    <!--Selected-->
+    <!--  Selected  -->
     <Geometry x:Key="settings_selectedGeometry1">F1 M48,48z M0,0z M4,25.7621L4,22.2421C4,20.1621 5.7,18.4421 7.8,18.4421 11.42,18.4421 12.9,15.8821 11.08,12.7421 10.04,10.9421 10.66,8.60207 12.48,7.56207L15.94,5.58207C17.52,4.64207,19.56,5.20207,20.5,6.78207L20.72,7.16207C22.52,10.3021,25.48,10.3021,27.3,7.16207L27.52,6.78207C28.46,5.20207,30.5,4.64207,32.08,5.58207L35.54,7.56207C37.36,8.60207 37.98,10.9421 36.94,12.7421 35.12,15.8821 36.6,18.4421 40.22,18.4421 42.3,18.4421 44.02,20.1421 44.02,22.2421L44.02,25.7621C44.02,27.8421 42.32,29.5621 40.22,29.5621 36.6,29.5621 35.12,32.1221 36.94,35.2621 37.98,37.0821 37.36,39.4021 35.54,40.4421L32.08,42.4221C30.5,43.3621,28.46,42.8021,27.52,41.2221L27.3,40.8421C25.5,37.7021,22.54,37.7021,20.72,40.8421L20.5,41.2221C19.56,42.8021,17.52,43.3621,15.94,42.4221L12.48,40.4421C11.6082,39.9401 10.9712,39.1128 10.7087,38.1416 10.4462,37.1705 10.5798,36.1349 11.08,35.2621 12.9,32.1221 11.42,29.5621 7.8,29.5621 5.7,29.5621 4,27.8421 4,25.7621L4,25.7621z</Geometry>
     <Geometry x:Key="settings_selectedGeometry2">F1 M48,48z M0,0z M24,30.5C25.7239,30.5 27.3772,29.8152 28.5962,28.5962 29.8152,27.3772 30.5,25.7239 30.5,24 30.5,22.2761 29.8152,20.6228 28.5962,19.4038 27.3772,18.1848 25.7239,17.5 24,17.5 22.2761,17.5 20.6228,18.1848 19.4038,19.4038 18.1848,20.6228 17.5,22.2761 17.5,24 17.5,25.7239 18.1848,27.3772 19.4038,28.5962 20.6228,29.8152 22.2761,30.5 24,30.5L24,30.5z</Geometry>
     <DrawingGroup x:Key="SettingsSelected" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
@@ -121,13 +120,13 @@
     <DrawingGroup x:Key="Support" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource supportGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FFFFFFFF" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource supportGeometry2}" />
     </DrawingGroup>
     <DrawingImage x:Key="SupportIcon" Drawing="{StaticResource Support}" />
-    <!--Selected-->
+    <!--  Selected  -->
     <Geometry x:Key="support_selectedGeometry1">F1 M48,48z M0,0z M34,36.8601L26,36.8601 17.1,42.7801C16.7996,42.9803 16.4506,43.0953 16.09,43.1126 15.7294,43.13 15.3709,43.0492 15.0527,42.8788 14.7345,42.7084 14.4685,42.4548 14.2831,42.1451 14.0977,41.8353 13.9998,41.4811 14,41.1201L14,36.8601C8,36.8601,4,32.8601,4,26.8601L4,14.8601C4,8.86011,8,4.86011,14,4.86011L34,4.86011C40,4.86011,44,8.86011,44,14.8601L44,26.8601C44,32.8601,40,36.8601,34,36.8601z</Geometry>
     <Geometry x:Key="support_selectedGeometry2">F1 M48,48z M0,0z M24.0001,24.22C23.1801,24.22,22.5001,23.54,22.5001,22.72L22.5001,22.3C22.5001,19.98 24.2001,18.84 24.8401,18.4 25.5801,17.9 25.8201,17.56 25.8201,17.04 25.8201,16.04 25.0001,15.22 24.0001,15.22 23.0001,15.22 22.1801,16.04 22.1801,17.04 22.1801,17.86 21.5001,18.54 20.6801,18.54 19.8601,18.54 19.1801,17.86 19.1801,17.04 19.1801,14.38 21.3401,12.22 24.0001,12.22 26.6601,12.22 28.8201,14.38 28.8201,17.04 28.8201,19.32 27.1401,20.46 26.5201,20.88 25.7401,21.4 25.5001,21.74 25.5001,22.3L25.5001,22.72C25.5001,23.56,24.8201,24.22,24.0001,24.22z M24.0001,29.204C23.8033,29.2042 23.6085,29.1657 23.4266,29.0907 23.2448,29.0157 23.0795,28.9055 22.9402,28.7666 22.8009,28.6277 22.6904,28.4627 22.6148,28.2811 22.5393,28.0994 22.5003,27.9047 22.5001,27.708 22.4998,27.5113 22.5383,27.3164 22.6133,27.1346 22.6884,26.9527 22.7985,26.7874 22.9374,26.6481 23.0763,26.5089 23.2413,26.3983 23.4229,26.3228 23.6046,26.2472 23.7993,26.2082 23.9961,26.208 24.3933,26.2074 24.7746,26.3648 25.0559,26.6453 25.3372,26.9259 25.4955,27.3067 25.4961,27.704 25.4966,28.1013 25.3393,28.4825 25.0587,28.7638 24.7782,29.0451 24.3973,29.2034 24.0001,29.204z</Geometry>
     <DrawingGroup x:Key="SupportSelected" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
@@ -138,10 +137,10 @@
     <!--#endregion-->
 
     <!--#endregion-->
-    
-    
+
+
     <!--#region ExpensesView-->
-    
+
     <!--#region Add New-->
     <Geometry x:Key="add_newGeometry">F1 M48,48z M0,0z M37.4737,21.4737L26.5263,21.4737 26.5263,10.5263C26.5263,9.14526 25.3811,8 24,8 22.6189,8 21.4737,9.14526 21.4737,10.5263L21.4737,21.4737 10.5263,21.4737C9.14526,21.4737 8,22.6189 8,24 8,25.3811 9.14526,26.5263 10.5263,26.5263L21.4737,26.5263 21.4737,37.4737C21.4737,38.8547 22.6189,40 24,40 25.3811,40 26.5263,38.8547 26.5263,37.4737L26.5263,26.5263 37.4737,26.5263C38.8547,26.5263 40,25.3811 40,24 40,22.6189 38.8547,21.4737 37.4737,21.4737z</Geometry>
     <DrawingGroup x:Key="AddNew" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
@@ -149,7 +148,7 @@
     </DrawingGroup>
     <DrawingImage x:Key="AddNewIcon" Drawing="{StaticResource AddNew}" />
     <!--#endregion-->
-    
+
     <!--#region Sort-->
     <Geometry x:Key="sortGeometry">F1 M48,48z M0,0z M41.7,14.2L8.1,14.2C6.952,14.2 6,13.248 6,12.1 6,10.952 6.952,10 8.1,10L41.7,10C42.848,10 43.8,10.952 43.8,12.1 43.8,13.248 42.848,14.2 41.7,14.2z M36.1,26.1L13.7,26.1C12.552,26.1 11.6,25.148 11.6,24 11.6,22.852 12.552,21.9 13.7,21.9L36.1,21.9C37.248,21.9 38.2,22.852 38.2,24 38.2,25.148 37.248,26.1 36.1,26.1z M28.624,38L21.148,38C20,38 19.048,37.048 19.048,35.9 19.048,34.752 20,33.8 21.148,33.8L28.624,33.8C29.181,33.8 29.7151,34.0213 30.1089,34.4151 30.5027,34.8089 30.724,35.343 30.724,35.9 30.724,36.457 30.5027,36.9911 30.1089,37.3849 29.7151,37.7788 29.181,38 28.624,38z</Geometry>
     <DrawingGroup x:Key="Sort" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
@@ -166,35 +165,35 @@
         <GeometryDrawing Brush="#FF9C9C9C" Geometry="{StaticResource calendarGeometry1}" />
         <GeometryDrawing Geometry="{StaticResource calendarGeometry2}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF9C9C9C" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FF9C9C9C" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF9C9C9C" Geometry="{StaticResource calendarGeometry3}" />
     </DrawingGroup>
     <DrawingImage x:Key="CalendarIcon" Drawing="{StaticResource Calendar}" />
     <!--#endregion-->
-    
+
     <!--#region Search-->
     <Geometry x:Key="searchGeometry1">F1 M48,48z M0,0z M23,42C25.4951,42 27.9658,41.5086 30.271,40.5537 32.5762,39.5989 34.6707,38.1993 36.435,36.435 38.1993,34.6707 39.5989,32.5762 40.5537,30.271 41.5086,27.9658 42,25.4951 42,23 42,20.5049 41.5086,18.0342 40.5537,15.729 39.5989,13.4238 38.1993,11.3293 36.435,9.56497 34.6707,7.80066 32.5762,6.40113 30.271,5.44629 27.9658,4.49145 25.4951,4 23,4 17.9609,4 13.1282,6.00178 9.56497,9.56497 6.00178,13.1282 4,17.9609 4,23 4,28.0391 6.00178,32.8718 9.56497,36.435 13.1282,39.9982 17.9609,42 23,42L23,42z</Geometry>
     <Geometry x:Key="searchGeometry2">F1 M48,48z M0,0z M42.6001,43.998C42.2401,43.998,41.8801,43.858,41.6201,43.598L37.9001,39.878C37.6404,39.614 37.4949,39.2584 37.4949,38.888 37.4949,38.5177 37.6404,38.1621 37.9001,37.898 38.4401,37.358 39.3201,37.358 39.8801,37.898L43.6001,41.618C44.1401,42.158 44.1401,43.038 43.6001,43.598 43.3201,43.858 42.9601,43.998 42.6001,43.998z</Geometry>
     <DrawingGroup x:Key="Search" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource searchGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF9C9C9C" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FF9C9C9C" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF9C9C9C" Geometry="{StaticResource searchGeometry2}" />
     </DrawingGroup>
     <DrawingImage x:Key="SearchIcon" Drawing="{StaticResource Search}" />
     <!--#endregion-->
-    
+
     <!--#region Export-->
     <Geometry x:Key="exportGeometry1">F1 M48,48z M0,0z M33.6,18L14.4,18C8,18,4,22,4,28.4L4,33.58C4,40,8,44,14.4,44L33.58,44C39.98,44,43.98,40,43.98,33.6L43.98,28.4C44,22,40,18,33.6,18z</Geometry>
     <Geometry x:Key="exportGeometry2">F1 M48,48z M0,0z M31.7599,11.14L25.0599,4.44004C24.7777,4.16108 24.3968,4.00464 23.9999,4.00464 23.6031,4.00464 23.2222,4.16108 22.9399,4.44004L16.2399,11.14C15.6599,11.72 15.6599,12.68 16.2399,13.26 16.8199,13.84 17.7799,13.84 18.3599,13.26L22.4999,9.12004 22.4999,30.5C22.4999,31.32 23.1799,32 23.9999,32 24.8199,32 25.4999,31.32 25.4999,30.5L25.4999,9.12004 29.6399,13.26C29.9399,13.56 30.3199,13.7 30.6999,13.7 31.0799,13.7 31.4599,13.56 31.7599,13.26 32.3599,12.68 32.3599,11.74 31.7599,11.14z</Geometry>
     <DrawingGroup x:Key="Export" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource exportGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF64927C" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FF64927C" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource exportGeometry2}" />
@@ -203,7 +202,7 @@
     <!--#endregion-->
 
     <!--#endregion-->
-    
+
     <!--#region App Icon-->
     <Geometry x:Key="logoGeometry1">F1 M350,350z M0,0z M207.651,304.056C135.441,310.115,83.4281,271.737,65.2476,220.184</Geometry>
     <Geometry x:Key="logoGeometry2">F1 M350,350z M0,0z M125.846,59.7962C191.956,30.1235,253.755,49.0725,288.009,91.674</Geometry>
@@ -214,24 +213,47 @@
     <DrawingGroup x:Key="AppIconGroup" ClipGeometry="M0,0 V350 H350 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource logoGeometry1}">
             <GeometryDrawing.Pen>
-                <Pen Brush="#FFD94E33" Thickness="48" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+                <Pen
+                    Brush="#FFD94E33"
+                    EndLineCap="Round"
+                    LineJoin="Miter"
+                    MiterLimit="1"
+                    StartLineCap="Round"
+                    Thickness="48" />
             </GeometryDrawing.Pen>
         </GeometryDrawing>
         <GeometryDrawing Geometry="{StaticResource logoGeometry2}">
             <GeometryDrawing.Pen>
-                <Pen Brush="#FF64927C" Thickness="48" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+                <Pen
+                    Brush="#FF64927C"
+                    EndLineCap="Round"
+                    LineJoin="Miter"
+                    MiterLimit="1"
+                    StartLineCap="Round"
+                    Thickness="48" />
             </GeometryDrawing.Pen>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource logoGeometry3}" />
         <GeometryDrawing Brush="#FFD94E33" Geometry="{StaticResource logoGeometry4}" />
         <GeometryDrawing Geometry="{StaticResource logoGeometry5}">
             <GeometryDrawing.Pen>
-                <Pen Brush="#FFFFFFFF" Thickness="32" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+                <Pen
+                    Brush="#FFFFFFFF"
+                    EndLineCap="Flat"
+                    LineJoin="Round"
+                    StartLineCap="Flat"
+                    Thickness="32" />
             </GeometryDrawing.Pen>
         </GeometryDrawing>
         <GeometryDrawing Geometry="{StaticResource logoGeometry6}">
             <GeometryDrawing.Pen>
-                <Pen Brush="#FFFFFFFF" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                <Pen
+                    Brush="#FFFFFFFF"
+                    EndLineCap="Round"
+                    LineJoin="Round"
+                    MiterLimit="1"
+                    StartLineCap="Round"
+                    Thickness="32" />
             </GeometryDrawing.Pen>
         </GeometryDrawing>
     </DrawingGroup>
@@ -243,32 +265,32 @@
     <Geometry x:Key="logoutGeometry1">F1 M48,48z M0,0z M18,14.4L18,33.58C18,40,22,44,28.4,44L33.58,44C39.98,44,43.98,40,43.98,33.6L43.98,14.4C44,8,40,4,33.6,4L28.4,4C22,4,18,8,18,14.4z</Geometry>
     <Geometry x:Key="logoutGeometry2">F1 M48,48z M0,0z M11.1399,16.24L4.43988,22.94C3.85988,23.52,3.85988,24.48,4.43988,25.06L11.1399,31.76C11.7199,32.34 12.6799,32.34 13.2599,31.76 13.8399,31.18 13.8399,30.22 13.2599,29.64L9.11988,25.5 30.4999,25.5C31.3199,25.5 31.9999,24.82 31.9999,24 31.9999,23.18 31.3199,22.5 30.4999,22.5L9.11988,22.5 13.2599,18.36C13.5599,18.06 13.6999,17.68 13.6999,17.3 13.6999,16.92 13.5599,16.52 13.2599,16.24 12.6799,15.64 11.7399,15.64 11.1399,16.24L11.1399,16.24z</Geometry>
     <DrawingGroup x:Key="Logout" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
-    <GeometryDrawing Geometry="{StaticResource logoutGeometry1}">
-        <GeometryDrawing.Brush>
-        <SolidColorBrush Color="#FF64927C" Opacity="0.4" />
-        </GeometryDrawing.Brush>
-    </GeometryDrawing>
-    <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource logoutGeometry2}" />
+        <GeometryDrawing Geometry="{StaticResource logoutGeometry1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="#FF64927C" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource logoutGeometry2}" />
     </DrawingGroup>
     <DrawingImage x:Key="LogoutIcon" Drawing="{StaticResource Logout}" />
     <!--#endregion-->
 
-    
+
     <!--#region Login-->
     <Geometry x:Key="loginGeometry1">F1 M48,48z M0,0z M18,14.4L18,33.58C18,40,22,44,28.4,44L33.58,44C39.98,44,43.98,40,43.98,33.6L43.98,14.4C44,8,40,4,33.6,4L28.4,4C22,4,18,8,18,14.4z</Geometry>
     <Geometry x:Key="loginGeometry2">F1 M48,48z M0,0z M24.86,16.24L31.56,22.94C32.14,23.52,32.14,24.48,31.56,25.06L24.86,31.76C24.28,32.34 23.32,32.34 22.74,31.76 22.461,31.4778 22.3046,31.0969 22.3046,30.7 22.3046,30.3032 22.461,29.9223 22.74,29.64L26.88,25.5 5.5,25.5C4.68,25.5 4,24.82 4,24 4,23.18 4.68,22.5 5.5,22.5L26.88,22.5 22.74,18.36C22.6,18.2214 22.4889,18.0563 22.4134,17.8743 22.3378,17.6923 22.2993,17.4971 22.3,17.3 22.3,16.92 22.44,16.54 22.74,16.24 23.32,15.64 24.26,15.64 24.86,16.24z</Geometry>
     <DrawingGroup x:Key="Login" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource loginGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF64927C" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FF64927C" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource loginGeometry2}" />
     </DrawingGroup>
     <DrawingImage x:Key="LoginIcon" Drawing="{StaticResource Login}" />
     <!--#endregion-->
-    
-    
+
+
     <!--#region Create Account-->
     <Geometry x:Key="profileGeometry1">F1 M48,48z M0,0z M24,4C18.76,4 14.5,8.26 14.5,13.5 14.5,18.64 18.52,22.8 23.76,22.98 23.92,22.96 24.08,22.96 24.2,22.98L24.34,22.98C26.7987,22.898 29.1292,21.863 30.8386,20.0938 32.548,18.3247 33.5024,15.9601 33.5,13.5 33.5,8.26 29.24,4 24,4z</Geometry>
     <Geometry x:Key="profileGeometry2">F1 M48,48z M0,0z M34.1599,28.32C28.5799,24.6 19.4799,24.6 13.8599,28.32 11.3199,30 9.91992,32.3 9.91992,34.76 9.91992,37.22 11.3199,39.5 13.8399,41.18 16.6399,43.06 20.3199,44 23.9999,44 27.6799,44 31.3599,43.06 34.1599,41.18 36.6799,39.48 38.0799,37.2 38.0799,34.72 38.0599,32.28 36.6799,29.98 34.1599,28.32z</Geometry>
@@ -277,7 +299,7 @@
         <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource profileGeometry1}" />
         <GeometryDrawing Geometry="{StaticResource profileGeometry2}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF64927C" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FF64927C" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource profileGeometry3}" />
@@ -286,7 +308,7 @@
     <!--#endregion-->
 
     <!--#region Show/Hide-->
-    <!--Show-->
+    <!--  Show  -->
     <Geometry x:Key="showGeometry1">F1 M48,41z M0,0z M42.5041,15.555C41.5487,14.2772,40.4575,13.0765,39.2441,11.968L31.7041,18.377C31.9441,19.006 32.0841,19.686 32.0841,20.4 32.0841,24.208 28.4641,27.268 24.0041,27.268 23.1641,27.268 22.3641,27.149 21.6241,26.945L14.7041,32.827C17.6241,34.221 20.7841,34.952 24.0041,34.952 27.5641,34.952 31.0241,34.068 34.1841,32.419 37.3441,30.753 40.1841,28.322 42.5041,25.228 44.5041,22.576 44.5041,18.224 42.5041,15.555L42.5041,15.555z</Geometry>
     <Geometry x:Key="showGeometry2">F1 M48,41z M0,0z M28.04,16.966L19.96,23.834C18.94,22.95 18.28,21.726 18.28,20.4 18.28,17.731 20.84,15.538 24,15.538 25.56,15.538 27,16.099 28.04,16.966z</Geometry>
     <Geometry x:Key="showGeometry3">F1 M48,41z M0,0z M36.5,9.77505L29.72,15.5381C28.972,14.8965 28.0806,14.3886 27.0983,14.0441 26.116,13.6996 25.0626,13.5255 24,13.5321 19.52,13.5321 15.92,16.6091 15.92,20.4001 15.92,22.3041 16.82,24.0211 18.28,25.2621L11.52,31.0251 11.5,31.0251C9.28,29.4951 7.24,27.5401 5.5,25.2281 3.5,22.5591 3.5,18.2241 5.5,15.5551 7.82,12.4611 10.66,10.0301 13.82,8.36405 16.98,6.73205 20.44,5.83105 24,5.83105 28.46,5.83105 32.78,7.22505 36.5,9.77505z</Geometry>
@@ -294,33 +316,33 @@
     <DrawingGroup x:Key="RevealPassword" ClipGeometry="M0,0 V41 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource showGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF64927C" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FF64927C" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource showGeometry2}" />
         <GeometryDrawing Geometry="{StaticResource showGeometry3}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF64927C" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FF64927C" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource showGeometry4}" />
     </DrawingGroup>
     <DrawingImage x:Key="RevealPasswordIcon" Drawing="{StaticResource RevealPassword}" />
-    <!--Hide-->
+    <!--  Hide  -->
     <Geometry x:Key="hideGeometry1">F1 M48,41z M0,0z M42.5,15.5551C37.88,9.38405 31.12,5.83105 24,5.83105 20.44,5.83105 16.98,6.71505 13.82,8.36405 10.66,10.0301 7.82,12.4611 5.5,15.5551 3.5,18.2241 3.5,22.5591 5.5,25.2281 10.12,31.4161 16.88,34.9521 24,34.9521 27.56,34.9521 31.02,34.0681 34.18,32.4191 37.34,30.7531 40.18,28.3221 42.5,25.2281 44.5,22.5761 44.5,18.2241 42.5,15.5551L42.5,15.5551z M24,27.2681C19.52,27.2681 15.92,24.1911 15.92,20.4001 15.92,16.6091 19.52,13.5321 24,13.5321 28.48,13.5321 32.08,16.6091 32.08,20.4001 32.08,24.1911 28.48,27.2681 24,27.2681z</Geometry>
     <Geometry x:Key="hideGeometry2">F1 M48,41z M0,0z M23.9959,15.538C22.4815,15.538 21.0291,16.0493 19.9583,16.9595 18.8875,17.8697 18.2859,19.1042 18.2859,20.3915 18.2859,21.6787 18.8875,22.9132 19.9583,23.8234 21.0291,24.7336 22.4815,25.245 23.9959,25.245 27.1359,25.245 29.7159,23.069 29.7159,20.4 29.7159,17.731 27.1359,15.538 23.9959,15.538L23.9959,15.538z</Geometry>
     <DrawingGroup x:Key="HidePassword" ClipGeometry="M0,0 V41 H48 V0 H0 Z">
         <GeometryDrawing Geometry="{StaticResource hideGeometry1}">
             <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF64927C" Opacity="0.4" />
+                <SolidColorBrush Opacity="0.4" Color="#FF64927C" />
             </GeometryDrawing.Brush>
         </GeometryDrawing>
         <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource hideGeometry2}" />
     </DrawingGroup>
     <DrawingImage x:Key="HidePasswordIcon" Drawing="{StaticResource HidePassword}" />
     <!--#endregion-->
-    
-    
+
+
     <!--#region Checkbox-->
     <Geometry x:Key="tickGeometry">F1 M24,18z M0,0z M8.59061,17.2103C8.11315,17.2098,7.6554,17.0198,7.318,16.682L0.522734,9.88674C0.187821,9.54785 0,9.09059 0,8.61413 0,8.13767 0.187821,7.68042 0.522734,7.34152 1.21907,6.64519 2.37162,6.64519 3.06796,7.34152L8.59061,12.8642 20.9325,0.522251C21.6289,-0.174084 22.7814,-0.174084 23.4778,0.522251 24.1741,1.21858 24.1741,2.37114 23.4778,3.06747L9.86322,16.682C9.52581,17.0198,9.06806,17.2098,8.59061,17.2103L8.59061,17.2103z</Geometry>
     <DrawingGroup x:Key="CheckBox" ClipGeometry="M0,0 V18 H24 V0 H0 Z">
@@ -332,5 +354,28 @@
     <DrawingImage x:Key="CheckBoxIcon" Drawing="{StaticResource CheckBox}" />
     <!--#endregion-->
 
+    <!--#region CheckMark-->
+    <Style x:Key="CheckMarkCircle" TargetType="Path">
+        <Setter Property="Data" Value="M7.00002 12.8333C10.2218 12.8333 12.8334 10.2217 12.8334 6.99996C12.8334 3.77821 10.2218 1.16663 7.00002 1.16663C3.77827 1.16663 1.16669 3.77821 1.16669 6.99996C1.16669 10.2217 3.77827 12.8333 7.00002 12.8333Z" />
+        <Setter Property="Fill" Value="{StaticResource SecondaryColor}" />
+        <Setter Property="Opacity" Value="0.2" />
+    </Style>
+    <Style x:Key="CheckMark" TargetType="Path">
+        <Setter Property="Data" Value="M6.17165 9.08949C6.05566 9.08939 5.94445 9.04323 5.86248 8.96116L4.21165 7.31032C4.13028 7.22799 4.08466 7.11691 4.08466 7.00116C4.08466 6.8854 4.13028 6.77432 4.21165 6.69199C4.38081 6.52282 4.66081 6.52282 4.82998 6.69199L6.17165 8.03366L9.16998 5.03532C9.33915 4.86616 9.61915 4.86616 9.78832 5.03532C9.95748 5.20449 9.95748 5.48449 9.78832 5.65366L6.48081 8.96116C6.39885 9.04323 6.28764 9.08939 6.17165 9.08949Z" />
+        <Setter Property="Fill" Value="{StaticResource SecondaryColor}" />
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Chevron-->
+    <Style x:Key="ChevronBig" TargetType="Path">
+        <Setter Property="Data" Value="" />
+        <Setter Property="Fill" Value="{StaticResource ForegroundColor}" />
+        <Setter Property="Opacity" Value="0.4" />
+    </Style>
+    <Style x:Key="ChevronSmall" TargetType="Path">
+        <Setter Property="Data" Value="" />
+        <Setter Property="Fill" Value="{StaticResource ForegroundColor}" />
+    </Style>
+    <!--#endregion-->
 
 </ResourceDictionary>
