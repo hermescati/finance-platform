@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Expensier.WPF.State
+namespace Expensier.WPF.State.Subscriptions
 {
     public class SubscriptionStore
     {

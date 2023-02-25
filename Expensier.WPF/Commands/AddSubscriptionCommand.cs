@@ -1,5 +1,5 @@
 ﻿using Expensier.Domain.Models;
-using Expensier.Domain.Services.Transactions;
+using Expensier.Domain.Services.Subscriptions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Modals;
@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 
 namespace Expensier.WPF.Commands
 {
-    public class AddTransactionCommand : AsyncCommandBase
+    public class AddSubscriptionCommand : AsyncCommandBase
     {
-        private readonly ModalViewModel _modalViewModel;
-        private readonly ITransactionService _transactionService;
+        private readonly SubscriptionModalViewModel _modalViewModel;
+        private readonly ISubscriptionService _subscriptionService;
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
-        public AddTransactionCommand(ModalViewModel modalViewModel, ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator)
+        public AddSubscriptionCommand(SubscriptionModalViewModel modalViewModel, ISubscriptionService subscriptionService, AccountStore accountStore, IRenavigator renavigator)
         {
             _modalViewModel = modalViewModel;
-            _transactionService = transactionService;
+            _subscriptionService = subscriptionService;
             _accountStore = accountStore;
             _renavigator = renavigator;
         }
@@ -30,12 +30,13 @@ namespace Expensier.WPF.Commands
         {
             try
             {
-                Account updatedAccount = await _transactionService.AddTransaction(
+                Account updatedAccount = await _subscriptionService.AddSubscription(
                     _accountStore.CurrentAccount,
-                    _modalViewModel.TransactionName,
-                    _modalViewModel.ProcessDate,
+                    _modalViewModel.CompanyName,
+                    _modalViewModel.SubscriptionPlan,
+                    _modalViewModel.DueDate,
                     _modalViewModel.Amount,
-                    _modalViewModel.Category);
+                    _modalViewModel.SubscriptionCycle);
 
                 _accountStore.CurrentAccount = updatedAccount;
                 _renavigator.Renavigate();

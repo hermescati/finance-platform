@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Expensier.WPF.ViewModels
+namespace Expensier.WPF.ViewModels.Modals
 {
     public class ModalViewModel : ViewModelBase
     {
@@ -71,7 +71,7 @@ namespace Expensier.WPF.ViewModels
 
         public IEnumerable<TransactionType> TransactionType => Enum.GetValues(typeof(TransactionType)).Cast<TransactionType>();
 
-        public ICommand AddNewTransaction { get;  }
+        public ICommand AddNewTransaction { get; }
 
 
         public ModalViewModel(ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator)

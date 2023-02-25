@@ -9,19 +9,18 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Expensier.WPF.Controls
+namespace Expensier.WPF.Controls.Transactions
 {
     /// <summary>
-    /// Interaction logic for TransactionList.xaml
+    /// Interaction logic for RecentTransactions.xaml
     /// </summary>
-    public partial class TransactionList : UserControl
+    public partial class RecentExpenses : UserControl
     {
-        public TransactionList()
+        public RecentExpenses()
         {
             InitializeComponent();
         }

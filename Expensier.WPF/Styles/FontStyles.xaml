@@ -75,6 +75,22 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
     </Style>
 
+    <Style x:Key="Transaction_Data_13px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+
+    <Style x:Key="Transaction_Data_12px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
+    </Style>
+
     <Style x:Key="Transaction_Header_12px" TargetType="Label">
         <Setter Property="Padding" Value="0" />
         <Setter Property="FontFamily" Value="SF Pro Display" />

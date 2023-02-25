@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Expensier.WPF.Controls
+namespace Expensier.WPF.Controls.Modals
 {
     /// <summary>
-    /// Interaction logic for SubscriptionsList.xaml
+    /// Interaction logic for AddSubscriptionModal.xaml
     /// </summary>
-    public partial class SubscriptionsList : UserControl
+    public partial class AddSubscriptionModal : UserControl
     {
-        public SubscriptionsList()
+        public AddSubscriptionModal()
         {
             InitializeComponent();
         }

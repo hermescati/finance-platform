@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Expensier.Domain.Services.Subscriptions;
 
 namespace Expensier.WPF.HostBuilders
 {
@@ -26,6 +27,7 @@ namespace Expensier.WPF.HostBuilders
                 services.AddSingleton<IDataService<Account>, AccountDataService>();
                 services.AddSingleton<IAccountService, AccountDataService>();
                 services.AddSingleton<ITransactionService, TransactionService>();
+                services.AddSingleton<ISubscriptionService, SubscriptionService>();
                 services.AddSingleton<ICryptoService, CryptoService>();
                 services.AddSingleton<IPasswordHasher, PasswordHasher>();
             });
