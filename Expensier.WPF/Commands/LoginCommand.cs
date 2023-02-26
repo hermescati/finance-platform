@@ -4,6 +4,7 @@ using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,13 @@ namespace Expensier.WPF.Commands
             _loginViewModel = loginViewModel;
             _authenticator = authenticator;
             _renavigator = renavigator;
+
+            _loginViewModel.PropertyChanged += LoginViewModel_PropertyChanged;
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            return _loginViewModel.CanLogin && base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object parameter)
@@ -44,6 +52,14 @@ namespace Expensier.WPF.Commands
             catch (Exception)
             {
                 _loginViewModel.ErrorMessage = "Login failed.";
+            }
+        }
+
+        private void LoginViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(LoginViewModel.CanLogin))
+            {
+                OnCallExecuteChanged();
             }
         }
     }

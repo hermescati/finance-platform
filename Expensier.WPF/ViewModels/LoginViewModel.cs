@@ -23,6 +23,7 @@ namespace Expensier.WPF.ViewModels
             {
                 _email = value;
                 OnPropertyChanged(nameof(Email));
+                OnPropertyChanged(nameof(CanLogin));
             }
         }
         private string _password;
@@ -36,11 +37,13 @@ namespace Expensier.WPF.ViewModels
             {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
+                OnPropertyChanged(nameof(CanLogin));
             }
         }
 
-        public MessageViewModel ErrorMessageViewModel { get; }
+        public bool CanLogin => !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password);
 
+        public MessageViewModel ErrorMessageViewModel { get; }
         public string ErrorMessage
         {
             set => ErrorMessageViewModel.Message = value;
