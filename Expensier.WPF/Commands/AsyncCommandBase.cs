@@ -19,13 +19,13 @@ namespace Expensier.WPF.Commands
             set
             {
                 _isExecuting = value;
-                CanExecuteChanged?.Invoke(this, new EventArgs());
+                OnCallExecuteChanged();
             }
         }
 
         public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute(object parameter)
+        public virtual bool CanExecute(object parameter)
         {
             return !IsExecuting;
         }
@@ -39,5 +39,10 @@ namespace Expensier.WPF.Commands
         }
 
         public abstract Task ExecuteAsync(object parameter);
+
+        protected void OnCallExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, new EventArgs());
+        }
     }
 }

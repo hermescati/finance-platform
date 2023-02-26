@@ -26,6 +26,7 @@ namespace Expensier.WPF.ViewModels
             {
                 _firstName = value;
                 OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged(nameof(CanRegister));
             }
         }
 
@@ -40,6 +41,7 @@ namespace Expensier.WPF.ViewModels
             {
                 _lastName = value;
                 OnPropertyChanged(nameof(LastName));
+                OnPropertyChanged(nameof(CanRegister));
             }
         }
 
@@ -54,6 +56,7 @@ namespace Expensier.WPF.ViewModels
             {
                 _email = value;
                 OnPropertyChanged(nameof(Email));
+                OnPropertyChanged(nameof(CanRegister));
             }
         }
 
@@ -68,6 +71,7 @@ namespace Expensier.WPF.ViewModels
             {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
+                OnPropertyChanged(nameof(CanRegister));
             }
         }
 
@@ -82,18 +86,24 @@ namespace Expensier.WPF.ViewModels
             {
                 _confirmPassword = value;
                 OnPropertyChanged(nameof(ConfirmPassword));
+                OnPropertyChanged(nameof(CanRegister));
             }
         }
 
-        public ICommand RegisterCommand { get; }
-
-        public ICommand ViewLoginCommand { get; }
+        public bool CanRegister => !string.IsNullOrEmpty(FirstName) && 
+            !string.IsNullOrEmpty(LastName) &&
+            !string.IsNullOrEmpty(Email) &&
+            !string.IsNullOrEmpty(Password) &&
+            !string.IsNullOrEmpty(ConfirmPassword);
 
         public MessageViewModel ErrorMessageViewModel { get; }
         public string ErrorMessage
         {
             set => ErrorMessageViewModel.Message = value;
         }
+
+        public ICommand RegisterCommand { get; }
+        public ICommand ViewLoginCommand { get; }
 
         public RegisterViewModel(IRenavigator loginRenavigator, IRenavigator registerRenavigator, IAuthenticator authenticator)
         {
