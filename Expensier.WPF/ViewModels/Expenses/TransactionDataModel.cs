@@ -15,6 +15,13 @@ namespace Expensier.WPF.ViewModels
         public string TransactionType { get; set; }
         public bool IsCredit { get; }
 
+
+        public TransactionDataModel(DateTime processDate, double amount)
+        {
+            ProcessDate = processDate;
+            Amount = amount;
+        }
+
         public TransactionDataModel(string transactionName, DateTime processDate, double amount, string transactionType, bool isCredit)
         {
             TransactionName = transactionName;

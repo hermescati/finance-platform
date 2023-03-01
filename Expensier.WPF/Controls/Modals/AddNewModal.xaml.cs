@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Expensier.WPF.Controls
+namespace Expensier.WPF.Controls.Modals
 {
     /// <summary>
     /// Interaction logic for AddNewModal.xaml

@@ -5,13 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:modals="clr-namespace:Expensier.WPF.Controls.Modals"
     xmlns:subscriptions="clr-namespace:Expensier.WPF.Controls.Subscriptions"
     xmlns:transactions="clr-namespace:Expensier.WPF.Controls.Transactions"
     d:DesignHeight="852"
     d:DesignWidth="1304"
     mc:Ignorable="d">
-
 
     <Border
         Width="Auto"
@@ -73,11 +71,6 @@
                     <!--#endregion-->
 
                     <!--#region Summary Graph-->
-                    <Rectangle
-                        Grid.Row="2"
-                        Width="574"
-                        Height="224"
-                        Fill="{StaticResource InactiveColor}" />
                     <!--#endregion-->
 
                 </Grid>
@@ -243,11 +236,7 @@
                     <!--#endregion-->
 
                 </Grid>
-
             </Grid>
-
         </Grid>
-
     </Border>
-
 </UserControl>

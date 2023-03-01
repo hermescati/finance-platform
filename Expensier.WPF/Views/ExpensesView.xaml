@@ -19,12 +19,21 @@
         Background="{StaticResource PrimaryColor}"
         CornerRadius="24">
 
-        <Grid>
+        <Grid x:Name="MainContent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+
+            <!--#region Modals-->
+            <Popup
+                x:Name="AddTransaction"
+                IsOpen="false"
+                Placement="Center">
+                <modals:AddNewModal DataContext="{Binding ModalViewModel}" />
+            </Popup>
+            <!--#endregion-->
 
             <!--#region Expenses-->
             <Grid Grid.Column="0">
@@ -56,20 +65,31 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
+                    <!--#region Add Transaction-->
                     <Button
+                        x:Name="AddTransactionButton"
                         Grid.Column="0"
                         Width="100"
                         Height="32"
+                        Click="AddTransactionButton_Click"
                         Content="add new"
                         Style="{StaticResource MenuButton}"
                         Tag="{StaticResource AddNewIcon}" />
+                    <!--#endregion-->
 
                     <ToggleButton
                         Grid.Column="2"
                         Width="124"
                         Height="32"
                         Content="this month"
-                        Style="{StaticResource ToggleButton}" />
+                        Style="{StaticResource ToggleButton}">
+                        <ToggleButton.Tag>
+                            <x:Array Type="DrawingImage">
+                                <DrawingImage Drawing="{StaticResource Calendar}" />
+                                <DrawingImage Drawing="{StaticResource CalendarSelected}" />
+                            </x:Array>
+                        </ToggleButton.Tag>
+                    </ToggleButton>
 
                     <Button
                         Grid.Column="4"
@@ -133,7 +153,14 @@
                         Width="101"
                         Height="32"
                         Content="sort by"
-                        Style="{StaticResource ToggleButton}" />
+                        Style="{StaticResource ToggleButton}">
+                        <ToggleButton.Tag>
+                            <x:Array Type="DrawingImage">
+                                <DrawingImage Drawing="{StaticResource Sort}" />
+                                <DrawingImage Drawing="{StaticResource SortSelected}" />
+                            </x:Array>
+                        </ToggleButton.Tag>
+                    </ToggleButton>
                 </Grid>
                 <!--#endregion-->
 
@@ -153,6 +180,5 @@
             <!--#endregion-->
 
         </Grid>
-
     </Border>
 </UserControl>

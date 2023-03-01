@@ -76,69 +76,52 @@
             ItemsSource="{Binding Subscriptions}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-
                     <Border x:Name="Border">
                         <Grid>
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="16" />
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="64" />
+                                <ColumnDefinition Width="56" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-
                             <Image
                                 Grid.Column="0"
                                 Width="40"
                                 Height="40"
                                 Source="{DynamicResource AppIcon}" />
-
                             <Grid Grid.Column="2">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="64" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-
                                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
-
                                     <TextBlock Style="{DynamicResource Subscription_Data_15px}" Text="{Binding SubscriptionPlan}" />
-
                                     <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
-
                                         <TextBlock Style="{DynamicResource Subscription_Date_12px}" Text="{Binding DueDate, StringFormat='{}{0:MMM dd}'}" />
-
                                         <Ellipse
                                             Width="4"
                                             Height="4"
                                             Margin="6,0,6,0"
                                             Fill="{DynamicResource InactiveColor}" />
-
                                         <TextBlock Style="{DynamicResource Subscription_Date_12px}" Text="{Binding DueDate, StringFormat='{}{0:yyyy}'}" />
-
                                     </StackPanel>
-
                                 </StackPanel>
-
                                 <TextBlock
                                     Grid.Column="2"
+                                    Width="48"
                                     VerticalAlignment="Center"
                                     Style="{DynamicResource Subscription_Amount_13px}"
                                     Text="{Binding Amount, StringFormat='c'}" />
-
                             </Grid>
-
                             <Image
                                 Grid.Column="6"
                                 Width="24"
                                 Height="24"
                                 Source="{DynamicResource AppIcon}" />
-
                         </Grid>
                     </Border>
-
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Expensier.WPF.Controls.Transactions
 {
-    /// <summary>
-    /// Interaction logic for RecentTransactions.xaml
-    /// </summary>
     public partial class RecentExpenses : UserControl
     {
         public RecentExpenses()
