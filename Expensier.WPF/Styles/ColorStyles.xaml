@@ -16,6 +16,10 @@
     <SolidColorBrush x:Key="SecondaryColor" Color="{StaticResource Secondary}" />
     <SolidColorBrush x:Key="AccentColor" Color="{StaticResource Accent}" />
     <SolidColorBrush
+        x:Key="GraphToolTipBackground"
+        Opacity="0.5"
+        Color="{StaticResource Dominant}" />
+    <SolidColorBrush
         x:Key="InactiveColor"
         Opacity="0.4"
         Color="{StaticResource Foreground}" />
