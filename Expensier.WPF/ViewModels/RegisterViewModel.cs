@@ -1,6 +1,7 @@
 ﻿using Expensier.WPF.Commands;
 using Expensier.WPF.State.Authenticators;
 using Expensier.WPF.State.Navigators;
+using Expensier.WPF.ViewModels.Errors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
