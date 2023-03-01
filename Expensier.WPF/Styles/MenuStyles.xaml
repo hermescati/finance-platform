@@ -3,42 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
-    <!--  Colors  -->
-    <Color x:Key="Background">#000000</Color>
-    <Color x:Key="Foreground">#FFFFFF</Color>
-    <Color x:Key="Dominant">#1B191B</Color>
-    <Color x:Key="Secondary">#64927C</Color>
-    <Color x:Key="Accent">#D94E33</Color>
-    <Color x:Key="MenuButton">#1F1D1F</Color>
-
-
-    <!--  Color Palette  -->
-    <SolidColorBrush x:Key="BackgroundColor" Color="{StaticResource Background}" />
-    <SolidColorBrush x:Key="ForegroundColor" Color="{StaticResource Foreground}" />
-    <SolidColorBrush x:Key="PrimaryColor" Color="{StaticResource Dominant}" />
-    <SolidColorBrush x:Key="SecondaryColor" Color="{StaticResource Secondary}" />
-    <SolidColorBrush x:Key="AccentColor" Color="{StaticResource Accent}" />
-    <SolidColorBrush
-        x:Key="InactiveColor"
-        Opacity="0.4"
-        Color="{StaticResource Foreground}" />
-    <SolidColorBrush
-        x:Key="TransparentColor"
-        Opacity="0.15"
-        Color="{StaticResource Foreground}" />
-    <SolidColorBrush x:Key="MenuButtonColor" Color="{StaticResource MenuButton}" />
-
-    <SolidColorBrush
-        x:Key="SecondaryGlowColor"
-        Opacity="0.3"
-        Color="{StaticResource Secondary}" />
-
-    <LinearGradientBrush x:Key="BackgroundGradientColor" x:Name="GradientColor" StartPoint="0.5, 0" EndPoint="0.5, 1">
-        <GradientStop Offset="0" Color="{StaticResource Background}" />
-        <GradientStop Offset="1" Color="#4D000000" />
-    </LinearGradientBrush>
-
-
     <!--#region DropDown-->
     <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
