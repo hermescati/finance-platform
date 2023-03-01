@@ -3,6 +3,146 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
+    <!--#region FormFields-->
+    <Style x:Key="FormFieldTemplate" TargetType="Control">
+        <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource InactiveColor}" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="Width" Value="351" />
+        <Setter Property="Height" Value="45" />
+        <Setter Property="Padding" Value="32,12" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Border
+                        x:Name="GlowEffect"
+                        Margin="-4"
+                        CornerRadius="13">
+                        <Border
+                            x:Name="Border"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Padding="0"
+                                Focusable="false"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ForegroundColor}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource SecondaryColor}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ForegroundColor}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="GlowEffect" Property="BorderThickness" Value="4" />
+                            <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{StaticResource SecondaryGlowColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource FormFieldTemplate}" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="CaretBrush" Value="{StaticResource SecondaryColor}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style BasedOn="{StaticResource FormFieldTemplate}" TargetType="PasswordBox">
+        <Setter Property="FontSize" Value="12" />
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="CaretBrush" Value="{StaticResource SecondaryColor}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region CheckBox-->
+    <Style x:Key="CheckBoxTemplate" TargetType="{x:Type CheckBox}">
+        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource InactiveColor}" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            x:Name="Border"
+                            Grid.Column="0"
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <Grid x:Name="markGrid">
+                                <Viewbox
+                                    Width="10"
+                                    Height="10"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                    <Path
+                                        x:Name="CheckMark"
+                                        Data="F1 M24,18z M0,0z M8.59061,17.2103C8.11315,17.2098,7.6554,17.0198,7.318,16.682L0.522734,9.88674C0.187821,9.54785 0,9.09059 0,8.61413 0,8.13767 0.187821,7.68042 0.522734,7.34152 1.21907,6.64519 2.37162,6.64519 3.06796,7.34152L8.59061,12.8642 20.9325,0.522251C21.6289,-0.174084 22.7814,-0.174084 23.4778,0.522251 24.1741,1.21858 24.1741,2.37114 23.4778,3.06747L9.86322,16.682C9.52581,17.0198,9.06806,17.2098,8.59061,17.2103L8.59061,17.2103z"
+                                        Fill="{StaticResource SecondaryColor}"
+                                        Opacity="0"
+                                        Stretch="None" />
+                                </Viewbox>
+                            </Grid>
+                        </Border>
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            Grid.Column="2"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource SecondaryGlowColor}" />
+                            <Setter TargetName="CheckMark" Property="Opacity" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
     <!--#region DropDown-->
     <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -212,176 +352,6 @@
         </Setter>
     </Style>
     <!--#endregion-->
-
-
-    <!--  TextBox  -->
-    <Style x:Key="TextBoxTemplate" TargetType="TextBox">
-        <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
-        <Setter Property="BorderThickness" Value="1.5" />
-        <Setter Property="Width" Value="Auto" />
-        <Setter Property="Height" Value="Auto" />
-        <Setter Property="Padding" Value="32,12,32,12" />
-        <Setter Property="FontFamily" Value="SF Pro Display" />
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="TextBox">
-                    <Border
-                        x:Name="GlowEffect"
-                        Margin="-4"
-                        BorderBrush="{StaticResource SecondaryGlowColor}"
-                        BorderThickness="0"
-                        CornerRadius="13">
-                        <Border
-                            x:Name="Border"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Background="{StaticResource PrimaryColor}"
-                            BorderBrush="{StaticResource InactiveColor}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="10"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
-                            <ScrollViewer
-                                x:Name="PART_ContentHost"
-                                Padding="0"
-                                Focusable="false"
-                                HorizontalScrollBarVisibility="Hidden"
-                                VerticalScrollBarVisibility="Hidden" />
-                        </Border>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ForegroundColor}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter Property="Foreground" Value="{StaticResource SecondaryColor}" />
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ForegroundColor}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter Property="Foreground" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="GlowEffect" Property="BorderThickness" Value="4" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
-    <!--  PasswordBox  -->
-    <Style x:Key="PasswordBoxTemplate" TargetType="UserControl">
-        <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
-        <Setter Property="BorderThickness" Value="1.5" />
-        <Setter Property="Width" Value="Auto" />
-        <Setter Property="Height" Value="Auto" />
-        <Setter Property="Padding" Value="32,13,32,11" />
-        <Setter Property="FontFamily" Value="SF Pro Display" />
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="UserControl">
-                    <Border
-                        x:Name="GlowEffect"
-                        Margin="-4"
-                        BorderBrush="{StaticResource SecondaryGlowColor}"
-                        BorderThickness="0"
-                        CornerRadius="13">
-                        <Border
-                            x:Name="Border"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Background="{StaticResource PrimaryColor}"
-                            BorderBrush="{StaticResource InactiveColor}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="10"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
-                            <ScrollViewer
-                                x:Name="PART_ContentHost"
-                                Focusable="false"
-                                HorizontalScrollBarVisibility="Hidden"
-                                VerticalScrollBarVisibility="Hidden" />
-                        </Border>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ForegroundColor}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter Property="Foreground" Value="{StaticResource SecondaryColor}" />
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ForegroundColor}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter Property="Foreground" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="GlowEffect" Property="BorderThickness" Value="4" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
-    <!--  CheckBox  -->
-    <Style x:Key="CheckBoxTemplate" TargetType="{x:Type CheckBox}">
-        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
-        <Setter Property="BorderBrush" Value="{StaticResource InactiveColor}" />
-        <Setter Property="BorderThickness" Value="1.5" />
-        <Setter Property="Width" Value="Auto" />
-        <Setter Property="Height" Value="Auto" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type CheckBox}">
-                    <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="12" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Border
-                            x:Name="Border"
-                            Grid.Column="0"
-                            Width="20"
-                            Height="20"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="4" />
-                        <Label
-                            Grid.Column="2"
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Background" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="Border" Property="Opacity" Value="0.4" />
-                            <Setter Property="BorderThickness" Value="0" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
-    <!--#region ErrorMessage-->
 
 
 </ResourceDictionary>

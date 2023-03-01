@@ -1,154 +1,221 @@
-﻿<UserControl x:Class="Expensier.WPF.Views.RegisterView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Expensier.WPF.Views" xmlns:components="clr-namespace:PasswordBoxMVVM.Components;assembly=PasswordBoxMVVM"
-             mc:Ignorable="d" 
-             d:DesignHeight="852" d:DesignWidth="1552">
+﻿<UserControl
+    x:Class="Expensier.WPF.Views.RegisterView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Expensier.WPF.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Expensier.WPF.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="852"
+    d:DesignWidth="1552"
+    mc:Ignorable="d">
 
     <Border
         Width="Auto"
-        Height="Auto" 
-        Padding="52" 
-        CornerRadius="24"
-        Background="{StaticResource PrimaryColor}">
+        Height="Auto"
+        Padding="52"
+        Background="{StaticResource PrimaryColor}"
+        CornerRadius="24">
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel 
+            <!--#region Register Form-->
+            <Grid
                 Grid.Column="1"
+                Width="351"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="16" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                <!--#region Register Form-->
-                <StackPanel Width="351">
-                    <WrapPanel 
-                        Orientation="Vertical"
-                        Margin="0, 0, 0, 48">
+                <!--#region Header-->
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Content="Sign up with your email"
+                        Style="{StaticResource Header_24px}" />
+
+                    <Label
+                        Grid.Row="2"
+                        Padding="0"
+                        VerticalContentAlignment="Center">
+                        <TextBlock Style="{StaticResource Subheader_15px_Regular}" TextWrapping="WrapWithOverflow">
+                            <Run Text="Already have an account?" />
+                            <Hyperlink Command="{Binding ViewLoginCommand}" Style="{StaticResource Hyperlink_15px}">
+                                Log in
+                            </Hyperlink>
+                        </TextBlock>
+                    </Label>
+                </Grid>
+                <!--#endregion-->
+
+                <!--#region User Names-->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="21" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--#region First Name-->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="4" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
                         <Label
-                            Margin="0, 0, 0, 10"
-                            Style="{StaticResource Header_24px}"
-                            Content="Sign up with your email"/>
-                        <Label
-                            Padding="0"
-                            VerticalContentAlignment="Center">
-                            <TextBlock 
-                                Style="{StaticResource Subheader_15px_Regular}"
-                                TextWrapping="WrapWithOverflow">
-                                <Run Text="Already have an account?"/>
-                                <Hyperlink 
-                                    Style="{StaticResource Hyperlink_15px}"
-                                    Command="{Binding ViewLoginCommand}">
-                                    Log in
-                                </Hyperlink>
-                            </TextBlock>
-                        </Label>
-                    </WrapPanel>
-                    <Grid Margin="0, 0, 0, 24">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <WrapPanel 
-                            Grid.Column="0"
-                            Orientation="Vertical">
-                            <Label
-                                Style="{StaticResource Subheader_16px}"
-                                Foreground="{StaticResource ForegroundColor}" 
-                                Content="First Name"/>
-                            <TextBox
-                                Width="165"
-                                Height="45"
-                                Margin="0, 4, 0, 0"
-                                Style="{StaticResource TextBoxTemplate}"
-                                Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
-                        </WrapPanel>
-                        <WrapPanel 
-                            Grid.Column="2"
-                            Orientation="Vertical">
-                            <Label
-                                Style="{StaticResource Subheader_16px}"
-                                Foreground="{StaticResource ForegroundColor}" 
-                                Content="Last Name"/>
-                            <TextBox
-                                Width="165"
-                                Height="45"
-                                Margin="0, 4, 0, 0"
-                                Style="{StaticResource TextBoxTemplate}"
-                                Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
-                        </WrapPanel>
-                    </Grid>
-                    <WrapPanel 
-                        Orientation="Vertical"
-                        Margin="0, 0, 0, 24">
-                        <Label
-                            Style="{StaticResource Subheader_16px}"
-                            Foreground="{StaticResource ForegroundColor}" 
-                            Content="Email"/>
+                            Grid.Row="0"
+                            Content="First name"
+                            Style="{StaticResource Subheader_16px}" />
+
                         <TextBox
-                            Width="351"
+                            Grid.Row="2"
+                            Width="165"
                             Height="45"
-                            Margin="0, 4, 0, 0"
-                            Style="{StaticResource TextBoxTemplate}"
-                            Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-                    </WrapPanel>
-                    <WrapPanel 
-                        Orientation="Vertical"
-                        Margin="0, 0, 0, 24">
-                        <Label 
-                            Style="{StaticResource Subheader_16px}" 
-                            Foreground="{StaticResource ForegroundColor}" 
-                            Content="Password"/>
-                        <components:BindablePasswordBox 
-                            Width="351"
+                            Text="{Binding FirstName}" />
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--#region Last Name-->
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="4" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Content="Last name"
+                            Style="{StaticResource Subheader_16px}" />
+
+                        <TextBox
+                            Grid.Row="2"
+                            Width="165"
                             Height="45"
-                            Margin="0, 4, 0, 0"
-                            Password="{Binding Password}"/>
-                    </WrapPanel>
-                    <WrapPanel 
-                        Orientation="Vertical"
-                        Margin="0, 0, 0, 16">
-                        <Label 
-                            Style="{StaticResource Subheader_16px}" 
-                            Foreground="{StaticResource ForegroundColor}" 
-                            Content="Confirm password"/>
-                        <components:BindablePasswordBox  
-                            Width="351"
-                            Height="45"
-                            Margin="0, 4, 0, 0"
-                            Password="{Binding ConfirmPassword}"/>
-                    </WrapPanel>
-                    <CheckBox
-                        Style="{DynamicResource CheckBoxTemplate}">
-                        <CheckBox.Tag>
-                            <TextBlock
-                                Style="{StaticResource Text_14px}">
-                                <Run Text="I agree to the "></Run> 
-                                <Hyperlink Foreground="{StaticResource InactiveColor}">Terms &amp; Conditions</Hyperlink>
-                                <Run Text="and"/>
-                                <Hyperlink Foreground="{StaticResource InactiveColor}">Privacy Policy.</Hyperlink>
-                            </TextBlock>
-                        </CheckBox.Tag>
-                    </CheckBox>
-                    <Button 
-                        Margin="0, 40, 0, 0"
+                            Text="{Binding LastName}" />
+                    </Grid>
+                    <!--#endregion-->
+                </Grid>
+                <!--#endregion-->
+
+                <!--#region Email-->
+                <Grid Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="4" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Content="Email"
+                        Style="{StaticResource Subheader_16px}" />
+
+                    <TextBox
+                        Grid.Row="2"
                         Width="351"
                         Height="45"
-                        Style="{StaticResource ImagedButton}"
-                        IsDefault="True"
-                        Tag="{StaticResource CreateAccountIcon}"
-                        Content ="Create Account"
-                        Command="{Binding RegisterCommand}"/>
-                </StackPanel>
+                        Text="{Binding Email}" />
+                </Grid>
                 <!--#endregion-->
-                
-            </StackPanel>
+
+                <!--#region Password-->
+                <Grid Grid.Row="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="4" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Content="Password"
+                        Style="{StaticResource Subheader_16px}" />
+
+                    <controls:BindablePasswordBox
+                        Grid.Row="2"
+                        Width="351"
+                        Height="45"
+                        Password="{Binding Password}" />
+                </Grid>
+                <!--#endregion-->
+
+                <!--#region Confirm Password-->
+                <Grid Grid.Row="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="4" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Content="Confirm password"
+                        Style="{StaticResource Subheader_16px}" />
+
+                    <controls:BindablePasswordBox
+                        Grid.Row="2"
+                        Width="351"
+                        Height="45"
+                        Password="{Binding ConfirmPassword}" />
+                </Grid>
+                <!--#endregion-->
+
+                <!--#region Privacy Terms-->
+                <CheckBox Grid.Row="10" Style="{DynamicResource CheckBoxTemplate}">
+                    <CheckBox.Content>
+                        <TextBlock Style="{StaticResource Text_14px}">
+                            <Run Text="I agree to the " />
+                            <Hyperlink Foreground="{StaticResource InactiveColor}">Terms &amp; Conditions</Hyperlink>
+                            <Run Text="and" />
+                            <Hyperlink Foreground="{StaticResource InactiveColor}">Privacy Policy.</Hyperlink>
+                        </TextBlock>
+                    </CheckBox.Content>
+                </CheckBox>
+                <!--#endregion-->
+
+                <!--#region Button-->
+                <Button
+                    Grid.Row="12"
+                    Width="351"
+                    Height="45"
+                    Command="{Binding RegisterCommand}"
+                    Content="Create Account"
+                    IsDefault="True"
+                    Style="{StaticResource ImagedButton}"
+                    Tag="{StaticResource CreateAccountIcon}" />
+                <!--#endregion-->
+
+            </Grid>
+            <!--#endregion-->
+
         </Grid>
     </Border>
 </UserControl>
