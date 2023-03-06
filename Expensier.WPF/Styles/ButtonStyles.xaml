@@ -40,7 +40,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="8" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="12" />
+                                    <ColumnDefinition Width="16" />
                                 </Grid.ColumnDefinitions>
                                 <Image
                                     x:Name="ButtonImage"
@@ -86,22 +86,28 @@
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="ClickMode" Value="Press" />
+        <Setter Property="ClickMode" Value="Release" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
                         x:Name="GlowEffect"
                         Margin="-4"
-                        BorderThickness="4"
-                        CornerRadius="10"
-                        SnapsToDevicePixels="False">
+                        BorderBrush="{StaticResource SecondaryGlowColor}"
+                        BorderThickness="0"
+                        CornerRadius="10">
                         <Border
                             x:Name="Border"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
                             Background="{StaticResource MenuButtonColor}"
+                            BorderBrush="{StaticResource MenuButtonColor}"
+                            BorderThickness="1.5"
                             CornerRadius="8"
-                            SnapsToDevicePixels="True"
-                            UseLayoutRounding="True">
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="8" />
@@ -111,11 +117,11 @@
                                     <ColumnDefinition Width="8" />
                                 </Grid.ColumnDefinitions>
                                 <Image
-                                    x:Name="ButtonImage"
+                                    x:Name="Icon"
                                     Grid.Column="1"
                                     Width="18"
                                     Height="18"
-                                    Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    Source="{Binding Tag[0], RelativeSource={RelativeSource TemplatedParent}}" />
                                 <ContentPresenter
                                     x:Name="ButtonContent"
                                     Grid.Column="3"
@@ -132,9 +138,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="Border" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="Icon" Property="Source" Value="{Binding Tag[1], RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="GlowEffect" Property="BorderThickness" Value="4" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor}" />
                             <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{StaticResource SecondaryGlowColor}" />
                             <Setter TargetName="ButtonContent" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -429,5 +436,159 @@
         </Setter>
     </Style>
     <!--#endregion-->
+
+
+    <Style x:Key="Minimize" TargetType="Button">
+        <Setter Property="Width" Value="42" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Border"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                        UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                        <Grid>
+                            <Viewbox Width="10" Height="10">
+                                <Line
+                                    Stroke="#FFFFFF"
+                                    StrokeEndLineCap="Round"
+                                    StrokeStartLineCap="Round"
+                                    X1="0.5"
+                                    X2="9.5"
+                                    Y1="0.5"
+                                    Y2="0.5" />
+                            </Viewbox>
+                            <ContentPresenter
+                                x:Name="ButtonContent"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#80FFFFFF" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="#66FFFFFF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="Maximize" TargetType="Button">
+        <Setter Property="Width" Value="42" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Border"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                        UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                        <Grid>
+                            <Viewbox Width="10" Height="10">
+                                <Rectangle
+                                    Width="10"
+                                    Height="10"
+                                    RadiusX="1"
+                                    RadiusY="1"
+                                    Stroke="#FFFFFF" />
+                            </Viewbox>
+                            <ContentPresenter
+                                x:Name="ButtonContent"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#80FFFFFF" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="#66FFFFFF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="Exit" TargetType="Button">
+        <Setter Property="Width" Value="42" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Border"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="0,12,0,0"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                        UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                        <Grid>
+                            <Viewbox Width="10" Height="10">
+                                <Path
+                                    Data="M0.537941 9.61521L9.61638 0.539113M9.61635 9.61519L0.53805 0.539221"
+                                    Stroke="#FFFFFF"
+                                    StrokeEndLineCap="Round"
+                                    StrokeStartLineCap="Round" />
+                            </Viewbox>
+                            <ContentPresenter
+                                x:Name="ButtonContent"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#FFE81123" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="#FF971722" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
 
 </ResourceDictionary>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Expensier.WPF.Controls.Modals;
+using Expensier.WPF.ViewModels;
+using Expensier.WPF.ViewModels.Modals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,11 @@ namespace Expensier.WPF.Views
         public ExpensesView()
         {
             InitializeComponent();
+        }
+
+        private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddTransaction.IsOpen = true;
         }
     }
 }

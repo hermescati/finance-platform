@@ -1,4 +1,5 @@
-﻿using Expensier.WPF.ViewModels.Expenses;
+﻿using Expensier.WPF.ViewModels.Charts;
+using Expensier.WPF.ViewModels.Expenses;
 using Expensier.WPF.ViewModels.Subscriptions;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace Expensier.WPF.ViewModels
     {
         public RecentExpensesViewModel RecentExpensesViewModel { get; }
         public TopSubscriptionsViewModel TopSubscriptionsViewModel { get; }
+        public SpendingSummaryViewModel SpendingSummaryViewModel { get; }
 
-        public DashboardViewModel(RecentExpensesViewModel recentExpensesViewModel, TopSubscriptionsViewModel topSubscriptionsViewModel)
+        public DashboardViewModel(RecentExpensesViewModel recentExpensesViewModel, TopSubscriptionsViewModel topSubscriptionsViewModel, SpendingSummaryViewModel spendingSummaryViewModel)
         {
             RecentExpensesViewModel = recentExpensesViewModel;
             TopSubscriptionsViewModel = topSubscriptionsViewModel;
+            SpendingSummaryViewModel = spendingSummaryViewModel;
         }
     }
 }

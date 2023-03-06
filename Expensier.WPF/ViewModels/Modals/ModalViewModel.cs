@@ -55,7 +55,7 @@ namespace Expensier.WPF.ViewModels.Modals
             }
         }
 
-        private DateTime _processDate;
+        private DateTime _processDate = DateTime.Now;
         public DateTime ProcessDate
         {
             get
@@ -64,7 +64,7 @@ namespace Expensier.WPF.ViewModels.Modals
             }
             set
             {
-                _processDate = DateTime.Today;
+                _processDate = value;
                 OnPropertyChanged(nameof(ProcessDate));
             }
         }

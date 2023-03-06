@@ -2,7 +2,7 @@
     x:Class="Expensier.WPF.Views.LoginView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:components="clr-namespace:PasswordBoxMVVM.Components;assembly=PasswordBoxMVVM"
+    xmlns:controls="clr-namespace:Expensier.WPF.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -28,115 +28,232 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                <!--#region Login Form-->
-                <StackPanel Width="351">
-                    <StackPanel Margin="0,0,0,40" Orientation="Horizontal">
+            <!--#region Login Form-->
+            <Grid
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="78" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid
+                    Grid.Row="0"
+                    Width="351"
+                    Height="404">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--#region Header-->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="8" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
                         <Image
+                            Grid.RowSpan="3"
+                            Grid.Column="0"
                             Width="60"
                             Height="60"
                             HorizontalAlignment="Left"
                             Source="{StaticResource AppIcon}" />
-                        <WrapPanel Margin="16,0" Orientation="Vertical">
-                            <Label
-                                Margin="0,0,0,10"
-                                Content="Welcome to Expensier"
-                                Style="{StaticResource Header_24px}" />
-                            <Label Content="Log in to sync your account" Style="{StaticResource Text_15px}" />
-                        </WrapPanel>
-                    </StackPanel>
-                    <WrapPanel Margin="0,0,0,24" Orientation="Vertical">
-                        <Label Content="Email" Style="{StaticResource Subheader_16px}" />
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Content="Welcome to Expensier"
+                            Style="{StaticResource Header_24px}" />
+
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Content="Log in to sync your account"
+                            Style="{StaticResource Text_15px}" />
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--#region Email-->
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="4" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Content="Email"
+                            Style="{StaticResource Subheader_16px}" />
+
                         <TextBox
-                            x:Name="EmailAddress"
+                            Grid.Row="2"
                             Width="351"
                             Height="45"
-                            Margin="0,4,0,0"
-                            Style="{StaticResource TextBoxTemplate}"
                             Text="{Binding Email}" />
-                    </WrapPanel>
-                    <WrapPanel Margin="0,0,0,16" Orientation="Vertical">
-                        <Label Content="Password" Style="{StaticResource Subheader_16px}" />
-                        <components:BindablePasswordBox
+
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--#region Password-->
+                    <Grid Grid.Row="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="4" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Content="Password"
+                            Style="{StaticResource Subheader_16px}" />
+
+                        <controls:BindablePasswordBox
+                            Grid.Row="2"
                             Width="351"
                             Height="45"
-                            Margin="0,4,0,0"
                             Password="{Binding Password}" />
-                    </WrapPanel>
-                    <TextBlock Style="{StaticResource Text_14px}" Text="Fogot password?" />
+
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--#region Forgot Password-->
+                    <TextBlock
+                        Grid.Row="6"
+                        Style="{StaticResource Text_14px}"
+                        Text="Fogot password?" />
+                    <!--#endregion-->
+
+                    <!--#region Button-->
                     <Button
-                        x:Name="LoginButton"
+                        Grid.Row="8"
                         Width="351"
                         Height="45"
-                        Margin="0,40,0,0"
                         Command="{Binding LoginCommand}"
                         Content="Login"
                         IsDefault="True"
                         Style="{StaticResource ImagedButton}"
                         Tag="{StaticResource LoginIcon}" />
+                    <!--#endregion-->
+
+                    <!--#region Error Message-->
                     <TextBlock
-                        Margin="0,16,0,0"
+                        Grid.Row="10"
                         DataContext="{Binding ErrorMessageViewModel}"
                         Foreground="{StaticResource AccentColor}"
                         Text="{Binding Message}"
                         Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                </StackPanel>
-                <!--#endregion-->
+                    <!--#endregion-->
 
-                <!--#region Privacy Terms-->
-                <StackPanel
-                    Width="525"
-                    Height="99"
-                    Margin="0,120,0,0">
-                    <TextBlock Style="{StaticResource Text_14px}" TextAlignment="Center">
-                        <Run Text="By clicking &quot;Continue with Google / Facebook&quot; above, you acknowledge that you have" />
-                        <LineBreak />
-                        <Run Text="read and understood, and agree to Expensier's" />
-                        <Hyperlink Foreground="{StaticResource InactiveColor}">Terms &amp; Conditions</Hyperlink>
-                        <Run Text="and" />
-                        <Hyperlink Foreground="{StaticResource InactiveColor}">Privacy Policy.</Hyperlink>
-                    </TextBlock>
-                    <StackPanel
-                        Width="341"
-                        Height="17"
-                        Margin="0,48,0,0"
-                        Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource Text_14px}" Text="Need help?" />
-                        <TextBlock
-                            Margin="32,0,0,0"
-                            Style="{StaticResource Text_14px}"
-                            Text="Privacy &amp; Terms" />
-                        <TextBlock
-                            Margin="32,0,0,0"
-                            Style="{StaticResource Text_14px}"
-                            Text="© 2023 Expensier" />
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
+                </Grid>
+            </Grid>
             <!--#endregion-->
 
             <!--#region Signup-->
-            <StackPanel
+            <Grid
+                Grid.Row="1"
                 Grid.Column="2"
                 Width="240"
                 Height="35"
-                Margin="0,151"
-                VerticalAlignment="Top"
-                Orientation="Horizontal">
+                Margin="120,-445,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="24" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
                 <Label
-                    VerticalContentAlignment="Center"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
                     Content="Not a member?"
                     Style="{StaticResource Subheader_15px}" />
+
                 <Button
+                    Grid.Column="2"
                     Width="112"
                     Height="35"
-                    Margin="24,0,0,0"
                     Command="{Binding ViewRegisterCommand}"
                     Content="Sign up"
                     Style="{StaticResource Button}" />
-            </StackPanel>
+
+            </Grid>
             <!--#endregion-->
+
+            <!--#region Privacy Terms-->
+            <Grid Grid.Row="3" Grid.ColumnSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="48" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Style="{StaticResource Text_14px}"
+                    TextAlignment="Center">
+                    <Run Text="By clicking &quot;Continue with Google / Facebook&quot; above, you acknowledge that you have" />
+                    <LineBreak />
+                    <Run Text="read and understood, and agree to Expensier's" />
+                    <Hyperlink Foreground="{StaticResource InactiveColor}">Terms &amp; Conditions</Hyperlink>
+                    <Run Text="and" />
+                    <Hyperlink Foreground="{StaticResource InactiveColor}">Privacy Policy.</Hyperlink>
+                </TextBlock>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource Text_14px}"
+                        Text="Need help?" />
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Style="{StaticResource Text_14px}"
+                        Text="Privacy &amp; Terms" />
+
+                    <TextBlock
+                        Grid.Column="5"
+                        Style="{StaticResource Text_14px}"
+                        Text="© 2023 Expensier" />
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+
         </Grid>
     </Border>
 </UserControl>

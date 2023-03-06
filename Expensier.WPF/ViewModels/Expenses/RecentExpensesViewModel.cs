@@ -12,7 +12,7 @@ namespace Expensier.WPF.ViewModels.Expenses
     {
         private readonly TransactionStore _transactionStore;
         public TransactionViewModel TransactionViewModel { get; }
-        private readonly ObservableCollection<TransactionDataModel> _transactions;
+        private readonly IEnumerable<TransactionDataModel> _transactions;
 
         public IEnumerable<TransactionDataModel> Transactions => _transactions;
 
@@ -20,9 +20,9 @@ namespace Expensier.WPF.ViewModels.Expenses
         {
             _transactions = new ObservableCollection<TransactionDataModel>();
             _transactionStore = transactionStore;
-            TransactionViewModel = new TransactionViewModel(transactionStore, transactions => transactions.Where(t => t.IsCredit==true).Take(5));
+            TransactionViewModel = new TransactionViewModel(transactionStore, transactions => transactions.Where(t => t.IsCredit == true).Take(5));
 
-            _transactions = (ObservableCollection<TransactionDataModel>)TransactionViewModel.Transactions;
+            _transactions = TransactionViewModel.Transactions;
         }
     }
 }

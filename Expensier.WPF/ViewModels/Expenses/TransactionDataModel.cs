@@ -9,11 +9,25 @@ namespace Expensier.WPF.ViewModels
 {
     public class TransactionDataModel : ViewModelBase
     {
+        public string DateFormat { get; set; }
         public string TransactionName { get; set; }
         public DateTime ProcessDate { get; set; }
         public double Amount { get; set; }
         public string TransactionType { get; set; }
         public bool IsCredit { get; }
+
+
+        public TransactionDataModel(DateTime processDate, double amount)
+        {
+            ProcessDate = processDate;
+            Amount = amount;
+        }
+
+        public TransactionDataModel(string dateFormat, double amount)
+        {
+            DateFormat = dateFormat;
+            Amount = amount;
+        }
 
         public TransactionDataModel(string transactionName, DateTime processDate, double amount, string transactionType, bool isCredit)
         {
