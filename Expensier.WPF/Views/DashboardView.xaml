@@ -58,16 +58,16 @@
                         <ComboBox
                             Grid.Column="2"
                             Width="137"
-                            Height="32">
+                            Height="32"
+                            DataContext="{Binding SpendingSummaryViewModel}"
+                            ItemsSource="{Binding Frequency}"
+                            SelectedItem="{Binding SelectedItem}">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
                                     <Setter Property="ItemContainerStyle" Value="{StaticResource DropDownItemsTemplate}" />
                                 </Style>
                             </ComboBox.Style>
-                            <ComboBoxItem Content="this week" IsSelected="True" />
-                            <ComboBoxItem Content="this month" />
-                            <ComboBoxItem Content="this year" />
                         </ComboBox>
                     </Grid>
                     <!--#endregion-->
@@ -109,7 +109,7 @@
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis
                                 FontFamily="SF Pro Display"
-                                FontSize="12"
+                                FontSize="15"
                                 FontWeight="Medium"
                                 Labels="{Binding xAxis}">
                                 <lvc:Axis.Separator>
@@ -119,12 +119,9 @@
                         </lvc:CartesianChart.AxisX>
 
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis
-                                FontFamily="SF Pro Display"
-                                FontSize="12"
-                                FontWeight="Medium">
+                            <lvc:Axis ShowLabels="False">
                                 <lvc:Axis.Separator>
-                                    <lvc:Separator Stroke="{StaticResource TransparentColor}" StrokeThickness="1" />
+                                    <lvc:Separator />
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisY>
