@@ -14,12 +14,14 @@ namespace Expensier.WPF.ViewModels
         public RecentExpensesViewModel RecentExpensesViewModel { get; }
         public TopSubscriptionsViewModel TopSubscriptionsViewModel { get; }
         public SpendingSummaryViewModel SpendingSummaryViewModel { get; }
+        public ExpenditureAllocationViewModel ExpenditureAllocationViewModel { get; }
 
-        public DashboardViewModel(RecentExpensesViewModel recentExpensesViewModel, TopSubscriptionsViewModel topSubscriptionsViewModel, SpendingSummaryViewModel spendingSummaryViewModel)
+        public DashboardViewModel(RecentExpensesViewModel recentExpensesViewModel, TopSubscriptionsViewModel topSubscriptionsViewModel, SpendingSummaryViewModel spendingSummaryViewModel, ExpenditureAllocationViewModel expenditureAllocationViewModel)
         {
             RecentExpensesViewModel = recentExpensesViewModel;
             TopSubscriptionsViewModel = topSubscriptionsViewModel;
             SpendingSummaryViewModel = spendingSummaryViewModel;
+            ExpenditureAllocationViewModel = expenditureAllocationViewModel;
         }
     }
 }
