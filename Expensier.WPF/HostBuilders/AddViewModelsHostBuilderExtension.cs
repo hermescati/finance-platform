@@ -29,6 +29,7 @@ namespace Expensier.WPF.HostBuilders
             host.ConfigureServices(services =>
             {
                 services.AddSingleton<MainViewModel>();
+                services.AddSingleton<SidePanelViewModel>();
                 services.AddSingleton(CreateDashboardViewModel);
                 services.AddSingleton<RecentExpensesViewModel>();
                 services.AddSingleton<TopSubscriptionsViewModel>();
@@ -87,7 +88,8 @@ namespace Expensier.WPF.HostBuilders
             return new LoginViewModel(
                 services.GetRequiredService<IAuthenticator>(),
                 services.GetRequiredService<DelegateRenavigator<DashboardViewModel>>(),
-                services.GetRequiredService<DelegateRenavigator<RegisterViewModel>>());
+                services.GetRequiredService<DelegateRenavigator<RegisterViewModel>>(),
+                services.GetRequiredService<SidePanelViewModel>());
         }
 
         private static RegisterViewModel CreateRegisterViewModel(IServiceProvider services)
