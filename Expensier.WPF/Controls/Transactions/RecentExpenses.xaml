@@ -34,11 +34,8 @@
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border
-                        x:Name="Border"
-                        Margin="-7,-3,-5,-3"
-                        BorderThickness="0">
-                        <Grid Margin="0,0,0,28">
+                    <Border x:Name="Border" BorderThickness="0">
+                        <Grid Margin="0,0,0,21">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="16" />
@@ -51,7 +48,7 @@
                                 Source="{Binding IsCredit, Converter={StaticResource BoolToImageConverter}}" />
                             <Grid
                                 Grid.Column="2"
-                                Width="286"
+                                Width="274"
                                 Height="34">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />

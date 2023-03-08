@@ -18,11 +18,20 @@ namespace Expensier.WPF.Controls.Modals
     /// <summary>
     /// Interaction logic for AddNewModal.xaml
     /// </summary>
-    public partial class AddNewModal : UserControl
+    public partial class TransactionModal : UserControl
     {
-        public AddNewModal()
+        public TransactionModal()
         {
             InitializeComponent();
+        }
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }

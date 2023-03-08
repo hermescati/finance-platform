@@ -5,16 +5,31 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Controls.Modals"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="536"
-    d:DesignWidth="364"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    BorderThickness="0"
     mc:Ignorable="d">
+
     <Grid>
+
+        <Rectangle
+            Fill="Black"
+            MouseDown="Rectangle_MouseDown"
+            Opacity=".75" />
+
         <Border
-            Width="Auto"
-            Height="Auto"
-            Padding="32"
+            Width="364"
+            Height="536"
+            Padding="30"
             Background="{StaticResource PrimaryColor}"
+            BorderBrush="{StaticResource InactiveColor}"
+            BorderThickness=".5"
             CornerRadius="20">
+
+            <Border.Effect>
+                <DropShadowEffect Opacity="0.8" ShadowDepth="3" />
+            </Border.Effect>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -71,7 +86,7 @@
                                 Width="138"
                                 Height="45"
                                 Margin="0,4,0,0"
-                                Text="{Binding Amount}" />
+                                Text="{Binding Amount, StringFormat='c'}" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
@@ -81,7 +96,14 @@
                                 Height="45"
                                 Margin="0,4,0,0"
                                 ItemsSource="{Binding SubscriptionCycles}"
-                                SelectedItem="{Binding SubscriptionCycle}" />
+                                SelectedItem="{Binding SubscriptionCycle}">
+                                <ComboBox.Style>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
+                                        <Setter Property="ItemContainerStyle" Value="{StaticResource DropDownItemsTemplate}" />
+                                    </Style>
+                                </ComboBox.Style>
+                            </ComboBox>
                         </StackPanel>
 
                     </Grid>
@@ -92,7 +114,8 @@
                             Width="300"
                             Height="45"
                             Margin="0,4,0,0"
-                            SelectedDate="{Binding DueDate}" />
+                            SelectedDate="{Binding DueDate}"
+                            Style="{DynamicResource DatePickerTemplate}" />
                     </StackPanel>
 
                 </Grid>
@@ -108,7 +131,10 @@
                         Grid.Column="0"
                         Width="138"
                         Height="40"
-                        Content="Cancel" />
+                        Click="Button_Click"
+                        Content="Cancel"
+                        Style="{StaticResource CancelButton}" />
+
                     <Button
                         Grid.Column="2"
                         Width="138"

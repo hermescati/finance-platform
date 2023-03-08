@@ -17,12 +17,14 @@ namespace Expensier.WPF.Commands
         private readonly LoginViewModel _loginViewModel;
         private readonly IAuthenticator _authenticator;
         private readonly IRenavigator _renavigator;
+        private readonly SidePanelViewModel _sidePanelViewModel;
 
-        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, IRenavigator renavigator)
+        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, IRenavigator renavigator, SidePanelViewModel sidePanelViewModel)
         {
             _loginViewModel = loginViewModel;
             _authenticator = authenticator;
             _renavigator = renavigator;
+            _sidePanelViewModel = sidePanelViewModel;
 
             _loginViewModel.PropertyChanged += LoginViewModel_PropertyChanged;
         }
@@ -39,6 +41,7 @@ namespace Expensier.WPF.Commands
             try
             {
                 await _authenticator.userLogin(_loginViewModel.Email, _loginViewModel.Password);
+                _sidePanelViewModel.GreetingMessage = "Hello,  " + _authenticator.CurrentAccount.Account_Holder_.First_Name;
                 _renavigator.Renavigate();
             }
             catch (UserNotFoundException)

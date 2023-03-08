@@ -28,17 +28,19 @@ namespace Expensier.WPF.HostBuilders
         {
             host.ConfigureServices(services =>
             {
+                services.AddSingleton<MainViewModel>();
+                services.AddSingleton<SidePanelViewModel>();
                 services.AddSingleton(CreateDashboardViewModel);
-                services.AddSingleton(CreateExpensesViewModel);
-                services.AddSingleton(CreateWalletViewModel);
                 services.AddSingleton<RecentExpensesViewModel>();
                 services.AddSingleton<TopSubscriptionsViewModel>();
                 services.AddTransient<SpendingSummaryViewModel>();
-                services.AddSingleton(CreateModalViewModel);
-                services.AddSingleton<MainViewModel>();
-                services.AddSingleton<AddNewModal>();
-                services.AddSingleton(CreateModalViewModel);
+                services.AddTransient<ExpenditureAllocationViewModel>();
+                services.AddSingleton(CreateExpensesViewModel);
+                services.AddTransient<TransactionModalViewModel>();
+                services.AddTransient<SubscriptionModalViewModel>();
+                services.AddTransient(CreateTransactionModalViewModel);
                 services.AddSingleton(CreateSubscriptionModalViewModel);
+                services.AddSingleton(CreateWalletViewModel);
 
                 services.AddSingleton<IExpensierViewModelFactory, ExpensierViewModelFactory>();
 
@@ -63,7 +65,8 @@ namespace Expensier.WPF.HostBuilders
             return new DashboardViewModel(
                 services.GetRequiredService<RecentExpensesViewModel>(),
                 services.GetRequiredService<TopSubscriptionsViewModel>(),
-                services.GetRequiredService<SpendingSummaryViewModel>());
+                services.GetRequiredService<SpendingSummaryViewModel>(),
+                services.GetRequiredService<ExpenditureAllocationViewModel>());
         }
 
         private static ExpensesViewModel CreateExpensesViewModel(IServiceProvider services)
@@ -71,7 +74,8 @@ namespace Expensier.WPF.HostBuilders
             return new ExpensesViewModel(
                 services.GetRequiredService<TransactionStore>(),
                 services.GetRequiredService<SubscriptionStore>(),
-                services.GetRequiredService<ModalViewModel>());
+                services.GetRequiredService<TransactionModalViewModel>(),
+                services.GetRequiredService<SubscriptionModalViewModel>());
         }
 
         private static WalletViewModel CreateWalletViewModel(IServiceProvider services)
@@ -84,7 +88,8 @@ namespace Expensier.WPF.HostBuilders
             return new LoginViewModel(
                 services.GetRequiredService<IAuthenticator>(),
                 services.GetRequiredService<DelegateRenavigator<DashboardViewModel>>(),
-                services.GetRequiredService<DelegateRenavigator<RegisterViewModel>>());
+                services.GetRequiredService<DelegateRenavigator<RegisterViewModel>>(),
+                services.GetRequiredService<SidePanelViewModel>());
         }
 
         private static RegisterViewModel CreateRegisterViewModel(IServiceProvider services)
@@ -95,9 +100,9 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<IAuthenticator>());
         }
 
-        private static ModalViewModel CreateModalViewModel(IServiceProvider services)
+        private static TransactionModalViewModel CreateTransactionModalViewModel(IServiceProvider services)
         {
-            return new ModalViewModel(
+            return new TransactionModalViewModel(
                 services.GetRequiredService<ITransactionService>(),
                 services.GetRequiredService<AccountStore>(),
                 services.GetRequiredService<DelegateRenavigator<ExpensesViewModel>>());

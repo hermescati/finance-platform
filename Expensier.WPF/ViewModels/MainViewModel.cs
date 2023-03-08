@@ -23,23 +23,22 @@ namespace Expensier.WPF.ViewModels
         public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
 
         public ICommand UpdateCurrentViewModelCommand { get; }
-        public ICommand LogoutCommand { get; }
+        public SidePanelViewModel SidePanelViewModel { get; }
 
 
-        public MainViewModel(INavigator navigator, IAuthenticator authenticator, IExpensierViewModelFactory viewModelFactory, IRenavigator loginRenavigator)
+        public MainViewModel(INavigator navigator, IAuthenticator authenticator, IExpensierViewModelFactory viewModelFactory, IRenavigator loginRenavigator, SidePanelViewModel sidePanelViewModel)
         {
             _navigator = navigator;
             _authenticator = authenticator;
             _viewModelFactory = viewModelFactory;
             _loginRenavigator = loginRenavigator;
+            SidePanelViewModel = sidePanelViewModel;
 
             _navigator.StateChanged += Navigator_StateChanged;
             _authenticator.StateChanged += Authenticator_StateChanged;
 
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navigator, _viewModelFactory);
             UpdateCurrentViewModelCommand.Execute(ViewType.Login);
-
-            LogoutCommand = new LogoutCommand(authenticator, loginRenavigator);
         }
 
         private void Authenticator_StateChanged()

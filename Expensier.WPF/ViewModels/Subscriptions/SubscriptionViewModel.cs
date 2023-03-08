@@ -33,7 +33,8 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         private void ResetSubscriptions()
         {
             IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
-                .Select(s => new SubscriptionDataModel(s.Company_Name, s.Subscription_Plan, s.Due_Date, s.Amount, s.Subscription_Type));
+                .Select(s => new SubscriptionDataModel(s.Company_Name, s.Subscription_Plan, s.Due_Date, s.Amount, s.Subscription_Type))
+                .OrderBy(s => s.DueDate);
 
             _subscriptions.Clear();
             foreach (SubscriptionDataModel dataModel in subscriptionDataModel)

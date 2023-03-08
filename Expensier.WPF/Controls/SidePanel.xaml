@@ -91,7 +91,8 @@
                 <Label
                     Margin="0,16,0,0"
                     HorizontalContentAlignment="Center"
-                    Content="Hi User"
+                    Content="{Binding GreetingMessage}"
+                    DataContext="{Binding SidePanelViewModel}"
                     Style="{StaticResource Subheader_16px}" />
             </StackPanel>
 
@@ -173,6 +174,7 @@
                 Height="40"
                 Command="{Binding LogoutCommand}"
                 Content="Log out"
+                DataContext="{Binding SidePanelViewModel}"
                 Style="{DynamicResource ImagedButton}"
                 Tag="{StaticResource LogoutIcon}" />
 

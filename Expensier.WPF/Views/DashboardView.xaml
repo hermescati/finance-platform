@@ -81,15 +81,15 @@
 
                         <lvc:CartesianChart.DataTooltip>
                             <lvc:DefaultTooltip
-                                Background="{StaticResource GraphToolTipBackground}"
-                                BorderBrush="{StaticResource TransparentColor}"
-                                BorderThickness="1"
+                                Background="{StaticResource ForegroundColor}"
                                 BulletSize="10"
                                 CornerRadius="8"
                                 FontFamily="SF Pro Display"
                                 FontSize="12"
                                 FontWeight="Bold"
-                                Foreground="{StaticResource ForegroundColor}" />
+                                Foreground="{StaticResource SecondaryColor}"
+                                ShowSeries="False"
+                                ShowTitle="False" />
                         </lvc:CartesianChart.DataTooltip>
 
                         <lvc:CartesianChart.SeriesColors>
@@ -156,26 +156,56 @@
                         <ComboBox
                             Grid.Column="2"
                             Width="137"
-                            Height="32">
+                            Height="32"
+                            DataContext="{Binding ExpenditureAllocationViewModel}"
+                            ItemsSource="{Binding Frequency}"
+                            SelectedItem="{Binding SelectedItem}">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
                                     <Setter Property="ItemContainerStyle" Value="{StaticResource DropDownItemsTemplate}" />
                                 </Style>
                             </ComboBox.Style>
-                            <ComboBoxItem Content="this week" IsSelected="True" />
-                            <ComboBoxItem Content="this month" />
-                            <ComboBoxItem Content="this year" />
                         </ComboBox>
                     </Grid>
                     <!--#endregion-->
 
                     <!--#region Expenditure Graph-->
-                    <Rectangle
+                    <lvc:PieChart
                         Grid.Row="2"
                         Width="500"
                         Height="224"
-                        Fill="{StaticResource InactiveColor}" />
+                        DataContext="{Binding ExpenditureAllocationViewModel}"
+                        InnerRadius="56"
+                        LegendLocation="Left"
+                        Series="{Binding Series}"
+                        SeriesColors="{Binding SeriesColors, Mode=OneWay}">
+
+                        <lvc:PieChart.ChartLegend>
+                            <lvc:DefaultLegend
+                                Width="120"
+                                Height="220"
+                                BulletSize="32"
+                                FontFamily="SF Pro Display"
+                                FontSize="15"
+                                FontWeight="Medium"
+                                Foreground="{StaticResource InactiveColor}" />
+                        </lvc:PieChart.ChartLegend>
+
+                        <lvc:PieChart.DataTooltip>
+                            <lvc:DefaultTooltip
+                                Background="{StaticResource ForegroundColor}"
+                                CornerRadius="8"
+                                FontFamily="SF Pro Display"
+                                FontSize="15"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource SecondaryColor}"
+                                SelectionMode="OnlySender"
+                                ShowSeries="False"
+                                ShowTitle="False" />
+                        </lvc:PieChart.DataTooltip>
+
+                    </lvc:PieChart>
                     <!--#endregion-->
 
                 </Grid>
@@ -186,7 +216,7 @@
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 

@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
-    <!--#region FormFields-->
+    <!--#region Form Fields-->
     <Style x:Key="FormFieldTemplate" TargetType="Control">
         <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
         <Setter Property="BorderBrush" Value="{StaticResource InactiveColor}" />
@@ -144,55 +144,6 @@
     <!--#endregion-->
 
     <!--#region DropDown-->
-    <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
-        <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="IsTabStop" Value="false" />
-        <Setter Property="Focusable" Value="false" />
-        <Setter Property="ClickMode" Value="Press" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border
-                        x:Name="GlowEffect"
-                        Margin="-4"
-                        BorderThickness="4"
-                        CornerRadius="12"
-                        SnapsToDevicePixels="true">
-                        <Border
-                            x:Name="Border"
-                            Background="{StaticResource MenuButtonColor}"
-                            CornerRadius="10"
-                            SnapsToDevicePixels="true">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="73" />
-                                    <ColumnDefinition Width="26" />
-                                    <ColumnDefinition Width="24" />
-                                </Grid.ColumnDefinitions>
-                                <Viewbox Grid.Column="2">
-                                    <Grid Width="24" Height="24">
-                                        <Path
-                                            Data="M15.48 13.2301L11.69 8.18005H6.07999C5.11999 8.18005 4.63999 9.34005 5.31999 10.0201L10.5 15.2001C11.33 16.0301 12.68 16.0301 13.51 15.2001L15.48 13.2301Z"
-                                            Fill="{StaticResource ForegroundColor}"
-                                            Opacity="0.4" />
-                                        <Path Data="M17.92 8.18005H11.69L15.48 13.2301L18.69 10.0201C19.36 9.34005 18.88 8.18005 17.92 8.18005Z" Fill="{StaticResource ForegroundColor}" />
-                                    </Grid>
-                                </Viewbox>
-                            </Grid>
-                        </Border>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="Border" Property="BorderThickness" Value="1.5" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{StaticResource SecondaryGlowColor}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <ControlTemplate x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
         <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
             <Grid.ColumnDefinitions>
@@ -247,7 +198,8 @@
                 Grid.ColumnSpan="2"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                Style="{StaticResource ComboBoxToggleButton}" />
+                Style="{StaticResource DropDownButtonTemplate}"
+                Tag="{StaticResource ChevronDownIcon}" />
             <ContentPresenter
                 x:Name="contentPresenter"
                 Margin="16,0,0,0"
@@ -353,6 +305,7 @@
     </Style>
     <!--#endregion-->
 
+    <!--#region Date Picker-->
     <Style x:Key="CalendarTemplate" TargetType="{x:Type Calendar}">
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
         <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
@@ -601,8 +554,6 @@
         </Setter>
     </Style>
 
-
-
     <Style x:Key="DatePickerTextBoxTemplate" TargetType="{x:Type DatePickerTextBox}">
         <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
         <Setter Property="Background" Value="{StaticResource MenuButtonColor}" />
@@ -724,7 +675,6 @@
         </Setter>
     </Style>
 
-
     <Style x:Key="DatePickerTemplate" TargetType="{x:Type DatePicker}">
         <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
         <Setter Property="IsTodayHighlighted" Value="True" />
@@ -840,6 +790,115 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <!--#endregion-->
 
+    <!--#region Scrollbar-->
+    <!--  Scrollbar Thumbs  -->
+    <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Grid x:Name="Grid">
+                        <Rectangle
+                            Width="Auto"
+                            Height="Auto"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Fill="Transparent" />
+                        <Border
+                            x:Name="Rectangle1"
+                            Width="Auto"
+                            Height="Auto"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="3" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="Horizontal">
+                            <Setter TargetName="Rectangle1" Property="Width" Value="Auto" />
+                            <Setter TargetName="Rectangle1" Property="Height" Value="7" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--  ScrollBars  -->
+    <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+        <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+        <Setter Property="Foreground" Value="#8C8C8C" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="6" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                    <Grid
+                        x:Name="GridRoot"
+                        Width="6"
+                        Background="{TemplateBinding Background}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.00001*" />
+                        </Grid.RowDefinitions>
+                        <Track
+                            x:Name="PART_Track"
+                            Grid.Row="0"
+                            Focusable="false"
+                            IsDirectionReversed="true">
+                            <Track.Thumb>
+                                <Thumb
+                                    x:Name="Thumb"
+                                    Background="{TemplateBinding Foreground}"
+                                    Style="{DynamicResource ScrollThumbs}" />
+                            </Track.Thumb>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton
+                                    x:Name="PageUp"
+                                    Command="ScrollBar.PageDownCommand"
+                                    Focusable="false"
+                                    Opacity="0" />
+                            </Track.IncreaseRepeatButton>
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton
+                                    x:Name="PageDown"
+                                    Command="ScrollBar.PageUpCommand"
+                                    Focusable="false"
+                                    Opacity="0" />
+                            </Track.DecreaseRepeatButton>
+                        </Track>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Thumb" Property="Background" Value="{DynamicResource InactiveColor}" />
+                        </Trigger>
+                        <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                            <Setter TargetName="Thumb" Property="Background" Value="DarkGray" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Orientation" Value="Horizontal">
+                            <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                <Setter.Value>
+                                    <RotateTransform Angle="-90" />
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                <Setter.Value>
+                                    <RotateTransform Angle="-90" />
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Width" Value="Auto" />
+                            <Setter Property="Height" Value="8" />
+                            <Setter TargetName="Thumb" Property="Tag" Value="Horizontal" />
+                            <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                            <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
 
 </ResourceDictionary>

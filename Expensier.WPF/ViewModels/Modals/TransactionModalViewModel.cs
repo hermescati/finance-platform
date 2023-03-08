@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Expensier.WPF.ViewModels.Modals
 {
-    public class ModalViewModel : ViewModelBase
+    public class TransactionModalViewModel : ViewModelBase
     {
         private string _transactionName;
         public string TransactionName
@@ -24,6 +24,7 @@ namespace Expensier.WPF.ViewModels.Modals
             {
                 _transactionName = value;
                 OnPropertyChanged(nameof(TransactionName));
+                OnPropertyChanged(nameof(CanAdd));
             }
         }
 
@@ -38,6 +39,7 @@ namespace Expensier.WPF.ViewModels.Modals
             {
                 _amount = value;
                 OnPropertyChanged(nameof(Amount));
+                OnPropertyChanged(nameof(CanAdd));
             }
         }
 
@@ -69,12 +71,14 @@ namespace Expensier.WPF.ViewModels.Modals
             }
         }
 
+        public bool CanAdd => !string.IsNullOrEmpty(TransactionName) && Amount > 0.0;
+
         public IEnumerable<TransactionType> TransactionType => Enum.GetValues(typeof(TransactionType)).Cast<TransactionType>();
 
         public ICommand AddNewTransaction { get; }
 
 
-        public ModalViewModel(ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator)
+        public TransactionModalViewModel(ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator)
         {
             AddNewTransaction = new AddTransactionCommand(this, transactionService, accountStore, renavigator);
         }

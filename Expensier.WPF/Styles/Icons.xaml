@@ -463,15 +463,33 @@
     <!--#endregion-->
 
     <!--#region Chevron-->
-    <Style x:Key="ChevronBig" TargetType="Path">
-        <Setter Property="Data" Value="" />
-        <Setter Property="Fill" Value="{StaticResource ForegroundColor}" />
-        <Setter Property="Opacity" Value="0.4" />
-    </Style>
-    <Style x:Key="ChevronSmall" TargetType="Path">
-        <Setter Property="Data" Value="" />
-        <Setter Property="Fill" Value="{StaticResource ForegroundColor}" />
-    </Style>
+    <Geometry x:Key="chevron_downGeometry1">F1 M48,48z M0,0z M30.96,26.46L23.38,16.36 12.16,16.36C10.24,16.36,9.27999,18.68,10.64,20.04L21,30.4C22.66,32.06,25.36,32.06,27.02,30.4L30.96,26.46 30.96,26.46z</Geometry>
+    <Geometry x:Key="chevron_downGeometry2">F1 M48,48z M0,0z M35.8399,16.36L23.3799,16.36 30.9599,26.46 37.3799,20.04C38.7199,18.68,37.7599,16.36,35.8399,16.36z</Geometry>
+    <DrawingGroup x:Key="ChevronDown" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource chevron_downGeometry1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.16000000000000003" Color="#FFFFFFFF" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Geometry="{StaticResource chevron_downGeometry2}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="#FFFFFFFF" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingImage x:Key="ChevronDownIcon" Drawing="{StaticResource ChevronDown}" />
+
+    <Geometry x:Key="chevron_upGeometry1">F1 M48,48z M0,0z M30.9575,21.1855L23.3775,31.2855 12.1575,31.2855C10.2375,31.2855,9.27754,28.9655,10.6375,27.6055L20.9975,17.2455C21.7963,16.4479 22.8788,16 24.0075,16 25.1363,16 26.2188,16.4479 27.0175,17.2455L30.9575,21.1855z</Geometry>
+    <Geometry x:Key="chevron_upGeometry2">F1 M48,48z M0,0z M35.8374,31.2855L23.3774,31.2855 30.9574,21.1855 37.3774,27.6055C38.7174,28.9655,37.7574,31.2855,35.8374,31.2855z</Geometry>
+    <DrawingGroup x:Key="ChevronUp" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource chevron_upGeometry1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="#FFFFFFFF" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource chevron_upGeometry2}" />
+    </DrawingGroup>
+    <DrawingImage x:Key="ChevronUpIcon" Drawing="{StaticResource ChevronUp}" />
     <!--#endregion-->
 
 </ResourceDictionary>
