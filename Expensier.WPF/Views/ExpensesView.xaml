@@ -12,173 +12,175 @@
     d:DesignWidth="1304"
     mc:Ignorable="d">
 
-    <Border
-        Width="Auto"
-        Height="Auto"
-        Padding="52"
-        Background="{StaticResource PrimaryColor}"
-        CornerRadius="24">
+    <Grid x:Name="MainContent">
+        <Border
+            Width="Auto"
+            Height="Auto"
+            Padding="52"
+            Background="{StaticResource PrimaryColor}"
+            CornerRadius="24">
 
-        <Grid x:Name="MainContent">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <!--#region Modals-->
-            <Popup
-                x:Name="AddTransaction"
-                IsOpen="false"
-                Placement="Center">
-                <modals:AddNewModal DataContext="{Binding ModalViewModel}" />
-            </Popup>
-            <!--#endregion-->
-
-            <!--#region Expenses-->
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="16" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="38" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <!--#region Header-->
-                <Label
-                    Grid.Row="0"
-                    Margin="4,0,0,0"
-                    Content="Expenses"
-                    Style="{StaticResource Header_20px}" />
+                <!--#region Modals-->
+                <Popup IsOpen="False">
+                    <modals:TransactionModal x:Name="AddTransaction" DataContext="{Binding TransactionModalViewModel}" />
+                </Popup>
+                <Popup IsOpen="False">
+                    <modals:AddSubscriptionModal x:Name="AddSubscription" DataContext="{Binding SubscriptionModalViewModel}" />
+                </Popup>
                 <!--#endregion-->
 
-                <!--#region Navigation-->
-                <Grid Grid.Row="2" Margin="4,0,4,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="267" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                <!--#region Expenses-->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="38" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                    <!--#region Add Transaction-->
-                    <Button
-                        x:Name="AddTransactionButton"
-                        Grid.Column="0"
-                        Width="100"
-                        Height="32"
-                        Click="AddTransactionButton_Click"
-                        Content="add new"
-                        Style="{StaticResource MenuButton}"
-                        Tag="{StaticResource AddNewIcon}" />
+                    <!--#region Header-->
+                    <Label
+                        Grid.Row="0"
+                        Margin="4,0,0,0"
+                        Content="Expenses"
+                        Style="{StaticResource Header_20px}" />
                     <!--#endregion-->
 
-                    <ToggleButton
-                        Grid.Column="2"
-                        Width="124"
-                        Height="32"
-                        Content="this month"
-                        Style="{StaticResource ToggleButton}">
-                        <ToggleButton.Tag>
-                            <x:Array Type="DrawingImage">
-                                <DrawingImage Drawing="{StaticResource Calendar}" />
-                                <DrawingImage Drawing="{StaticResource CalendarSelected}" />
-                            </x:Array>
-                        </ToggleButton.Tag>
-                    </ToggleButton>
+                    <!--#region Navigation-->
+                    <Grid Grid.Row="2" Margin="4,0,4,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="267" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <Button
-                        Grid.Column="4"
-                        Width="190"
-                        Height="32"
-                        Content="Search Bar" />
+                        <!--#region Add Transaction-->
+                        <Button
+                            Grid.Column="0"
+                            Width="100"
+                            Height="32"
+                            Click="AddNewTransaction"
+                            Content="add new"
+                            Style="{StaticResource MenuButton}"
+                            Tag="{StaticResource AddNewIcon}" />
+                        <!--#endregion-->
 
-                    <Button
-                        Grid.Column="6"
-                        Width="32"
-                        Height="32"
-                        Style="{StaticResource IconButton}"
-                        Tag="{StaticResource ExportIcon}" />
-                </Grid>
-                <!--#endregion-->
+                        <ToggleButton
+                            Grid.Column="2"
+                            Width="124"
+                            Height="32"
+                            Content="this month"
+                            Style="{StaticResource ToggleButton}">
+                            <ToggleButton.Tag>
+                                <x:Array Type="DrawingImage">
+                                    <DrawingImage Drawing="{StaticResource Calendar}" />
+                                    <DrawingImage Drawing="{StaticResource CalendarSelected}" />
+                                </x:Array>
+                            </ToggleButton.Tag>
+                        </ToggleButton>
 
-                <!--#region Transaction List-->
-                <transactions:TransactionsList Grid.Row="4" DataContext="{Binding TransactionViewModel}" />
-                <!--#endregion-->
+                        <Button
+                            Grid.Column="4"
+                            Width="190"
+                            Height="32"
+                            Content="Search Bar" />
 
-            </Grid>
-            <!--#endregion-->
+                        <Button
+                            Grid.Column="6"
+                            Width="32"
+                            Height="32"
+                            Style="{StaticResource IconButton}"
+                            Tag="{StaticResource ExportIcon}" />
+                    </Grid>
+                    <!--#endregion-->
 
-            <!--#region Subscriptions-->
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="16" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="38" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+                    <!--#region Transaction List-->
+                    <transactions:TransactionsList Grid.Row="4" DataContext="{Binding TransactionViewModel}" />
+                    <!--#endregion-->
 
-                <!--#region Header-->
-                <Label
-                    Grid.Row="0"
-                    Content="Subscriptions"
-                    Style="{StaticResource Header_20px}" />
-                <!--#endregion-->
-
-                <!--#region Navigation-->
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Button
-                        Grid.Column="0"
-                        Width="100"
-                        Height="32"
-                        Content="add new"
-                        Style="{StaticResource MenuButton}"
-                        Tag="{StaticResource AddNewIcon}" />
-
-                    <ToggleButton
-                        Grid.Column="2"
-                        Width="101"
-                        Height="32"
-                        Content="sort by"
-                        Style="{StaticResource ToggleButton}">
-                        <ToggleButton.Tag>
-                            <x:Array Type="DrawingImage">
-                                <DrawingImage Drawing="{StaticResource Sort}" />
-                                <DrawingImage Drawing="{StaticResource SortSelected}" />
-                            </x:Array>
-                        </ToggleButton.Tag>
-                    </ToggleButton>
                 </Grid>
                 <!--#endregion-->
 
                 <!--#region Subscriptions-->
-                <subscription:SubscriptionsList Grid.Row="4" DataContext="{Binding SubscriptionViewModel}" />
-                <!--#endregion-->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="38" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <!--#region Predictions-->
-                <Rectangle
-                    Grid.Row="6"
-                    Width="381"
-                    Height="230"
-                    Fill="Gray" />
+                    <!--#region Header-->
+                    <Label
+                        Grid.Row="0"
+                        Content="Subscriptions"
+                        Style="{StaticResource Header_20px}" />
+                    <!--#endregion-->
+
+                    <!--#region Navigation-->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                            Grid.Column="0"
+                            Width="100"
+                            Height="32"
+                            Click="AddNewSubscription"
+                            Content="add new"
+                            Style="{StaticResource MenuButton}"
+                            Tag="{StaticResource AddNewIcon}" />
+
+                        <ToggleButton
+                            Grid.Column="2"
+                            Width="101"
+                            Height="32"
+                            Content="sort by"
+                            Style="{StaticResource ToggleButton}">
+                            <ToggleButton.Tag>
+                                <x:Array Type="DrawingImage">
+                                    <DrawingImage Drawing="{StaticResource Sort}" />
+                                    <DrawingImage Drawing="{StaticResource SortSelected}" />
+                                </x:Array>
+                            </ToggleButton.Tag>
+                        </ToggleButton>
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--#region Subscriptions-->
+                    <subscription:SubscriptionsList Grid.Row="4" DataContext="{Binding SubscriptionViewModel}" />
+                    <!--#endregion-->
+
+                    <!--#region Predictions-->
+                    <Rectangle
+                        Grid.Row="6"
+                        Width="381"
+                        Height="230"
+                        Fill="Gray" />
+                    <!--#endregion-->
+
+                </Grid>
                 <!--#endregion-->
 
             </Grid>
-            <!--#endregion-->
-
-        </Grid>
-    </Border>
+        </Border>
+    </Grid>
 </UserControl>

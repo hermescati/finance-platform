@@ -13,17 +13,24 @@ namespace Expensier.WPF.Commands
 {
     public class AddSubscriptionCommand : AsyncCommandBase
     {
-        private readonly SubscriptionModalViewModel _modalViewModel;
+        private readonly SubscriptionModalViewModel _subscriptionModalViewModel;
         private readonly ISubscriptionService _subscriptionService;
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
         public AddSubscriptionCommand(SubscriptionModalViewModel modalViewModel, ISubscriptionService subscriptionService, AccountStore accountStore, IRenavigator renavigator)
         {
-            _modalViewModel = modalViewModel;
+            _subscriptionModalViewModel = modalViewModel;
             _subscriptionService = subscriptionService;
             _accountStore = accountStore;
             _renavigator = renavigator;
+
+            _subscriptionModalViewModel.PropertyChanged += SubscriptionModalViewModel_PropertyChanged;
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            return _subscriptionModalViewModel.CanAdd && base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object parameter)
@@ -32,11 +39,11 @@ namespace Expensier.WPF.Commands
             {
                 Account updatedAccount = await _subscriptionService.AddSubscription(
                     _accountStore.CurrentAccount,
-                    _modalViewModel.CompanyName,
-                    _modalViewModel.SubscriptionPlan,
-                    _modalViewModel.DueDate,
-                    _modalViewModel.Amount,
-                    _modalViewModel.SubscriptionCycle);
+                    _subscriptionModalViewModel.CompanyName,
+                    _subscriptionModalViewModel.SubscriptionPlan,
+                    _subscriptionModalViewModel.DueDate,
+                    _subscriptionModalViewModel.Amount,
+                    _subscriptionModalViewModel.SubscriptionCycle);
 
                 _accountStore.CurrentAccount = updatedAccount;
                 _renavigator.Renavigate();
@@ -44,6 +51,14 @@ namespace Expensier.WPF.Commands
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        private void SubscriptionModalViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SubscriptionModalViewModel.CanAdd))
+            {
+                OnCallExecuteChanged();
             }
         }
     }

@@ -28,9 +28,24 @@ namespace Expensier.WPF.Views
             InitializeComponent();
         }
 
-        private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
+        private void AddNewTransaction(object sender, RoutedEventArgs e)
         {
-            AddTransaction.IsOpen = true;
+            var modal = new TransactionModal()
+            {
+                DataContext = AddTransaction.DataContext
+            };
+
+            MainContent.Children.Add(modal);
+        }
+
+        private void AddNewSubscription(object sender, RoutedEventArgs e)
+        {
+            var modal = new AddSubscriptionModal()
+            {
+                DataContext = AddSubscription.DataContext
+            };
+
+            MainContent.Children.Add(modal);
         }
     }
 }

@@ -435,9 +435,79 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
+    <Style x:Key="CancelButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="GlowEffect"
+                        Margin="-4"
+                        BorderBrush="{StaticResource SecondaryGlowColor}"
+                        BorderThickness="0"
+                        CornerRadius="22">
+                        <Border
+                            x:Name="Border"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="20"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                            <ContentPresenter
+                                x:Name="ButtonContent"
+                                Grid.Column="3"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="ButtonContent" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="GlowEffect" Property="BorderThickness" Value="4" />
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="ButtonContent" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <!--#endregion-->
 
 
+
+    <!--#region Window Buttons-->
     <Style x:Key="Minimize" TargetType="Button">
         <Setter Property="Width" Value="42" />
         <Setter Property="Height" Value="24" />
@@ -588,7 +658,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-
+    <!--#endregion-->
 
 </ResourceDictionary>

@@ -15,13 +15,15 @@ namespace Expensier.WPF.ViewModels
     {
         public TransactionViewModel TransactionViewModel { get; }
         public SubscriptionViewModel SubscriptionViewModel { get; }
-        public ModalViewModel ModalViewModel { get; }
+        public TransactionModalViewModel TransactionModalViewModel { get; }
+        public SubscriptionModalViewModel SubscriptionModalViewModel { get; }
 
-        public ExpensesViewModel(TransactionStore transactionStore, SubscriptionStore subscriptionStore, ModalViewModel modalViewModel)
+        public ExpensesViewModel(TransactionStore transactionStore, SubscriptionStore subscriptionStore, TransactionModalViewModel transactionModalViewModel, SubscriptionModalViewModel subscriptionModalViewModel)
         {
             TransactionViewModel = new TransactionViewModel(transactionStore);
             SubscriptionViewModel = new SubscriptionViewModel(subscriptionStore);
-            ModalViewModel = modalViewModel;
+            TransactionModalViewModel = transactionModalViewModel;
+            SubscriptionModalViewModel = subscriptionModalViewModel;
         }
     }
 }

@@ -25,6 +25,7 @@ namespace Expensier.WPF.ViewModels.Modals
             {
                 _companyName = value;
                 OnPropertyChanged(nameof(CompanyName));
+                OnPropertyChanged(nameof(CanAdd));
             }
         }
 
@@ -39,6 +40,7 @@ namespace Expensier.WPF.ViewModels.Modals
             {
                 _subscriptionPlan = value;
                 OnPropertyChanged(nameof(SubscriptionPlan));
+                OnPropertyChanged(nameof(CanAdd));
             }
         }
 
@@ -53,6 +55,7 @@ namespace Expensier.WPF.ViewModels.Modals
             {
                 _amount = value;
                 OnPropertyChanged(nameof(Amount));
+                OnPropertyChanged(nameof(CanAdd));
             }
         }
 
@@ -70,7 +73,7 @@ namespace Expensier.WPF.ViewModels.Modals
             }
         }
 
-        private DateTime _dueDate;
+        private DateTime _dueDate = DateTime.Now;
         public DateTime DueDate
         {
             get
@@ -79,10 +82,14 @@ namespace Expensier.WPF.ViewModels.Modals
             }
             set
             {
-                _dueDate = DateTime.Today;
+                _dueDate = value;
                 OnPropertyChanged(nameof(DueDate));
             }
         }
+
+        public bool CanAdd => !string.IsNullOrEmpty(CompanyName) && 
+            !string.IsNullOrEmpty(SubscriptionPlan) && 
+            Amount > 0.0;
 
         public IEnumerable<SubscriptionCycle> SubscriptionCycles => Enum.GetValues(typeof(SubscriptionCycle)).Cast<SubscriptionCycle>();
 
