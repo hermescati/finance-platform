@@ -11,20 +11,21 @@
 
     <Grid>
         <ListView
-            Padding="0"
             Background="{DynamicResource PrimaryColor}"
             BorderThickness="0"
             Focusable="False"
             IsHitTestVisible="False"
-            ItemsSource="{Binding Subscriptions}">
+            ItemsSource="{Binding Subscriptions}"
+            ScrollViewer.CanContentScroll="False"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
+                    <StackPanel Height="40" Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="-5,-3,64,0">
+                    <Grid Margin="0,0,40,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="16" />

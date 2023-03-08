@@ -16,7 +16,7 @@ namespace Expensier.WPF.ViewModels
         private readonly IAuthenticator _authenticator;
         private readonly IRenavigator _loginRenavigator;
 
-        private string _greetingMessage = "Hello, ";
+        private string _greetingMessage;
         public string GreetingMessage
         {
             get

@@ -139,7 +139,7 @@
                             Width="100"
                             Height="32"
                             Content="add new"
-                            Style="{StaticResource MenuButton}"
+                            Style="{StaticResource ModalButtonTemplate}"
                             Tag="{StaticResource AddNewIcon}" />
                         <!--#endregion-->
 

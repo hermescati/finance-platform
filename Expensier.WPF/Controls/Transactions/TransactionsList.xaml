@@ -22,7 +22,6 @@
             DebitSymbol="+" />
 
         <Style x:Key="TransactionViewItem" TargetType="{x:Type ListViewItem}">
-            <Setter Property="Margin" Value="0,0,0,32" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="UseLayoutRounding" Value="True" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -30,7 +29,10 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                        <Border x:Name="Border" CornerRadius="12">
+                        <Border
+                            x:Name="InnerBorder"
+                            Padding="0,12,0,12"
+                            CornerRadius="12">
                             <ContentPresenter
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -39,15 +41,15 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#4D000000" />
+                                <Setter TargetName="InnerBorder" Property="Background" Value="#4D000000" />
                             </Trigger>
                             <EventTrigger RoutedEvent="Border.MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetName="InnerBorder"
                                             Storyboard.TargetProperty="Padding"
-                                            From="0, 0, 24, 0"
+                                            From="0, 12, 0, 12"
                                             To="24, 12, 24, 12"
                                             Duration="0:0:0.15" />
                                     </Storyboard>
@@ -57,10 +59,10 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetName="InnerBorder"
                                             Storyboard.TargetProperty="Padding"
                                             From="24, 12, 24, 12"
-                                            To="0, 0, 24, 0"
+                                            To="0, 12, 0, 12"
                                             Duration="0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -74,90 +76,94 @@
 
     <Grid>
         <ListView
-            Padding="0"
+            x:Name="ListView"
+            Height="626"
             VerticalContentAlignment="Top"
             Background="{DynamicResource PrimaryColor}"
             BorderThickness="0"
             ItemContainerStyle="{DynamicResource TransactionViewItem}"
-            ItemsSource="{Binding Transactions}">
+            ItemsSource="{Binding Transactions}"
+            ScrollViewer.CanContentScroll="False"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border x:Name="Border">
-                        <Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            Width="33"
+                            Height="33"
+                            Source="{Binding IsCredit, Converter={StaticResource BoolToImageConverter}}" />
+
+                        <TextBlock
+                            Grid.Column="2"
+                            Width="120"
+                            VerticalAlignment="Center"
+                            Style="{DynamicResource Transaction_Data_15px}"
+                            Text="{Binding TransactionName}" />
+
+                        <Grid Grid.Column="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="32" />
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="56" />
+                                <ColumnDefinition Width="48" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="48" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Width="88">
+                                <Label
+                                    Margin="0,0,0,2"
+                                    VerticalContentAlignment="Center"
+                                    Content="Category"
+                                    Style="{DynamicResource Transaction_Header_12px}" />
+                                <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding TransactionType}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Width="88">
+                                <Label
+                                    Margin="0,0,0,2"
+                                    VerticalContentAlignment="Center"
+                                    Content="Date"
+                                    Style="{DynamicResource Transaction_Header_12px}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
+                                    <Ellipse
+                                        Width="4"
+                                        Height="4"
+                                        Margin="6,0,6,0"
+                                        Fill="{DynamicResource ForegroundColor}" />
+                                    <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding ProcessDate, StringFormat='{}{0:yy}'}" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="4" Width="88">
+                                <Label
+                                    Margin="0,0,0,2"
+                                    VerticalContentAlignment="Center"
+                                    Content="Amount"
+                                    Style="{DynamicResource Transaction_Header_12px}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="0,0,1,0"
+                                        Style="{DynamicResource Transaction_Data_15px}"
+                                        Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
+                                    <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding Amount, StringFormat='c'}" />
+                                </StackPanel>
+                            </StackPanel>
                             <Image
-                                Grid.Column="0"
-                                Width="33"
-                                Height="33"
-                                Source="{Binding IsCredit, Converter={StaticResource BoolToImageConverter}}" />
-                            <TextBlock
-                                Grid.Column="2"
-                                Width="120"
-                                VerticalAlignment="Center"
-                                Style="{DynamicResource Transaction_Data_15px}"
-                                Text="{Binding TransactionName}" />
-                            <Grid Grid.Column="4" Width="483">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="48" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="54" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Width="88">
-                                    <Label
-                                        Margin="0,0,0,2"
-                                        VerticalContentAlignment="Center"
-                                        Content="Category"
-                                        Style="{DynamicResource Transaction_Header_12px}" />
-                                    <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding TransactionType}" />
-                                </StackPanel>
-                                <StackPanel Grid.Column="2" Width="88">
-                                    <Label
-                                        Margin="0,0,0,2"
-                                        VerticalContentAlignment="Center"
-                                        Content="Date"
-                                        Style="{DynamicResource Transaction_Header_12px}" />
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
-                                        <Ellipse
-                                            Width="4"
-                                            Height="4"
-                                            Margin="6,0,6,0"
-                                            Fill="{DynamicResource ForegroundColor}" />
-                                        <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding ProcessDate, StringFormat='{}{0:yy}'}" />
-                                    </StackPanel>
-                                </StackPanel>
-                                <StackPanel Grid.Column="4" Width="88">
-                                    <Label
-                                        Margin="0,0,0,2"
-                                        VerticalContentAlignment="Center"
-                                        Content="Amount"
-                                        Style="{DynamicResource Transaction_Header_12px}" />
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock
-                                            Margin="0,0,1,0"
-                                            Style="{DynamicResource Transaction_Data_15px}"
-                                            Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
-                                        <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding Amount, StringFormat='c'}" />
-                                    </StackPanel>
-                                </StackPanel>
-                                <Image
-                                    Grid.Column="6"
-                                    Width="24"
-                                    Height="24"
-                                    Source="{DynamicResource AppIcon}" />
-                            </Grid>
+                                Grid.Column="6"
+                                Width="24"
+                                Height="24"
+                                Source="{DynamicResource AppIcon}" />
                         </Grid>
-                    </Border>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

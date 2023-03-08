@@ -23,7 +23,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
@@ -60,7 +60,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="16" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="267" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="16" />
                             <ColumnDefinition Width="Auto" />
@@ -73,7 +73,7 @@
                             Height="32"
                             Click="AddNewTransaction"
                             Content="add new"
-                            Style="{StaticResource MenuButton}"
+                            Style="{StaticResource ModalButtonTemplate}"
                             Tag="{StaticResource AddNewIcon}" />
                         <!--#endregion-->
 
@@ -82,7 +82,7 @@
                             Width="124"
                             Height="32"
                             Content="this month"
-                            Style="{StaticResource ToggleButton}">
+                            Style="{StaticResource FilterButtonTemplate}">
                             <ToggleButton.Tag>
                                 <x:Array Type="DrawingImage">
                                     <DrawingImage Drawing="{StaticResource Calendar}" />
@@ -107,7 +107,10 @@
                     <!--#endregion-->
 
                     <!--#region Transaction List-->
-                    <transactions:TransactionsList Grid.Row="4" DataContext="{Binding TransactionViewModel}" />
+                    <transactions:TransactionsList
+                        Grid.Row="4"
+                        Width="735"
+                        DataContext="{Binding TransactionViewModel}" />
                     <!--#endregion-->
 
                 </Grid>
@@ -146,7 +149,7 @@
                             Height="32"
                             Click="AddNewSubscription"
                             Content="add new"
-                            Style="{StaticResource MenuButton}"
+                            Style="{StaticResource ModalButtonTemplate}"
                             Tag="{StaticResource AddNewIcon}" />
 
                         <ToggleButton
@@ -154,7 +157,7 @@
                             Width="101"
                             Height="32"
                             Content="sort by"
-                            Style="{StaticResource ToggleButton}">
+                            Style="{StaticResource FilterButtonTemplate}">
                             <ToggleButton.Tag>
                                 <x:Array Type="DrawingImage">
                                     <DrawingImage Drawing="{StaticResource Sort}" />
