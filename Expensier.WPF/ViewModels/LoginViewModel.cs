@@ -52,13 +52,15 @@ namespace Expensier.WPF.ViewModels
 
         public ICommand LoginCommand { get; }
         public ICommand ViewRegisterCommand { get; }
+        public ICommand ViewForgotPasswordCommand { get; }
 
-        public LoginViewModel(IAuthenticator authenticator, IRenavigator loginRenavigator, IRenavigator registerRenavigator, SidePanelViewModel sidePanelViewModel)
+        public LoginViewModel(IAuthenticator authenticator, IRenavigator loginRenavigator, IRenavigator registerRenavigator, IRenavigator forgotPasswordRenavigator, SidePanelViewModel sidePanelViewModel)
         {
             ErrorMessageViewModel = new MessageViewModel();
 
             LoginCommand = new LoginCommand(this, authenticator, loginRenavigator, sidePanelViewModel);
             ViewRegisterCommand = new RenavigateCommand(registerRenavigator);
+            ViewForgotPasswordCommand = new RenavigateCommand(forgotPasswordRenavigator);
         }
     }
 }

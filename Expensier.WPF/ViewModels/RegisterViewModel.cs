@@ -91,11 +91,27 @@ namespace Expensier.WPF.ViewModels
             }
         }
 
+        private bool _isChecked = false;
+        public bool IsChecked
+        {
+            get
+            {
+                return _isChecked;
+            }
+            set
+            {
+                _isChecked = value;
+                OnPropertyChanged(nameof(IsChecked));
+                OnPropertyChanged(nameof(CanRegister));
+            }
+        }
+
         public bool CanRegister => !string.IsNullOrEmpty(FirstName) && 
             !string.IsNullOrEmpty(LastName) &&
             !string.IsNullOrEmpty(Email) &&
             !string.IsNullOrEmpty(Password) &&
-            !string.IsNullOrEmpty(ConfirmPassword);
+            !string.IsNullOrEmpty(ConfirmPassword) && 
+            IsChecked == true;
 
         public MessageViewModel ErrorMessageViewModel { get; }
         public string ErrorMessage
@@ -106,11 +122,11 @@ namespace Expensier.WPF.ViewModels
         public ICommand RegisterCommand { get; }
         public ICommand ViewLoginCommand { get; }
 
-        public RegisterViewModel(IRenavigator loginRenavigator, IRenavigator registerRenavigator, IAuthenticator authenticator)
+        public RegisterViewModel(IRenavigator loginRenavigator, IAuthenticator authenticator)
         {
             ErrorMessageViewModel = new MessageViewModel();
 
-            RegisterCommand = new RegisterCommand(this, authenticator, registerRenavigator);
+            RegisterCommand = new RegisterCommand(this, authenticator, loginRenavigator);
             ViewLoginCommand = new RenavigateCommand(loginRenavigator);
         }
     }

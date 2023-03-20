@@ -37,6 +37,10 @@
                 <views:RegisterView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewmodels:ResetPasswordViewModel}">
+                <views:ResetPasswordView />
+            </DataTemplate>
+
         </ResourceDictionary>
 
     </Application.Resources>
