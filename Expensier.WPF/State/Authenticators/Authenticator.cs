@@ -37,6 +37,7 @@ namespace Expensier.WPF.State.Authenticators
 
         public event Action StateChanged;
 
+
         public async Task userLogin(string email, string password)
         {
             CurrentAccount = await _authenticationService.userLogin(email, password);
@@ -57,6 +58,11 @@ namespace Expensier.WPF.State.Authenticators
         public async Task<RegistrationResult> userRegister(string firstName, string lastName, string email, string password, string confirmPassword)
         {
             return await _authenticationService.userRegister(firstName, lastName, email, password, confirmPassword);
+        }
+
+        public async Task<PasswordResetResult> resetPassword(string email, string oldPassword, string newPassword, string confirmNewPassword)
+        {
+            return await _authenticationService.resetPassword(email, oldPassword, newPassword, confirmNewPassword);
         }
     }
 }

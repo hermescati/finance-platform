@@ -19,6 +19,8 @@ using Expensier.WPF.ViewModels.Modals;
 using Expensier.Domain.Services.Subscriptions;
 using Expensier.WPF.Controls.Modals;
 using Expensier.WPF.ViewModels.Charts;
+using Expensier.WPF.ViewModels;
+using Expensier.Domain.Services.Authentication;
 
 namespace Expensier.WPF.HostBuilders
 {
@@ -48,12 +50,14 @@ namespace Expensier.WPF.HostBuilders
                 services.AddSingleton<DelegateRenavigator<ExpensesViewModel>>();
                 services.AddSingleton<DelegateRenavigator<RegisterViewModel>>();
                 services.AddSingleton<DelegateRenavigator<LoginViewModel>>();
+                services.AddSingleton<DelegateRenavigator<ResetPasswordViewModel>>();
 
                 services.AddSingleton<CreateViewModel<DashboardViewModel>>(services => () => CreateDashboardViewModel(services));
                 services.AddSingleton<CreateViewModel<ExpensesViewModel>>(services => () => CreateExpensesViewModel(services));
                 services.AddSingleton<CreateViewModel<WalletViewModel>>(services => () => CreateWalletViewModel(services));
                 services.AddSingleton<CreateViewModel<RegisterViewModel>>(services => () => CreateRegisterViewModel(services));
                 services.AddSingleton<CreateViewModel<LoginViewModel>>(services => () => CreateLoginViewModel(services));
+                services.AddSingleton<CreateViewModel<ResetPasswordViewModel>>(services => () => CreateForgotPasswordViewModel(services));
             });
 
             return host;
@@ -89,6 +93,7 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<IAuthenticator>(),
                 services.GetRequiredService<DelegateRenavigator<DashboardViewModel>>(),
                 services.GetRequiredService<DelegateRenavigator<RegisterViewModel>>(),
+                services.GetRequiredService<DelegateRenavigator<ResetPasswordViewModel>>(),
                 services.GetRequiredService<SidePanelViewModel>());
         }
 
@@ -96,8 +101,16 @@ namespace Expensier.WPF.HostBuilders
         {
             return new RegisterViewModel(
                 services.GetRequiredService<DelegateRenavigator<LoginViewModel>>(),
-                services.GetRequiredService<DelegateRenavigator<LoginViewModel>>(),
                 services.GetRequiredService<IAuthenticator>());
+        }
+
+        private static ResetPasswordViewModel CreateForgotPasswordViewModel(IServiceProvider services)
+        {
+            return new ResetPasswordViewModel(
+                services.GetRequiredService<IAuthenticationService>(),
+                services.GetRequiredService<IAuthenticator>(),
+                services.GetRequiredService<DelegateRenavigator<RegisterViewModel>>(),
+                services.GetRequiredService<DelegateRenavigator<LoginViewModel>>());
         }
 
         private static TransactionModalViewModel CreateTransactionModalViewModel(IServiceProvider services)

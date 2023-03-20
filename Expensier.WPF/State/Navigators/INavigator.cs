@@ -14,7 +14,8 @@ namespace Expensier.WPF.State.Navigators
         Expenses,
         Wallet,
         Login, 
-        Register
+        Register,
+        ForgotPassword
     }
 
     public interface INavigator

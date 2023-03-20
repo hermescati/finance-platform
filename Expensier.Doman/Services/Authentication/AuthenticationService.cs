@@ -21,16 +21,22 @@ namespace Expensier.Domain.Services.Authentication
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<Account> userLogin(string email, string password)
+        public async Task<Account> getAccount(string email)
         {
-            Account storedAccount = await _accountService.GetByEmail(email);
+            Account userAccount = await _accountService.GetByEmail(email);
 
-            if (storedAccount == null)
+            if (userAccount == null)
             {
                 throw new UserNotFoundException(email);
-            } 
-            
-            PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(storedAccount.Account_Holder_.Password_Hash, password);
+            }
+
+            return userAccount;
+        }
+
+        public async Task<Account> userLogin(string email, string password)
+        {
+            Account storedAccount = await getAccount(email);
+            PasswordVerificationResult passwordResult = verifyPassword(storedAccount.Account_Holder_.Password_Hash, password);
             
             if (passwordResult != PasswordVerificationResult.Success)
             {
@@ -44,12 +50,18 @@ namespace Expensier.Domain.Services.Authentication
         {
             RegistrationResult result = RegistrationResult.Success;
 
+            if (password.Length < 8)
+            {
+                result = RegistrationResult.PasswordTooShort;
+            }
+
             if (password != confirmPassword)
             {
                 result = RegistrationResult.PasswordsDoNotMatch;
             }
 
-            Account existingUser = await _accountService.GetByEmail(email); 
+            Account existingUser = await _accountService.GetByEmail(email);
+
             if (existingUser != null)
             {
                 result = RegistrationResult.EmailInUse;
@@ -57,7 +69,7 @@ namespace Expensier.Domain.Services.Authentication
 
             if (result == RegistrationResult.Success)
             {
-                string hashedPassword = _passwordHasher.HashPassword(password);
+                string hashedPassword = hashPassword(password);
 
                 User user = new User()
                 {
@@ -77,6 +89,56 @@ namespace Expensier.Domain.Services.Authentication
             }
 
             return result;
+        }
+
+        public async Task<PasswordResetResult> resetPassword(string email, string oldPassword, string newPassword, string confirmPassword)
+        {
+            Account userAccount = await getAccount(email);
+            PasswordResetResult result = PasswordResetResult.Success;
+
+            PasswordVerificationResult passwordResult = verifyPassword(userAccount.Account_Holder_.Password_Hash, oldPassword);
+
+            if (passwordResult != PasswordVerificationResult.Success)
+            {
+                result = PasswordResetResult.UserNotAuthenticated;
+            }
+
+            if (oldPassword == newPassword)
+            {
+                result = PasswordResetResult.SameOldPassword;
+            }
+
+            if (newPassword != confirmPassword)
+            {
+                result = PasswordResetResult.PasswordsDoNotMatch;
+            }
+
+            if (result == PasswordResetResult.Success)
+            {
+                string newHashedPassword = hashPassword(newPassword);
+
+                User user = userAccount.Account_Holder_;
+                user.Password_Hash = newHashedPassword;
+
+                Account account = new Account()
+                {
+                    Account_Holder_ = user
+                };
+
+                await _accountService.Update(userAccount.Id, account);
+            }
+
+            return result;
+        }
+
+        public string hashPassword(string password)
+        {
+            return _passwordHasher.HashPassword(password);
+        }
+
+        public PasswordVerificationResult verifyPassword(string userPassword, string enteredPassword)
+        {
+            return _passwordHasher.VerifyHashedPassword(userPassword, enteredPassword);
         }
     }
 }

@@ -60,8 +60,9 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="40" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="8" />
                         <RowDefinition Height="16" />
-                        <RowDefinition Height="Auto" />
+
                     </Grid.RowDefinitions>
 
                     <!--#region Header-->
@@ -144,10 +145,16 @@
                     <!--#endregion-->
 
                     <!--#region Forgot Password-->
-                    <TextBlock
+                    <Label
                         Grid.Row="6"
-                        Style="{StaticResource Text_14px}"
-                        Text="Fogot password?" />
+                        Padding="0"
+                        VerticalContentAlignment="Center">
+                        <TextBlock Style="{StaticResource Text_14px}" TextWrapping="WrapWithOverflow">
+                            <Hyperlink Command="{Binding ViewForgotPasswordCommand}" Style="{StaticResource Hyperlink_14px}">
+                                Forgot password?
+                            </Hyperlink>
+                        </TextBlock>
+                    </Label>
                     <!--#endregion-->
 
                     <!--#region Button-->
@@ -217,9 +224,9 @@
                     Grid.Row="0"
                     Style="{StaticResource Text_14px}"
                     TextAlignment="Center">
-                    <Run Text="By clicking &quot;Continue with Google / Facebook&quot; above, you acknowledge that you have" />
+                    <Run Text="By clicking the button above, you acknowledge that you have read and understood," />
                     <LineBreak />
-                    <Run Text="read and understood, and agree to Expensier's" />
+                    <Run Text="and agree to Expensier's" />
                     <Hyperlink Foreground="{StaticResource InactiveColor}">Terms &amp; Conditions</Hyperlink>
                     <Run Text="and" />
                     <Hyperlink Foreground="{StaticResource InactiveColor}">Privacy Policy.</Hyperlink>
