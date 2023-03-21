@@ -68,6 +68,7 @@
     </Style>
     <Style BasedOn="{StaticResource FormFieldTemplate}" TargetType="PasswordBox">
         <Setter Property="FontSize" Value="12" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="IsKeyboardFocused" Value="True">
                 <Setter Property="CaretBrush" Value="{StaticResource SecondaryColor}" />
