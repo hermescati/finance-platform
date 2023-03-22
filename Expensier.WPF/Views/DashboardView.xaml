@@ -7,11 +7,16 @@
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modals="clr-namespace:Expensier.WPF.Controls.Modals"
+    xmlns:placeholders="clr-namespace:Expensier.WPF.Controls.Placeholders"
     xmlns:subscriptions="clr-namespace:Expensier.WPF.Controls.Subscriptions"
     xmlns:transactions="clr-namespace:Expensier.WPF.Controls.Transactions"
     d:DesignHeight="852"
     d:DesignWidth="1304"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
 
     <Border
         Width="Auto"
@@ -72,12 +77,25 @@
                     </Grid>
                     <!--#endregion-->
 
+                    <!--#region Placeholder-->
+                    <placeholders:HorizontalPlaceholder
+                        Title="It looks a bit empty here!"
+                        Grid.Row="2"
+                        Width="574"
+                        Height="224"
+                        Body="Your spending summary will appear on this  section.  Head over to the Transactions tab and click the “Add new” button to create a new transaction."
+                        DataContext="{Binding SpendingSummaryViewModel}"
+                        Icon="{StaticResource GraphPlaceholderImage}"
+                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <!--#endregion-->
+
                     <!--#region Summary Graph-->
                     <lvc:CartesianChart
                         Grid.Row="2"
                         Width="574"
                         Height="224"
-                        DataContext="{Binding SpendingSummaryViewModel}">
+                        DataContext="{Binding SpendingSummaryViewModel}"
+                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                         <lvc:CartesianChart.DataTooltip>
                             <lvc:DefaultTooltip
@@ -170,6 +188,18 @@
                     </Grid>
                     <!--#endregion-->
 
+                    <!--#region Placeholder-->
+                    <placeholders:HorizontalPlaceholder
+                        Title="It looks a bit empty here!"
+                        Grid.Row="2"
+                        Width="500"
+                        Height="224"
+                        Body="Your expenditures will appear on  this section.  Head over to the  Transactions tab and click the  “Add new” button to create a new transaction.  "
+                        DataContext="{Binding SpendingSummaryViewModel}"
+                        Icon="{StaticResource GraphPlaceholderImage}"
+                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <!--#endregion-->
+
                     <!--#region Expenditure Graph-->
                     <lvc:PieChart
                         Grid.Row="2"
@@ -179,7 +209,8 @@
                         InnerRadius="56"
                         LegendLocation="Left"
                         Series="{Binding Series}"
-                        SeriesColors="{Binding SeriesColors, Mode=OneWay}">
+                        SeriesColors="{Binding SeriesColors, Mode=OneWay}"
+                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend
@@ -235,12 +266,26 @@
                         Style="{StaticResource Header_20px}" />
                     <!--#endregion-->
 
+                    <!--#region Placeholder-->
+                    <placeholders:VerticalPlaceholder
+                        Title="It looks a bit empty here!"
+                        Grid.Row="2"
+                        Width="342"
+                        Height="308"
+                        Padding="56,16"
+                        Body="Your recent expenses will appear on this  section.  Head over to the Transactions tab and click the “Add new” button to create a new transaction.  "
+                        DataContext="{Binding RecentExpensesViewModel}"
+                        Icon="{StaticResource TransactionPlaceholderImage}"
+                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <!--#endregion-->
+
                     <!--#region Top Expenses-->
                     <transactions:RecentExpenses
                         Grid.Row="2"
                         Width="342"
                         Height="308"
-                        DataContext="{Binding RecentExpensesViewModel}" />
+                        DataContext="{Binding RecentExpensesViewModel}"
+                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <!--#endregion-->
 
                 </Grid>
@@ -268,12 +313,25 @@
                             Style="{StaticResource Header_20px}" />
                         <!--#endregion-->
 
+                        <!--#region Placeholder-->
+                        <Grid Grid.Row="2" Height="40">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                DataContext="{Binding TopSubscriptionsViewModel}"
+                                Style="{StaticResource Text_12px}"
+                                Text="Your subscriptions will appear on this section.  Head over to the Transactions tab and add a new subscription."
+                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </Grid>
+                        <!--#endregion-->
+
                         <!--#region Top Subscriptions-->
                         <subscriptions:TopSubscriptions
                             Grid.Row="2"
                             Width="774"
                             Height="42"
-                            DataContext="{Binding TopSubscriptionsViewModel}" />
+                            DataContext="{Binding TopSubscriptionsViewModel}"
+                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <!--#endregion-->
 
                     </Grid>

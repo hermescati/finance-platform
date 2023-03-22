@@ -154,6 +154,15 @@
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
     </Style>
+
+    <Style x:Key="Text_12px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+        <Setter Property="Opacity" Value="0.3" />
+    </Style>
     <!--#endregion-->
 
 

@@ -1,4 +1,6 @@
-﻿using Expensier.WPF.State.Expenses;
+﻿using Expensier.Domain.Models;
+using Expensier.WPF.State.Expenses;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +15,34 @@ namespace Expensier.WPF.ViewModels.Expenses
         private readonly TransactionStore _transactionStore;
         private readonly Func<IEnumerable<TransactionDataModel>, IEnumerable<TransactionDataModel>> _filterTransaction;
         private readonly ObservableCollection<TransactionDataModel> _transactions;
+
+        private bool _listEmpty;
+        public bool ListEmpty
+        {
+            get
+            {
+                return _listEmpty;
+            }
+            set
+            {
+                _listEmpty = value;
+                OnPropertyChanged(nameof(ListEmpty));
+            }
+        }
+
+        private bool _listNotEmpty;
+        public bool ListNotEmpty
+        {
+            get
+            {
+                return _listNotEmpty;
+            }
+            set
+            {
+                _listNotEmpty = value;
+                OnPropertyChanged(nameof(ListNotEmpty));
+            }
+        }
 
         public IEnumerable<TransactionDataModel> Transactions => _transactions;
 
@@ -41,6 +71,17 @@ namespace Expensier.WPF.ViewModels.Expenses
             foreach (TransactionDataModel dataModel in transactionDataModel)
             {
                 _transactions.Add(dataModel);
+            }
+
+            if (_transactions.IsNullOrEmpty())
+            {
+                _listEmpty = true;
+                _listNotEmpty = false;
+            }
+            else
+            {
+                _listEmpty = false;
+                _listNotEmpty = true;
             }
         }
 

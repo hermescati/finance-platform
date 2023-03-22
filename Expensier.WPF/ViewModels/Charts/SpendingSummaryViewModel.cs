@@ -4,6 +4,7 @@ using Expensier.WPF.State.Subscriptions;
 using Expensier.WPF.ViewModels.Expenses;
 using Expensier.WPF.ViewModels.Subscriptions;
 using LiveCharts;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,34 @@ namespace Expensier.WPF.ViewModels.Charts
         private readonly IEnumerable<TransactionDataModel> _transactions;
         public TransactionViewModel TransactionViewModel { get; }
         public IEnumerable<TransactionDataModel> Transactions => _transactions;
+
+        private bool _listEmpty;
+        public bool ListEmpty
+        {
+            get
+            {
+                return _listEmpty;
+            }
+            set
+            {
+                _listEmpty = value;
+                OnPropertyChanged(nameof(ListEmpty));
+            }
+        }
+
+        private bool _listNotEmpty;
+        public bool ListNotEmpty
+        {
+            get
+            {
+                return _listNotEmpty;
+            }
+            set
+            {
+                _listNotEmpty = value;
+                OnPropertyChanged(nameof(ListNotEmpty));
+            }
+        }
 
         private ChartValues<double> _chartSeries;
         public ChartValues<double> ChartSeries
@@ -69,6 +98,17 @@ namespace Expensier.WPF.ViewModels.Charts
 
             _transactions = TransactionViewModel.Transactions;
             GetMonthlyExpenses(_transactions);
+
+            if (_transactions.IsNullOrEmpty())
+            {
+                _listEmpty = true;
+                _listNotEmpty = false;
+            }
+            else
+            {
+                _listEmpty = false;
+                _listNotEmpty = true;
+            }
 
             PropertyChanged += (sender, e) =>
             {
