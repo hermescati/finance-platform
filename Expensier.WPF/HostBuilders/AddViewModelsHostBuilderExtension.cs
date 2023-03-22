@@ -33,8 +33,8 @@ namespace Expensier.WPF.HostBuilders
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<SidePanelViewModel>();
                 services.AddSingleton(CreateDashboardViewModel);
-                services.AddSingleton<RecentExpensesViewModel>();
-                services.AddSingleton<TopSubscriptionsViewModel>();
+                services.AddTransient<RecentExpensesViewModel>();
+                services.AddTransient<TopSubscriptionsViewModel>();
                 services.AddTransient<SpendingSummaryViewModel>();
                 services.AddTransient<ExpenditureAllocationViewModel>();
                 services.AddSingleton(CreateExpensesViewModel);

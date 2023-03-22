@@ -57,6 +57,22 @@ namespace Expensier.WPF.Controls
                 passwordBox.Password = Password;
             }
         }
+
+        private void revealPassword_Click(object sender, RoutedEventArgs e)
+        {
+            if (revealPassword.IsChecked == true)
+            {
+                passwordUnmask.Visibility = Visibility.Visible;
+                passwordBox.Visibility = Visibility.Hidden;
+
+                passwordUnmask.Text = passwordBox.Password;
+            }
+            else
+            {
+                passwordUnmask.Visibility = Visibility.Hidden;
+                passwordBox.Visibility = Visibility.Visible;
+            }
+        }
     }
 }
 
