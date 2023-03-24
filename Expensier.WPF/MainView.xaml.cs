@@ -22,5 +22,26 @@ namespace Expensier.WPF
             InitializeComponent();
             DataContext = dataContext;
         }
+
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+                this.DragMove();
+        }
+
+        private void Minimize_MouseDown(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void Maximize_MouseDown(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = (WindowState == WindowState.Normal) ? WindowState.Maximized : WindowState.Normal;
+        }
+
+        private void Exit_MouseDown(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -2,6 +2,7 @@
     x:Class="Expensier.WPF.Views.ExpensesView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Expensier.WPF.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -96,11 +97,7 @@
                             </ToggleButton.Tag>
                         </ToggleButton>
 
-                        <Button
-                            Grid.Column="4"
-                            Width="190"
-                            Height="32"
-                            Content="Search Bar" />
+                        <controls:SearchBar Grid.Column="4" />
 
                         <Button
                             Grid.Column="6"
@@ -121,7 +118,7 @@
                         Body="Your expenses will appear on this  page.  Add your first expense by clicking the “Add new” button above."
                         DataContext="{Binding TransactionViewModel}"
                         Icon="{StaticResource TransactionPlaceholderImage}"
-                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <!--#endregion-->
 
                     <!--#region Transaction List-->
@@ -129,7 +126,7 @@
                         Grid.Row="4"
                         Width="735"
                         DataContext="{Binding TransactionViewModel}"
-                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <!--#endregion-->
 
                 </Grid>
@@ -197,14 +194,14 @@
                         Body="Your subscriptions will appear on this  page.   Add your first subscription by clicking the  “Add new” button above."
                         DataContext="{Binding SubscriptionViewModel}"
                         Icon="{StaticResource SubscriptionsPlaceholderImage}"
-                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <!--#endregion-->
 
                     <!--#region Subscriptions-->
                     <subscription:SubscriptionsList
                         Grid.Row="4"
                         DataContext="{Binding SubscriptionViewModel}"
-                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <!--#endregion-->
 
                     <!--#region Predictions-->

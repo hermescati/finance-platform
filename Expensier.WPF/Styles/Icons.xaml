@@ -281,6 +281,19 @@
         </GeometryDrawing>
     </DrawingGroup>
     <DrawingImage x:Key="SearchIcon" Drawing="{StaticResource Search}" />
+
+    <!--  Search Selected  -->
+    <Geometry x:Key="SearchGeometry1">F1 M48,48z M0,0z M23,42C25.4951,42 27.9658,41.5086 30.271,40.5537 32.5762,39.5989 34.6707,38.1993 36.435,36.435 38.1993,34.6707 39.5989,32.5762 40.5537,30.271 41.5086,27.9658 42,25.4951 42,23 42,20.5049 41.5086,18.0342 40.5537,15.729 39.5989,13.4238 38.1993,11.3293 36.435,9.56497 34.6707,7.80066 32.5762,6.40113 30.271,5.44629 27.9658,4.49145 25.4951,4 23,4 17.9609,4 13.1282,6.00178 9.56497,9.56497 6.00178,13.1282 4,17.9609 4,23 4,28.0391 6.00178,32.8718 9.56497,36.435 13.1282,39.9982 17.9609,42 23,42L23,42z</Geometry>
+    <Geometry x:Key="SearchGeometry2">F1 M48,48z M0,0z M42.6001,43.9979C42.2401,43.9979,41.8801,43.8579,41.6201,43.5979L37.9001,39.8779C37.6404,39.6138 37.4949,39.2583 37.4949,38.8879 37.4949,38.5176 37.6404,38.162 37.9001,37.8979 38.4401,37.3579 39.3201,37.3579 39.8801,37.8979L43.6001,41.6179C44.1401,42.1579 44.1401,43.0379 43.6001,43.5979 43.3201,43.8579 42.9601,43.9979 42.6001,43.9979z</Geometry>
+    <DrawingGroup x:Key="SearchSelected" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource SearchGeometry1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="#FF64927C" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF64927C" Geometry="{StaticResource SearchGeometry2}" />
+    </DrawingGroup>
+    <DrawingImage x:Key="SearchSelectedIcon" Drawing="{StaticResource SearchSelected}" />
     <!--#endregion-->
 
     <!--#region Export-->

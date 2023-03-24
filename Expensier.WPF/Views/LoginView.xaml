@@ -135,11 +135,12 @@
                             Content="Password"
                             Style="{StaticResource Subheader_16px}" />
 
-                        <controls:BindablePasswordBox
+                        <controls:PasswordBox
                             Grid.Row="2"
                             Width="351"
                             Height="45"
-                            Password="{Binding Password}" />
+                            Password="{Binding Password}"
+                            Tag="Enter your password ..." />
 
                     </Grid>
                     <!--#endregion-->
