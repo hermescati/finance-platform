@@ -190,7 +190,7 @@
                 Grid.ColumnSpan="2"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                Style="{StaticResource DropDownButtonTemplate}"
+                Style="{DynamicResource DropDownButtonTemplate}"
                 Tag="{StaticResource ChevronDownIcon}" />
             <ContentPresenter
                 x:Name="contentPresenter"
@@ -242,6 +242,71 @@
         <Style.Triggers />
     </Style>
 
+    <Style x:Key="DropDownButtonTemplate" TargetType="{x:Type ToggleButton}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="ClickMode" Value="Release" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border
+                        x:Name="GlowEffect"
+                        Margin="-4"
+                        BorderThickness="4"
+                        CornerRadius="10">
+                        <Border
+                            x:Name="Border"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{StaticResource MenuButtonColor}"
+                            BorderBrush="{StaticResource MenuButtonColor}"
+                            BorderThickness="1.5"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="16" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter
+                                    x:Name="ButtonContent"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="Center"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                    TextElement.FontFamily="SF Pro Display"
+                                    TextElement.FontSize="14"
+                                    TextElement.FontWeight="Bold"
+                                    TextElement.Foreground="{StaticResource InactiveColor}"
+                                    UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                                <Image
+                                    Grid.Column="3"
+                                    Width="24"
+                                    Height="24"
+                                    Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{StaticResource SecondaryGlowColor}" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="ButtonContent" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="DropDownItemsTemplate" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="FontFamily" Value="SF Pro Display" />
         <Setter Property="FontSize" Value="15" />
@@ -289,6 +354,159 @@
                             <Setter TargetName="Border" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
                             <Setter TargetName="CheckMark1" Property="Visibility" Value="Visible" />
                             <Setter TargetName="CheckMark2" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Edit Menu-->
+    <ControlTemplate x:Key="EditBoxTemplate" TargetType="{x:Type ComboBox}">
+        <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0" MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
+            </Grid.ColumnDefinitions>
+            <Popup
+                x:Name="PART_Popup"
+                Grid.ColumnSpan="2"
+                AllowsTransparency="true"
+                HorizontalOffset="{TemplateBinding ActualWidth}"
+                IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                Placement="Left"
+                PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
+                VerticalOffset="{TemplateBinding ActualHeight}">
+                <Border
+                    x:Name="dropDownBorder"
+                    Margin="0,8,0,0"
+                    Padding="6"
+                    Background="{StaticResource PrimaryColor}"
+                    BorderBrush="{StaticResource TransparentColor}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    SnapsToDevicePixels="True">
+                    <ScrollViewer x:Name="DropDownScrollViewer">
+                        <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                            <Canvas
+                                x:Name="canvas"
+                                Width="0"
+                                Height="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                                <Rectangle
+                                    x:Name="opaqueRect"
+                                    Width="{Binding ActualWidth, ElementName=dropDownBorder}"
+                                    Height="{Binding ActualHeight, ElementName=dropDownBorder}"
+                                    Fill="{Binding Background, ElementName=dropDownBorder}" />
+                            </Canvas>
+                            <ItemsPresenter
+                                x:Name="ItemsPresenter"
+                                KeyboardNavigation.DirectionalNavigation="Contained"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Grid>
+                    </ScrollViewer>
+                </Border>
+            </Popup>
+            <ToggleButton
+                x:Name="toggleButton"
+                Grid.ColumnSpan="2"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                Style="{DynamicResource EditMenuButtonTemplate}" />
+            <ContentPresenter
+                x:Name="contentPresenter"
+                Margin="16,0,0,0"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="Center"
+                Content="{TemplateBinding SelectionBoxItem}"
+                ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                IsHitTestVisible="false"
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="HasItems" Value="false">
+                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsGrouping" Value="true" />
+                    <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false" />
+                </MultiTrigger.Conditions>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+            </MultiTrigger>
+            <Trigger SourceName="DropDownScrollViewer" Property="ScrollViewer.CanContentScroll" Value="false">
+                <Setter TargetName="opaqueRect" Property="Canvas.Top" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}" />
+                <Setter TargetName="opaqueRect" Property="Canvas.Left" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="EditMenuTemplate" TargetType="{x:Type ComboBox}">
+        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="Template" Value="{StaticResource EditBoxTemplate}" />
+        <Style.Triggers />
+    </Style>
+
+    <Style x:Key="EditMenuButtonTemplate" TargetType="{x:Type ToggleButton}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="ClickMode" Value="Release" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid>
+                        <ContentPresenter
+                            x:Name="ButtonContent"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="Center"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                        <Image
+                            Width="24"
+                            Height="24"
+                            Source="{StaticResource MenuIcon}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EditTemplate" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border
+                        x:Name="Border"
+                        Padding="8"
+                        Background="{StaticResource PrimaryColor}"
+                        CornerRadius="6">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource SecondaryGlowColor}" />
+                            <Setter TargetName="Border" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                        </Trigger>
+                        <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="Border" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

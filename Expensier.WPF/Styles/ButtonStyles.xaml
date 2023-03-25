@@ -151,66 +151,41 @@
     </Style>
 
 
-    <Style x:Key="DropDownButtonTemplate" TargetType="{x:Type ToggleButton}">
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="ClickMode" Value="Release" />
+    <Style x:Key="EditButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
         <Setter Property="Width" Value="Auto" />
         <Setter Property="Height" Value="Auto" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border
-                        x:Name="GlowEffect"
-                        Margin="-4"
-                        BorderThickness="4"
-                        CornerRadius="10">
-                        <Border
-                            x:Name="Border"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Background="{StaticResource MenuButtonColor}"
-                            BorderBrush="{StaticResource MenuButtonColor}"
-                            BorderThickness="1.5"
-                            CornerRadius="8"
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            x:Name="ButtonImage"
+                            Grid.Column="0"
+                            Width="16"
+                            Height="16"
+                            Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <ContentPresenter
+                            x:Name="ButtonContent"
+                            Grid.Column="2"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="16" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="16" />
-                                </Grid.ColumnDefinitions>
-                                <ContentPresenter
-                                    x:Name="ButtonContent"
-                                    Grid.Column="1"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="Center"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                    TextElement.FontFamily="SF Pro Display"
-                                    TextElement.FontSize="14"
-                                    TextElement.FontWeight="Bold"
-                                    TextElement.Foreground="{StaticResource InactiveColor}"
-                                    UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
-                                <Image
-                                    Grid.Column="3"
-                                    Width="24"
-                                    Height="24"
-                                    Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
-                            </Grid>
-                        </Border>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{StaticResource SecondaryGlowColor}" />
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryColor}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="ButtonContent" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -2,6 +2,7 @@
     x:Class="Expensier.WPF.Views.ExpensesView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:charts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:controls="clr-namespace:Expensier.WPF.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
@@ -205,11 +206,57 @@
                     <!--#endregion-->
 
                     <!--#region Predictions-->
-                    <Rectangle
+                    <charts:CartesianChart
                         Grid.Row="6"
                         Width="381"
-                        Height="230"
-                        Fill="Gray" />
+                        Height="170"
+                        DataContext="{Binding SpendingSummaryViewModel}"
+                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                        <charts:CartesianChart.DataTooltip>
+                            <charts:DefaultTooltip
+                                Background="{StaticResource ForegroundColor}"
+                                BulletSize="10"
+                                CornerRadius="8"
+                                FontFamily="SF Pro Display"
+                                FontSize="12"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource SecondaryColor}"
+                                ShowSeries="False"
+                                ShowTitle="False" />
+                        </charts:CartesianChart.DataTooltip>
+
+                        <charts:CartesianChart.SeriesColors>
+                            <charts:ColorsCollection>
+                                <Color>#64927C</Color>
+                            </charts:ColorsCollection>
+                        </charts:CartesianChart.SeriesColors>
+
+                        <charts:CartesianChart.Series>
+                            <charts:ColumnSeries Values="{Binding ChartSeries}" />
+                        </charts:CartesianChart.Series>
+
+                        <charts:CartesianChart.AxisX>
+                            <charts:Axis
+                                FontFamily="SF Pro Display"
+                                FontSize="15"
+                                FontWeight="Medium"
+                                Labels="{Binding xAxis}">
+                                <charts:Axis.Separator>
+                                    <charts:Separator Step="1" StrokeThickness="0" />
+                                </charts:Axis.Separator>
+                            </charts:Axis>
+                        </charts:CartesianChart.AxisX>
+
+                        <charts:CartesianChart.AxisY>
+                            <charts:Axis ShowLabels="False">
+                                <charts:Axis.Separator>
+                                    <charts:Separator />
+                                </charts:Axis.Separator>
+                            </charts:Axis>
+                        </charts:CartesianChart.AxisY>
+
+                    </charts:CartesianChart>
                     <!--#endregion-->
 
                 </Grid>

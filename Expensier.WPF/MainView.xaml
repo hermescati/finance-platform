@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:Expensier.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
-    Height="904"
+    Height="908"
     AllowsTransparency="True"
     Background="Transparent"
     Icon="{StaticResource AppIcon}"
