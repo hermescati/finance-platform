@@ -15,18 +15,18 @@ using System.Windows.Shapes;
 
 namespace Expensier.WPF.Controls
 {
-    public partial class BindablePasswordBox : UserControl
+    public partial class PasswordBox : UserControl
     {
         private bool _isPasswordChanging;
 
         public static readonly DependencyProperty PasswordProperty =
-            DependencyProperty.Register("Password", typeof(string), typeof(BindablePasswordBox),
+            DependencyProperty.Register("Password", typeof(string), typeof(PasswordBox),
                 new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                     PasswordPropertyChanged, null, false, UpdateSourceTrigger.PropertyChanged));
 
         private static void PasswordPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is BindablePasswordBox passwordBox)
+            if (d is PasswordBox passwordBox)
             {
                 passwordBox.UpdatePassword();
             }
@@ -38,7 +38,7 @@ namespace Expensier.WPF.Controls
             set { SetValue(PasswordProperty, value); }
         }
 
-        public BindablePasswordBox()
+        public PasswordBox()
         {
             InitializeComponent();
         }

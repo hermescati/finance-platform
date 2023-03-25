@@ -6,45 +6,97 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainView"
     Width="1600"
-    Height="932"
-    Background="{StaticResource BackgroundColor}"
+    Height="908"
+    AllowsTransparency="True"
+    Background="Transparent"
+    Icon="{StaticResource AppIcon}"
+    ResizeMode="CanResize"
     WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
 
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="0"
+            CornerRadius="8"
+            GlassFrameThickness="0"
+            NonClientFrameEdges="None"
+            UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+
+
     <Border
-        Width="Auto"
-        Height="Auto"
-        Margin="24"
-        CornerRadius="24">
+        Background="{StaticResource BackgroundColor}"
+        BorderBrush="{StaticResource TransparentColor}"
+        BorderThickness="1.5"
+        CornerRadius="8">
 
-        <DockPanel Height="Auto" VerticalAlignment="Stretch">
-            <Grid
-                Width="224"
-                Height="Auto"
-                Margin="0,0,24,0">
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsAuthenticated}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-                <controls:SidePanel />
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Rectangle
+                    Grid.Column="0"
+                    Fill="Transparent"
+                    MouseDown="Rectangle_MouseDown" />
+                <Button
+                    Grid.Column="1"
+                    Click="Minimize_MouseDown"
+                    Style="{StaticResource Minimize}" />
+                <Button
+                    Grid.Column="2"
+                    Click="Maximize_MouseDown"
+                    Style="{StaticResource Maximize}" />
+                <Button
+                    Grid.Column="3"
+                    Click="Exit_MouseDown"
+                    Style="{StaticResource Exit}" />
             </Grid>
 
-            <ContentControl
+            <Border
+                Grid.Row="1"
                 Width="Auto"
                 Height="Auto"
-                HorizontalAlignment="Stretch"
-                Content="{Binding CurrentViewModel}" />
+                Margin="24,0,24,24"
+                CornerRadius="24">
 
-        </DockPanel>
+                <DockPanel Height="Auto" VerticalAlignment="Stretch">
+                    <Grid
+                        Width="224"
+                        Height="Auto"
+                        Margin="0,0,24,0">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsAuthenticated}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
 
+                        <controls:SidePanel />
+                    </Grid>
+
+                    <ContentControl
+                        Width="Auto"
+                        Height="Auto"
+                        HorizontalAlignment="Stretch"
+                        Content="{Binding CurrentViewModel}" />
+
+                </DockPanel>
+            </Border>
+        </Grid>
     </Border>
-
 </Window>
