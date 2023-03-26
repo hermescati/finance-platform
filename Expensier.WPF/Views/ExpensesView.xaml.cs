@@ -40,7 +40,7 @@ namespace Expensier.WPF.Views
 
         private void AddNewSubscription(object sender, RoutedEventArgs e)
         {
-            var modal = new AddSubscriptionModal()
+            var modal = new SubscriptionModal()
             {
                 DataContext = AddSubscription.DataContext
             };

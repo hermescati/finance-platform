@@ -14,7 +14,7 @@ namespace Expensier.Domain.Services.Transactions
         Utilities,
         Food, 
         Travel,
-        Subscriptions,
+        Subscription,
         Shopping
     }
 
@@ -26,5 +26,10 @@ namespace Expensier.Domain.Services.Transactions
             DateTime processDate,
             double amount,
             TransactionType transactionType);
+
+
+        Task<Account> DeleteTransaction(
+            Account currentAccount,
+            int transactionID);
     }
 }

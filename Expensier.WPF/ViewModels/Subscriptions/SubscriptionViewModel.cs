@@ -1,4 +1,7 @@
-﻿using Expensier.WPF.State.Expenses;
+﻿using Expensier.Domain.Services.Subscriptions;
+using Expensier.WPF.State.Accounts;
+using Expensier.WPF.State.Expenses;
+using Expensier.WPF.State.Navigators;
 using Expensier.WPF.State.Subscriptions;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -12,6 +15,9 @@ namespace Expensier.WPF.ViewModels.Subscriptions
 {
     public class SubscriptionViewModel : ViewModelBase
     {
+        private readonly ISubscriptionService _subscriptionService;
+        private readonly AccountStore _accountStore;
+        private readonly IRenavigator _renavigator;
         private readonly SubscriptionStore _subscriptionStore;
         private readonly Func<IEnumerable<SubscriptionDataModel>, IEnumerable<SubscriptionDataModel>> _filterSubscriptions;
         private readonly ObservableCollection<SubscriptionDataModel> _subscriptions;
@@ -46,7 +52,30 @@ namespace Expensier.WPF.ViewModels.Subscriptions
 
         public IEnumerable<SubscriptionDataModel> Subscriptions => _subscriptions;
 
-        public SubscriptionViewModel(SubscriptionStore subscriptionStore) : this(subscriptionStore, subscriptions => subscriptions) { }
+        public SubscriptionViewModel(
+            SubscriptionStore subscriptionStore,
+            ISubscriptionService subscriptionService,
+            AccountStore accountStore,
+            IRenavigator renavigator) : this(subscriptionStore, subscriptions => subscriptions, subscriptionService, accountStore, renavigator) { }
+
+        public SubscriptionViewModel(
+            SubscriptionStore subscriptionStore, 
+            Func<IEnumerable<SubscriptionDataModel>, IEnumerable<SubscriptionDataModel>> filterSubscriptions,
+            ISubscriptionService subscriptionService, 
+            AccountStore accountStore, 
+            IRenavigator renavigator)
+        {
+            _subscriptionStore = subscriptionStore;
+            _subscriptionService = subscriptionService;
+            _accountStore = accountStore;
+            _renavigator = renavigator;
+            _filterSubscriptions = filterSubscriptions;
+            _subscriptions = new ObservableCollection<SubscriptionDataModel>();
+
+            _subscriptionStore.StateChanged += Subscription_StateChanged;
+
+            ResetSubscriptions();
+        }
 
         public SubscriptionViewModel(SubscriptionStore subscriptionStore, Func<IEnumerable<SubscriptionDataModel>, IEnumerable<SubscriptionDataModel>> filterSubscriptions)
         {
@@ -62,7 +91,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         private void ResetSubscriptions()
         {
             IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
-                .Select(s => new SubscriptionDataModel(s.Company_Name, s.Subscription_Plan, s.Due_Date, s.Amount, s.Subscription_Type))
+                .Select(s => new SubscriptionDataModel(s.Id, s.Company_Name, s.Subscription_Plan, s.Due_Date, s.Amount, s.Subscription_Type, _subscriptionService, _accountStore, _renavigator))
                 .OrderBy(s => s.DueDate);
 
             _subscriptions.Clear();

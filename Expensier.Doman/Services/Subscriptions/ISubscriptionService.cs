@@ -22,5 +22,9 @@ namespace Expensier.Domain.Services.Subscriptions
             DateTime dueDate,
             double amount,
             SubscriptionCycle subscriptionCycle);
+
+        Task<Account> DeleteSubscription(
+            Account currentAccount,
+            int subscriptionID);
     }
 }

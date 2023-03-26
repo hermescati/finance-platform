@@ -79,7 +79,11 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<TransactionStore>(),
                 services.GetRequiredService<SubscriptionStore>(),
                 services.GetRequiredService<TransactionModalViewModel>(),
-                services.GetRequiredService<SubscriptionModalViewModel>());
+                services.GetRequiredService<SubscriptionModalViewModel>(), 
+                services.GetRequiredService<ITransactionService>(),
+                services.GetRequiredService<ISubscriptionService>(),
+                services.GetRequiredService<AccountStore>(),
+                services.GetRequiredService<DelegateRenavigator<ExpensesViewModel>>());
         }
 
         private static WalletViewModel CreateWalletViewModel(IServiceProvider services)

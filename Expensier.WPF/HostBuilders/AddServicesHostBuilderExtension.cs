@@ -14,6 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Expensier.Domain.Services.Subscriptions;
+using Expensier.WPF.ViewModels;
+using Expensier.WPF.State.Accounts;
 
 namespace Expensier.WPF.HostBuilders
 {
@@ -25,6 +27,8 @@ namespace Expensier.WPF.HostBuilders
             {
                 services.AddSingleton<IAuthenticationService, AuthenticationService>();
                 services.AddSingleton<IDataService<Account>, AccountDataService>();
+                services.AddSingleton<IDataService<Transaction>, GenericDataService<Transaction>>();
+                services.AddSingleton<IDataService<Subscription> , GenericDataService<Subscription>>();
                 services.AddSingleton<IAccountService, AccountDataService>();
                 services.AddSingleton<ITransactionService, TransactionService>();
                 services.AddSingleton<ISubscriptionService, SubscriptionService>();

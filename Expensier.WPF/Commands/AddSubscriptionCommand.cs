@@ -46,6 +46,11 @@ namespace Expensier.WPF.Commands
                     _subscriptionModalViewModel.SubscriptionCycle);
 
                 _accountStore.CurrentAccount = updatedAccount;
+                _subscriptionModalViewModel.CompanyName = string.Empty;
+                _subscriptionModalViewModel.SubscriptionPlan = string.Empty;
+                _subscriptionModalViewModel.DueDate = DateTime.Now;
+                _subscriptionModalViewModel.Amount = 0.0;
+                _subscriptionModalViewModel.SubscriptionCycle = SubscriptionCycle.Monthly;
                 _renavigator.Renavigate();
             }
             catch (Exception)

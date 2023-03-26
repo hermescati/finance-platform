@@ -23,7 +23,7 @@
         <Border
             Width="Auto"
             Height="Auto"
-            Padding="52"
+            Padding="52,52,52,44"
             Background="{StaticResource PrimaryColor}"
             CornerRadius="24">
 
@@ -39,7 +39,7 @@
                     <modals:TransactionModal x:Name="AddTransaction" DataContext="{Binding TransactionModalViewModel}" />
                 </Popup>
                 <Popup IsOpen="False">
-                    <modals:AddSubscriptionModal x:Name="AddSubscription" DataContext="{Binding SubscriptionModalViewModel}" />
+                    <modals:SubscriptionModal x:Name="AddSubscription" DataContext="{Binding SubscriptionModalViewModel}" />
                 </Popup>
                 <!--#endregion-->
 
@@ -49,7 +49,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="38" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -139,7 +139,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="38" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />

@@ -18,9 +18,9 @@ namespace Expensier.WPF.Controls.Modals
     /// <summary>
     /// Interaction logic for AddSubscriptionModal.xaml
     /// </summary>
-    public partial class AddSubscriptionModal : UserControl
+    public partial class SubscriptionModal : UserControl
     {
-        public AddSubscriptionModal()
+        public SubscriptionModal()
         {
             InitializeComponent();
         }
