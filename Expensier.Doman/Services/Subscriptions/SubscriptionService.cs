@@ -11,10 +11,12 @@ namespace Expensier.Domain.Services.Subscriptions
     public class SubscriptionService : ISubscriptionService
     {
         private readonly IDataService<Account> _accountService;
+        private readonly IDataService<Subscription> _subscriptionService;
 
-        public SubscriptionService(IDataService<Account> accountService)
+        public SubscriptionService(IDataService<Account> accountService, IDataService<Subscription> subscriptionService)
         {
             _accountService = accountService;
+            _subscriptionService = subscriptionService;
         }
 
         public async Task<Account> AddSubscription(Account currentAccount, string companyName, string subscriptionPlan, DateTime dueDate, double amount, SubscriptionCycle subscriptionCycle)
@@ -32,6 +34,19 @@ namespace Expensier.Domain.Services.Subscriptions
             currentAccount.SubscriptionList.Add(newSubscription);
 
             await _accountService.Update(currentAccount.Id, currentAccount);
+
+            return currentAccount;
+        }
+
+        public async Task<Account> DeleteSubscription(Account currentAccount, int subscriptionID)
+        {
+            currentAccount.SubscriptionList
+                .Remove(currentAccount.SubscriptionList
+                .FirstOrDefault((subscription) => subscription.Id == subscriptionID));
+
+            await _accountService.Update(currentAccount.Id, currentAccount);
+
+            await _subscriptionService.Delete(subscriptionID);
 
             return currentAccount;
         }

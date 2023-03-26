@@ -214,7 +214,7 @@
 
                         <charts:PieChart.ChartLegend>
                             <charts:DefaultLegend
-                                Width="120"
+                                Width="164"
                                 Height="220"
                                 BulletSize="32"
                                 FontFamily="SF Pro Display"

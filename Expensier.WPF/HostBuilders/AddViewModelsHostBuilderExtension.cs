@@ -37,6 +37,7 @@ namespace Expensier.WPF.HostBuilders
                 services.AddTransient<TopSubscriptionsViewModel>();
                 services.AddTransient<SpendingSummaryViewModel>();
                 services.AddTransient<ExpenditureAllocationViewModel>();
+                services.AddTransient<MonthlyExpensesViewModel>();
                 services.AddSingleton(CreateExpensesViewModel);
                 services.AddTransient<TransactionModalViewModel>();
                 services.AddTransient<SubscriptionModalViewModel>();
@@ -79,7 +80,12 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<TransactionStore>(),
                 services.GetRequiredService<SubscriptionStore>(),
                 services.GetRequiredService<TransactionModalViewModel>(),
-                services.GetRequiredService<SubscriptionModalViewModel>());
+                services.GetRequiredService<SubscriptionModalViewModel>(),
+                services.GetRequiredService<MonthlyExpensesViewModel>(),
+                services.GetRequiredService<ITransactionService>(),
+                services.GetRequiredService<ISubscriptionService>(),
+                services.GetRequiredService<AccountStore>(),
+                services.GetRequiredService<DelegateRenavigator<ExpensesViewModel>>()); ;
         }
 
         private static WalletViewModel CreateWalletViewModel(IServiceProvider services)

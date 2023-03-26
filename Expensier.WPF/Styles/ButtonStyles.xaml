@@ -175,8 +175,8 @@
                         <Image
                             x:Name="ButtonImage"
                             Grid.Column="0"
-                            Width="16"
-                            Height="16"
+                            Width="20"
+                            Height="20"
                             Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
                         <ContentPresenter
                             x:Name="ButtonContent"

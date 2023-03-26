@@ -47,6 +47,10 @@ namespace Expensier.WPF.Commands
                     _transactionModalViewModel.Category);
 
                 _accountStore.CurrentAccount = updatedAccount;
+                _transactionModalViewModel.TransactionName = string.Empty;
+                _transactionModalViewModel.ProcessDate = DateTime.Now;
+                _transactionModalViewModel.Amount = 0.0;
+                _transactionModalViewModel.Category = TransactionType.Salary;
                 _renavigator.Renavigate();
             }
             catch (Exception)

@@ -11,10 +11,12 @@ namespace Expensier.Domain.Services.Transactions
     public class TransactionService : ITransactionService
     {
         private readonly IDataService<Account> _accountService;
+        private readonly IDataService<Transaction> _transactionService;
 
-        public TransactionService(IDataService<Account> accountService)
+        public TransactionService(IDataService<Account> accountService, IDataService<Transaction> transactionService)
         {
             _accountService = accountService;
+            _transactionService = transactionService;
         }
 
         public async Task<Account> AddTransaction(Account currentAccount, string transactionName, DateTime processDate, double amount, TransactionType transactionType)
@@ -39,6 +41,20 @@ namespace Expensier.Domain.Services.Transactions
             currentAccount.TransactionList.Add(newTransaction);
 
             await _accountService.Update(currentAccount.Id, currentAccount);
+
+            return currentAccount;
+        }
+
+
+        public async Task<Account> DeleteTransaction(Account currentAccount, int transactionID)
+        { 
+            currentAccount.TransactionList
+                .Remove(currentAccount.TransactionList
+                .FirstOrDefault((transaction) => transaction.Id == transactionID));
+
+            await _accountService.Update(currentAccount.Id, currentAccount);
+
+            await _transactionService.Delete(transactionID);
 
             return currentAccount;
         }

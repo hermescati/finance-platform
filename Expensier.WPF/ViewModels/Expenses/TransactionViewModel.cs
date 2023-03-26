@@ -1,5 +1,8 @@
 ﻿using Expensier.Domain.Models;
+using Expensier.Domain.Services.Transactions;
+using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Expenses;
+using Expensier.WPF.State.Navigators;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -12,6 +15,9 @@ namespace Expensier.WPF.ViewModels.Expenses
 {
     public class TransactionViewModel : ViewModelBase
     {
+        private readonly ITransactionService _transactionService;
+        private readonly AccountStore _accountStore;
+        private readonly IRenavigator _renavigator;
         private readonly TransactionStore _transactionStore;
         private readonly Func<IEnumerable<TransactionDataModel>, IEnumerable<TransactionDataModel>> _filterTransaction;
         private readonly ObservableCollection<TransactionDataModel> _transactions;
@@ -46,7 +52,30 @@ namespace Expensier.WPF.ViewModels.Expenses
 
         public IEnumerable<TransactionDataModel> Transactions => _transactions;
 
-        public TransactionViewModel(TransactionStore transactionStore) : this(transactionStore, transactions => transactions) { }
+        public TransactionViewModel(
+            TransactionStore transactionStore, 
+            ITransactionService transactionService,
+            AccountStore accountStore,
+            IRenavigator renavigator) : this(transactionStore, transactions => transactions, transactionService, accountStore, renavigator) { }
+
+        public TransactionViewModel(
+            TransactionStore transactionStore, 
+            Func<IEnumerable<TransactionDataModel>, IEnumerable<TransactionDataModel>> filterTransactions, 
+            ITransactionService transactionService, 
+            AccountStore accountStore,
+            IRenavigator renavigator)
+        {
+            _transactionStore = transactionStore;
+            _transactionService = transactionService;
+            _accountStore = accountStore;
+            _renavigator = renavigator;
+            _filterTransaction = filterTransactions;
+            _transactions = new ObservableCollection<TransactionDataModel>();
+
+            _transactionStore.StateChanged += Transaction_StateChanged;
+
+            ResetTransactions();
+        }
 
         public TransactionViewModel(TransactionStore transactionStore, Func<IEnumerable<TransactionDataModel>, IEnumerable<TransactionDataModel>> filterTransactions)
         {
@@ -62,7 +91,7 @@ namespace Expensier.WPF.ViewModels.Expenses
         private void ResetTransactions()
         {
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
-                .Select(t => new TransactionDataModel(t.Transaction_Name, t.Process_Date, t.Amount, t.Transaction_Type, t.Is_Credit))
+                .Select(t => new TransactionDataModel(t.Id, t.Transaction_Name, t.Process_Date, t.Amount, t.Transaction_Type, t.Is_Credit, _transactionService, _accountStore, _renavigator))
                 .OrderByDescending(o => o.ProcessDate);
 
             transactionDataModel = _filterTransaction(transactionDataModel);

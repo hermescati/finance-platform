@@ -23,7 +23,7 @@
         <Border
             Width="Auto"
             Height="Auto"
-            Padding="52"
+            Padding="52,52,52,44"
             Background="{StaticResource PrimaryColor}"
             CornerRadius="24">
 
@@ -39,7 +39,7 @@
                     <modals:TransactionModal x:Name="AddTransaction" DataContext="{Binding TransactionModalViewModel}" />
                 </Popup>
                 <Popup IsOpen="False">
-                    <modals:AddSubscriptionModal x:Name="AddSubscription" DataContext="{Binding SubscriptionModalViewModel}" />
+                    <modals:SubscriptionModal x:Name="AddSubscription" DataContext="{Binding SubscriptionModalViewModel}" />
                 </Popup>
                 <!--#endregion-->
 
@@ -49,7 +49,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="38" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -139,7 +139,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="38" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
@@ -206,57 +206,77 @@
                     <!--#endregion-->
 
                     <!--#region Predictions-->
-                    <charts:CartesianChart
-                        Grid.Row="6"
-                        Width="381"
-                        Height="170"
-                        DataContext="{Binding SpendingSummaryViewModel}"
-                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid Grid.Row="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="38" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                        <charts:CartesianChart.DataTooltip>
-                            <charts:DefaultTooltip
-                                Background="{StaticResource ForegroundColor}"
-                                BulletSize="10"
-                                CornerRadius="8"
-                                FontFamily="SF Pro Display"
-                                FontSize="12"
-                                FontWeight="Bold"
-                                Foreground="{StaticResource SecondaryColor}"
-                                ShowSeries="False"
-                                ShowTitle="False" />
-                        </charts:CartesianChart.DataTooltip>
+                        <charts:CartesianChart
+                            Grid.Row="0"
+                            Width="381"
+                            Height="170"
+                            DataContext="{Binding MonthlyExpensesViewModel}"
+                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-                        <charts:CartesianChart.SeriesColors>
-                            <charts:ColorsCollection>
-                                <Color>#64927C</Color>
-                            </charts:ColorsCollection>
-                        </charts:CartesianChart.SeriesColors>
+                            <charts:CartesianChart.DataTooltip>
+                                <charts:DefaultTooltip
+                                    Background="{StaticResource ForegroundColor}"
+                                    BulletSize="10"
+                                    CornerRadius="8"
+                                    FontFamily="SF Pro Display"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource SecondaryColor}"
+                                    ShowSeries="False"
+                                    ShowTitle="False" />
+                            </charts:CartesianChart.DataTooltip>
 
-                        <charts:CartesianChart.Series>
-                            <charts:ColumnSeries Values="{Binding ChartSeries}" />
-                        </charts:CartesianChart.Series>
+                            <charts:CartesianChart.Series>
+                                <charts:ColumnSeries Fill="{StaticResource SecondaryGlowColor}" Values="{Binding ChartSeries}">
+                                    <charts:ColumnSeries.Style>
+                                        <Style TargetType="charts:ColumnSeries">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Stroke" Value="{StaticResource SecondaryColor}" />
+                                                    <Setter Property="StrokeThickness" Value="1" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </charts:ColumnSeries.Style>
+                                </charts:ColumnSeries>
+                            </charts:CartesianChart.Series>
 
-                        <charts:CartesianChart.AxisX>
-                            <charts:Axis
-                                FontFamily="SF Pro Display"
-                                FontSize="15"
-                                FontWeight="Medium"
-                                Labels="{Binding xAxis}">
-                                <charts:Axis.Separator>
-                                    <charts:Separator Step="1" StrokeThickness="0" />
-                                </charts:Axis.Separator>
-                            </charts:Axis>
-                        </charts:CartesianChart.AxisX>
+                            <charts:CartesianChart.AxisX>
+                                <charts:Axis
+                                    FontFamily="SF Pro Display"
+                                    FontSize="15"
+                                    FontWeight="Medium"
+                                    Labels="{Binding xAxis}">
+                                    <charts:Axis.Separator>
+                                        <charts:Separator Step="1" StrokeThickness="0" />
+                                    </charts:Axis.Separator>
+                                </charts:Axis>
+                            </charts:CartesianChart.AxisX>
 
-                        <charts:CartesianChart.AxisY>
-                            <charts:Axis ShowLabels="False">
-                                <charts:Axis.Separator>
-                                    <charts:Separator />
-                                </charts:Axis.Separator>
-                            </charts:Axis>
-                        </charts:CartesianChart.AxisY>
+                            <charts:CartesianChart.AxisY>
+                                <charts:Axis ShowLabels="False">
+                                    <charts:Axis.Separator>
+                                        <charts:Separator />
+                                    </charts:Axis.Separator>
+                                </charts:Axis>
+                            </charts:CartesianChart.AxisY>
 
-                    </charts:CartesianChart>
+                        </charts:CartesianChart>
+
+                        <TextBlock
+                            Grid.Row="2"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource Transaction_Data_15px}"
+                            Text="$##.###.## has been spend this current month." />
+
+                    </Grid>
                     <!--#endregion-->
 
                 </Grid>
