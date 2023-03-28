@@ -91,7 +91,7 @@ namespace Expensier.WPF.ViewModels.Expenses
         private void ResetTransactions()
         {
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
-                .Select(t => new TransactionDataModel(t.Id, t.Transaction_Name, t.Process_Date, t.Amount, t.Transaction_Type, t.Is_Credit, _transactionService, _accountStore, _renavigator))
+                .Select(t => new TransactionDataModel(t.ID, t.TransactionName, t.ProcessDate, t.Amount, t.TransactionType, t.IsCredit, _transactionService, _accountStore, _renavigator))
                 .OrderByDescending(o => o.ProcessDate);
 
             transactionDataModel = _filterTransaction(transactionDataModel);

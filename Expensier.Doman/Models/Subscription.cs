@@ -8,11 +8,11 @@ namespace Expensier.Domain.Models
 {
     public class Subscription : DomainObject
     {
-        public Account Account_ { get; set; }
-        public string? Company_Name { get; set; }
-        public string? Subscription_Plan { get; set; }
-        public DateTime Due_Date { get; set; }
+        public Account AccountHolder { get; set; }
+        public string? CompanyName { get; set; }
+        public string? SubscriptionPlan { get; set; }
+        public DateTime DueDate { get; set; }
         public double Amount { get; set; }
-        public string? Subscription_Type { get; set; }
+        public string? SubscriptionType { get; set; }
     }
 }

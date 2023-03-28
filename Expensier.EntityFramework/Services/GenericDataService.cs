@@ -40,7 +40,7 @@ namespace Expensier.EntityFramework.Services
         {
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
-                T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.Id == id);
+                T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.ID == id);
                 return entity;
             }
         }

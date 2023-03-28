@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Expensier.Domain.Models
+namespace Expensier.WPF.ViewModels.Charts
 {
-    public class DomainObject
+    public class AssetAllocationViewModel
     {
-        public int ID { get; set; }
     }
 }

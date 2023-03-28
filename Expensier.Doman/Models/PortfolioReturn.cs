@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Expensier.Domain.Models
 {
-    public class CryptoAsset : DomainObject
+    public class PortfolioReturn : DomainObject
     {
         public Account AccountHolder { get; set; }
-        public Crypto Asset { get; set; }
-        public double PurchasePrice { get; set; }
-        public double Coins { get; set; }
+        public DateTime RecordedDate { get; set; }
+        public double ReturnPercentage { get; set; }
     }
 }

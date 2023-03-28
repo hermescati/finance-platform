@@ -23,17 +23,17 @@ namespace Expensier.Domain.Services.Subscriptions
         {
             Subscription newSubscription = new Subscription()
             {
-                Account_ = currentAccount,
-                Company_Name = companyName,
-                Subscription_Plan = subscriptionPlan,
-                Due_Date = dueDate,
+                AccountHolder = currentAccount,
+                CompanyName = companyName,
+                SubscriptionPlan = subscriptionPlan,
+                DueDate = dueDate,
                 Amount = amount,
-                Subscription_Type = subscriptionCycle.ToString()
+                SubscriptionType = subscriptionCycle.ToString()
             };
 
             currentAccount.SubscriptionList.Add(newSubscription);
 
-            await _accountService.Update(currentAccount.Id, currentAccount);
+            await _accountService.Update(currentAccount.ID, currentAccount);
 
             return currentAccount;
         }
@@ -42,9 +42,9 @@ namespace Expensier.Domain.Services.Subscriptions
         {
             currentAccount.SubscriptionList
                 .Remove(currentAccount.SubscriptionList
-                .FirstOrDefault((subscription) => subscription.Id == subscriptionID));
+                .FirstOrDefault((subscription) => subscription.ID == subscriptionID));
 
-            await _accountService.Update(currentAccount.Id, currentAccount);
+            await _accountService.Update(currentAccount.ID, currentAccount);
 
             await _subscriptionService.Delete(subscriptionID);
 

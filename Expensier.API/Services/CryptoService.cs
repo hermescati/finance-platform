@@ -60,23 +60,23 @@ namespace Expensier.API.Services
             string symbol = currentCrypto.Symbol;
 
             CryptoAsset cryptoInList = currentAccount.CryptoAssetList
-                .FirstOrDefault((asset) => asset.Crypto.Symbol == symbol);
+                .FirstOrDefault((asset) => asset.Asset.Symbol == symbol);
 
             if (cryptoInList == null)
             {
                 CryptoAsset newCryptoAsset = new CryptoAsset()
                 {
-                    Account_ = currentAccount,
-                    Crypto = currentCrypto,
-                    Purchase_Price = purchasePrice,
-                    Amount = amount
+                    AccountHolder = currentAccount,
+                    Asset = currentCrypto,
+                    PurchasePrice = purchasePrice,
+                    Coins = amount
                 };
 
-                _cryptoService.GetByID(newCryptoAsset.Id);
+                _cryptoService.GetByID(newCryptoAsset.ID);
 
                 currentAccount.CryptoAssetList.Add(newCryptoAsset);
 
-                await _accountService.Update(currentAccount.Id, currentAccount);
+                await _accountService.Update(currentAccount.ID, currentAccount);
             }
 
             return currentAccount;
@@ -86,9 +86,9 @@ namespace Expensier.API.Services
         {
             currentAccount.CryptoAssetList
                 .Remove(currentAccount.CryptoAssetList
-                .FirstOrDefault((crypto) => crypto.Id == cryptoID));
+                .FirstOrDefault((crypto) => crypto.ID == cryptoID));
 
-            await _accountService.Update(currentAccount.Id, currentAccount);
+            await _accountService.Update(currentAccount.ID, currentAccount);
 
             await _cryptoService.Delete(cryptoID);
 

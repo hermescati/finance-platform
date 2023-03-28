@@ -44,8 +44,18 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
         public ColorsCollection SeriesColors { get; }
 
+        /// <summary>
+        /// Crypto asset list item.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="crypto"></param>
+        /// <param name="purchasePrice"></param>
+        /// <param name="amount"></param>
+        /// <param name="cryptoService"></param>
+        /// <param name="accountStore"></param>
+        /// <param name="renavigator"></param>
         public CryptoDataModel(
-            int id, 
+            int id,
             Crypto crypto,
             double purchasePrice,
             double amount, 
@@ -58,18 +68,29 @@ namespace Expensier.WPF.ViewModels.Cryptos
             PurchasePrice = purchasePrice;
             Amount = amount;
 
-            TotalValue = (double)(amount * crypto.Price);
+            TotalValue = (double)(amount * Crypto.Price);
 
             _cryptoService = cryptoService;
             _accountStore = accountStore;
             _renavigator = renavigator;
 
             DeleteCommand = new DeleteCryptoCommand(this, cryptoService, accountStore, renavigator);
+        }
+
+        /// <summary>
+        /// Crypto watch list item.
+        /// </summary>
+        /// <param name="crypto"></param>
+        /// <param name="cryptoService"></param>
+        public CryptoDataModel(Crypto crypto, ICryptoService cryptoService)
+        {
+            Crypto = crypto;
+            _cryptoService = cryptoService;
 
             CryptoPerformance = new ChartValues<double>();
             SeriesColors = new ColorsCollection();
 
-            ConstructSeries(_cryptoService, Crypto.Symbol);
+            _ = ConstructSeries(_cryptoService, Crypto.Symbol);
             AddChartColors(Crypto.ChangesPercentage);
         }
 

@@ -74,7 +74,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
             _cryptoStore.StateChanged += Crypto_StateChanged;
 
-            ResetCryptos();
+            ResetCryptosList();
         }
 
         public CryptoViewModel(
@@ -89,14 +89,27 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
             _cryptoStore.StateChanged += Crypto_StateChanged;
 
-            ResetCryptos();
+            ResetCryptosWatchlist();
         }
 
-        private void ResetCryptos()
+        private void ResetCryptosList()
         {
             IEnumerable<CryptoDataModel> cryptoDataModel = _cryptoStore.CryptoAssetList
-                .Select(c => new CryptoDataModel(c.Id, c.Crypto, c.Purchase_Price, c.Amount, _cryptoService, _accountStore, _renavigator));
+                .Select(c => new CryptoDataModel(c.ID, c.Asset, c.PurchasePrice, c.Coins, _cryptoService, _accountStore, _renavigator));
+            
+            cryptoDataModel = AddCryptoToList(cryptoDataModel);
+        }
 
+        private void ResetCryptosWatchlist()
+        {
+            IEnumerable<CryptoDataModel> cryptoDataModel = _cryptoStore.CryptoAssetList
+                .Select(c => new CryptoDataModel(c.Asset, _cryptoService));
+
+            cryptoDataModel = AddCryptoToList(cryptoDataModel);
+        }
+
+        private IEnumerable<CryptoDataModel> AddCryptoToList(IEnumerable<CryptoDataModel> cryptoDataModel)
+        {
             cryptoDataModel = _filterCryptos(cryptoDataModel);
 
             _cryptos.Clear();
@@ -115,11 +128,14 @@ namespace Expensier.WPF.ViewModels.Cryptos
                 _listEmpty = false;
                 _listNotEmpty = true;
             }
+
+            return cryptoDataModel;
         }
 
         private void Crypto_StateChanged()
         {
-            ResetCryptos();
+            ResetCryptosList();
+            ResetCryptosWatchlist();
         }
     }
 }

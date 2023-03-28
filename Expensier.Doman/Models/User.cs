@@ -9,10 +9,10 @@ namespace Expensier.Domain.Models
 {
     public class User : DomainObject
     {
-        public string? First_Name { get; set; }
-        public string? Last_Name { get; set;}
+        public string? FirstName { get; set; }
+        public string? LastName { get; set;}
         public string? Email { get; set; }
-        public string? Password_Hash { get; set; }
-        public DateTime Date_Joined { get; set; }
+        public string? PasswordHash { get; set; }
+        public DateTime JoinDate { get; set; }
     }
 }
