@@ -48,5 +48,35 @@ namespace Expensier.API
             }
             return default(T);
         }
+
+        public async Task<IEnumerable<PriceData>> DeserializeHistoricalPrices(string uri)
+        {
+            try
+            {
+                using var response = await _client.GetAsync($"{uri}?apikey={_apiKey}", HttpCompletionOption.ResponseHeadersRead);
+                response.EnsureSuccessStatusCode();
+
+                var responseStream = await response.Content.ReadAsStreamAsync();
+                using var streamReader = new StreamReader(responseStream);
+                using var jsonResponse = new JsonTextReader(streamReader);
+
+                JsonSerializer serializer = new JsonSerializer();
+
+                try
+                {
+                    return serializer.Deserialize<IEnumerable<PriceData>>(jsonResponse);
+                }
+                catch (JsonReaderException)
+                {
+                    Console.WriteLine("Invalid JSON!");
+                    return Enumerable.Empty<PriceData>();
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return Enumerable.Empty<PriceData>();
+            }
+        }
     }
 }

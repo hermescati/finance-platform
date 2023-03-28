@@ -159,8 +159,8 @@
                         Margin="0,8,0,0"
                         Padding="6"
                         Background="{StaticResource PrimaryColor}"
-                        BorderBrush="{StaticResource PrimaryColor}"
-                        BorderThickness="1"
+                        BorderBrush="{StaticResource TransparentColor}"
+                        BorderThickness="1.5"
                         CornerRadius="8">
                         <ScrollViewer x:Name="DropDownScrollViewer">
                             <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
@@ -210,8 +210,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="true">
-                <Setter TargetName="shadow" Property="Margin" Value="0,0,5,5" />
-                <Setter TargetName="shadow" Property="Color" Value="#71000000" />
+                <Setter TargetName="shadow" Property="Margin" Value="8,0,8,8" />
             </Trigger>
             <Trigger Property="HasItems" Value="false">
                 <Setter TargetName="dropDownBorder" Property="Height" Value="95" />

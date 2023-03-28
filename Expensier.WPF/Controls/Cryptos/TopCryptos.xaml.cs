@@ -1,5 +1,4 @@
-﻿using Expensier.WPF.Controls.Modals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,26 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Expensier.WPF.Views
+namespace Expensier.WPF.Controls.Cryptos
 {
     /// <summary>
-    /// Interaction logic for WalletView.xaml
+    /// Interaction logic for TopCryptos.xaml
     /// </summary>
-    public partial class WalletView : UserControl
+    public partial class TopCryptos : UserControl
     {
-        public WalletView()
+        public TopCryptos()
         {
             InitializeComponent();
-        }
-
-        private void AddNewCrypto(object sender, RoutedEventArgs e)
-        {
-            var modal = new CryptoModal()
-            {
-                DataContext = AddCrypto.DataContext
-            };
-
-            MainContent.Children.Add(modal);
         }
     }
 }

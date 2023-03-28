@@ -1,5 +1,4 @@
-﻿using Expensier.WPF.Controls.Modals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,26 +13,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Expensier.WPF.Views
+namespace Expensier.WPF.Controls.Modals
 {
     /// <summary>
-    /// Interaction logic for WalletView.xaml
+    /// Interaction logic for CryptoModal.xaml
     /// </summary>
-    public partial class WalletView : UserControl
+    public partial class CryptoModal : UserControl
     {
-        public WalletView()
+        public CryptoModal()
         {
             InitializeComponent();
         }
 
-        private void AddNewCrypto(object sender, RoutedEventArgs e)
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var modal = new CryptoModal()
-            {
-                DataContext = AddCrypto.DataContext
-            };
+            this.Visibility = Visibility.Collapsed;
+        }
 
-            MainContent.Children.Add(modal);
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }

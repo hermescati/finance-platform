@@ -1,4 +1,5 @@
-﻿using Expensier.WPF.State.Subscriptions;
+﻿using Expensier.Domain.Services;
+using Expensier.WPF.State.Crypto;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -7,13 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Expensier.WPF.ViewModels.Subscriptions
+namespace Expensier.WPF.ViewModels.Cryptos
 {
-    public class TopSubscriptionsViewModel : ViewModelBase
+    public class CryptoWatchlistViewModel : ViewModelBase
     {
-        private readonly SubscriptionStore _subscriptionStore;
-        public SubscriptionViewModel SubscriptionViewModel { get; }
-        private readonly ObservableCollection<SubscriptionDataModel> _subscriptions;
+        private readonly CryptoStore _cryptoStore;
+        private readonly ICryptoService _cryptoService;
+        public CryptoViewModel CryptoViewModel { get; }
+        private readonly ObservableCollection<CryptoDataModel> _cryptos;
 
         private bool _listEmpty;
         public bool ListEmpty
@@ -43,21 +45,22 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             }
         }
 
-        public IEnumerable<SubscriptionDataModel> Subscriptions => _subscriptions;
+        public IEnumerable<CryptoDataModel> Cryptos => _cryptos;
 
-        public TopSubscriptionsViewModel(SubscriptionStore subscriptionStore)
+        public CryptoWatchlistViewModel(CryptoStore cryptoStore, ICryptoService cryptoService)
         {
-            _subscriptions = new ObservableCollection<SubscriptionDataModel>();
-            _subscriptionStore = subscriptionStore;
+            _cryptos = new ObservableCollection<CryptoDataModel>();
+            _cryptoStore = cryptoStore;
+            _cryptoService = cryptoService;
 
-            SubscriptionViewModel = new SubscriptionViewModel(subscriptionStore, 
-                subscriptions => subscriptions
-                .OrderByDescending(s => s.DueDate)
-                .Take(3));
+            CryptoViewModel = new CryptoViewModel(cryptoStore,
+                cryptos => cryptos
+                .OrderByDescending(c => c.Crypto.ChangesPercentage),
+                cryptoService);
 
-            _subscriptions = (ObservableCollection<SubscriptionDataModel>)SubscriptionViewModel.Subscriptions;
+            _cryptos = (ObservableCollection<CryptoDataModel>)CryptoViewModel.Cryptos;
 
-            if (_subscriptions.IsNullOrEmpty())
+            if (_cryptos.IsNullOrEmpty())
             {
                 _listEmpty = true;
                 _listNotEmpty = false;

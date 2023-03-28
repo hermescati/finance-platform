@@ -108,7 +108,9 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
         <Setter Property="Opacity" Value="0.4" />
     </Style>
+    <!--#endregion-->
 
+    <!--#region Subscriptions-->
     <Style x:Key="Subscription_Data_15px" TargetType="TextBlock">
         <Setter Property="Padding" Value="0" />
         <Setter Property="FontFamily" Value="SF Pro Display" />
@@ -134,6 +136,63 @@
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
         <Setter Property="Opacity" Value="0.4" />
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Cryptos-->
+    <Style x:Key="Crypto_Symbol_14px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+
+    <Style x:Key="Crypto_Price_13px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+
+    <Style x:Key="Crypto_Symbol_12px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
+    </Style>
+
+    <Style x:Key="Crypto_Name_10px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
+    </Style>
+
+    <Style x:Key="Crypto_Trend_10px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style x:Key="Crypto_Price_9px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="9" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
+    </Style>
+
+    <Style x:Key="Crypto_Trend_8px" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{StaticResource BackgroundColor}" />
     </Style>
     <!--#endregion-->
 
