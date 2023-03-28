@@ -72,7 +72,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
             _filterCryptos = filterCryptos;
             _cryptos = new ObservableCollection<CryptoDataModel>();
 
-            _cryptoStore.StateChanged += Crypto_StateChanged;
+            _cryptoStore.StateChanged += CryptoList_StateChanged;
 
             ResetCryptosList();
         }
@@ -87,9 +87,20 @@ namespace Expensier.WPF.ViewModels.Cryptos
             _filterCryptos = filterCryptos;
             _cryptos = new ObservableCollection<CryptoDataModel>();
 
-            _cryptoStore.StateChanged += Crypto_StateChanged;
+            _cryptoStore.StateChanged += CryptoWatchlist_StateChanged;
 
             ResetCryptosWatchlist();
+        }
+
+        public CryptoViewModel(CryptoStore cryptoStore, Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos)
+        {
+            _cryptoStore = cryptoStore;
+            _filterCryptos = filterCryptos;
+            _cryptos = new ObservableCollection<CryptoDataModel>();
+
+            _cryptoStore.StateChanged += CryptoList_StateChanged;
+
+            ResetCryptosList();
         }
 
         private void ResetCryptosList()
@@ -132,9 +143,13 @@ namespace Expensier.WPF.ViewModels.Cryptos
             return cryptoDataModel;
         }
 
-        private void Crypto_StateChanged()
+        private void CryptoList_StateChanged()
         {
             ResetCryptosList();
+        }
+
+        private void CryptoWatchlist_StateChanged()
+        {
             ResetCryptosWatchlist();
         }
     }

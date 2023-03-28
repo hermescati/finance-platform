@@ -117,7 +117,7 @@
                                 Text="{Binding Crypto.Symbol, Converter={StaticResource CryptoNameConverter}, ConverterParameter='USD'}" />
                         </Grid>
 
-                        <Grid Grid.Column="4" Width="48">
+                        <Grid Grid.Column="4" Width="56">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="4" />

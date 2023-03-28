@@ -69,7 +69,8 @@
             ItemContainerStyle="{DynamicResource TopPerformingCrypto}"
             ItemsSource="{Binding Cryptos}"
             ScrollViewer.CanContentScroll="False"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel

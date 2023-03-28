@@ -90,7 +90,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
             CryptoPerformance = new ChartValues<double>();
             SeriesColors = new ColorsCollection();
 
-            _ = ConstructSeries(_cryptoService, Crypto.Symbol);
+            ConstructSeries(_cryptoService, Crypto.Symbol);
             AddChartColors(Crypto.ChangesPercentage);
         }
 
