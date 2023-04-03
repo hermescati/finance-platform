@@ -48,7 +48,9 @@ namespace Expensier.WPF.HostBuilders
                 services.AddTransient(CreateCryptoModalViewModel);
                 services.AddSingleton(CreateWalletViewModel);
                 services.AddSingleton<CryptoWatchlistViewModel>();
+                services.AddTransient<PortfolioValueViewModel>();
                 services.AddTransient<AssetAllocationViewModel>();
+                services.AddTransient<PortfolioPerformanceViewModel>();
 
                 services.AddSingleton<IExpensierViewModelFactory, ExpensierViewModelFactory>();
 
@@ -100,7 +102,9 @@ namespace Expensier.WPF.HostBuilders
         {
             return new WalletViewModel(
                 services.GetRequiredService<CryptoWatchlistViewModel>(),
+                services.GetRequiredService<PortfolioValueViewModel>(),
                 services.GetRequiredService<AssetAllocationViewModel>(),
+                services.GetRequiredService<PortfolioPerformanceViewModel>(),
                 services.GetRequiredService<CryptoStore>(),
                 services.GetRequiredService<CryptoModalViewModel>(),
                 services.GetRequiredService<ICryptoService>(),

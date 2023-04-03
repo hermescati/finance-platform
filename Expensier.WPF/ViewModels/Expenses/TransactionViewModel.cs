@@ -103,7 +103,7 @@ namespace Expensier.WPF.ViewModels.Expenses
             }
 
             if (_transactions.IsNullOrEmpty())
-            {
+            {   
                 _listEmpty = true;
                 _listNotEmpty = false;
             }

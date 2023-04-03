@@ -13,6 +13,10 @@ namespace Expensier.Domain.Services
 
         Task<IEnumerable<PriceData>> GetHistoricalPrices(string symbol);
 
+        public double GetMarketValue(double? price, double coins);
+
+        Task<double> GetCryptoReturns(CryptoAsset currentCrypto);
+
         Task<Account> AddCrypto(
             Account currentAccount,
             Crypto currentCrypto,

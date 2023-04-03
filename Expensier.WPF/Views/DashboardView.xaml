@@ -160,7 +160,7 @@
                     </Grid.RowDefinitions>
 
                     <!--#region Header-->
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0" Width="500">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -206,17 +206,18 @@
                         Grid.Row="2"
                         Width="500"
                         Height="224"
+                        Margin="-100,0,0,0"
                         DataContext="{Binding ExpenditureAllocationViewModel}"
                         InnerRadius="56"
-                        LegendLocation="Left"
+                        LegendLocation="Right"
                         Series="{Binding Series}"
                         SeriesColors="{Binding SeriesColors, Mode=OneWay}"
                         Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                         <charts:PieChart.ChartLegend>
                             <charts:DefaultLegend
-                                Width="164"
                                 Height="220"
+                                Margin="48,0,0,0"
                                 BulletSize="32"
                                 FontFamily="SF Pro Display"
                                 FontSize="15"
@@ -351,7 +352,7 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="46" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 

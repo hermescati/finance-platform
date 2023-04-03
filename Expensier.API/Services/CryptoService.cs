@@ -11,6 +11,7 @@ using Expensier.Domain.Models;
 using System.Collections;
 using Expensier.Doman.Services;
 using Expensier.API.Models;
+using Expensier.Domain.Services.Portfolio;
 
 namespace Expensier.API.Services
 {
@@ -27,6 +28,12 @@ namespace Expensier.API.Services
             _cryptoService = cryptoService;
         }
 
+        /// <summary>
+        /// API call to retrieve market data for the provided crypto asset.
+        /// </summary>
+        /// <param name="symbol">The symbol of the crypto asset (symbolUSD)</param>
+        /// <returns>The crypto asset with market data</returns>
+        /// <exception cref="InvalidSymbolException">Thrown if the provided symbol does not belong to any crypto asset.</exception>
         public async Task<Crypto> GetCrypto(string symbol)
         {
             var uri = "quote/" + symbol;
@@ -39,6 +46,12 @@ namespace Expensier.API.Services
             return crypto;
         }
 
+        /// <summary>
+        /// API call to retrieve historical prices of the provided crypto asset.
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidSymbolException"></exception>
         public async Task<IEnumerable<PriceData>> GetHistoricalPrices(string symbol)
         {
             var uri = "historical-chart/1hour/" + symbol;
@@ -93,6 +106,26 @@ namespace Expensier.API.Services
             await _cryptoService.Delete(cryptoID);
 
             return currentAccount;
+        }
+
+        public async Task<double> GetCryptoReturns(CryptoAsset currentCrypto)
+        {
+            double oldPrice = (double)currentCrypto.Asset.Price;
+
+            Crypto updatedCrypto = await GetCrypto(currentCrypto.Asset.Symbol);
+            currentCrypto.Asset = updatedCrypto;
+
+            double newPrice = (double)currentCrypto.Asset.Price;
+
+            return (newPrice / oldPrice) - 1;
+        }
+
+        public double GetMarketValue(double? price, double coins)
+        {
+            double cryptoPrice = (double)price;
+            double cryptoCoins = coins;
+
+            return cryptoPrice * cryptoCoins;
         }
     }
 }

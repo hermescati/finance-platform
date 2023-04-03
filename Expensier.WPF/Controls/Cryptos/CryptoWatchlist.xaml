@@ -24,7 +24,7 @@
         <Style x:Key="CryptoWatchlist" TargetType="{x:Type ListViewItem}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="UseLayoutRounding" Value="True" />
-            <Setter Property="Margin" Value="0,0,24,0" />
+            <Setter Property="Margin" Value="0,0,19,0" />
             <Setter Property="Width" Value="Auto" />
             <Setter Property="Height" Value="64" />
             <Setter Property="Template">
@@ -73,7 +73,7 @@
                 <ItemsPanelTemplate>
                     <StackPanel
                         Height="64"
-                        Margin="4,0,0,0"
+                        Margin="0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Stretch"
                         Orientation="Horizontal" />
@@ -109,7 +109,7 @@
                             <TextBlock
                                 Grid.Row="0"
                                 Style="{DynamicResource Crypto_Price_13px}"
-                                Text="{Binding Crypto.Price, StringFormat='${0:#,##0.#####}'}" />
+                                Text="{Binding Crypto.Price, StringFormat='${0:#,##0.###}'}" />
 
                             <TextBlock
                                 Grid.Row="2"
@@ -126,7 +126,7 @@
 
                             <TextBlock
                                 Grid.Row="0"
-                                Margin="0,0,-8,0"
+                                Margin="0,0,-4,0"
                                 HorizontalAlignment="Right"
                                 Foreground="{Binding Crypto.ChangesPercentage, Converter={StaticResource DoubleToColorConverter}}"
                                 Style="{DynamicResource Crypto_Trend_8px}"
@@ -135,7 +135,7 @@
                             <controls:CryptoChart
                                 Grid.Row="2"
                                 Width="64"
-                                Height="32"
+                                Height="29"
                                 Margin="-32"
                                 VerticalAlignment="Stretch" />
 

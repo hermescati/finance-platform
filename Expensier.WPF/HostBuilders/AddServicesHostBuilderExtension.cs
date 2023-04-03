@@ -16,6 +16,7 @@ using Microsoft.AspNet.Identity;
 using Expensier.Domain.Services.Subscriptions;
 using Expensier.WPF.ViewModels;
 using Expensier.WPF.State.Accounts;
+using Expensier.Domain.Services.Portfolio;
 
 namespace Expensier.WPF.HostBuilders
 {
@@ -34,6 +35,7 @@ namespace Expensier.WPF.HostBuilders
                 services.AddSingleton<ITransactionService, TransactionService>();
                 services.AddSingleton<ISubscriptionService, SubscriptionService>();
                 services.AddSingleton<ICryptoService, CryptoService>();
+                services.AddSingleton<IPortfolioService, PortfolioService>();
                 services.AddSingleton<IPasswordHasher, PasswordHasher>();
             });
 

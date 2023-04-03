@@ -63,7 +63,7 @@
 
     <Grid>
         <ListView
-            Width="512"
+            Width="520"
             Background="Transparent"
             BorderThickness="0"
             ItemContainerStyle="{DynamicResource TopPerformingCrypto}"
@@ -156,7 +156,7 @@
                             <TextBlock
                                 Grid.Column="2"
                                 Style="{DynamicResource Crypto_Price_9px}"
-                                Text="{Binding Crypto.Price, StringFormat='${0:#,##0.#####}'}" />
+                                Text="{Binding Crypto.Price, StringFormat='${0:#,##0.##}'}" />
 
                         </Grid>
 

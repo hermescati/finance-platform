@@ -17,20 +17,26 @@ namespace Expensier.WPF.ViewModels
     {
         public CryptoViewModel CryptoViewModel { get; }
         public CryptoWatchlistViewModel CryptoWatchlistViewModel { get; }
+        public PortfolioValueViewModel PortfolioValueViewModel { get; }
+        public PortfolioPerformanceViewModel PortfolioPerformanceViewModel { get; }
         public AssetAllocationViewModel AssetAllocationViewModel { get; }
         public CryptoModalViewModel CryptoModalViewModel { get; }
 
         public WalletViewModel(
             CryptoWatchlistViewModel cryptoWatchlistViewModel,
+            PortfolioValueViewModel portfolioValueViewModel,
             AssetAllocationViewModel assetAllocationViewModel,
+            PortfolioPerformanceViewModel portfolioPerformanceViewModel,
             CryptoStore cryptoStore,
             CryptoModalViewModel cryptoModalViewModel,
             ICryptoService cryptoService,
             AccountStore accountStore,
             IRenavigator renavigator)
         {
-            CryptoWatchlistViewModel= cryptoWatchlistViewModel;
-            AssetAllocationViewModel= assetAllocationViewModel;
+            CryptoWatchlistViewModel = cryptoWatchlistViewModel;
+            PortfolioValueViewModel = portfolioValueViewModel;
+            AssetAllocationViewModel = assetAllocationViewModel;
+            PortfolioPerformanceViewModel = portfolioPerformanceViewModel;
             CryptoViewModel = new CryptoViewModel(cryptoStore, cryptoService, accountStore, renavigator);
             CryptoModalViewModel= cryptoModalViewModel;
         }
