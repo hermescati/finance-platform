@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expensier.WPF.Controls.Modals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace Expensier.WPF.Views
         public WalletView()
         {
             InitializeComponent();
+        }
+
+        private void AddNewCrypto(object sender, RoutedEventArgs e)
+        {
+            var modal = new CryptoModal()
+            {
+                DataContext = AddCrypto.DataContext
+            };
+
+            MainContent.Children.Add(modal);
         }
     }
 }

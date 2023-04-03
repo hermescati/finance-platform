@@ -33,7 +33,7 @@ namespace Expensier.EntityFramework.Services
         {
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
-                entity.Id = id;
+                entity.ID = id;
 
                 context.Set<T>().Update(entity);
                 await context.SaveChangesAsync();
@@ -46,7 +46,7 @@ namespace Expensier.EntityFramework.Services
         {
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
-                T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.Id == id);
+                T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.ID == id);
                 context.Set<T>().Remove(entity);
                 await context.SaveChangesAsync();
 

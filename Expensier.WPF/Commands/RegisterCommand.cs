@@ -63,8 +63,9 @@ namespace Expensier.WPF.Commands
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 _registerViewModel.ErrorMessage = "Registration failed!";
             }
         }

@@ -36,7 +36,7 @@ namespace Expensier.Domain.Services.Authentication
         public async Task<Account> userLogin(string email, string password)
         {
             Account storedAccount = await getAccount(email);
-            PasswordVerificationResult passwordResult = verifyPassword(storedAccount.Account_Holder_.Password_Hash, password);
+            PasswordVerificationResult passwordResult = verifyPassword(storedAccount.AccountHolder.PasswordHash, password);
             
             if (passwordResult != PasswordVerificationResult.Success)
             {
@@ -73,16 +73,16 @@ namespace Expensier.Domain.Services.Authentication
 
                 User user = new User()
                 {
-                    First_Name = firstName,
-                    Last_Name = lastName,
+                    FirstName = firstName,
+                    LastName = lastName,
                     Email = email,
-                    Password_Hash = hashedPassword,
-                    Date_Joined = DateTime.Now,
+                    PasswordHash = hashedPassword,
+                    JoinDate = DateTime.Now,
                 };
 
                 Account account = new Account()
                 {
-                    Account_Holder_ = user
+                    AccountHolder = user
                 };
 
                 await _accountService.Create(account);
@@ -96,7 +96,7 @@ namespace Expensier.Domain.Services.Authentication
             Account userAccount = await getAccount(email);
             PasswordResetResult result = PasswordResetResult.Success;
 
-            PasswordVerificationResult passwordResult = verifyPassword(userAccount.Account_Holder_.Password_Hash, oldPassword);
+            PasswordVerificationResult passwordResult = verifyPassword(userAccount.AccountHolder.PasswordHash, oldPassword);
 
             if (passwordResult != PasswordVerificationResult.Success)
             {
@@ -117,15 +117,15 @@ namespace Expensier.Domain.Services.Authentication
             {
                 string newHashedPassword = hashPassword(newPassword);
 
-                User user = userAccount.Account_Holder_;
-                user.Password_Hash = newHashedPassword;
+                User user = userAccount.AccountHolder;
+                user.PasswordHash = newHashedPassword;
 
                 Account account = new Account()
                 {
-                    Account_Holder_ = user
+                    AccountHolder = user
                 };
 
-                await _accountService.Update(userAccount.Id, account);
+                await _accountService.Update(userAccount.ID, account);
             }
 
             return result;

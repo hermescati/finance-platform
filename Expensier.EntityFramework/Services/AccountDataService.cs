@@ -40,11 +40,12 @@ namespace Expensier.EntityFramework.Services
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
                 Account entity = await context.Accounts
-                    .Include(holder => holder.Account_Holder_)
+                    .Include(holder => holder.AccountHolder)
                     .Include(transaction => transaction.TransactionList)
                     .Include(subscription => subscription.SubscriptionList)
                     .Include(crypto => crypto.CryptoAssetList)
-                    .FirstOrDefaultAsync((entity) => entity.Id == id);
+                    .Include(returns => returns.PortfolioReturn)
+                    .FirstOrDefaultAsync((entity) => entity.ID == id);
 
                 return entity;
             }
@@ -55,11 +56,12 @@ namespace Expensier.EntityFramework.Services
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
                 return await context.Accounts
-                    .Include(holder => holder.Account_Holder_)
+                    .Include(holder => holder.AccountHolder)
                     .Include(transaction => transaction.TransactionList)
                     .Include(subscription => subscription.SubscriptionList)
                     .Include(crypto => crypto.CryptoAssetList)
-                    .FirstOrDefaultAsync((entity) => entity.Account_Holder_.Email == email);
+                    .Include(returns => returns.PortfolioReturn)
+                    .FirstOrDefaultAsync((entity) => entity.AccountHolder.Email == email);
             }
         }
 
@@ -68,10 +70,11 @@ namespace Expensier.EntityFramework.Services
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
                 IEnumerable<Account> entities = await context.Accounts
-                    .Include(holder => holder.Account_Holder_)
+                    .Include(holder => holder.AccountHolder)
                     .Include(transaction => transaction.TransactionList)
                     .Include(subscription => subscription.SubscriptionList)
                     .Include(crypto => crypto.CryptoAssetList)
+                    .Include(returns => returns.PortfolioReturn)
                     .ToListAsync();
 
                 return entities;

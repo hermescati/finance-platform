@@ -47,9 +47,13 @@ namespace Expensier.WPF.ViewModels.Subscriptions
 
         public TopSubscriptionsViewModel(SubscriptionStore subscriptionStore)
         {
-            _subscriptions= new ObservableCollection<SubscriptionDataModel>();
+            _subscriptions = new ObservableCollection<SubscriptionDataModel>();
             _subscriptionStore = subscriptionStore;
-            SubscriptionViewModel = new SubscriptionViewModel(subscriptionStore, subscriptions => subscriptions.OrderByDescending(s => s.DueDate).Take(3));
+
+            SubscriptionViewModel = new SubscriptionViewModel(subscriptionStore, 
+                subscriptions => subscriptions
+                .OrderByDescending(s => s.DueDate)
+                .Take(3));
 
             _subscriptions = (ObservableCollection<SubscriptionDataModel>)SubscriptionViewModel.Subscriptions;
 

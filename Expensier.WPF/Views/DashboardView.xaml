@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:charts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:cryptos="clr-namespace:Expensier.WPF.Controls.Cryptos"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -83,7 +84,7 @@
                         Grid.Row="2"
                         Width="574"
                         Height="224"
-                        Body="Your spending summary will appear on this  section.  Head over to the Transactions tab and click the “Add new” button to create a new transaction."
+                        Body="Your spending summary will appear on this section. Head over to the Transactions tab and click the “Add new” button to create a new transaction."
                         DataContext="{Binding SpendingSummaryViewModel}"
                         Icon="{StaticResource GraphPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -159,7 +160,7 @@
                     </Grid.RowDefinitions>
 
                     <!--#region Header-->
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0" Width="500">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -194,7 +195,7 @@
                         Grid.Row="2"
                         Width="500"
                         Height="224"
-                        Body="Your expenditures will appear on  this section.  Head over to the  Transactions tab and click the  “Add new” button to create a new transaction.  "
+                        Body="Your expenditures will appear on this section. Head over to the Transactions tab and click the “Add new” button to create a new transaction."
                         DataContext="{Binding SpendingSummaryViewModel}"
                         Icon="{StaticResource GraphPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -205,17 +206,18 @@
                         Grid.Row="2"
                         Width="500"
                         Height="224"
+                        Margin="-100,0,0,0"
                         DataContext="{Binding ExpenditureAllocationViewModel}"
                         InnerRadius="56"
-                        LegendLocation="Left"
+                        LegendLocation="Right"
                         Series="{Binding Series}"
                         SeriesColors="{Binding SeriesColors, Mode=OneWay}"
                         Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                         <charts:PieChart.ChartLegend>
                             <charts:DefaultLegend
-                                Width="164"
                                 Height="220"
+                                Margin="48,0,0,0"
                                 BulletSize="32"
                                 FontFamily="SF Pro Display"
                                 FontSize="15"
@@ -273,7 +275,7 @@
                         Width="342"
                         Height="308"
                         Padding="56,16"
-                        Body="Your recent expenses will appear on this  section.  Head over to the Transactions tab and click the “Add new” button to create a new transaction.  "
+                        Body="Your recent expenses will appear on this section. Head over to the Transactions tab and click the “Add new” button to create a new transaction."
                         DataContext="{Binding RecentExpensesViewModel}"
                         Icon="{StaticResource TransactionPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -320,7 +322,7 @@
                                 VerticalAlignment="Center"
                                 DataContext="{Binding TopSubscriptionsViewModel}"
                                 Style="{StaticResource Text_12px}"
-                                Text="Your subscriptions will appear on this section.  Head over to the Transactions tab and add a new subscription."
+                                Text="Your subscriptions will appear on this section. Head over to the Transactions tab and add a new subscription."
                                 Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                         <!--#endregion-->
@@ -337,23 +339,28 @@
                     </Grid>
                     <!--#endregion-->
 
+
                     <!--#region Watchlist-->
                     <Border
                         Grid.Row="2"
                         Width="774"
                         Height="204"
-                        Padding="48,27,48,27"
+                        Padding="48,22"
                         Background="{StaticResource BackgroundGradientColor}"
                         CornerRadius="20">
+
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="46" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <!--#region Header-->
-                            <StackPanel Grid.Column="0" Width="110">
+                            <StackPanel
+                                Grid.Column="0"
+                                Width="110"
+                                Margin="4,0,0,0">
                                 <Label
                                     Margin="0,20,0,16"
                                     Content="Watchlist"
@@ -366,12 +373,38 @@
                                 <Button
                                     Width="110"
                                     Height="28"
+                                    Command="{Binding NavigateToWatchlist}"
                                     Content="See all"
-                                    Style="{StaticResource SmallButton}" />
+                                    Style="{StaticResource SmallButton}"
+                                    Visibility="{Binding TopPerformingCryptosViewModel.ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <Button
+                                    Width="110"
+                                    Height="28"
+                                    Command="{Binding NavigateToWatchlist}"
+                                    Content="Add Assets"
+                                    Style="{StaticResource SmallButton}"
+                                    Visibility="{Binding TopPerformingCryptosViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </StackPanel>
                             <!--#endregion-->
 
+                            <!--#region Placeholder-->
+                            <placeholders:HorizontalPlaceholder
+                                Title="It looks a bit empty here!"
+                                Grid.Column="2"
+                                Width="512"
+                                Height="160"
+                                Body="The watchlist for your cryptocurrency assets will appear on this section. Head over to the Portfolio tab and click the “Add new” button to track an asset."
+                                DataContext="{Binding TopPerformingCryptosViewModel}"
+                                Icon="{StaticResource CryptoPlaceholderImage}"
+                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <!--#endregion-->
+
                             <!--#region Crypto Cards-->
+                            <cryptos:TopCryptos
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                DataContext="{Binding TopPerformingCryptosViewModel}"
+                                Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <!--#endregion-->
 
                         </Grid>

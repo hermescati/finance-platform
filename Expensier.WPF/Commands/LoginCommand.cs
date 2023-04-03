@@ -41,7 +41,7 @@ namespace Expensier.WPF.Commands
             try
             {
                 await _authenticator.userLogin(_loginViewModel.Email, _loginViewModel.Password);
-                _sidePanelViewModel.GreetingMessage = "Hello,  " + _authenticator.CurrentAccount.Account_Holder_.First_Name;
+                _sidePanelViewModel.GreetingMessage = "Hello,  " + _authenticator.CurrentAccount.AccountHolder.FirstName;
                 _renavigator.Renavigate();
             }
             catch (UserNotFoundException)
@@ -52,8 +52,9 @@ namespace Expensier.WPF.Commands
             {
                 _loginViewModel.ErrorMessage = "Invalid password. Please try again!";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 _loginViewModel.ErrorMessage = "Login failed.";
             }
         }

@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Expensier.WPF.ViewModels;
 using Expensier.WPF.State.Subscriptions;
+using Expensier.WPF.State.Crypto;
+using Expensier.WPF.State.Portfolio;
 
 namespace Expensier.WPF.HostBuilders
 {
@@ -26,6 +28,8 @@ namespace Expensier.WPF.HostBuilders
                 services.AddSingleton<AccountStore, AccountStore>();
                 services.AddSingleton<TransactionStore, TransactionStore>();
                 services.AddSingleton<SubscriptionStore, SubscriptionStore>();
+                services.AddSingleton<CryptoStore, CryptoStore>();
+                services.AddSingleton<PortfolioStore, PortfolioStore>();
             });
 
             return host;

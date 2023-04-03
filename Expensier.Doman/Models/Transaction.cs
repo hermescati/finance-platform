@@ -8,11 +8,11 @@ namespace Expensier.Domain.Models
 {
     public class Transaction : DomainObject
     {
-        public Account Account_ { get; set; } 
-        public string? Transaction_Name { get; set; }
-        public DateTime Process_Date { get; set; }
+        public Account AccountHolder { get; set; } 
+        public string? TransactionName { get; set; }
+        public DateTime ProcessDate { get; set; }
         public double Amount { get; set; }
-        public string? Transaction_Type { get; set; }
-        public bool Is_Credit { get; set; }
+        public string? TransactionType { get; set; }
+        public bool IsCredit { get; set; }
     }
 }

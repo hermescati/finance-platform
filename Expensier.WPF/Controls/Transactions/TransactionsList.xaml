@@ -31,7 +31,7 @@
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                         <Border
                             x:Name="InnerBorder"
-                            Padding="0,16,0,16"
+                            Padding="0,16"
                             CornerRadius="12">
                             <ContentPresenter
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -90,14 +90,14 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="16" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="64" />
+                                <ColumnDefinition Width="48" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
@@ -116,7 +116,7 @@
 
                                 <TextBlock
                                     Grid.Column="2"
-                                    Width="120"
+                                    Width="140"
                                     VerticalAlignment="Center"
                                     Style="{DynamicResource Transaction_Data_15px}"
                                     Text="{Binding TransactionName}" />
@@ -125,11 +125,11 @@
                             <Grid Grid.Column="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="48" />
+                                    <ColumnDefinition Width="40" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="48" />
+                                    <ColumnDefinition Width="40" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="48" />
+                                    <ColumnDefinition Width="40" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 

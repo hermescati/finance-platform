@@ -8,9 +8,9 @@ namespace Expensier.Domain.Models
 {
     public class CryptoAsset : DomainObject
     {
-        public Account Account_ { get; set; }
-        public Crypto Crypto { get; set; }
-        public double Purchase_Price { get; set; }
-        public double Amount { get; set; }
+        public Account AccountHolder { get; set; }
+        public Crypto Asset { get; set; }
+        public double PurchasePrice { get; set; }
+        public double Coins { get; set; }
     }
 }

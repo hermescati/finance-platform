@@ -30,17 +30,17 @@ namespace Expensier.Domain.Services.Transactions
 
             Transaction newTransaction = new Transaction()
             {
-                Account_ = currentAccount,
-                Transaction_Name = transactionName,
-                Process_Date = processDate,
+                AccountHolder = currentAccount,
+                TransactionName = transactionName,
+                ProcessDate = processDate,
                 Amount = amount,
-                Transaction_Type = transactionType.ToString(),
-                Is_Credit = IsCredit
+                TransactionType = transactionType.ToString(),
+                IsCredit = IsCredit
             };
 
             currentAccount.TransactionList.Add(newTransaction);
 
-            await _accountService.Update(currentAccount.Id, currentAccount);
+            await _accountService.Update(currentAccount.ID, currentAccount);
 
             return currentAccount;
         }
@@ -50,9 +50,9 @@ namespace Expensier.Domain.Services.Transactions
         { 
             currentAccount.TransactionList
                 .Remove(currentAccount.TransactionList
-                .FirstOrDefault((transaction) => transaction.Id == transactionID));
+                .FirstOrDefault((transaction) => transaction.ID == transactionID));
 
-            await _accountService.Update(currentAccount.Id, currentAccount);
+            await _accountService.Update(currentAccount.ID, currentAccount);
 
             await _transactionService.Delete(transactionID);
 

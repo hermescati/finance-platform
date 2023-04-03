@@ -116,7 +116,7 @@
                         Width="735"
                         Height="626"
                         Padding="222,176"
-                        Body="Your expenses will appear on this  page.  Add your first expense by clicking the “Add new” button above."
+                        Body="Your expenses will appear on this page. Add your first expense by clicking the “Add new” button above."
                         DataContext="{Binding TransactionViewModel}"
                         Icon="{StaticResource TransactionPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -192,7 +192,7 @@
                         Width="381"
                         Height="340"
                         Padding="64,32"
-                        Body="Your subscriptions will appear on this  page.   Add your first subscription by clicking the  “Add new” button above."
+                        Body="Your subscriptions will appear on this page. Add your first subscription by clicking the “Add new” button above."
                         DataContext="{Binding SubscriptionViewModel}"
                         Icon="{StaticResource SubscriptionsPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -205,6 +205,7 @@
                         Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <!--#endregion-->
 
+
                     <!--#region Predictions-->
                     <Grid Grid.Row="6">
                         <Grid.RowDefinitions>
@@ -212,6 +213,19 @@
                             <RowDefinition Height="38" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
+
+                        <!--#region Placeholders-->
+                        <placeholders:VerticalPlaceholder
+                            Title="It looks a bit empty here!"
+                            Grid.Row="2"
+                            Width="381"
+                            Height="300"
+                            Padding="64,16"
+                            Body="Make sure to add some expenses to have access to the predicted expenditure for the current month."
+                            DataContext="{Binding MonthlyExpensesViewModel}"
+                            Icon="{StaticResource GraphPlaceholderImage}"
+                            Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <!--#endregion-->
 
                         <charts:CartesianChart
                             Grid.Row="0"
@@ -273,8 +287,10 @@
                         <TextBlock
                             Grid.Row="2"
                             HorizontalAlignment="Center"
+                            DataContext="{Binding MonthlyExpensesViewModel}"
                             Style="{StaticResource Transaction_Data_15px}"
-                            Text="$##.###.## has been spend this current month." />
+                            Text="$##.###.## has been spend this current month."
+                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     </Grid>
                     <!--#endregion-->

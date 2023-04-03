@@ -8,6 +8,6 @@ namespace Expensier.Domain.Models
 {
     public class DomainObject
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
     }
 }
