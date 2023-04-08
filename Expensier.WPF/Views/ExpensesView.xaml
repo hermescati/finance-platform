@@ -284,14 +284,26 @@
 
                         </charts:CartesianChart>
 
-                        <TextBlock
-                            Grid.Row="2"
-                            HorizontalAlignment="Center"
-                            DataContext="{Binding MonthlyExpensesViewModel}"
-                            Style="{StaticResource Transaction_Data_15px}"
-                            Text="$##.###.## has been spend this current month."
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
+                            <TextBlock Grid.Row="0" Style="{StaticResource Text_14px}">
+                                <Run Text="Current month expenses to be " />
+                                <Run DataContext="{Binding PredictionsViewModel}" Text="{Binding PredictionResult, StringFormat='c'}" />
+                                <Run Text="using KNN." />
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="2" Style="{StaticResource Text_14px}">
+                                <Run Text="Current month expenses to be " />
+                                <Run DataContext="{Binding PredictionsViewModel}" Text="{Binding PredictionResult, StringFormat='c'}" />
+                                <Run Text="using regression." />
+                            </TextBlock>
+
+                        </Grid>
                     </Grid>
                     <!--#endregion-->
 
