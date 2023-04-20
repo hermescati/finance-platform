@@ -39,6 +39,7 @@
                 <!--#endregion-->
 
                 <!--#region Watchlist-->
+
                 <!--#region Placeholder-->
                 <Grid Grid.Row="0" Height="72">
                     <TextBlock
@@ -51,27 +52,126 @@
                 </Grid>
                 <!--#endregion-->
 
-                <!--#region Crypto Watchlist-->
                 <cryptos:CryptoWatchlist
                     Grid.Row="0"
                     Width="1196"
                     Height="72"
                     DataContext="{Binding CryptoWatchlistViewModel}" />
                 <!--#endregion-->
-                <!--#endregion-->
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="76" />
+                        <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <!--#region Portfolio-->
+                    <!--#region Assets-->
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="74" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="27" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="16" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!--#region Header-->
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Content="Assets"
+                                        Style="{StaticResource Header_20px}" />
+                                    <!--#endregion-->
+
+                                    <!--#region Add Asset-->
+                                    <Button
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Width="100"
+                                        Height="32"
+                                        Click="AddNewCrypto"
+                                        Content="add new"
+                                        Style="{StaticResource ModalButtonTemplate}"
+                                        Tag="{StaticResource AddNewIcon}" />
+                                    <!--#endregion-->
+                                </Grid>
+
+                                <Grid Grid.Column="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="16" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!--#region Total Value-->
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Content="Total value"
+                                        Style="{StaticResource Header_20px}" />
+                                    <!--#endregion-->
+
+                                    <!--#region Asset Value-->
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        DataContext="{Binding PortfolioValueViewModel}"
+                                        Style="{StaticResource Text_20px}"
+                                        Text="{Binding TotalValue, StringFormat='${0:#,##0.###}'}" />
+                                    <!--#endregion-->
+                                </Grid>
+                            </Grid>
+
+                            <!--#region Placeholder-->
+                            <placeholders:VerticalPlaceholder
+                                Title="It looks a bit empty here!"
+                                Grid.Row="4"
+                                Grid.ColumnSpan="3"
+                                Width="558"
+                                Height="497"
+                                Padding="161,40"
+                                Body="Your assets will appear on this page. Add your first asset to track by clicking the “Add new” button above."
+                                DataContext="{Binding CryptoViewModel}"
+                                Icon="{StaticResource CryptoPlaceholderImage}"
+                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <!--#endregion-->
+
+                            <!--#region Asset List-->
+                            <cryptos:CryptoList
+                                Grid.Row="4"
+                                Grid.ColumnSpan="3"
+                                Width="640"
+                                Height="497"
+                                DataContext="{Binding CryptoViewModel}"
+                                Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <!--#endregion-->
+                        </Grid>
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--#region Portfolio-->
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="80" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -95,7 +195,7 @@
                                 Title="It looks a bit empty here!"
                                 Grid.Row="2"
                                 Width="477"
-                                Height="220"
+                                Height="180"
                                 Margin="4,0,0,0"
                                 Body="Your asset allocation will appear on this section. Add your first asset to track by clicking the “Add new” button."
                                 DataContext="{Binding PortfolioPerformanceViewModel}"
@@ -235,186 +335,6 @@
 
                     </Grid>
                     <!--#endregion-->
-
-                    <Grid Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="38" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <!--#region Assets-->
-                        <Grid Grid.Row="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="27" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Column="0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="16" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <!--#region Header-->
-                                    <Label
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Content="Assets"
-                                        Style="{StaticResource Header_20px}" />
-                                    <!--#endregion-->
-
-                                    <!--#region Add Asset-->
-                                    <Button
-                                        Grid.Row="2"
-                                        Grid.Column="0"
-                                        Width="100"
-                                        Height="32"
-                                        Click="AddNewCrypto"
-                                        Content="add new"
-                                        Style="{StaticResource ModalButtonTemplate}"
-                                        Tag="{StaticResource AddNewIcon}" />
-                                    <!--#endregion-->
-                                </Grid>
-
-                                <Grid Grid.Column="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="16" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <!--#region Total Value-->
-                                    <Label
-                                        Grid.Row="0"
-                                        Grid.Column="2"
-                                        Content="Total value"
-                                        Style="{StaticResource Header_20px}" />
-                                    <!--#endregion-->
-
-                                    <!--#region Asset Value-->
-                                    <Label
-                                        Grid.Row="2"
-                                        Grid.Column="2"
-                                        VerticalContentAlignment="Center"
-                                        Content="{Binding TotalValue, StringFormat='${0:#,##0.###}'}"
-                                        DataContext="{Binding PortfolioValueViewModel}"
-                                        Style="{StaticResource Header_20px}" />
-                                    <!--#endregion-->
-                                </Grid>
-                            </Grid>
-
-                            <!--#region Placeholder-->
-                            <placeholders:VerticalPlaceholder
-                                Title="It looks a bit empty here!"
-                                Grid.Row="4"
-                                Grid.ColumnSpan="3"
-                                Width="558"
-                                Height="339"
-                                Padding="161,40"
-                                Body="Your assets will appear on this page. Add your first asset to track by clicking the “Add new” button above."
-                                DataContext="{Binding CryptoViewModel}"
-                                Icon="{StaticResource CryptoPlaceholderImage}"
-                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <!--#endregion-->
-
-                            <!--#region Asset List-->
-                            <cryptos:CryptoList
-                                Grid.Row="4"
-                                Grid.ColumnSpan="3"
-                                Width="640"
-                                Height="339"
-                                DataContext="{Binding CryptoViewModel}"
-                                Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <!--#endregion-->
-                        </Grid>
-                        <!--#endregion-->
-
-                        <!--#region Converter-->
-                        <Border
-                            Grid.Row="2"
-                            Width="640"
-                            Height="120"
-                            Padding="24"
-                            Background="{StaticResource PrimaryColor}"
-                            BorderBrush="{StaticResource InactiveColor}"
-                            BorderThickness="1"
-                            CornerRadius="16">
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="24" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="24" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Column="0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="4" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <Label
-                                        Grid.Row="0"
-                                        Content="Currency"
-                                        Style="{StaticResource Subheader_16px}" />
-
-                                    <TextBox
-                                        Grid.Row="2"
-                                        Width="227"
-                                        Height="34" />
-
-                                    <TextBlock
-                                        Grid.Row="4"
-                                        Style="{StaticResource Text_14px}"
-                                        Text="$##,###.##" />
-                                </Grid>
-
-                                <Image
-                                    Grid.Column="2"
-                                    Width="16"
-                                    Height="16"
-                                    Source="{StaticResource AddNewIcon}" />
-
-                                <Grid Grid.Column="4">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="4" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <Label
-                                        Grid.Row="0"
-                                        Content="Crypto"
-                                        Style="{StaticResource Subheader_16px}" />
-
-                                    <TextBox
-                                        Grid.Row="2"
-                                        Width="227"
-                                        Height="34" />
-                                </Grid>
-
-                            </Grid>
-                        </Border>
-                        <!--#endregion-->
-
-                    </Grid>
                 </Grid>
             </Grid>
         </Border>

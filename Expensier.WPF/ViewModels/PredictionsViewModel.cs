@@ -16,21 +16,36 @@ namespace Expensier.WPF.ViewModels
     public class PredictionsViewModel : ViewModelBase
     {
         private readonly KNNRegression _knnModel;
+        private readonly LinearRegression _linearModel;
         private readonly TransactionStore _transactionStore;
         public TransactionViewModel TransactionViewModel { get; }
         private readonly IEnumerable<TransactionDataModel> _transactions;
 
-        private double _predictionResult;
-        public double PredictionResult
+        private double _knnResult;
+        public double KnnResult
         {
             get
             {
-                return _predictionResult;
+                return _knnResult;
             }
             set
             {
-                _predictionResult = value;
-                OnPropertyChanged(nameof(PredictionResult));
+                _knnResult = value;
+                OnPropertyChanged(nameof(KnnResult));
+            }
+        }
+
+        private double _linearResult;
+        public double LinearResult
+        {
+            get
+            {
+                return _linearResult;
+            }
+            set
+            {
+                _linearResult = value;
+                OnPropertyChanged(nameof(LinearResult));
             }
         }
 
@@ -53,11 +68,29 @@ namespace Expensier.WPF.ViewModels
             _transactions = TransactionViewModel.Transactions;
 
             _knnModel = new KNNRegression(3);
-            AddTrainingData(_transactions);
+            _linearModel = new LinearRegression();
+
+            TrainKnnModel(_transactions);
+            TrainLinearModel(_transactions);
             PredictData();
         }
 
-        private void AddTrainingData(IEnumerable<TransactionDataModel> transactions)
+        private void TrainLinearModel(IEnumerable<TransactionDataModel> transactions)
+        {
+            double[] inputX = new double[transactions.Count()];
+            double[] inputY = new double[transactions.Count()];
+            List<TransactionDataModel> transactionsList = transactions.ToList();
+
+            for (int i = 0; i < transactionsList.Count(); i++)
+            {
+                inputX[i] = TranslateDateToDays(transactionsList[i].ProcessDate);
+                inputY[i] = transactionsList[i].Amount;
+            }
+
+            _linearModel.Fit(inputX, inputY);
+        }
+
+        private void TrainKnnModel(IEnumerable<TransactionDataModel> transactions)
         {
             double[][] inputData = new double[transactions.Count()][];
             double[] dataLabels = new double[transactions.Count()];
@@ -87,7 +120,8 @@ namespace Expensier.WPF.ViewModels
                 date
             };
 
-            PredictionResult = _knnModel.Predict(input);
+            KnnResult = _knnModel.Predict(input);
+            LinearResult = _linearModel.Predict(date);
         }
 
         private double TranslateDateToDays(DateTime dateToTranslate)

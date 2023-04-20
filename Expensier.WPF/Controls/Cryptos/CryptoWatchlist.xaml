@@ -108,6 +108,7 @@
 
                             <TextBlock
                                 Grid.Row="0"
+                                Width="80"
                                 Style="{DynamicResource Crypto_Price_13px}"
                                 Text="{Binding Crypto.Price, StringFormat='${0:#,##0.###}'}" />
 
