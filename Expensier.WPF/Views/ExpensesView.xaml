@@ -284,14 +284,95 @@
 
                         </charts:CartesianChart>
 
-                        <TextBlock
-                            Grid.Row="2"
-                            HorizontalAlignment="Center"
-                            DataContext="{Binding MonthlyExpensesViewModel}"
-                            Style="{StaticResource Transaction_Data_15px}"
-                            Text="$##.###.## has been spend this current month."
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="182" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="182" />
+                            </Grid.ColumnDefinitions>
 
+                            <Border
+                                Grid.Column="0"
+                                Padding="24,16"
+                                Background="{StaticResource BackgroundGradientColor}"
+                                CornerRadius="12">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="8" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Style="{StaticResource Transaction_Data_12px}"
+                                        Text="KNN Forecast" />
+
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="2" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            DataContext="{Binding PredictionsViewModel}"
+                                            Style="{StaticResource Transaction_Data_15px}"
+                                            Text="{Binding KnnResult, StringFormat='c'}" />
+
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            VerticalAlignment="Bottom"
+                                            DataContext="{Binding PredictionsViewModel}"
+                                            Style="{StaticResource Crypto_Price_9px}"
+                                            Text="/ end of month" />
+
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <Border
+                                Grid.Column="2"
+                                Padding="24,16"
+                                Background="{StaticResource BackgroundGradientColor}"
+                                CornerRadius="12">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="8" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Style="{StaticResource Transaction_Data_12px}"
+                                        Text="Linear Forecast" />
+
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="2" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            DataContext="{Binding PredictionsViewModel}"
+                                            Style="{StaticResource Transaction_Data_15px}"
+                                            Text="{Binding LinearResult, StringFormat='c'}" />
+
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            VerticalAlignment="Bottom"
+                                            DataContext="{Binding PredictionsViewModel}"
+                                            Style="{StaticResource Crypto_Price_9px}"
+                                            Text="/ end of month" />
+
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
                     </Grid>
                     <!--#endregion-->
 

@@ -41,6 +41,7 @@ namespace Expensier.WPF.HostBuilders
                 services.AddTransient<SpendingSummaryViewModel>();
                 services.AddTransient<ExpenditureAllocationViewModel>();
                 services.AddTransient<MonthlyExpensesViewModel>();
+                services.AddTransient<PredictionsViewModel>();
                 services.AddSingleton<TopPerformingCryptosViewModel>();
                 services.AddSingleton(CreateExpensesViewModel);
                 services.AddTransient(CreateTransactionModalViewModel);
@@ -92,6 +93,7 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<TransactionModalViewModel>(),
                 services.GetRequiredService<SubscriptionModalViewModel>(),
                 services.GetRequiredService<MonthlyExpensesViewModel>(),
+                services.GetRequiredService<PredictionsViewModel>(),
                 services.GetRequiredService<ITransactionService>(),
                 services.GetRequiredService<ISubscriptionService>(),
                 services.GetRequiredService<AccountStore>(),
