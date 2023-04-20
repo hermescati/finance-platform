@@ -39,7 +39,7 @@ namespace Expensier.API.Services
             var uri = "quote/" + symbol;
             Crypto crypto = await _client.DeserializeResponse<Crypto>(uri);
 
-            if (crypto.Price == 0) {
+            if (crypto == null || crypto.Price == 0) {
                 throw new InvalidSymbolException(symbol);
             }
 

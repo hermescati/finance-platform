@@ -42,13 +42,13 @@ namespace Expensier.WPF.Commands
                     _accountStore.CurrentAccount,
                     _cryptoModalViewModel.Crypto,
                     _cryptoModalViewModel.PurchasePrice,
-                    _cryptoModalViewModel.Amount);
+                    _cryptoModalViewModel.Coins);
 
                 _accountStore.CurrentAccount = updatedAccount;
                 _cryptoModalViewModel.CryptoSymbol = string.Empty;
                 _cryptoModalViewModel.Crypto = null;
                 _cryptoModalViewModel.PurchasePrice = 0.0;
-                _cryptoModalViewModel.Amount = 0.0;
+                _cryptoModalViewModel.Coins = 0.0;
                 _renavigator.Renavigate();
             }
             catch(Exception){

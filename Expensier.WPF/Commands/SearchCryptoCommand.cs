@@ -1,5 +1,7 @@
-﻿using Expensier.Domain.Models;
+﻿using Expensier.Domain.Exceptions;
+using Expensier.Domain.Models;
 using Expensier.Domain.Services;
+using Expensier.WPF.ViewModels;
 using Expensier.WPF.ViewModels.Modals;
 using System;
 using System.Collections.Generic;
@@ -22,14 +24,17 @@ namespace Expensier.WPF.Commands
 
         public override async Task ExecuteAsync(object parameter)
         {
+            _cryptoModalViewModel.ErrorMessage = string.Empty;
+
             try
             {
-                Crypto crypto = await _cryptoService.GetCrypto(_cryptoModalViewModel.CryptoSymbol);
+                Crypto crypto = await _cryptoService.GetCrypto(_cryptoModalViewModel.CryptoSymbol + "USD");
                 _cryptoModalViewModel.Crypto = crypto;
+                _cryptoModalViewModel.ValidSymbol = true;
             }
-            catch (Exception)
+            catch (InvalidSymbolException)
             {
-                throw;
+                _cryptoModalViewModel.ErrorMessage = _cryptoModalViewModel.CryptoSymbol + " does not belong to any asset!";
             }
 
         }

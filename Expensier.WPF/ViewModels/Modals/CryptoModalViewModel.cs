@@ -3,6 +3,7 @@ using Expensier.Domain.Services;
 using Expensier.WPF.Commands;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
+using Expensier.WPF.ViewModels.Errors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,17 +30,17 @@ namespace Expensier.WPF.ViewModels.Modals
             }
         }
 
-        private double _amount;
-        public double Amount
+        private double _coins;
+        public double Coins
         {
             get
             {
-                return _amount;
+                return _coins;
             }
             set
             {
-                _amount = value;
-                OnPropertyChanged(nameof(Amount));
+                _coins = value;
+                OnPropertyChanged(nameof(Coins));
                 OnPropertyChanged(nameof(CanAdd));
             }
         }
@@ -59,8 +60,29 @@ namespace Expensier.WPF.ViewModels.Modals
             }
         }
 
+        private bool _validSymbol = false;
+        public bool ValidSymbol
+        {
+            get
+            {
+                return _validSymbol;
+            }
+            set
+            {
+                _validSymbol = value;
+                OnPropertyChanged(nameof(ValidSymbol));
+            }
+        }
+
+        public MessageViewModel ErrorMessageViewModel { get; }
+
+        public string ErrorMessage
+        {
+            set => ErrorMessageViewModel.Message = value;
+        }
+
         public bool CanAdd => !string.IsNullOrEmpty(CryptoSymbol) && 
-            Amount > 0.0 && 
+            Coins > 0.0 && 
             PurchasePrice > 0.0;
 
         private Crypto _crypto;
@@ -82,6 +104,8 @@ namespace Expensier.WPF.ViewModels.Modals
 
         public CryptoModalViewModel(ICryptoService cryptoService, AccountStore accountStore, IRenavigator renavigator)
         {
+            ErrorMessageViewModel = new MessageViewModel();
+
             SearchSymbolCommand = new SearchCryptoCommand(this, cryptoService);
             AddCryptoCommand = new AddCryptoCommand(this, cryptoService, accountStore, renavigator);
         }

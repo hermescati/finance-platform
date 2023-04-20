@@ -10,6 +10,10 @@
     BorderThickness="0"
     mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+
     <Grid>
 
         <Rectangle
@@ -19,7 +23,7 @@
 
         <Border
             Width="364"
-            Height="444"
+            Height="466"
             Padding="30"
             Background="{StaticResource PrimaryColor}"
             BorderBrush="{StaticResource InactiveColor}"
@@ -51,41 +55,37 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="8" />
+                        <RowDefinition Height="16" />
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0">
                         <Label Content="Crypto Symbol" Style="{StaticResource Subheader_16px}" />
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="8" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
                             <TextBox
-                                Grid.Column="0"
-                                Width="200"
+                                Width="296"
                                 Height="45"
                                 Margin="0,4,0,0"
                                 Text="{Binding CryptoSymbol}" />
                             <Button
-                                Grid.Column="2"
                                 Width="80"
-                                Height="45"
-                                Padding="8"
+                                Height="35"
+                                Margin="0,8,8,4"
+                                HorizontalAlignment="Right"
                                 Command="{Binding SearchSymbolCommand}"
                                 Content="Search"
-                                Style="{StaticResource Button}" />
-
+                                Style="{StaticResource ModalButton}" />
                         </Grid>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2">
-                        <Label Content="Amount" Style="{StaticResource Subheader_16px}" />
+                        <Label Content="Coins" Style="{StaticResource Subheader_16px}" />
                         <TextBox
                             Width="300"
                             Height="45"
                             Margin="0,4,0,0"
-                            Text="{Binding Amount, StringFormat='c'}" />
+                            IsEnabled="{Binding ValidSymbol}"
+                            Text="{Binding Coins}" />
                     </StackPanel>
 
                     <StackPanel Grid.Row="4">
@@ -94,8 +94,18 @@
                             Width="300"
                             Height="45"
                             Margin="0,4,0,0"
+                            IsEnabled="{Binding ValidSymbol}"
                             Text="{Binding PurchasePrice, StringFormat='c'}" />
                     </StackPanel>
+
+                    <TextBlock
+                        Grid.Row="6"
+                        Width="296"
+                        DataContext="{Binding ErrorMessageViewModel}"
+                        Foreground="{StaticResource AccentColor}"
+                        Text="{Binding Message}"
+                        TextWrapping="Wrap"
+                        Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </Grid>
 
                 <Grid Grid.Row="4">

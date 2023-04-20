@@ -103,7 +103,7 @@
                                     Grid.Column="0"
                                     Width="33"
                                     Height="33"
-                                    Source="{DynamicResource DebitTransactionIcon}" />
+                                    Source="{DynamicResource CreditTransactionIcon}" />
 
                                 <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                     <TextBlock
