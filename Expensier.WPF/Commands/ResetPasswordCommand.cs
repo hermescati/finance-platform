@@ -37,7 +37,7 @@ namespace Expensier.WPF.Commands
 
             try
             {
-                PasswordResetResult result = await _authenticator.resetPassword(_resetPasswordViewModel.Email, _resetPasswordViewModel.OldPassword, _resetPasswordViewModel.NewPassword, _resetPasswordViewModel.ConfirmPassword);
+                PasswordResetResult result = await _authenticator.resetPassword(_resetPasswordViewModel.Email, _resetPasswordViewModel.NewPassword, _resetPasswordViewModel.ConfirmPassword);
 
                 switch (result)
                 {
