@@ -29,7 +29,16 @@ namespace Expensier.API
             {
                 var responseStream = await response.Content.ReadAsStreamAsync();
                 using var streamReader = new StreamReader(responseStream);
-                using var jsonResponse = new JsonTextReader(streamReader);
+
+                var json = await streamReader.ReadToEndAsync();
+
+                if (string.IsNullOrWhiteSpace(json) || json.Trim() == "[]")
+                {
+                    Console.WriteLine("Empty JSON!");
+                    return default(T);
+                }
+
+                using var jsonResponse = new JsonTextReader(new StringReader(json));
 
                 JsonSerializer serializer = new JsonSerializer();
 

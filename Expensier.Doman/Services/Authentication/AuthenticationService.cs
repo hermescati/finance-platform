@@ -91,26 +91,20 @@ namespace Expensier.Domain.Services.Authentication
             return result;
         }
 
-        public async Task<PasswordResetResult> resetPassword(string email, string oldPassword, string newPassword, string confirmPassword)
+        public async Task<PasswordResetResult> resetPassword(string email, string newPassword, string confirmPassword)
         {
             Account userAccount = await getAccount(email);
             PasswordResetResult result = PasswordResetResult.Success;
 
-            PasswordVerificationResult passwordResult = verifyPassword(userAccount.AccountHolder.PasswordHash, oldPassword);
-
-            if (passwordResult != PasswordVerificationResult.Success)
-            {
-                result = PasswordResetResult.UserNotAuthenticated;
-            }
-
-            if (oldPassword == newPassword)
-            {
-                result = PasswordResetResult.SameOldPassword;
-            }
-
             if (newPassword != confirmPassword)
             {
                 result = PasswordResetResult.PasswordsDoNotMatch;
+            }
+
+            PasswordVerificationResult passwordResult = verifyPassword(userAccount.AccountHolder.PasswordHash, newPassword);
+            if (passwordResult == PasswordVerificationResult.Success)
+            {
+                result = PasswordResetResult.SameOldPassword;
             }
 
             if (result == PasswordResetResult.Success)

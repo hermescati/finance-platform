@@ -53,6 +53,9 @@
                             <Setter TargetName="GlowEffect" Property="BorderThickness" Value="4" />
                             <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{StaticResource SecondaryGlowColor}" />
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

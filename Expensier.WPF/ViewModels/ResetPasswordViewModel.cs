@@ -29,21 +29,6 @@ namespace Expensier.WPF.ViewModels
             }
         }
 
-        private string _oldPassword;
-        public string OldPassword
-        {
-            get
-            {
-                return _oldPassword;
-            }
-            set
-            {
-                _oldPassword = value;
-                OnPropertyChanged(nameof(OldPassword));
-                OnPropertyChanged(nameof(CanReset));
-            }
-        }
-
         private string _newPassword;
         public string NewPassword
         {
@@ -110,8 +95,7 @@ namespace Expensier.WPF.ViewModels
         }
 
         public bool CanContinue => !string.IsNullOrEmpty(Email);
-        public bool CanReset => !string.IsNullOrEmpty(OldPassword) && 
-            !string.IsNullOrEmpty(NewPassword) && 
+        public bool CanReset => !string.IsNullOrEmpty(NewPassword) && 
             !string.IsNullOrEmpty(ConfirmPassword);
 
         public ICommand ContinueCommand { get; }

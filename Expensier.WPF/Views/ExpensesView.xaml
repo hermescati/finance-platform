@@ -86,19 +86,22 @@
 
                         <ToggleButton
                             Grid.Column="2"
-                            Width="124"
+                            Width="101"
                             Height="32"
-                            Content="this month"
+                            Content="sort by"
                             Style="{StaticResource FilterButtonTemplate}">
                             <ToggleButton.Tag>
                                 <x:Array Type="DrawingImage">
-                                    <DrawingImage Drawing="{StaticResource Calendar}" />
-                                    <DrawingImage Drawing="{StaticResource CalendarSelected}" />
+                                    <DrawingImage Drawing="{StaticResource Sort}" />
+                                    <DrawingImage Drawing="{StaticResource SortSelected}" />
                                 </x:Array>
                             </ToggleButton.Tag>
                         </ToggleButton>
 
-                        <controls:SearchBar Grid.Column="4" />
+                        <controls:SearchBar
+                            x:Name="SearchBar"
+                            Grid.Column="4"
+                            Text="{Binding SearchBar}" />
 
                         <Button
                             Grid.Column="6"

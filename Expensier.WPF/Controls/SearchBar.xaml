@@ -107,8 +107,10 @@
 
     <Grid>
         <TextBox
+            x:Name="searchBar"
             Width="190"
             Height="32"
-            Style="{DynamicResource SearchBarTemplate}" />
+            Style="{DynamicResource SearchBarTemplate}"
+            TextChanged="SeachBar_PasswordChanged" />
     </Grid>
 </UserControl>

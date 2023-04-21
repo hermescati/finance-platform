@@ -53,6 +53,6 @@ namespace Expensier.WPF.State.Authenticators
         /// <returns>The result of the reseting process.</returns>
         /// <exception cref="UserNotFoundException">Thrown if the entered email does not exist.</exception>
         /// <exception cref="Exception">Thrown if the login fails.</exception>
-        Task<PasswordResetResult> resetPassword(string email, string oldPassword, string newPassword, string confirmNewPassword);
+        Task<PasswordResetResult> resetPassword(string email, string newPassword, string confirmNewPassword);
     }
 }

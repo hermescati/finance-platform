@@ -60,9 +60,9 @@ namespace Expensier.WPF.State.Authenticators
             return await _authenticationService.userRegister(firstName, lastName, email, password, confirmPassword);
         }
 
-        public async Task<PasswordResetResult> resetPassword(string email, string oldPassword, string newPassword, string confirmNewPassword)
+        public async Task<PasswordResetResult> resetPassword(string email, string newPassword, string confirmNewPassword)
         {
-            return await _authenticationService.resetPassword(email, oldPassword, newPassword, confirmNewPassword);
+            return await _authenticationService.resetPassword(email, newPassword, confirmNewPassword);
         }
     }
 }
