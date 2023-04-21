@@ -15,14 +15,48 @@ using System.Windows.Shapes;
 
 namespace Expensier.WPF.Controls
 {
-    /// <summary>
-    /// Interaction logic for SearchBar.xaml
-    /// </summary>
     public partial class SearchBar : UserControl
     {
+        private bool _isSearching;
+
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(SearchBar),
+                new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    TextPropertyChanged, null, false, UpdateSourceTrigger.PropertyChanged));
+
+
+        private static void TextPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is SearchBar searchBar)
+            {
+                searchBar.UpdateContent();
+            }
+        }
+
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
         public SearchBar()
         {
             InitializeComponent();
+        }
+
+        private void SeachBar_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            _isSearching = true;
+            Text = searchBar.Text;
+            _isSearching = false;
+        }
+
+        private void UpdateContent()
+        {
+            if (!_isSearching)
+            {
+                searchBar.Text = Text;
+            }
         }
     }
 }

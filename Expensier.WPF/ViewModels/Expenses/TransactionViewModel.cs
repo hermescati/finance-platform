@@ -88,7 +88,7 @@ namespace Expensier.WPF.ViewModels.Expenses
             ResetTransactions();
         }
 
-        private void ResetTransactions()
+        public void ResetTransactions()
         {
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
                 .Select(t => new TransactionDataModel(t.ID, t.TransactionName, t.ProcessDate, t.Amount, t.TransactionType, t.IsCredit, _transactionService, _accountStore, _renavigator))
@@ -111,6 +111,20 @@ namespace Expensier.WPF.ViewModels.Expenses
             {
                 _listEmpty = false;
                 _listNotEmpty = true;
+            }
+        }
+
+        public void FilterTransactions(string query)
+        {
+            IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
+                .Select(t => new TransactionDataModel(t.ID, t.TransactionName, t.ProcessDate, t.Amount, t.TransactionType, t.IsCredit, _transactionService, _accountStore, _renavigator));
+
+            transactionDataModel = transactionDataModel.Where(t => t.TransactionName.ToLower().Contains(query.ToLower()));
+
+            _transactions.Clear();
+            foreach (TransactionDataModel dataModel in transactionDataModel)
+            {
+                _transactions.Add(dataModel);
             }
         }
 
