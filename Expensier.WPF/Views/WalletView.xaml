@@ -67,7 +67,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!--#region Assets-->
-                    <Grid Grid.Column="0">
+                    <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
@@ -168,7 +168,7 @@
                     <!--#endregion-->
 
                     <!--#region Portfolio-->
-                    <Grid Grid.Column="2">
+                    <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="80" />

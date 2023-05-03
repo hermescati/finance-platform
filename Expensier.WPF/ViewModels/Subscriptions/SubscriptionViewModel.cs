@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Expensier.WPF.ViewModels.Charts.ChartDropdownValues;
 
 namespace Expensier.WPF.ViewModels.Subscriptions
 {
@@ -49,6 +50,23 @@ namespace Expensier.WPF.ViewModels.Subscriptions
                 OnPropertyChanged(nameof(ListNotEmpty));
             }
         }
+
+        private SortingFunctions _selectedItem;
+        public SortingFunctions SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+
+        public IEnumerable<SortingFunctions> Sort => Enum.GetValues(typeof(SortingFunctions))
+            .Cast<SortingFunctions>();
 
         public IEnumerable<SubscriptionDataModel> Subscriptions => _subscriptions;
 
@@ -109,6 +127,43 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             {
                 _listEmpty = false;
                 _listNotEmpty = true;
+            }
+
+            PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(SelectedItem))
+                {
+                    SortSubscriptions();
+                }
+            };
+        }
+
+        public void SortSubscriptions()
+        {
+            IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
+                .Select(s => new SubscriptionDataModel(s.ID, s.CompanyName, s.SubscriptionPlan, s.DueDate, s.Amount, s.SubscriptionType, _subscriptionService, _accountStore, _renavigator));
+
+            if (_selectedItem == SortingFunctions.Asceding)
+            {
+                subscriptionDataModel = subscriptionDataModel.OrderBy(t => t.CompanyName);
+            }
+            else if (_selectedItem == SortingFunctions.Descending)
+            {
+                subscriptionDataModel = subscriptionDataModel.OrderByDescending(t => t.CompanyName);
+            }
+            else if (_selectedItem == SortingFunctions.Amount)
+            {
+                subscriptionDataModel = subscriptionDataModel.OrderByDescending(t => t.Amount);
+            }
+            else
+            {
+                subscriptionDataModel = subscriptionDataModel.OrderByDescending(t => t.DueDate);
+            }
+
+            _subscriptions.Clear();
+            foreach (SubscriptionDataModel dataModel in subscriptionDataModel)
+            {
+                _subscriptions.Add(dataModel);
             }
         }
 

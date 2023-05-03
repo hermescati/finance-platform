@@ -52,5 +52,47 @@ namespace Expensier.WPF.Models
         {
             return _slope * x + _intercept;
         }
+
+        public double MeanAbsoluteError(double[] trainX, double[] trainY)
+        {
+            if (trainX.Length != trainY.Length)
+            {
+                throw new ArgumentException("Test input and output arrays must have the same length!");
+            }
+
+            int arrayLength = trainX.Length;
+            double absoluteErrorSum = 0.0;
+
+            for (int i = 1; i < arrayLength; i++)
+            {
+                double predictedY = Predict(trainX[i]);
+                double absoluteError = Math.Abs(predictedY - trainY[i]);
+                absoluteErrorSum += absoluteError;
+            }
+
+            return absoluteErrorSum / arrayLength;
+        }
+
+        public double MeanAbsolutePercentageError(double[] trainX, double[] trainY)
+        {
+            if (trainX.Length != trainY.Length)
+            {
+                throw new ArgumentException("Test input and output arrays must have the same length!");
+            }
+
+            int arrayLength = trainX.Length;
+            double absolutePercentageErrorSum = 0.0;
+
+            for (int i = 1; i < arrayLength; i++)
+            {
+                double predictedY = Predict(trainX[i]);
+                double absoluteError = Math.Abs(predictedY - trainY[i]);
+                double absolutePercentageError = absoluteError / trainY[i];
+
+                absolutePercentageErrorSum += absolutePercentageError;
+            }
+
+            return (absolutePercentageErrorSum / arrayLength) * 100.0;
+        }
     }
 }
