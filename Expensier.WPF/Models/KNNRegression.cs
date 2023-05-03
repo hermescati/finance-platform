@@ -10,7 +10,7 @@ namespace Expensier.WPF.Models
     public class KNNRegression
     {
         private int _k;
-        private double[][] _trainingData;
+        private double[] _trainingData;
         private double[] _trainingLabels;
         private double[] _distances;
 
@@ -19,7 +19,7 @@ namespace Expensier.WPF.Models
             _k = k;
         }
 
-        public void Fit(double[][] X, double[] y)
+        public void Fit(double[] X, double[] y)
         {
             _trainingData = X;
             _trainingLabels = y;
@@ -55,15 +55,61 @@ namespace Expensier.WPF.Models
             return nearestNeighbors;
         }
 
-        private double EuclideanDistance(double[] x1, double[] x2)
+        private double EuclideanDistance(double[] x1, double x2)
         {
             double sum = 0;
             for (int i = 0; i < x1.Length; i++)
             {
-                sum += Math.Pow(x1[i] - x2[i], 2);
+                sum += Math.Pow(x1[i] - x2, 2);
             }
 
             return Math.Sqrt(sum);
+        }
+
+        public double MeanAbsoluteError(double[] trainX, double[] trainY)
+        {
+            if (trainX.Length != trainY.Length)
+            {
+                throw new ArgumentException("Test input and output arrays must have the same length!");
+            }
+
+            double[] testX = new double[1];
+            int arrayLength = trainX.Length;
+            double absoluteErrorSum = 0.0;
+
+            for (int i = 1; i < arrayLength; i++)
+            {
+                testX[0] = trainX[i];
+                double predictedY = Predict(testX);
+                double absoluteError = Math.Abs(predictedY - trainY[i]);
+                absoluteErrorSum += absoluteError;
+            }
+
+            return absoluteErrorSum / arrayLength;
+        }
+
+        public double MeanAbsolutePercentageError(double[] trainX, double[] trainY)
+        {
+            if (trainX.Length != trainY.Length)
+            {
+                throw new ArgumentException("Test input and output arrays must have the same length!");
+            }
+
+            double[] testX = new double[1];
+            int arrayLength = trainX.Length;
+            double absolutePercentageErrorSum = 0.0;
+
+            for (int i = 1; i < arrayLength; i++)
+            {
+                testX[0] = trainX[i];
+                double predictedY = Predict(testX);
+                double absoluteError = Math.Abs(predictedY - trainY[i]);
+                double absolutePercentageError = absoluteError / trainY[i];
+
+                absolutePercentageErrorSum += absolutePercentageError;
+            }
+
+            return (absolutePercentageErrorSum / arrayLength) * 100.0;
         }
     }
 }

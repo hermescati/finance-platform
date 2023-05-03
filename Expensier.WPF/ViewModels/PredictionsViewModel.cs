@@ -88,22 +88,18 @@ namespace Expensier.WPF.ViewModels
             }
 
             _linearModel.Fit(inputX, inputY);
+            CalculateError(inputX, inputY);
         }
 
         private void TrainKnnModel(IEnumerable<TransactionDataModel> transactions)
         {
-            double[][] inputData = new double[transactions.Count()][];
+            double[] inputData = new double[transactions.Count()];
             double[] dataLabels = new double[transactions.Count()];
             List<TransactionDataModel> transactionsList = transactions.ToList();
 
             for (int i = 0; i < transactionsList.Count(); i++)
             {
-                inputData[i] = new double[]
-                {
-                    transactionsList[i].Amount,
-                    TranslateDateToDays(transactionsList[i].ProcessDate)
-                };
-
+                inputData[i] = TranslateDateToDays(transactionsList[i].ProcessDate);
                 dataLabels[i] = transactionsList[i].Amount;
             }
 
@@ -129,6 +125,15 @@ namespace Expensier.WPF.ViewModels
             DateTime referenceDate = new DateTime(DateTime.Now.Year, 1, 1);
 
             return (dateToTranslate - referenceDate).TotalDays;
+        }
+
+        private void CalculateError(double[] trainX, double[] trainY)
+        {
+            double errorLR = _linearModel.MeanAbsoluteError(trainX, trainY);
+            double errorLRPercentage = _linearModel.MeanAbsolutePercentageError(trainX, trainY);
+
+            double errorKNN = _knnModel.MeanAbsoluteError(trainX, trainY);
+            double errorKNNPercentage = _knnModel.MeanAbsolutePercentageError(trainX, trainY);
         }
     }
 }

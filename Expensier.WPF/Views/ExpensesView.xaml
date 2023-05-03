@@ -84,19 +84,21 @@
                             Tag="{StaticResource AddNewIcon}" />
                         <!--#endregion-->
 
-                        <ToggleButton
+                        <ComboBox
                             Grid.Column="2"
-                            Width="101"
                             Height="32"
-                            Content="sort by"
-                            Style="{StaticResource FilterButtonTemplate}">
-                            <ToggleButton.Tag>
-                                <x:Array Type="DrawingImage">
-                                    <DrawingImage Drawing="{StaticResource Sort}" />
-                                    <DrawingImage Drawing="{StaticResource SortSelected}" />
-                                </x:Array>
-                            </ToggleButton.Tag>
-                        </ToggleButton>
+                            DataContext="{Binding TransactionViewModel}"
+                            IsEditable="True"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Sort}"
+                            SelectedItem="{Binding SelectedItem}">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
+                                    <Setter Property="ItemContainerStyle" Value="{StaticResource SortingDropdownItemsTemplate}" />
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
 
                         <controls:SearchBar
                             x:Name="SearchBar"
@@ -172,19 +174,21 @@
                             Style="{StaticResource ModalButtonTemplate}"
                             Tag="{StaticResource AddNewIcon}" />
 
-                        <ToggleButton
+                        <ComboBox
                             Grid.Column="2"
-                            Width="101"
                             Height="32"
-                            Content="sort by"
-                            Style="{StaticResource FilterButtonTemplate}">
-                            <ToggleButton.Tag>
-                                <x:Array Type="DrawingImage">
-                                    <DrawingImage Drawing="{StaticResource Sort}" />
-                                    <DrawingImage Drawing="{StaticResource SortSelected}" />
-                                </x:Array>
-                            </ToggleButton.Tag>
-                        </ToggleButton>
+                            DataContext="{Binding SubscriptionViewModel}"
+                            IsEditable="True"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Sort}"
+                            SelectedItem="{Binding SelectedItem}">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
+                                    <Setter Property="ItemContainerStyle" Value="{StaticResource SortingDropdownItemsTemplate}" />
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
                     </Grid>
                     <!--#endregion-->
 

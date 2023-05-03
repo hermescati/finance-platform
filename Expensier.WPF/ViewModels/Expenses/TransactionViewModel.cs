@@ -7,9 +7,12 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static Expensier.WPF.ViewModels.Charts.ChartDropdownValues;
 
 namespace Expensier.WPF.ViewModels.Expenses
 {
@@ -49,6 +52,23 @@ namespace Expensier.WPF.ViewModels.Expenses
                 OnPropertyChanged(nameof(ListNotEmpty));
             }
         }
+
+        private SortingFunctions _selectedItem;
+        public SortingFunctions SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+
+        public IEnumerable<SortingFunctions> Sort => Enum.GetValues(typeof(SortingFunctions))
+            .Cast<SortingFunctions>();
 
         public IEnumerable<TransactionDataModel> Transactions => _transactions;
 
@@ -112,6 +132,14 @@ namespace Expensier.WPF.ViewModels.Expenses
                 _listEmpty = false;
                 _listNotEmpty = true;
             }
+
+            PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(SelectedItem))
+                {
+                    SortTransactions();
+                }
+            };
         }
 
         public void FilterTransactions(string query)
@@ -121,6 +149,35 @@ namespace Expensier.WPF.ViewModels.Expenses
 
             transactionDataModel = transactionDataModel.Where(t => t.TransactionName.ToLower().Contains(query.ToLower()));
 
+            _transactions.Clear();
+            foreach (TransactionDataModel dataModel in transactionDataModel)
+            {
+                _transactions.Add(dataModel);
+            }
+        }
+
+        public void SortTransactions()
+        {
+            IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
+                .Select(t => new TransactionDataModel(t.ID, t.TransactionName, t.ProcessDate, t.Amount, t.TransactionType, t.IsCredit, _transactionService, _accountStore, _renavigator));
+
+            if (_selectedItem == SortingFunctions.Asceding)
+            {
+                transactionDataModel = transactionDataModel.OrderBy(t => t.TransactionName);
+            }
+            else if (_selectedItem == SortingFunctions.Descending)
+            {
+                transactionDataModel = transactionDataModel.OrderByDescending(t => t.TransactionName);
+            }
+            else if (_selectedItem == SortingFunctions.Amount)
+            {
+                transactionDataModel = transactionDataModel.OrderByDescending(t => t.Amount);
+            }
+            else
+            {
+                transactionDataModel = transactionDataModel.OrderByDescending(t => t.ProcessDate);
+            }
+            
             _transactions.Clear();
             foreach (TransactionDataModel dataModel in transactionDataModel)
             {

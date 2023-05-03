@@ -108,7 +108,7 @@ namespace Expensier.WPF.ViewModels.Charts
         private void ConstructSeries(IEnumerable<ReturnsDataModel> returns)
         {
             returns = returns
-                .Where(r => r.RecordedDate.Month == DateTime.Now.Month && r.RecordedDate.Year == DateTime.Now.Year)
+                .Where(r => r.RecordedDate.Year == DateTime.Now.Year)
                 .GroupBy(r => r.RecordedDate.Date)
                 .Select(g => new ReturnsDataModel(g.Key.ToString("ddd, d"), g.Sum(r => r.ReturnPercentage)));
 
