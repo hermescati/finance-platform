@@ -74,14 +74,10 @@
 
                     <TextBlock
                         Grid.Row="2"
-                        Padding="0"
                         Foreground="{StaticResource InactiveColor}"
                         Style="{StaticResource BaseText}">
                         <Run Text="Already have an account?" />
-                        <Hyperlink
-                            Command="{Binding ViewLoginCommand}"
-                            Foreground="{StaticResource SecondaryColor}"
-                            Style="{StaticResource BaseLink}">
+                        <Hyperlink Command="{Binding ViewLoginCommand}" Style="{StaticResource CTALink}">
                             Log in
                         </Hyperlink>
                     </TextBlock>
@@ -105,10 +101,10 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock
+                        <Label
                             Grid.Row="0"
-                            Style="{StaticResource BaseText}"
-                            Text="First name" />
+                            Content="First name"
+                            Style="{StaticResource FormLabel}" />
 
                         <TextBox
                             Grid.Row="2"
@@ -125,10 +121,10 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock
+                        <Label
                             Grid.Row="0"
-                            Style="{StaticResource BaseText}"
-                            Text="Last name" />
+                            Content="Last name"
+                            Style="{StaticResource FormLabel}" />
 
                         <TextBox
                             Grid.Row="2"
@@ -147,10 +143,10 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
-                        Style="{StaticResource BaseText}"
-                        Text="Email" />
+                        Content="Email"
+                        Style="{StaticResource FormLabel}" />
 
                     <TextBox Grid.Row="2" Text="{Binding Email}" />
                 </Grid>
@@ -164,10 +160,10 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
-                        Style="{StaticResource BaseText}"
-                        Text="Password" />
+                        Content="Password"
+                        Style="{StaticResource FormLabel}" />
 
                     <controls:PasswordBox Grid.Row="2" Password="{Binding Password}" />
                 </Grid>
@@ -181,10 +177,10 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
-                        Style="{StaticResource BaseText}"
-                        Text="Confirm password" />
+                        Content="Confirm password"
+                        Style="{StaticResource FormLabel}" />
 
                     <controls:PasswordBox Grid.Row="2" Password="{Binding ConfirmPassword}" />
                 </Grid>

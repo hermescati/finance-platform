@@ -107,10 +107,10 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock
+                        <Label
                             Grid.Row="0"
-                            Style="{StaticResource BaseText}"
-                            Text="Email" />
+                            Content="Email"
+                            Style="{StaticResource FormLabel}" />
 
                         <TextBox Grid.Row="2" Text="{Binding Email}" />
 
@@ -125,10 +125,10 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock
+                        <Label
                             Grid.Row="0"
-                            Style="{StaticResource BaseText}"
-                            Text="Password" />
+                            Content="Password"
+                            Style="{StaticResource FormLabel}" />
 
                         <controls:PasswordBox
                             Grid.Row="2"
@@ -190,7 +190,6 @@
                 <TextBlock
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Foreground="{StaticResource ForegroundColor}"
                     Style="{StaticResource Body}"
                     Text="Not a member?" />
 

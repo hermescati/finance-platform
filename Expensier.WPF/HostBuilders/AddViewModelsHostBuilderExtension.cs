@@ -136,7 +136,6 @@ namespace Expensier.WPF.HostBuilders
             return new ResetPasswordViewModel(
                 services.GetRequiredService<IAuthenticationService>(),
                 services.GetRequiredService<IAuthenticator>(),
-                services.GetRequiredService<DelegateRenavigator<RegisterViewModel>>(),
                 services.GetRequiredService<DelegateRenavigator<LoginViewModel>>());
         }
 

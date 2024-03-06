@@ -30,7 +30,7 @@
         Background="{StaticResource BackgroundColor}"
         BorderBrush="{StaticResource TransparentColor}"
         BorderThickness="1.5"
-        CornerRadius="16">
+        CornerRadius="12">
 
         <Grid>
             <Grid.RowDefinitions>
