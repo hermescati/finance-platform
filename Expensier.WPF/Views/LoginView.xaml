@@ -17,9 +17,9 @@
     <Border
         Width="Auto"
         Height="Auto"
-        Padding="52"
+        Padding="48"
         Background="{StaticResource PrimaryColor}"
-        CornerRadius="24">
+        CornerRadius="12">
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -29,9 +29,9 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="120" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -42,61 +42,63 @@
                 HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="78" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid
                     Grid.Row="0"
-                    Width="351"
-                    Height="404">
+                    Width="Auto"
+                    Height="Auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="40" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="16" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="16" />
+                        <RowDefinition Height="8" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="40" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="8" />
                         <RowDefinition Height="16" />
-
                     </Grid.RowDefinitions>
 
                     <!--#region Header-->
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0" Margin="-8,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="12" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <Image
-                            Grid.RowSpan="3"
+                            Grid.RowSpan="2"
                             Grid.Column="0"
-                            Width="60"
-                            Height="60"
-                            HorizontalAlignment="Left"
+                            Width="64"
+                            Height="64"
+                            HorizontalAlignment="Center"
                             Source="{StaticResource AppIcon}" />
 
-                        <Label
+                        <TextBlock
                             Grid.Row="0"
                             Grid.Column="2"
-                            Content="Welcome to Expensier"
-                            Style="{StaticResource Header_24px}" />
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource ForegroundColor}"
+                            Style="{StaticResource Header1}"
+                            Text="Welcome to Expensier" />
 
-                        <Label
+                        <TextBlock
                             Grid.Row="2"
                             Grid.Column="2"
-                            Content="Log in to sync your account"
-                            Style="{StaticResource Text_15px}" />
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource ForegroundColor}"
+                            Style="{StaticResource BaseText}"
+                            Text="Log in to sync your account" />
                     </Grid>
                     <!--#endregion-->
 
@@ -104,20 +106,16 @@
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="4" />
+                            <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Label
+                        <TextBlock
                             Grid.Row="0"
-                            Content="Email"
-                            Style="{StaticResource Subheader_16px}" />
+                            Style="{StaticResource BaseText}"
+                            Text="Email" />
 
-                        <TextBox
-                            Grid.Row="2"
-                            Width="351"
-                            Height="45"
-                            Text="{Binding Email}" />
+                        <TextBox Grid.Row="2" Text="{Binding Email}" />
 
                     </Grid>
                     <!--#endregion-->
@@ -126,19 +124,17 @@
                     <Grid Grid.Row="4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="4" />
+                            <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Label
+                        <TextBlock
                             Grid.Row="0"
-                            Content="Password"
-                            Style="{StaticResource Subheader_16px}" />
+                            Style="{StaticResource BaseText}"
+                            Text="Password" />
 
                         <controls:PasswordBox
                             Grid.Row="2"
-                            Width="351"
-                            Height="45"
                             Password="{Binding Password}"
                             Tag="Enter your password ..." />
 
@@ -149,12 +145,10 @@
                     <Label
                         Grid.Row="6"
                         Padding="0"
-                        VerticalContentAlignment="Center">
-                        <TextBlock Style="{StaticResource Text_14px}" TextWrapping="WrapWithOverflow">
-                            <Hyperlink Command="{Binding ViewForgotPasswordCommand}" Style="{StaticResource Hyperlink_14px}">
-                                Forgot password?
-                            </Hyperlink>
-                        </TextBlock>
+                        VerticalAlignment="Center">
+                        <Hyperlink Command="{Binding ViewForgotPasswordCommand}" Style="{StaticResource BodyLink}">
+                            Forgot password?
+                        </Hyperlink>
                     </Label>
                     <!--#endregion-->
 
@@ -162,11 +156,11 @@
                     <Button
                         Grid.Row="8"
                         Width="351"
-                        Height="45"
+                        Height="48"
                         Command="{Binding LoginCommand}"
                         Content="Login"
                         IsDefault="True"
-                        Style="{StaticResource ImagedButton}"
+                        Style="{StaticResource BaseButton}"
                         Tag="{StaticResource LoginIcon}" />
                     <!--#endregion-->
 
@@ -175,6 +169,7 @@
                         Grid.Row="10"
                         DataContext="{Binding ErrorMessageViewModel}"
                         Foreground="{StaticResource AccentColor}"
+                        Style="{StaticResource ErrorMessage}"
                         Text="{Binding Message}"
                         Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <!--#endregion-->
@@ -187,76 +182,80 @@
             <Grid
                 Grid.Row="1"
                 Grid.Column="2"
-                Width="240"
-                Height="35"
-                Margin="120,-445,0,0">
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="24" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Label
+                <TextBlock
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Content="Not a member?"
-                    Style="{StaticResource Subheader_15px}" />
+                    Foreground="{StaticResource ForegroundColor}"
+                    Style="{StaticResource Body}"
+                    Text="Not a member?" />
 
                 <Button
                     Grid.Column="2"
-                    Width="112"
-                    Height="35"
+                    Width="120"
+                    Height="40"
                     Command="{Binding ViewRegisterCommand}"
                     Content="Sign up"
-                    Style="{StaticResource Button}" />
+                    Style="{StaticResource BaseButton}" />
 
             </Grid>
             <!--#endregion-->
 
             <!--#region Privacy Terms-->
-            <Grid Grid.Row="3" Grid.ColumnSpan="3">
+            <Grid Grid.Row="3" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="48" />
+                    <RowDefinition Height="40" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
                     Grid.Row="0"
-                    Style="{StaticResource Text_14px}"
+                    Foreground="{StaticResource InactiveColor}"
+                    Style="{StaticResource Body}"
                     TextAlignment="Center">
                     <Run Text="By clicking the button above, you acknowledge that you have read and understood," />
                     <LineBreak />
                     <Run Text="and agree to Expensier's" />
-                    <Hyperlink Foreground="{StaticResource InactiveColor}">Terms &amp; Conditions</Hyperlink>
+                    <Hyperlink Style="{StaticResource TermsLink}">Terms &amp; Conditions</Hyperlink>
                     <Run Text="and" />
-                    <Hyperlink Foreground="{StaticResource InactiveColor}">Privacy Policy.</Hyperlink>
+                    <Hyperlink Style="{StaticResource TermsLink}">Privacy Policy.</Hyperlink>
                 </TextBlock>
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
                         Grid.Column="1"
-                        Style="{StaticResource Text_14px}"
+                        Foreground="{StaticResource InactiveColor}"
+                        Style="{StaticResource Body}"
                         Text="Need help?" />
 
                     <TextBlock
                         Grid.Column="3"
-                        Style="{StaticResource Text_14px}"
+                        Foreground="{StaticResource InactiveColor}"
+                        Style="{StaticResource Body}"
                         Text="Privacy &amp; Terms" />
 
                     <TextBlock
                         Grid.Column="5"
-                        Style="{StaticResource Text_14px}"
+                        Foreground="{StaticResource InactiveColor}"
+                        Style="{StaticResource Body}"
                         Text="© 2023 Expensier" />
                 </Grid>
             </Grid>
