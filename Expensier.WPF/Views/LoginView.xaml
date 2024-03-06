@@ -87,16 +87,13 @@
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Foreground="{StaticResource ForegroundColor}"
                             Style="{StaticResource Header1}"
                             Text="Welcome to Expensier" />
 
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Foreground="{StaticResource ForegroundColor}"
+                            Foreground="{StaticResource InactiveColor}"
                             Style="{StaticResource BaseText}"
                             Text="Log in to sync your account" />
                     </Grid>

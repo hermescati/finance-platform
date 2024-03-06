@@ -17,9 +17,9 @@
     <Border
         Width="Auto"
         Height="Auto"
-        Padding="52"
+        Padding="48"
         Background="{StaticResource PrimaryColor}"
-        CornerRadius="24">
+        CornerRadius="12">
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="64" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -39,7 +39,6 @@
             <Grid
                 Grid.Row="1"
                 Grid.Column="1"
-                Width="351"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
                 <Grid.RowDefinitions>
@@ -52,66 +51,68 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="24" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="16" />
+                    <RowDefinition Height="24" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="40" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="8" />
-                    <RowDefinition Height="32" />
+                    <RowDefinition Height="16" />
                 </Grid.RowDefinitions>
 
                 <!--#region Header-->
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="10" />
+                        <RowDefinition Height="4" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Label
+                    <TextBlock
                         Grid.Row="0"
-                        Content="Sign up with your email"
-                        Style="{StaticResource Header_24px}" />
+                        Style="{StaticResource Header1}"
+                        Text="Sign up with your email" />
 
-                    <Label
+                    <TextBlock
                         Grid.Row="2"
                         Padding="0"
-                        VerticalContentAlignment="Center">
-                        <TextBlock Style="{StaticResource Subheader_15px_Regular}" TextWrapping="WrapWithOverflow">
-                            <Run Text="Already have an account?" />
-                            <Hyperlink Command="{Binding ViewLoginCommand}" Style="{StaticResource Hyperlink_15px}">
-                                Log in
-                            </Hyperlink>
-                        </TextBlock>
-                    </Label>
+                        Foreground="{StaticResource InactiveColor}"
+                        Style="{StaticResource BaseText}">
+                        <Run Text="Already have an account?" />
+                        <Hyperlink
+                            Command="{Binding ViewLoginCommand}"
+                            Foreground="{StaticResource SecondaryColor}"
+                            Style="{StaticResource BaseLink}">
+                            Log in
+                        </Hyperlink>
+                    </TextBlock>
                 </Grid>
                 <!--#endregion-->
 
                 <!--#region User Names-->
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="21" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+
 
                     <!--#region First Name-->
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="4" />
+                            <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Label
+                        <TextBlock
                             Grid.Row="0"
-                            Content="First name"
-                            Style="{StaticResource Subheader_16px}" />
+                            Style="{StaticResource BaseText}"
+                            Text="First name" />
 
                         <TextBox
                             Grid.Row="2"
-                            Width="165"
-                            Height="45"
+                            Width="163.5"
                             Text="{Binding FirstName}" />
                     </Grid>
                     <!--#endregion-->
@@ -120,19 +121,18 @@
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="4" />
+                            <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Label
+                        <TextBlock
                             Grid.Row="0"
-                            Content="Last name"
-                            Style="{StaticResource Subheader_16px}" />
+                            Style="{StaticResource BaseText}"
+                            Text="Last name" />
 
                         <TextBox
                             Grid.Row="2"
-                            Width="165"
-                            Height="45"
+                            Width="163.5"
                             Text="{Binding LastName}" />
                     </Grid>
                     <!--#endregion-->
@@ -143,20 +143,16 @@
                 <Grid Grid.Row="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="4" />
+                        <RowDefinition Height="8" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Label
+                    <TextBlock
                         Grid.Row="0"
-                        Content="Email"
-                        Style="{StaticResource Subheader_16px}" />
+                        Style="{StaticResource BaseText}"
+                        Text="Email" />
 
-                    <TextBox
-                        Grid.Row="2"
-                        Width="351"
-                        Height="45"
-                        Text="{Binding Email}" />
+                    <TextBox Grid.Row="2" Text="{Binding Email}" />
                 </Grid>
                 <!--#endregion-->
 
@@ -164,20 +160,16 @@
                 <Grid Grid.Row="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="4" />
+                        <RowDefinition Height="8" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Label
+                    <TextBlock
                         Grid.Row="0"
-                        Content="Password"
-                        Style="{StaticResource Subheader_16px}" />
+                        Style="{StaticResource BaseText}"
+                        Text="Password" />
 
-                    <controls:PasswordBox
-                        Grid.Row="2"
-                        Width="351"
-                        Height="45"
-                        Password="{Binding Password}" />
+                    <controls:PasswordBox Grid.Row="2" Password="{Binding Password}" />
                 </Grid>
                 <!--#endregion-->
 
@@ -185,20 +177,16 @@
                 <Grid Grid.Row="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="4" />
+                        <RowDefinition Height="8" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Label
+                    <TextBlock
                         Grid.Row="0"
-                        Content="Confirm password"
-                        Style="{StaticResource Subheader_16px}" />
+                        Style="{StaticResource BaseText}"
+                        Text="Confirm password" />
 
-                    <controls:PasswordBox
-                        Grid.Row="2"
-                        Width="351"
-                        Height="45"
-                        Password="{Binding ConfirmPassword}" />
+                    <controls:PasswordBox Grid.Row="2" Password="{Binding ConfirmPassword}" />
                 </Grid>
                 <!--#endregion-->
 
@@ -208,11 +196,11 @@
                     IsChecked="{Binding IsChecked}"
                     Style="{DynamicResource CheckBoxTemplate}">
                     <CheckBox.Content>
-                        <TextBlock Style="{StaticResource Text_14px}">
-                            <Run Text="I agree to the " />
-                            <Hyperlink Foreground="{StaticResource InactiveColor}">Terms &amp; Conditions</Hyperlink>
+                        <TextBlock Foreground="{StaticResource InactiveColor}" Style="{StaticResource Body}">
+                            <Run Text="I agree to the" />
+                            <Hyperlink Style="{StaticResource TermsLink}">Terms &amp; Conditions</Hyperlink>
                             <Run Text="and" />
-                            <Hyperlink Foreground="{StaticResource InactiveColor}">Privacy Policy.</Hyperlink>
+                            <Hyperlink Style="{StaticResource TermsLink}">Privacy Policy.</Hyperlink>
                         </TextBlock>
                     </CheckBox.Content>
                 </CheckBox>
@@ -222,22 +210,21 @@
                 <Button
                     Grid.Row="12"
                     Width="351"
-                    Height="45"
+                    Height="48"
                     Command="{Binding RegisterCommand}"
                     Content="Create Account"
                     IsDefault="True"
-                    Style="{StaticResource ImagedButton}"
+                    Style="{StaticResource BaseButton}"
                     Tag="{StaticResource CreateAccountIcon}" />
                 <!--#endregion-->
 
                 <!--#region Error Message-->
                 <TextBlock
                     Grid.Row="14"
-                    Width="351"
                     DataContext="{Binding ErrorMessageViewModel}"
                     Foreground="{StaticResource AccentColor}"
+                    Style="{StaticResource ErrorMessage}"
                     Text="{Binding Message}"
-                    TextWrapping="Wrap"
                     Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <!--#endregion-->
 
@@ -247,28 +234,29 @@
             <!--#region Footer-->
             <Grid Grid.Row="3" Grid.Column="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="32" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="32" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource Text_14px}"
+                    Grid.Column="0"
+                    Foreground="{StaticResource InactiveColor}"
+                    Style="{StaticResource Body}"
                     Text="Need help?" />
 
                 <TextBlock
-                    Grid.Column="3"
-                    Style="{StaticResource Text_14px}"
+                    Grid.Column="2"
+                    Foreground="{StaticResource InactiveColor}"
+                    Style="{StaticResource Body}"
                     Text="Privacy &amp; Terms" />
 
                 <TextBlock
-                    Grid.Column="5"
-                    Style="{StaticResource Text_14px}"
+                    Grid.Column="4"
+                    Foreground="{StaticResource InactiveColor}"
+                    Style="{StaticResource Body}"
                     Text="© 2023 Expensier" />
             </Grid>
             <!--#endregion-->
