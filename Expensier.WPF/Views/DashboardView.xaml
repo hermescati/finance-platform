@@ -22,7 +22,7 @@
     <Border
         Width="Auto"
         Height="Auto"
-        Padding="48"
+        Padding="40"
         Background="{StaticResource PrimaryColor}"
         CornerRadius="12">
 

@@ -49,7 +49,7 @@ namespace Expensier.WPF.ViewModels
             TransactionModalViewModel transactionModalViewModel, 
             SubscriptionModalViewModel subscriptionModalViewModel,
             MonthlyExpensesViewModel monthlyExpensesViewModel,
-            PredictionsViewModel predictionsViewModel,
+            //PredictionsViewModel predictionsViewModel,
             ITransactionService transactionService,
             ISubscriptionService subscriptionService,
             AccountStore accountStore,
@@ -58,7 +58,7 @@ namespace Expensier.WPF.ViewModels
             TransactionViewModel = new TransactionViewModel(transactionStore, transactionService, accountStore, renavigator);
             SubscriptionViewModel = new SubscriptionViewModel(subscriptionStore, subscriptionService, accountStore, renavigator);
             MonthlyExpensesViewModel = monthlyExpensesViewModel;
-            PredictionsViewModel = predictionsViewModel;
+            //PredictionsViewModel = predictionsViewModel;
             TransactionModalViewModel = transactionModalViewModel;
             SubscriptionModalViewModel = subscriptionModalViewModel;
 
