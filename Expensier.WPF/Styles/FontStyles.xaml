@@ -29,6 +29,42 @@
 
 
     <Style
+        x:Key="Header2"
+        BasedOn="{StaticResource BaseText}"
+        TargetType="TextBlock">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+
+    <Style
+        x:Key="Header3"
+        BasedOn="{StaticResource BaseText}"
+        TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+
+    <Style
+        x:Key="Header4"
+        BasedOn="{StaticResource BaseText}"
+        TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+
+    <Style
+        x:Key="Header6"
+        BasedOn="{StaticResource BaseText}"
+        TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="Medium" />
+    </Style>
+
+
+    <Style
         x:Key="Body"
         BasedOn="{StaticResource BaseText}"
         TargetType="TextBlock">
@@ -37,11 +73,18 @@
 
 
     <Style
-        x:Key="ErrorMessage"
+        x:Key="SmallText"
         BasedOn="{StaticResource BaseText}"
         TargetType="TextBlock">
         <Setter Property="FontSize" Value="13" />
-        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="FontWeight" Value="Regular" />
+    </Style>
+
+
+    <Style
+        x:Key="ErrorMessage"
+        BasedOn="{StaticResource SmallText}"
+        TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource AccentColor}" />
     </Style>
     <!--#endregion-->

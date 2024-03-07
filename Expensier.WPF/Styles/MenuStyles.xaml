@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
+
     <!--#region Form Fields-->
     <Style x:Key="BaseInputField" TargetType="Control">
         <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
@@ -73,6 +74,7 @@
     </Style>
     <!--#endregion-->
 
+
     <!--#region CheckBox-->
     <Style x:Key="CheckBoxTemplate" TargetType="{x:Type CheckBox}">
         <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
@@ -140,6 +142,7 @@
     </Style>
     <!--#endregion-->
 
+
     <!--#region DropDown-->
     <ControlTemplate x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
         <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
@@ -162,11 +165,11 @@
                     <Border
                         x:Name="dropDownBorder"
                         Margin="0,8,0,0"
-                        Padding="6"
+                        Padding="4"
                         Background="{StaticResource PrimaryColor}"
                         BorderBrush="{StaticResource TransparentColor}"
                         BorderThickness="1.5"
-                        CornerRadius="8">
+                        CornerRadius="10">
                         <ScrollViewer x:Name="DropDownScrollViewer">
                             <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                                 <Canvas
@@ -209,8 +212,8 @@
                 IsHitTestVisible="false"
                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                 TextElement.FontFamily="SF Pro Display"
-                TextElement.FontSize="15"
-                TextElement.FontWeight="Bold"
+                TextElement.FontSize="14"
+                TextElement.FontWeight="Medium"
                 TextElement.Foreground="{StaticResource InactiveColor}" />
         </Grid>
         <ControlTemplate.Triggers>
@@ -239,8 +242,8 @@
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="ClickMode" Value="Release" />
-        <Setter Property="Width" Value="Auto" />
-        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Width" Value="160" />
+        <Setter Property="Height" Value="40" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -261,7 +264,7 @@
                             UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="16" />
+                                    <ColumnDefinition Width="1" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -275,13 +278,13 @@
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                     TextElement.FontFamily="SF Pro Display"
                                     TextElement.FontSize="14"
-                                    TextElement.FontWeight="Bold"
+                                    TextElement.FontWeight="Medium"
                                     TextElement.Foreground="{StaticResource InactiveColor}"
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
                                 <Image
                                     Grid.Column="3"
-                                    Width="24"
-                                    Height="24"
+                                    Width="22"
+                                    Height="22"
                                     Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
                         </Border>
@@ -301,8 +304,8 @@
 
     <Style x:Key="DropDownItemsTemplate" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="FontFamily" Value="SF Pro Display" />
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -311,12 +314,12 @@
                         x:Name="Border"
                         Padding="8"
                         Background="{StaticResource PrimaryColor}"
-                        CornerRadius="6">
+                        CornerRadius="8">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="14" />
+                                <ColumnDefinition Width="16" />
                             </Grid.ColumnDefinitions>
                             <ContentPresenter Grid.Column="0" />
                             <Viewbox Grid.Column="2">
@@ -352,6 +355,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <!--#endregion-->
+
 
     <ControlTemplate x:Key="SortingDropdownTemplate" TargetType="{x:Type ComboBox}">
         <Grid x:Name="templateRoot" SnapsToDevicePixels="true">

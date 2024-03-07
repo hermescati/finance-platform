@@ -13,31 +13,32 @@
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="64" />
+            <ColumnDefinition Width="32" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Image
             Grid.Column="0"
-            Width="180"
+            Width="184"
             Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
         <Grid Grid.Column="2" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="24" />
+                <RowDefinition Height="8" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label
+            <TextBlock
                 Grid.Row="0"
-                Content="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                Style="{DynamicResource Subheader_15px}" />
+                Style="{StaticResource Header6}"
+                Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
             <TextBlock
                 Grid.Row="2"
                 Width="236"
-                Style="{DynamicResource Text_12px}"
+                Foreground="{StaticResource InactiveColor}"
+                Style="{StaticResource SmallText}"
                 Text="{Binding Body, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 TextWrapping="Wrap" />
 

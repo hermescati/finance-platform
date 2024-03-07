@@ -10,30 +10,30 @@
     BorderThickness="0"
     mc:Ignorable="d">
 
-    <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="32" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="8" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Image
             Grid.Row="0"
-            Width="160"
-            HorizontalAlignment="Left"
+            Width="184"
             Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
-        <Label
+        <TextBlock
             Grid.Row="2"
-            Content="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"
-            Style="{DynamicResource Subheader_15px}" />
+            Style="{StaticResource Header6}"
+            Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
         <TextBlock
             Grid.Row="4"
             Width="236"
-            Style="{DynamicResource Text_12px}"
+            Foreground="{StaticResource InactiveColor}"
+            Style="{StaticResource SmallText}"
             Text="{Binding Body, RelativeSource={RelativeSource AncestorType=UserControl}}"
             TextWrapping="Wrap" />
 
