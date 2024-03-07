@@ -35,20 +35,19 @@
 
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
                 <!--#region Spending Summary-->
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--#region Header-->
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -65,7 +64,8 @@
                             Grid.Column="2"
                             DataContext="{Binding SpendingSummaryViewModel}"
                             ItemsSource="{Binding Frequency}"
-                            SelectedItem="{Binding SelectedItem}">
+                            SelectedItem="{Binding SelectedItem}"
+                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
@@ -74,9 +74,8 @@
                             </ComboBox.Style>
                         </ComboBox>
                     </Grid>
-                    <!--#endregion-->
 
-                    <!--#region Placeholder-->
+                    <!--  Placeholder  -->
                     <placeholders:HorizontalPlaceholder
                         Title="It looks a bit empty here!"
                         Grid.Row="2"
@@ -86,9 +85,8 @@
                         DataContext="{Binding SpendingSummaryViewModel}"
                         Icon="{StaticResource GraphPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <!--#endregion-->
 
-                    <!--#region Summary Graph-->
+                    <!--  Line Chart  -->
                     <charts:CartesianChart
                         Grid.Row="2"
                         Width="574"
@@ -144,7 +142,6 @@
                         </charts:CartesianChart.AxisY>
 
                     </charts:CartesianChart>
-                    <!--#endregion-->
 
                 </Grid>
                 <!--#endregion-->
@@ -153,11 +150,10 @@
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--#region Header-->
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -174,7 +170,8 @@
                             Grid.Column="2"
                             DataContext="{Binding ExpenditureAllocationViewModel}"
                             ItemsSource="{Binding Frequency}"
-                            SelectedItem="{Binding SelectedItem}">
+                            SelectedItem="{Binding SelectedItem}"
+                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
@@ -183,9 +180,8 @@
                             </ComboBox.Style>
                         </ComboBox>
                     </Grid>
-                    <!--#endregion-->
 
-                    <!--#region Placeholder-->
+                    <!--  Placeholder  -->
                     <placeholders:HorizontalPlaceholder
                         Title="It looks a bit empty here!"
                         Grid.Row="2"
@@ -195,9 +191,8 @@
                         DataContext="{Binding SpendingSummaryViewModel}"
                         Icon="{StaticResource GraphPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <!--#endregion-->
 
-                    <!--#region Expenditure Graph-->
+                    <!--  Pie Chart  -->
                     <charts:PieChart
                         Grid.Row="2"
                         Width="500"
@@ -235,7 +230,6 @@
                         </charts:PieChart.DataTooltip>
 
                     </charts:PieChart>
-                    <!--#endregion-->
 
                 </Grid>
                 <!--#endregion-->
@@ -244,8 +238,8 @@
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
@@ -253,18 +247,16 @@
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--#region Header-->
                     <TextBlock
                         Grid.Row="0"
                         Style="{StaticResource Header3}"
                         Text="Recent expenses" />
-                    <!--#endregion-->
 
-                    <!--#region Placeholder-->
+                    <!--  Placeholder  -->
                     <placeholders:VerticalPlaceholder
                         Title="It looks a bit empty here!"
                         Grid.Row="2"
@@ -274,16 +266,12 @@
                         DataContext="{Binding RecentExpensesViewModel}"
                         Icon="{StaticResource TransactionPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <!--#endregion-->
 
-                    <!--#region Top Expenses-->
+                    <!--  Top Expenses  -->
                     <transactions:RecentExpenses
                         Grid.Row="2"
-                        Width="342"
-                        Height="308"
                         DataContext="{Binding RecentExpensesViewModel}"
                         Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <!--#endregion-->
 
                 </Grid>
                 <!--#endregion-->
@@ -299,18 +287,16 @@
                     <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="40" />
+                            <RowDefinition Height="24" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <!--#region Header-->
                         <TextBlock
                             Grid.Row="0"
                             Style="{StaticResource Header3}"
                             Text="Subscriptions" />
-                        <!--#endregion-->
 
-                        <!--#region Placeholder-->
+                        <!--  Placeholder  -->
                         <Grid Grid.Row="2">
                             <TextBlock
                                 HorizontalAlignment="Center"
@@ -321,20 +307,15 @@
                                 Text="Your subscriptions will appear on this section. Head over to the Expenses tab and add a new subscription."
                                 Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
-                        <!--#endregion-->
 
-                        <!--#region Top Subscriptions-->
+                        <!--  Top Subscriptions  -->
                         <subscriptions:TopSubscriptions
                             Grid.Row="2"
-                            Width="774"
-                            Height="42"
                             DataContext="{Binding TopSubscriptionsViewModel}"
                             Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <!--#endregion-->
 
                     </Grid>
                     <!--#endregion-->
-
 
                     <!--#region Watchlist-->
                     <Border
@@ -346,11 +327,10 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!--#region Header-->
                             <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                 <TextBlock
                                     Grid.Row="1"
@@ -388,9 +368,8 @@
                                     Style="{StaticResource BaseButton}"
                                     Visibility="{Binding TopPerformingCryptosViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </StackPanel>
-                            <!--#endregion-->
 
-                            <!--#region Placeholder-->
+                            <!--  Placeholder  -->
                             <placeholders:HorizontalPlaceholder
                                 Title="It looks a bit empty here!"
                                 Grid.Column="2"
@@ -400,15 +379,13 @@
                                 DataContext="{Binding TopPerformingCryptosViewModel}"
                                 Icon="{StaticResource CryptoPlaceholderImage}"
                                 Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <!--#endregion-->
 
-                            <!--#region Crypto Cards-->
+                            <!--  Crypto Assets  -->
                             <cryptos:TopCryptos
                                 Grid.Column="2"
                                 VerticalAlignment="Center"
                                 DataContext="{Binding TopPerformingCryptosViewModel}"
                                 Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <!--#endregion-->
 
                         </Grid>
                     </Border>

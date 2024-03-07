@@ -5,68 +5,83 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Controls.Subscriptions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="40"
-    d:DesignWidth="774"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
-    <Grid>
-        <ListView
-            Background="{DynamicResource PrimaryColor}"
-            BorderThickness="0"
-            Focusable="False"
-            IsHitTestVisible="False"
-            ItemsSource="{Binding Subscriptions}"
-            ScrollViewer.CanContentScroll="False"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Height="40" Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,0,40,0">
+
+    <ListView
+        HorizontalContentAlignment="Stretch"
+        Background="{DynamicResource PrimaryColor}"
+        BorderThickness="0"
+        Focusable="False"
+        IsHitTestVisible="False"
+        ItemsSource="{Binding Subscriptions}"
+        ScrollViewer.CanContentScroll="False"
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+        <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Border Padding="0,0,40,0">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="16" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
+
+                        <!--  Icon  -->
                         <Image
                             Grid.Column="0"
                             Width="40"
                             Height="40"
-                            VerticalAlignment="Center"
                             Source="{DynamicResource CreditTransactionIcon}" />
-                        <Grid
-                            Grid.Column="2"
-                            Width="155"
-                            Height="34"
-                            VerticalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                <TextBlock Style="{DynamicResource Subscription_Data_15px}" Text="{Binding SubscriptionPlan}" />
-                                <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
-                                    <TextBlock Style="{DynamicResource Subscription_Date_12px}" Text="{Binding DueDate, StringFormat='{}{0:MMM dd}'}" />
-                                    <Ellipse
-                                        Width="5"
-                                        Height="5"
-                                        Margin="6,0,6,0"
-                                        Fill="{DynamicResource InactiveColor}" />
-                                    <TextBlock Style="{DynamicResource Subscription_Date_12px}" Text="{Binding DueDate, StringFormat='{}{0:yyyy}'}" />
-                                </StackPanel>
+
+                        <!--  Subscription Details  -->
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding SubscriptionPlan}" />
+
+                            <StackPanel
+                                Margin="0,2,0,0"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+
+                                <TextBlock
+                                    Foreground="{DynamicResource InactiveColor}"
+                                    Style="{DynamicResource SmallText}"
+                                    Text="{Binding DueDate, StringFormat='{}{0:MMM dd}'}" />
+
+                                <Ellipse
+                                    Width="4"
+                                    Height="4"
+                                    Margin="8,0"
+                                    Fill="{DynamicResource InactiveColor}" />
+
+                                <TextBlock
+                                    Foreground="{DynamicResource InactiveColor}"
+                                    Style="{DynamicResource SmallText}"
+                                    Text="{Binding DueDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
-                            <TextBlock
-                                Grid.Column="2"
-                                Style="{DynamicResource Subscription_Amount_13px}"
-                                Text="{Binding Amount, StringFormat='c'}" />
-                        </Grid>
+                        </StackPanel>
+
+                        <!--  Subscription Price  -->
+                        <TextBlock
+                            Grid.Column="4"
+                            VerticalAlignment="Top"
+                            Style="{DynamicResource Header6}"
+                            Text="{Binding Amount, StringFormat='c'}" />
                     </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+                </Border>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </UserControl>

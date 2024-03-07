@@ -252,7 +252,7 @@
                         x:Name="GlowEffect"
                         Margin="-4"
                         BorderThickness="4"
-                        CornerRadius="10">
+                        CornerRadius="14">
                         <Border
                             x:Name="Border"
                             Width="{TemplateBinding Width}"
@@ -260,7 +260,7 @@
                             Background="{StaticResource MenuButtonColor}"
                             BorderBrush="{StaticResource MenuButtonColor}"
                             BorderThickness="1.5"
-                            CornerRadius="8"
+                            CornerRadius="12"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                             <Grid>
@@ -487,7 +487,7 @@
                         x:Name="GlowEffect"
                         Margin="-4"
                         BorderThickness="4"
-                        CornerRadius="10">
+                        CornerRadius="14">
                         <Border
                             x:Name="Border"
                             Width="{TemplateBinding Width}"
@@ -495,10 +495,10 @@
                             Background="{StaticResource MenuButtonColor}"
                             BorderBrush="{StaticResource MenuButtonColor}"
                             BorderThickness="1.5"
-                            CornerRadius="8"
+                            CornerRadius="12"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
-                            <Grid>
+                            <Grid VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="16" />
                                     <ColumnDefinition Width="Auto" />

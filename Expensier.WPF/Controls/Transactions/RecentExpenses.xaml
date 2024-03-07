@@ -6,9 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Controls.Transactions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="308"
-    d:DesignWidth="342"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
     mc:Ignorable="d">
+
 
     <UserControl.Resources>
         <converters:BoolToImageConverter
@@ -22,64 +23,76 @@
             DebitSymbol="+" />
     </UserControl.Resources>
 
-    <Grid>
-        <ListView
-            VerticalContentAlignment="Top"
-            Background="{DynamicResource PrimaryColor}"
-            BorderThickness="0"
-            Focusable="False"
-            IsHitTestVisible="False"
-            ItemsSource="{Binding Transactions}"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            ScrollViewer.VerticalScrollBarVisibility="Disabled">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border x:Name="Border" BorderThickness="0">
-                        <Grid Margin="0,0,0,21">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="16" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Image
-                                Grid.Column="0"
-                                Width="40"
-                                Height="40"
-                                Source="{Binding IsCredit, Converter={StaticResource BoolToImageConverter}}" />
-                            <Grid
-                                Grid.Column="2"
-                                Width="274"
-                                Height="34">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                    <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding TransactionName}" />
-                                    <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
-                                        <TextBlock Style="{DynamicResource Transaction_Data_12px}" Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
-                                        <Ellipse
-                                            Width="5"
-                                            Height="5"
-                                            Margin="6,0,6,0"
-                                            Fill="{DynamicResource InactiveColor}" />
-                                        <TextBlock Style="{DynamicResource Transaction_Data_12px}" Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
-                                    </StackPanel>
-                                </StackPanel>
-                                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                    <TextBlock
-                                        Margin="0,0,1,0"
-                                        Style="{DynamicResource Transaction_Data_15px}"
-                                        Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
-                                    <TextBlock Style="{DynamicResource Transaction_Data_15px}" Text="{Binding Amount, StringFormat='c'}" />
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
 
+    <ListView
+        Margin="-8,0,0,-12"
+        HorizontalContentAlignment="Stretch"
+        Background="{DynamicResource PrimaryColor}"
+        BorderThickness="0"
+        Focusable="False"
+        IsHitTestVisible="False"
+        ItemsSource="{Binding Transactions}"
+        ScrollViewer.CanContentScroll="False"
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Border Padding="0,12" BorderThickness="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  Icon  -->
+                        <Image
+                            Grid.Column="0"
+                            Width="40"
+                            Height="40"
+                            Source="{Binding IsCredit, Converter={StaticResource BoolToImageConverter}}" />
+
+                        <!--  Transaction Details  -->
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding TransactionName}" />
+
+                            <StackPanel
+                                Margin="0,2,0,0"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+
+                                <TextBlock
+                                    Foreground="{DynamicResource InactiveColor}"
+                                    Style="{DynamicResource SmallText}"
+                                    Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
+
+                                <Ellipse
+                                    Width="4"
+                                    Height="4"
+                                    Margin="8,0"
+                                    Fill="{DynamicResource InactiveColor}" />
+
+                                <TextBlock
+                                    Foreground="{DynamicResource InactiveColor}"
+                                    Style="{DynamicResource SmallText}"
+                                    Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--  Transaction Price  -->
+                        <StackPanel Grid.Column="4" Orientation="Horizontal">
+
+                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
+
+                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding Amount, StringFormat='c'}" />
+
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </UserControl>

@@ -56,16 +56,16 @@
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="80" />
+                            <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
 
                         <!--#region Portfolio-->
@@ -73,7 +73,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="40" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
                             <TextBlock
@@ -85,8 +85,6 @@
                             <placeholders:HorizontalPlaceholder
                                 Title="It looks a bit empty here!"
                                 Grid.Row="2"
-                                Width="560"
-                                Height="200"
                                 Body="Add your first asset to have a better overview of your portfolio performance!"
                                 DataContext="{Binding PortfolioPerformanceViewModel}"
                                 Icon="{StaticResource GraphPlaceholderImage}"
@@ -155,8 +153,8 @@
                         <Grid Grid.Row="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <TextBlock
@@ -168,8 +166,6 @@
                             <placeholders:HorizontalPlaceholder
                                 Title="It looks a bit empty here!"
                                 Grid.Row="2"
-                                Width="560"
-                                Height="200"
                                 Body="Add your first asset to have a better overview of your asset allocation!"
                                 DataContext="{Binding AssetAllocationViewModel}"
                                 Icon="{StaticResource GraphPlaceholderImage}"
@@ -268,12 +264,12 @@
                                     Padding="0"
                                     Click="AddNewCrypto"
                                     Content="New asset"
-                                    Foreground="{StaticResource SecondaryColor}"
                                     Style="{StaticResource SquareButton}"
                                     Tag="{StaticResource AddNewIcon}" />
 
                                 <ComboBox
                                     Grid.Column="2"
+                                    Width="132"
                                     Height="40"
                                     DataContext="{Binding TransactionViewModel}"
                                     IsEditable="True"
