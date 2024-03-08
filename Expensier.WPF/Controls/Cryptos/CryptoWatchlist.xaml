@@ -8,10 +8,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Controls.Subscriptions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="64"
-    d:DesignWidth="1196"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
     DataContext="{Binding TopPerformingCryptosViewModel}"
     mc:Ignorable="d">
+
 
     <UserControl.Resources>
         <converters:CryptoNameConverter x:Key="CryptoNameConverter" />
@@ -21,23 +22,22 @@
             NegativeColor="#D94E33"
             PositiveColor="#64927C" />
 
+
         <Style x:Key="CryptoWatchlist" TargetType="{x:Type ListViewItem}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="UseLayoutRounding" Value="True" />
-            <Setter Property="Margin" Value="0,0,19,0" />
-            <Setter Property="Width" Value="Auto" />
-            <Setter Property="Height" Value="64" />
+            <Setter Property="Margin" Value="4,4,16,4" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                         <Border
-                            x:Name="GlowEffect"
+                            x:Name="Glow"
                             Margin="-4"
                             BorderThickness="4"
-                            CornerRadius="19">
+                            CornerRadius="18">
                             <Border
-                                x:Name="InnerBorder"
-                                Padding="12"
+                                x:Name="Stroke"
+                                Padding="16"
                                 Background="{DynamicResource BackgroundGradientColor}"
                                 BorderThickness="1.5"
                                 CornerRadius="16">
@@ -50,8 +50,8 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
-                                <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{DynamicResource SecondaryGlowColor}" />
+                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
+                                <Setter TargetName="Glow" Property="BorderBrush" Value="{DynamicResource SecondaryGlowColor}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -60,91 +60,83 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
-        <ListView
-            Width="1196"
-            Background="Transparent"
-            BorderThickness="0"
-            ItemContainerStyle="{DynamicResource CryptoWatchlist}"
-            ItemsSource="{Binding Cryptos}"
-            ScrollViewer.CanContentScroll="False"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel
-                        Height="64"
-                        Margin="0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Stretch"
-                        Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
 
-                    <Grid>
+    <ListView
+        Margin="-10,0,0,0"
+        Background="Transparent"
+        BorderThickness="0"
+        ItemContainerStyle="{DynamicResource CryptoWatchlist}"
+        ItemsSource="{Binding Cryptos}"
+        ScrollViewer.CanContentScroll="False"
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+        <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Symbol Icon  -->
+                    <Image
+                        Grid.Column="0"
+                        Width="32"
+                        Height="32"
+                        Source="{DynamicResource AppIcon}" />
+
+                    <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="16" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="16" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Image
-                            Grid.Column="0"
-                            Width="32"
-                            Height="32"
-                            Source="{DynamicResource AppIcon}" />
-
-                        <Grid Grid.Column="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="2" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <!--  Current Price  -->
                             <TextBlock
-                                Grid.Row="0"
-                                Width="80"
-                                Style="{DynamicResource Crypto_Price_13px}"
+                                FontWeight="SemiBold"
+                                Style="{DynamicResource Body}"
                                 Text="{Binding Crypto.Price, StringFormat='${0:#,##0.###}'}" />
 
+                            <!--  Symbol  -->
                             <TextBlock
-                                Grid.Row="2"
-                                Style="{DynamicResource Crypto_Symbol_12px}"
+                                Margin="0,2,0,0"
+                                FontWeight="Medium"
+                                Foreground="{DynamicResource InactiveColor}"
+                                Style="{DynamicResource SmallText}"
                                 Text="{Binding Crypto.Symbol, Converter={StaticResource CryptoNameConverter}, ConverterParameter='USD'}" />
-                        </Grid>
+                        </StackPanel>
 
-                        <Grid Grid.Column="4" Width="56">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="4" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                            <!--  Percentage  -->
                             <TextBlock
-                                Grid.Row="0"
-                                Margin="0,0,-4,0"
                                 HorizontalAlignment="Right"
+                                FontWeight="SemiBold"
                                 Foreground="{Binding Crypto.ChangesPercentage, Converter={StaticResource DoubleToColorConverter}}"
-                                Style="{DynamicResource Crypto_Trend_8px}"
+                                Style="{DynamicResource SmallText}"
                                 Text="{Binding Crypto.ChangesPercentage, StringFormat={}{0:#0.00'%'}}" />
 
+                            <!--  Chart  -->
                             <controls:CryptoChart
                                 Grid.Row="2"
-                                Width="64"
-                                Height="29"
-                                Margin="-32"
+                                Width="96"
+                                Height="32"
+                                Margin="0,-4"
+                                HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch" />
-
-                        </Grid>
-
+                        </StackPanel>
                     </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </UserControl>

@@ -9,8 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modals="clr-namespace:Expensier.WPF.Controls.Modals"
     xmlns:placeholders="clr-namespace:Expensier.WPF.Controls.Placeholders"
-    d:DesignHeight="852"
-    d:DesignWidth="1304"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -28,8 +28,8 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Popup IsOpen="False">
@@ -56,9 +56,9 @@
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="4*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
@@ -72,7 +72,7 @@
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="40" />
+                                <RowDefinition Height="24" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
@@ -153,7 +153,7 @@
                         <Grid Grid.Row="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="40" />
+                                <RowDefinition Height="24" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
@@ -219,14 +219,14 @@
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="40" />
+                            <RowDefinition Height="24" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="24" />
+                                <RowDefinition Height="16" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
@@ -271,7 +271,7 @@
                                     Grid.Column="2"
                                     Width="132"
                                     Height="40"
-                                    DataContext="{Binding TransactionViewModel}"
+                                    DataContext="{Binding CryptoViewModel}"
                                     IsEditable="True"
                                     IsReadOnly="True"
                                     ItemsSource="{Binding Sort}"
@@ -289,7 +289,7 @@
                                     VerticalAlignment="Center"
                                     DataContext="{Binding PortfolioValueViewModel}"
                                     Style="{StaticResource Header4}"
-                                    Text="{Binding TotalValue, StringFormat='${0:#,##0.###}'}" />
+                                    Text="{Binding TotalValue, StringFormat='$ {0:#,##0.###}'}" />
                             </Grid>
                         </Grid>
 
@@ -297,8 +297,6 @@
                         <placeholders:VerticalPlaceholder
                             Title="It looks a bit empty here!"
                             Grid.Row="2"
-                            Width="558"
-                            Height="497"
                             Padding="161,40"
                             Body="Add your first asset to track by clicking the “Add new” button above."
                             DataContext="{Binding CryptoViewModel}"
@@ -308,9 +306,6 @@
                         <!--  Asset List  -->
                         <cryptos:CryptoList
                             Grid.Row="4"
-                            Grid.ColumnSpan="3"
-                            Width="640"
-                            Height="497"
                             DataContext="{Binding CryptoViewModel}"
                             Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </Grid>
