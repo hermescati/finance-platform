@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="852"
-    d:DesignWidth="1552"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
     <UserControl.Resources>
