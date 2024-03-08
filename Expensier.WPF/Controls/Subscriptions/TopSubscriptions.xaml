@@ -29,13 +29,13 @@
 
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Border Padding="0,0,40,0">
+                <Border Padding="0,13,40,13">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="16" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="29" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 

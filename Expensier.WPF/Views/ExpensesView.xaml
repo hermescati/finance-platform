@@ -29,7 +29,7 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="4*" />
                     <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
@@ -47,7 +47,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="16" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
@@ -121,7 +121,6 @@
                     <!--  Expenses List  -->
                     <transactions:TransactionsList
                         Grid.Row="4"
-                        Width="735"
                         DataContext="{Binding TransactionViewModel}"
                         Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
@@ -134,7 +133,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="16" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
@@ -196,6 +195,7 @@
 
 
                     <!--#region Predictions-->
+                    <!--
                     <Grid
                         Grid.Row="6"
                         DataContext="{Binding MonthlyExpensesViewModel}"
@@ -356,6 +356,7 @@
                             </Border>
                         </Grid>
                     </Grid>
+                    -->
                     <!--#endregion-->
 
                 </Grid>
