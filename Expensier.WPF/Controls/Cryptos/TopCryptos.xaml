@@ -165,7 +165,7 @@
                             FontWeight="SemiBold"
                             Foreground="{DynamicResource InactiveColor}"
                             Style="{DynamicResource VerySmallText}"
-                            Text="{Binding Crypto.Price, StringFormat='${0:#,##0.##}'}" />
+                            Text="{Binding Crypto.Price, StringFormat='${0:#,##0.###}'}" />
                     </Grid>
                 </Grid>
             </DataTemplate>
