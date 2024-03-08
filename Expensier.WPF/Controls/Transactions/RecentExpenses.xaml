@@ -25,7 +25,7 @@
 
 
     <ListView
-        Margin="-8,0,0,-12"
+        Margin="-6,0,0,0"
         HorizontalContentAlignment="Stretch"
         Background="{DynamicResource PrimaryColor}"
         BorderThickness="0"
@@ -38,7 +38,7 @@
 
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Border Padding="0,12" BorderThickness="0">
+                <Border Padding="0,13" BorderThickness="0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -83,7 +83,10 @@
                         </StackPanel>
 
                         <!--  Transaction Price  -->
-                        <StackPanel Grid.Column="4" Orientation="Horizontal">
+                        <StackPanel
+                            Grid.Column="4"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
 
                             <TextBlock Style="{DynamicResource Header6}" Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
 

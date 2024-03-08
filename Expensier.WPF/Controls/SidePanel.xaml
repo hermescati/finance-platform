@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:navigator="clr-namespace:Expensier.WPF.State.Navigators"
     xmlns:vm="clr-namespace:Expensier.WPF.ViewModels"
-    d:DesignHeight="852"
-    d:DesignWidth="224"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -20,14 +20,13 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
             <Setter Property="FontFamily" Value="SF Pro Display" />
-            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Width" Value="143" />
+            <Setter Property="Width" Value="Auto" />
             <Setter Property="Height" Value="Auto" />
-            <Setter Property="Margin" Value="0,0,0,40" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="UseLayoutRounding" Value="True" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="Template">
@@ -35,11 +34,13 @@
                     <ControlTemplate TargetType="{x:Type RadioButton}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="24" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Image
                                 x:Name="Icon"
+                                Grid.Column="0"
                                 Width="24"
                                 Height="24"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
@@ -47,9 +48,8 @@
                                 UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
                             <ContentPresenter
                                 x:Name="Content"
-                                Grid.Column="1"
-                                Margin="16,0,0,0"
-                                VerticalAlignment="Center" />
+                                Grid.Column="2"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}" />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
@@ -70,9 +70,9 @@
     <Border
         Width="Auto"
         Height="Auto"
-        Padding="40,52,40,52"
+        Padding="40"
         Background="{StaticResource PrimaryColor}"
-        CornerRadius="25">
+        CornerRadius="12">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -82,23 +82,56 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+            <!--#region Profile-->
             <StackPanel Grid.Row="0">
-                <Ellipse Width="100" Height="100">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Styles/Images/default_profile_picture.png" />
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Label
+                <!--  Picture  -->
+                <Border
+                    Width="100"
+                    Height="100"
+                    Background="{StaticResource BackgroundGradientColor}"
+                    CornerRadius="24">
+                    <Border.Clip>
+                        <RectangleGeometry
+                            RadiusX="24"
+                            RadiusY="24"
+                            Rect="0,0,100,100" />
+                    </Border.Clip>
+                    <Image
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Source="/Styles/Images/default_profile_picture.png" />
+                </Border>
+
+                <!--  Greeting Text  -->
+                <TextBlock
                     Margin="0,16,0,0"
-                    HorizontalContentAlignment="Center"
-                    Content="{Binding GreetingMessage}"
+                    HorizontalAlignment="Center"
                     DataContext="{Binding SidePanelViewModel}"
-                    Style="{StaticResource Subheader_16px}" />
+                    FontWeight="Medium"
+                    Style="{StaticResource BaseText}"
+                    Text="{Binding GreetingMessage}" />
             </StackPanel>
+            <!--#endregion-->
 
-            <StackPanel Grid.Row="2" HorizontalAlignment="Left">
+            <!--#region Navigation-->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
+                <!--  Dashboard  -->
                 <RadioButton
+                    Grid.Row="0"
                     Command="{Binding UpdateCurrentViewModelCommand}"
                     CommandParameter="{x:Static navigator:ViewType.Dashboard}"
                     Content="Dashboard"
@@ -112,7 +145,9 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
+                <!--  Expenses  -->
                 <RadioButton
+                    Grid.Row="2"
                     Command="{Binding UpdateCurrentViewModelCommand}"
                     CommandParameter="{x:Static navigator:ViewType.Expenses}"
                     Content="Expenses"
@@ -126,7 +161,9 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
+                <!--  Wallet  -->
                 <RadioButton
+                    Grid.Row="4"
                     Command="{Binding UpdateCurrentViewModelCommand}"
                     CommandParameter="{x:Static navigator:ViewType.Wallet}"
                     Content="Wallet"
@@ -140,13 +177,16 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
+                <!--  Divider  -->
                 <Border
+                    Grid.Row="6"
                     BorderBrush="{StaticResource InactiveColor}"
-                    BorderThickness="1"
-                    CornerRadius="0.5" />
+                    BorderThickness="0.5"
+                    CornerRadius="1" />
 
+                <!--  Settings  -->
                 <RadioButton
-                    Margin="0,40,0,40"
+                    Grid.Row="8"
                     Content="Settings"
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
@@ -157,7 +197,11 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Content="Support" Style="{DynamicResource SidePanelButton}">
+                <!--  Support  -->
+                <RadioButton
+                    Grid.Row="10"
+                    Content="Support"
+                    Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
                             <DrawingImage Drawing="{StaticResource Support}" />
@@ -165,18 +209,21 @@
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
+            </Grid>
+            <!--#endregion-->
 
-            </StackPanel>
-
+            <!--#region CTA-->
             <Button
                 Grid.Row="4"
                 Width="144"
-                Height="40"
+                Height="48"
+                Padding="0"
                 Command="{Binding LogoutCommand}"
                 Content="Log out"
                 DataContext="{Binding SidePanelViewModel}"
-                Style="{DynamicResource ImagedButton}"
+                Style="{DynamicResource BaseButton}"
                 Tag="{StaticResource LogoutIcon}" />
+            <!--#endregion-->
 
         </Grid>
     </Border>

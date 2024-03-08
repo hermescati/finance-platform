@@ -11,8 +11,8 @@
     xmlns:placeholders="clr-namespace:Expensier.WPF.Controls.Placeholders"
     xmlns:subscriptions="clr-namespace:Expensier.WPF.Controls.Subscriptions"
     xmlns:transactions="clr-namespace:Expensier.WPF.Controls.Transactions"
-    d:DesignHeight="852"
-    d:DesignWidth="1304"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -28,9 +28,9 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="4*" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -240,7 +240,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
 
                 <!--#region Expenses-->
@@ -320,15 +320,15 @@
                     <!--#region Watchlist-->
                     <Border
                         Grid.Row="2"
-                        Padding="48,24"
+                        Padding="40,24"
                         Background="{StaticResource BackgroundGradientColor}"
                         CornerRadius="16">
 
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="40" />
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" VerticalAlignment="Center">
@@ -340,9 +340,9 @@
                                 <TextBlock
                                     Grid.Row="3"
                                     Width="144"
-                                    Margin="0,8,0,24"
+                                    Margin="0,8,0,16"
                                     Foreground="{StaticResource InactiveColor}"
-                                    Style="{StaticResource SmallText}"
+                                    Style="{StaticResource MediumText}"
                                     Text="Keep track of your favorite cryptos."
                                     TextWrapping="Wrap" />
 
@@ -383,7 +383,6 @@
                             <!--  Crypto Assets  -->
                             <cryptos:TopCryptos
                                 Grid.Column="2"
-                                VerticalAlignment="Center"
                                 DataContext="{Binding TopPerformingCryptosViewModel}"
                                 Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
