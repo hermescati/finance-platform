@@ -62,14 +62,17 @@
 
 
     <ListView
+        x:Name="listView"
         Margin="-10,0,0,0"
         Background="Transparent"
         BorderThickness="0"
         ItemContainerStyle="{DynamicResource CryptoWatchlist}"
         ItemsSource="{Binding Cryptos}"
+        PreviewMouseWheel="ListView_PreviewMouseWheel"
         ScrollViewer.CanContentScroll="False"
-        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-        ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+        VirtualizingPanel.ScrollUnit="Pixel">
 
         <ListView.ItemsPanel>
             <ItemsPanelTemplate>
@@ -138,5 +141,6 @@
                 </Grid>
             </DataTemplate>
         </ListView.ItemTemplate>
+
     </ListView>
 </UserControl>

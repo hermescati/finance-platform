@@ -23,6 +23,40 @@ namespace Expensier.WPF.Controls.Cryptos
         public CryptoWatchlist()
         {
             InitializeComponent();
+            listView.PreviewMouseWheel += ListView_PreviewMouseWheel;
+        }
+
+        private void ListView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scrollViewer = FindVisualChild<ScrollViewer>(listView);
+            if (scrollViewer != null)
+            {
+                double pixelsToScroll = 12;
+
+                if (e.Delta > 0)
+                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - pixelsToScroll);
+                else
+                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + pixelsToScroll);
+
+                e.Handled = true;
+            }
+        }
+
+        private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                if (child != null && child is T)
+                    return (T)child;
+                else
+                {
+                    T childOfChild = FindVisualChild<T>(child);
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+            }
+            return null;
         }
     }
 }

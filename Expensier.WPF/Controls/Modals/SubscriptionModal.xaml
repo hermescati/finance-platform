@@ -11,39 +11,41 @@
     mc:Ignorable="d">
 
     <Grid>
-
         <Rectangle
             Fill="Black"
             MouseDown="Rectangle_MouseDown"
             Opacity=".75" />
 
         <Border
-            Width="364"
+            Width="360"
             Height="536"
-            Padding="30"
+            Padding="24"
             Background="{StaticResource PrimaryColor}"
             BorderBrush="{StaticResource InactiveColor}"
             BorderThickness=".5"
-            CornerRadius="20">
+            CornerRadius="16">
 
             <Border.Effect>
-                <DropShadowEffect Opacity="0.8" ShadowDepth="3" />
+                <DropShadowEffect Opacity="0.5" ShadowDepth="3" />
             </Border.Effect>
 
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="32" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="32" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="24" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Label
+                <!--#region Header-->
+                <TextBlock
                     Grid.Row="0"
-                    Content="Add New Subscription"
-                    Style="{StaticResource Header_20px}" />
+                    Style="{StaticResource Header2}"
+                    Text="Add new subscription" />
+                <!--#endregion-->
 
+                <!--#region Form-->
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -55,46 +57,87 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0">
-                        <Label Content="Company" Style="{StaticResource Subheader_16px}" />
-                        <TextBox
-                            Width="300"
-                            Height="45"
-                            Margin="0,4,0,0"
-                            Text="{Binding CompanyName}" />
-                    </StackPanel>
+                    <!--  Company  -->
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="8" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="2">
-                        <Label Content="Plan" Style="{StaticResource Subheader_16px}" />
+                        <Label
+                            Grid.Row="0"
+                            Content="Company"
+                            Style="{StaticResource FormLabel}" />
+
                         <TextBox
-                            Width="300"
-                            Height="45"
-                            Margin="0,4,0,0"
+                            Grid.Row="2"
+                            Width="311"
+                            Text="{Binding CompanyName}" />
+                    </Grid>
+
+                    <!--  Plan  -->
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="8" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Content="Plan"
+                            Style="{StaticResource FormLabel}" />
+
+                        <TextBox
+                            Grid.Row="2"
+                            Width="311"
                             Text="{Binding SubscriptionPlan}" />
-                    </StackPanel>
+                    </Grid>
 
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0">
-                            <Label Content="Amount" Style="{StaticResource Subheader_16px}" />
-                            <TextBox
-                                Width="138"
-                                Height="45"
-                                Margin="0,4,0,0"
-                                Text="{Binding Amount, StringFormat='c'}" />
-                        </StackPanel>
+                        <!--  Amount  -->
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Column="2">
-                            <Label Content="Cycle" Style="{StaticResource Subheader_16px}" />
+                            <Label
+                                Grid.Row="0"
+                                Content="Amount"
+                                Style="{StaticResource FormLabel}" />
+
+                            <TextBox
+                                Grid.Row="2"
+                                Width="146.5"
+                                Text="{Binding Amount, StringFormat='c'}" />
+                        </Grid>
+
+                        <!--  Cycle  -->
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label
+                                Grid.Row="0"
+                                Content="Cycle"
+                                Style="{StaticResource FormLabel}" />
+
                             <ComboBox
-                                Width="138"
-                                Height="45"
-                                Margin="0,4,0,0"
+                                Grid.Row="2"
+                                Height="52"
+                                VerticalAlignment="Stretch"
                                 ItemsSource="{Binding SubscriptionCycles}"
                                 SelectedItem="{Binding SubscriptionCycle}">
                                 <ComboBox.Style>
@@ -104,45 +147,49 @@
                                     </Style>
                                 </ComboBox.Style>
                             </ComboBox>
-                        </StackPanel>
-
+                        </Grid>
                     </Grid>
 
                     <StackPanel Grid.Row="6">
                         <Label Content="Due date" Style="{StaticResource Subheader_16px}" />
                         <DatePicker
-                            Width="300"
-                            Height="45"
                             Margin="0,4,0,0"
                             SelectedDate="{Binding DueDate}"
                             Style="{DynamicResource DatePickerTemplate}" />
                     </StackPanel>
 
                 </Grid>
+                <!--#endregion-->
 
+                <!--#region CTAs-->
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
+                    <!--  Cancel  -->
                     <Button
                         Grid.Column="0"
-                        Width="138"
-                        Height="40"
+                        Width="140"
+                        Height="48"
+                        Background="{StaticResource PrimaryColor}"
                         Click="Button_Click"
                         Content="Cancel"
-                        Style="{StaticResource CancelButton}" />
+                        Foreground="{StaticResource InactiveColor}"
+                        Style="{StaticResource BaseButton}" />
 
+                    <!--  Add  -->
                     <Button
                         Grid.Column="2"
-                        Width="138"
-                        Height="40"
+                        Width="140"
+                        Height="48"
                         Command="{Binding AddSubscriptionCommand}"
                         Content="Add"
-                        Style="{StaticResource Button}" />
+                        Style="{StaticResource BaseButton}" />
                 </Grid>
+                <!--#endregion-->
             </Grid>
         </Border>
 

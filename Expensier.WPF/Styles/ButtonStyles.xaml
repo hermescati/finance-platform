@@ -31,7 +31,7 @@
                         Margin="-4"
                         BorderBrush="{StaticResource SecondaryGlowColor}"
                         BorderThickness="0"
-                        CornerRadius="24">
+                        CornerRadius="26">
                         <Border
                             x:Name="Stroke"
                             Width="{TemplateBinding Width}"
@@ -118,15 +118,13 @@
                                 Orientation="Horizontal">
                                 <Image
                                     x:Name="Icon"
-                                    Width="22"
-                                    Height="22"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
+                                    Width="24"
+                                    Height="24"
+                                    Margin="0,0,16,0"
                                     Source="{TemplateBinding Tag}"
                                     Visibility="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}" />
                                 <ContentPresenter
                                     x:Name="Content"
-                                    Margin="8,0,0,0"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
