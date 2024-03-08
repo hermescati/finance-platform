@@ -32,7 +32,7 @@
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                         <Border
                             x:Name="Border"
-                            Padding="0,16"
+                            Padding="0,16,16,16"
                             CornerRadius="16">
                             <ContentPresenter
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -52,9 +52,9 @@
                                         <ThicknessAnimation
                                             Storyboard.TargetName="Border"
                                             Storyboard.TargetProperty="Padding"
-                                            From="0, 16, 0, 16"
+                                            From="0, 16, 16, 16"
                                             To="16, 16, 16, 16"
-                                            Duration="0:0:0.15" />
+                                            Duration="0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -66,8 +66,8 @@
                                             Storyboard.TargetName="Border"
                                             Storyboard.TargetProperty="Padding"
                                             From="16, 16, 16, 16"
-                                            To="0, 16, 0, 16"
-                                            Duration="0:0:0.15" />
+                                            To="0, 16, 16, 16"
+                                            Duration="0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -128,7 +128,7 @@
                             Grid.Column="0"
                             Width="164"
                             VerticalAlignment="Center"
-                            Style="{DynamicResource BaseText}"
+                            Style="{DynamicResource Header6}"
                             Text="{Binding TransactionName}" />
 
                         <!--  Category  -->
