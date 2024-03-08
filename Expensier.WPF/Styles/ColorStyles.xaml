@@ -21,7 +21,7 @@
         Color="{StaticResource Dominant}" />
     <SolidColorBrush
         x:Key="InactiveColor"
-        Opacity="0.4"
+        Opacity="0.5"
         Color="{StaticResource Foreground}" />
     <SolidColorBrush
         x:Key="TransparentColor"

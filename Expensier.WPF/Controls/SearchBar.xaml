@@ -5,8 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="32"
-    d:DesignWidth="190"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -17,11 +15,13 @@
             <Setter Property="Background" Value="{DynamicResource MenuButtonColor}" />
             <Setter Property="Foreground" Value="{DynamicResource TransparentColor}" />
             <Setter Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
-            <Setter Property="Width" Value="190" />
-            <Setter Property="Height" Value="32" />
+            <Setter Property="MaxWidth" Value="400" />
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Padding" Value="0" />
             <Setter Property="FontFamily" Value="SF Pro Display" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="FontSize" Value="13" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -30,34 +30,33 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border
-                            x:Name="GlowEffect"
-                            Width="198"
-                            Height="40"
+                            x:Name="Glow"
                             Margin="-4"
-                            CornerRadius="10">
+                            CornerRadius="14">
                             <Border
-                                x:Name="Border"
+                                x:Name="Stroke"
                                 Width="{TemplateBinding Width}"
                                 Height="{TemplateBinding Height}"
+                                Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{DynamicResource MenuButtonColor}"
                                 BorderThickness="1.5"
-                                CornerRadius="8"
+                                CornerRadius="12"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                 UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="16" />
                                         <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="12" />
+                                        <ColumnDefinition Width="16" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="16" />
                                     </Grid.ColumnDefinitions>
                                     <Image
                                         x:Name="Icon"
                                         Grid.Column="1"
-                                        Width="16"
-                                        Height="16"
+                                        Width="20"
+                                        Height="20"
                                         Source="{DynamicResource SearchIcon}" />
                                     <TextBlock
                                         x:Name="Placeholder"
@@ -85,14 +84,14 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
+                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
                                 <Setter TargetName="Icon" Property="Image.Source" Value="{DynamicResource SearchSelectedIcon}" />
                             </Trigger>
                             <Trigger Property="IsKeyboardFocused" Value="True">
                                 <Setter TargetName="Icon" Property="Image.Source" Value="{DynamicResource SearchSelectedIcon}" />
-                                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
-                                <Setter TargetName="GlowEffect" Property="BorderThickness" Value="4" />
-                                <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{DynamicResource SecondaryGlowColor}" />
+                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
+                                <Setter TargetName="Glow" Property="BorderThickness" Value="4" />
+                                <Setter TargetName="Glow" Property="BorderBrush" Value="{DynamicResource SecondaryGlowColor}" />
                                 <Setter Property="Foreground" Value="{DynamicResource SecondaryColor}" />
                             </Trigger>
                             <Trigger Property="Text" Value="">
@@ -108,8 +107,7 @@
     <Grid>
         <TextBox
             x:Name="searchBar"
-            Width="190"
-            Height="32"
+            HorizontalAlignment="Stretch"
             Style="{DynamicResource SearchBarTemplate}"
             TextChanged="SeachBar_PasswordChanged" />
     </Grid>

@@ -100,15 +100,15 @@ namespace Expensier.WPF.ViewModels
 
         public ICommand ContinueCommand { get; }
         public ICommand ResetPasswordCommand { get; }
-        public ICommand ViewRegisterCommand { get; }
+        public ICommand ViewLoginCommand { get; }
 
-        public ResetPasswordViewModel(IAuthenticationService authenticationService, IAuthenticator authenticator, IRenavigator registerRenavigator, IRenavigator loginRenagivator)
+        public ResetPasswordViewModel(IAuthenticationService authenticationService, IAuthenticator authenticator, IRenavigator loginRenagivator)
         {
             ErrorMessageViewModel = new MessageViewModel();
 
             ContinueCommand = new ContinueCommand(this, authenticationService);
             ResetPasswordCommand = new ResetPasswordCommand(this, authenticator, loginRenagivator);
-            ViewRegisterCommand = new RenavigateCommand(registerRenavigator);
+            ViewLoginCommand = new RenavigateCommand(loginRenagivator);
         }
     }
 }

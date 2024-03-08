@@ -93,7 +93,7 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<TransactionModalViewModel>(),
                 services.GetRequiredService<SubscriptionModalViewModel>(),
                 services.GetRequiredService<MonthlyExpensesViewModel>(),
-                services.GetRequiredService<PredictionsViewModel>(),
+                //services.GetRequiredService<PredictionsViewModel>(),
                 services.GetRequiredService<ITransactionService>(),
                 services.GetRequiredService<ISubscriptionService>(),
                 services.GetRequiredService<AccountStore>(),
@@ -136,7 +136,6 @@ namespace Expensier.WPF.HostBuilders
             return new ResetPasswordViewModel(
                 services.GetRequiredService<IAuthenticationService>(),
                 services.GetRequiredService<IAuthenticator>(),
-                services.GetRequiredService<DelegateRenavigator<RegisterViewModel>>(),
                 services.GetRequiredService<DelegateRenavigator<LoginViewModel>>());
         }
 

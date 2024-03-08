@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:Expensier.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
-    Height="908"
+    Height="900"
     AllowsTransparency="True"
     Background="Transparent"
     Icon="{StaticResource AppIcon}"
@@ -30,7 +30,7 @@
         Background="{StaticResource BackgroundColor}"
         BorderBrush="{StaticResource TransparentColor}"
         BorderThickness="1.5"
-        CornerRadius="8">
+        CornerRadius="12">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -53,15 +53,15 @@
                 <Button
                     Grid.Column="1"
                     Click="Minimize_MouseDown"
-                    Style="{StaticResource Minimize}" />
+                    Style="{StaticResource MinimizeButton}" />
                 <Button
                     Grid.Column="2"
                     Click="Maximize_MouseDown"
-                    Style="{StaticResource Maximize}" />
+                    Style="{StaticResource MaximizeButton}" />
                 <Button
                     Grid.Column="3"
                     Click="Exit_MouseDown"
-                    Style="{StaticResource Exit}" />
+                    Style="{StaticResource ExitButton}" />
             </Grid>
 
             <Border

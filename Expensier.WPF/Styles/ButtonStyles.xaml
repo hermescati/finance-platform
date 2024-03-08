@@ -1,4 +1,163 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Expensier.WPF.Converters">
+
+
+    <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+
+
+    <Style x:Key="BaseButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ForegroundColor}" />
+        <Setter Property="Foreground" Value="{StaticResource BackgroundColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ForegroundColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontFamily" Value="SF Pro Display" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="32,0" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Glow"
+                        Margin="-4"
+                        BorderBrush="{StaticResource SecondaryGlowColor}"
+                        BorderThickness="0"
+                        CornerRadius="24">
+                        <Border
+                            x:Name="Stroke"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="24"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Image
+                                    x:Name="Icon"
+                                    Width="24"
+                                    Height="24"
+                                    Margin="0,0,16,0"
+                                    Source="{TemplateBinding Tag}"
+                                    Visibility="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}" />
+                                <ContentPresenter
+                                    x:Name="Content"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                    UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="Glow" Property="BorderThickness" Value="4" />
+                            <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style
+        x:Key="SquareButton"
+        BasedOn="{StaticResource BaseButton}"
+        TargetType="Button">
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="Glow"
+                        Margin="-4"
+                        BorderBrush="{StaticResource SecondaryGlowColor}"
+                        BorderThickness="0"
+                        CornerRadius="14">
+                        <Border
+                            x:Name="Stroke"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="12"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Image
+                                    x:Name="Icon"
+                                    Width="22"
+                                    Height="22"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Source="{TemplateBinding Tag}"
+                                    Visibility="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}" />
+                                <ContentPresenter
+                                    x:Name="Content"
+                                    Margin="8,0,0,0"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                    UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="Glow" Property="BorderThickness" Value="4" />
+                            <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 
     <!--#region Icon Buttons-->
     <Style x:Key="ModalButtonTemplate" TargetType="Button">
@@ -268,7 +427,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource ForegroundColor}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontFamily" Value="SF Pro Display" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Width" Value="Auto" />
         <Setter Property="Height" Value="Auto" />
@@ -284,7 +443,7 @@
                         Margin="-4"
                         BorderBrush="{StaticResource SecondaryGlowColor}"
                         BorderThickness="0"
-                        CornerRadius="22">
+                        CornerRadius="24">
                         <Border
                             x:Name="Border"
                             Width="{TemplateBinding Width}"
@@ -292,7 +451,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="20"
+                            CornerRadius="24"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                             <Grid>
@@ -412,7 +571,7 @@
     </Style>
 
 
-    <Style x:Key="SmallButton" TargetType="Button">
+    <Style x:Key="SmallButton2" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource ForegroundColor}" />
         <Setter Property="Foreground" Value="{StaticResource BackgroundColor}" />
         <Setter Property="BorderBrush" Value="{StaticResource ForegroundColor}" />
@@ -601,14 +760,29 @@
 
 
     <!--#region Window Buttons-->
-    <Style x:Key="Minimize" TargetType="Button">
+    <Style x:Key="BaseWindowButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
         <Setter Property="Width" Value="42" />
         <Setter Property="Height" Value="28" />
-        <Setter Property="Background" Value="Black" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#80FFFFFF" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="#66FFFFFF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style
+        x:Key="MinimizeButton"
+        BasedOn="{StaticResource BaseWindowButton}"
+        TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -620,7 +794,7 @@
                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                         UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                         <Grid>
-                            <Viewbox Width="10" Height="10">
+                            <Viewbox Width="12" Height="12">
                                 <Line
                                     Stroke="#FFFFFF"
                                     StrokeEndLineCap="Round"
@@ -638,29 +812,16 @@
                                 UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
                         </Grid>
                     </Border>
-                    <ControlTemplate.Triggers />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" Value="#80FFFFFF" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="true">
-                <Setter Property="Background" Value="#66FFFFFF" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
 
-    <Style x:Key="Maximize" TargetType="Button">
-        <Setter Property="Width" Value="42" />
-        <Setter Property="Height" Value="28" />
-        <Setter Property="Background" Value="Black" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="UseLayoutRounding" Value="True" />
+    <Style
+        x:Key="MaximizeButton"
+        BasedOn="{StaticResource BaseWindowButton}"
+        TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -697,25 +858,13 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#80FFFFFF" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#66FFFFFF" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
 
-    <Style x:Key="Exit" TargetType="Button">
-        <Setter Property="Width" Value="42" />
-        <Setter Property="Height" Value="28" />
-        <Setter Property="Background" Value="Black" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="UseLayoutRounding" Value="True" />
+    <Style
+        x:Key="ExitButton"
+        BasedOn="{StaticResource BaseWindowButton}"
+        TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -724,7 +873,7 @@
                         Width="{TemplateBinding Width}"
                         Height="{TemplateBinding Height}"
                         Background="{TemplateBinding Background}"
-                        CornerRadius="0,8,0,0"
+                        CornerRadius="0,12,0,0"
                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                         UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                         <Grid>
