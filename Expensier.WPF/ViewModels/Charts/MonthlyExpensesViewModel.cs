@@ -93,10 +93,10 @@ namespace Expensier.WPF.ViewModels.Charts
 
         private void ConstructChart(IEnumerable<TransactionDataModel> transactions)
         {
-            transactions = transactions
+            transactions = (IEnumerable<TransactionDataModel>)  transactions
                 .Where(t => t.ProcessDate.Year == DateTime.Now.Year)
                 .GroupBy(t => t.ProcessDate.Month)
-                .Select(g => new TransactionDataModel(g.Key.ToString(CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(g.Key)), g.Sum(t => t.Amount)));
+                .Select(g => (g.Sum(t => t.Amount)));
 
             ChartSeries = new ChartValues<double>(transactions.Select(t => t.Amount));
 

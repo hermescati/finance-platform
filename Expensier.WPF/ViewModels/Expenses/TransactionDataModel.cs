@@ -34,18 +34,6 @@ namespace Expensier.WPF.ViewModels
             Amount = amount;
         }
 
-        public TransactionDataModel(string dateFormat, double amount)
-        {
-            DateFormat = dateFormat;
-            Amount = amount;
-        }
-
-        public TransactionDataModel(string dateFormat, IEnumerable<string> transactionType)
-        {
-            DateFormat = dateFormat;
-            Type = transactionType;
-        }
-
         public TransactionDataModel(
             int id, 
             string transactionName, 
