@@ -78,6 +78,7 @@ namespace Expensier.WPF.ViewModels.Charts
         }
         public IEnumerable<ChartFrequency> Frequency => Enum.GetValues( typeof( ChartFrequency ) ).Cast<ChartFrequency>();
 
+
         public ISeries[] Series { get; set; } = new ISeries[]
         {
             new LineSeries<double>
@@ -94,6 +95,7 @@ namespace Expensier.WPF.ViewModels.Charts
                 LineSmoothness = 1,
                 DataPadding = new LvcPoint(0, 0.5f),
                 EnableNullSplitting = false,
+                YToolTipLabelFormatter = (chartPoint) => $"{chartPoint.Coordinate.PrimaryValue:C2}"
             }
         };
         public Axis[] XAxis { get; set; } = new Axis[]
@@ -118,6 +120,7 @@ namespace Expensier.WPF.ViewModels.Charts
                 }
             }
         };
+
 
         public SpendingSummaryViewModel( TransactionStore transactionStore )
         {
