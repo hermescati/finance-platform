@@ -8,13 +8,13 @@ namespace Expensier.WPF.ViewModels.Charts
 {
     public class ChartDataModel : ViewModelBase
     {
-        public string DateLabel { get; set; }
+        public string Label { get; set; }
         public double TotalAmount { get; set; }
 
 
-        public ChartDataModel(string  dateLabel, double amount )
+        public ChartDataModel(string label, double amount )
         {
-            DateLabel = dateLabel;
+            Label = label;
             TotalAmount = amount;
         }
     }

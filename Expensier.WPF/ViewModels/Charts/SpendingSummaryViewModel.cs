@@ -82,7 +82,7 @@ namespace Expensier.WPF.ViewModels.Charts
         {
             new LineSeries<double>
             {
-                Values = new ObservableCollection<double> { },
+                Values = new ObservableCollection<double>(),
                 Stroke = new SolidColorPaint(SKColor.Parse("#64927C")) { StrokeThickness = 2 },
                 GeometryFill = new SolidColorPaint(SKColor.Parse("#64927C")),
                 GeometryStroke = new SolidColorPaint(SKColor.Parse("#64927C")) {StrokeThickness = 2 },
@@ -90,7 +90,7 @@ namespace Expensier.WPF.ViewModels.Charts
                     new[] { new SKColor( 100, 146, 124, 75 ), new SKColor( 100, 146, 124, 0 ) },
                     new SKPoint( 0.25f, 0 ),
                     new SKPoint( 0.25f, 1 )),
-                GeometrySize = 4,
+                GeometrySize = 8,
                 LineSmoothness = 1,
                 DataPadding = new LvcPoint(0, 0.5f),
                 EnableNullSplitting = false,
@@ -189,7 +189,7 @@ namespace Expensier.WPF.ViewModels.Charts
 
         private void ConstructXAxis( IEnumerable<ChartDataModel> transactions )
         {
-            XAxis[0].Labels = transactions.Select( t => t.DateLabel ).ToArray();
+            XAxis[0].Labels = transactions.Select( t => t.Label ).ToArray();
         }
     }
 }
