@@ -25,9 +25,9 @@ namespace Expensier.WPF.ViewModels.Charts
     public class ExpenditureAllocationViewModel : ViewModelBase
     {
         private readonly TransactionStore _transactionStore;
-        public TransactionViewModel TransactionViewModel { get; }
         private readonly IEnumerable<TransactionDataModel> _transactions;
-        public IEnumerable<TransactionDataModel> Transactions => _transactions;
+        private readonly ObservableCollection<ISeries> _series;
+
 
         private bool _listEmpty;
         public bool ListEmpty
@@ -74,7 +74,7 @@ namespace Expensier.WPF.ViewModels.Charts
         public IEnumerable<ChartFrequency> Frequency => Enum.GetValues( typeof( ChartFrequency ) ).Cast<ChartFrequency>();
 
 
-        public ISeries[] Series { get; set; } = new ISeries[] { };
+        public IEnumerable<ISeries> Series => _series;
         public string[] ChartColors = new string[]
         {
             "#FFA7DDBC",
@@ -86,9 +86,15 @@ namespace Expensier.WPF.ViewModels.Charts
         };
         public SolidColorPaint LegendTextPaint { get; set; } = new SolidColorPaint( SKColors.WhiteSmoke );
 
+
+        public TransactionViewModel TransactionViewModel { get; }
+        public IEnumerable<TransactionDataModel> Transactions => _transactions;
+
+
         public ExpenditureAllocationViewModel( TransactionStore transactionStore )
         {
             _transactions = new ObservableCollection<TransactionDataModel>();
+            _series = new ObservableCollection<ISeries>();
 
             _transactionStore = transactionStore;
             TransactionViewModel = new TransactionViewModel( transactionStore,
@@ -126,6 +132,7 @@ namespace Expensier.WPF.ViewModels.Charts
             };
         }
 
+
         private void GetMonthlyExpenditures( IEnumerable<TransactionDataModel> transactions )
         {
             transactions = transactions.Where( t => t.ProcessDate.Month == DateTime.Now.Month && t.ProcessDate.Year == DateTime.Now.Year );
@@ -135,30 +142,32 @@ namespace Expensier.WPF.ViewModels.Charts
         private void GetAnnualExpenditures( IEnumerable<TransactionDataModel> transactions )
         {
             transactions = transactions.Where( t => t.ProcessDate.Year == DateTime.Now.Year );
+            ConstructChart( transactions );
         }
 
         private void ConstructChart( IEnumerable<TransactionDataModel> transactions )
         {
+            _series.Clear();
+
             var grouppedTransactions = transactions
                 .GroupBy( t => t.TransactionType )
-                .Select( g => new ChartDataModel( g.Key, g.Sum( t => t.Amount ) ) )
-                .ToList();
+                .Select( g => new ChartDataModel( g.Key, g.Sum( t => t.Amount ) ) ).ToList();
 
-            foreach ( ChartDataModel group in grouppedTransactions )
+            foreach ( var group in grouppedTransactions )
             {
-                var index = grouppedTransactions.IndexOf( group );
+                var index = grouppedTransactions.IndexOf(group );
 
                 ISeries pieSeries = new PieSeries<double>
                 {
                     Name = group.Label,
-                    Values = new double[] { group.TotalAmount },
-                    Fill = new SolidColorPaint( SKColor.Parse( ChartColors[index] )),
+                    Values = new ObservableCollection<double> { group.TotalAmount },
+                    Fill = new SolidColorPaint( SKColor.Parse( ChartColors[index] ) ),
                     OuterRadiusOffset = 0,
                     MaxRadialColumnWidth = 56,
-                    ToolTipLabelFormatter = (chartPoint) => $"{group.TotalAmount:C2}",
+                    ToolTipLabelFormatter = ( chartPoint ) => $"{group.TotalAmount:C2}",
                 };
 
-                Series = Series.Append( pieSeries ).ToArray();
+                _series.Add( pieSeries );
             }
         }
     }

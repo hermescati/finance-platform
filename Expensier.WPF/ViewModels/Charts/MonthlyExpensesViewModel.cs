@@ -58,7 +58,7 @@ namespace Expensier.WPF.ViewModels.Charts
             new ColumnSeries<double>
             {
                 IsHoverable = false,
-                Values = new ObservableCollection<double> {600, 600, 600, 600, 600, 600},
+                Values = new ObservableCollection<double> {1500, 1500, 1500, 1500, 1500, 1500},
                 Stroke = null,
                 Fill = new SolidColorPaint(SKColor.Parse("#1F1D1F")),
                 Padding = 16,
