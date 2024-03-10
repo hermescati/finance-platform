@@ -29,6 +29,7 @@ namespace Expensier.WPF.ViewModels
         public MonthlyExpensesViewModel MonthlyExpensesViewModel { get; }
         public PredictionsViewModel PredictionsViewModel { get; }
 
+
         private string _searchBar;
         public string SearchBar
         {
@@ -39,40 +40,41 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _searchBar = value;
-                OnPropertyChanged(nameof(SearchBar));
+                OnPropertyChanged( nameof( SearchBar ) );
             }
         }
 
+
         public ExpensesViewModel(
-            TransactionStore transactionStore, 
-            SubscriptionStore subscriptionStore, 
-            TransactionModalViewModel transactionModalViewModel, 
+            TransactionStore transactionStore,
+            SubscriptionStore subscriptionStore,
+            TransactionModalViewModel transactionModalViewModel,
             SubscriptionModalViewModel subscriptionModalViewModel,
             MonthlyExpensesViewModel monthlyExpensesViewModel,
             //PredictionsViewModel predictionsViewModel,
             ITransactionService transactionService,
             ISubscriptionService subscriptionService,
             AccountStore accountStore,
-            IRenavigator renavigator)
+            IRenavigator renavigator )
         {
-            TransactionViewModel = new TransactionViewModel(transactionStore, transactionService, accountStore, renavigator);
-            SubscriptionViewModel = new SubscriptionViewModel(subscriptionStore, subscriptionService, accountStore, renavigator);
+            TransactionViewModel = new TransactionViewModel( transactionStore, transactionService, accountStore, renavigator );
+            SubscriptionViewModel = new SubscriptionViewModel( subscriptionStore, subscriptionService, accountStore, renavigator );
             MonthlyExpensesViewModel = monthlyExpensesViewModel;
             //PredictionsViewModel = predictionsViewModel;
             TransactionModalViewModel = transactionModalViewModel;
             SubscriptionModalViewModel = subscriptionModalViewModel;
 
-            PropertyChanged += (sender, e) =>
+            PropertyChanged += ( sender, e ) =>
             {
-                if (e.PropertyName == nameof(SearchBar))
+                if ( e.PropertyName == nameof( SearchBar ) )
                 {
-                    if (SearchBar.IsNullOrEmpty())
+                    if ( SearchBar.IsNullOrEmpty() )
                     {
                         TransactionViewModel.ResetTransactions();
                     }
                     else
                     {
-                        TransactionViewModel.FilterTransactions(SearchBar);
+                        TransactionViewModel.FilterTransactions( SearchBar );
                     }
                 }
             };

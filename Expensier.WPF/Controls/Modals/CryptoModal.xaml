@@ -10,9 +10,11 @@
     BorderThickness="0"
     mc:Ignorable="d">
 
+
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
+
 
     <Grid>
 
@@ -77,11 +79,12 @@
 
                         <Button
                             Grid.Row="2"
-                            Width="80"
+                            Width="72"
                             Height="40"
                             Margin="0,0,6,0"
-                            Padding="0"
+                            Padding="6,0"
                             HorizontalAlignment="Right"
+                            Background="{StaticResource SecondaryColor}"
                             Command="{Binding SearchSymbolCommand}"
                             Content="Search"
                             Style="{StaticResource SquareButton}" />
@@ -176,8 +179,8 @@
                         Style="{StaticResource BaseButton}" />
                 </Grid>
                 <!--#endregion-->
+
             </Grid>
         </Border>
-
     </Grid>
 </UserControl>

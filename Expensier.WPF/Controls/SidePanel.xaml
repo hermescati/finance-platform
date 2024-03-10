@@ -12,6 +12,7 @@
     VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
+
     <UserControl.Resources>
 
         <converters:EqualValueToParameterConverter x:Key="EqualValueToParameterConverter" />
@@ -67,6 +68,7 @@
         </Style>
     </UserControl.Resources>
 
+
     <Border
         Width="Auto"
         Height="Auto"
@@ -90,12 +92,14 @@
                     Height="100"
                     Background="{StaticResource BackgroundGradientColor}"
                     CornerRadius="24">
+
                     <Border.Clip>
                         <RectangleGeometry
                             RadiusX="24"
                             RadiusY="24"
                             Rect="0,0,100,100" />
                     </Border.Clip>
+
                     <Image
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"

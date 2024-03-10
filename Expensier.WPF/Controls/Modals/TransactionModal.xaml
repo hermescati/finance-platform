@@ -11,6 +11,7 @@
     BorderThickness="0"
     mc:Ignorable="d">
 
+
     <Grid>
         <Rectangle
             Fill="Black"
@@ -177,6 +178,7 @@
                         Style="{StaticResource BaseButton}" />
                 </Grid>
                 <!--#endregion-->
+
             </Grid>
         </Border>
     </Grid>

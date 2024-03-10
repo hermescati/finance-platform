@@ -21,6 +21,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         private readonly Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> _filterCryptos;
         private readonly ObservableCollection<CryptoDataModel> _cryptos;
 
+
         private bool _listEmpty;
         public bool ListEmpty
         {
@@ -48,6 +49,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
                 OnPropertyChanged(nameof(ListNotEmpty));
             }
         }
+
 
         public IEnumerable<CryptoDataModel> Cryptos => _cryptos;
 
@@ -92,6 +94,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
             ResetCryptosWatchlist();
         }
 
+
         public CryptoViewModel(CryptoStore cryptoStore, Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos)
         {
             _cryptoStore = cryptoStore;
@@ -102,6 +105,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
             ResetCryptosList();
         }
+
 
         private void ResetCryptosList()
         {
@@ -118,6 +122,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
             cryptoDataModel = AddCryptoToList(cryptoDataModel);
         }
+
 
         private IEnumerable<CryptoDataModel> AddCryptoToList(IEnumerable<CryptoDataModel> cryptoDataModel)
         {
@@ -142,6 +147,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
             return cryptoDataModel;
         }
+
 
         private void CryptoList_StateChanged()
         {

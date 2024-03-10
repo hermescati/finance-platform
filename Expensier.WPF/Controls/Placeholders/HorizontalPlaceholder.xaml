@@ -10,6 +10,7 @@
     BorderThickness="0"
     mc:Ignorable="d">
 
+
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -43,7 +44,5 @@
                 TextWrapping="Wrap" />
 
         </Grid>
-
     </Grid>
-
 </UserControl>

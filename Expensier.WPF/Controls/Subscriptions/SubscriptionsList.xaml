@@ -157,7 +157,7 @@
                     <Button
                         Grid.Column="4"
                         Command="{Binding DeleteCommand}"
-                        Style="{DynamicResource EditButton}"
+                        Style="{DynamicResource DeleteCTA}"
                         Tag="{DynamicResource DeleteIcon}" />
                     <!--#endregion-->
 

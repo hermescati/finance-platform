@@ -10,6 +10,7 @@
     BorderThickness="0"
     mc:Ignorable="d">
 
+
     <Grid>
         <Rectangle
             Fill="Black"
@@ -150,13 +151,21 @@
                         </Grid>
                     </Grid>
 
-                    <StackPanel Grid.Row="6">
-                        <Label Content="Due date" Style="{StaticResource Subheader_16px}" />
-                        <DatePicker
-                            Margin="0,4,0,0"
-                            SelectedDate="{Binding DueDate}"
-                            Style="{DynamicResource DatePickerTemplate}" />
-                    </StackPanel>
+                    <!--  Date Picker  -->
+                    <Grid Grid.Row="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="8" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Content="Due date"
+                            Style="{StaticResource FormLabel}" />
+
+                        <DatePicker Grid.Row="2" SelectedDate="{Binding DueDate}" />
+                    </Grid>
 
                 </Grid>
                 <!--#endregion-->
@@ -190,8 +199,8 @@
                         Style="{StaticResource BaseButton}" />
                 </Grid>
                 <!--#endregion-->
+
             </Grid>
         </Border>
-
     </Grid>
 </UserControl>

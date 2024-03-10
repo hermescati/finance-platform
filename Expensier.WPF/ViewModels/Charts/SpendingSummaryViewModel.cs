@@ -4,6 +4,8 @@ using Expensier.WPF.State.Subscriptions;
 using Expensier.WPF.ViewModels.Expenses;
 using Expensier.WPF.ViewModels.Subscriptions;
 using LiveCharts;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using System;
@@ -15,15 +17,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static Expensier.WPF.ViewModels.Charts.ChartDropdownValues;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
+using System.Windows.Media;
+using LiveChartsCore.Drawing;
+using LiveChartsCore.SkiaSharpView.Painting.Effects;
+using Expensier.Domain.Models;
 
 namespace Expensier.WPF.ViewModels.Charts
 {
     public class SpendingSummaryViewModel : ViewModelBase
     {
         private readonly TransactionStore _transactionStore;
-        private readonly IEnumerable<TransactionDataModel> _transactions;
         public TransactionViewModel TransactionViewModel { get; }
+        private readonly IEnumerable<TransactionDataModel> _transactions;
         public IEnumerable<TransactionDataModel> Transactions => _transactions;
+
 
         private bool _listEmpty;
         public bool ListEmpty
@@ -35,7 +44,7 @@ namespace Expensier.WPF.ViewModels.Charts
             set
             {
                 _listEmpty = value;
-                OnPropertyChanged(nameof(ListEmpty));
+                OnPropertyChanged( nameof( ListEmpty ) );
             }
         }
 
@@ -49,23 +58,10 @@ namespace Expensier.WPF.ViewModels.Charts
             set
             {
                 _listNotEmpty = value;
-                OnPropertyChanged(nameof(ListNotEmpty));
+                OnPropertyChanged( nameof( ListNotEmpty ) );
             }
         }
 
-        private ChartValues<double> _chartSeries;
-        public ChartValues<double> ChartSeries
-        {
-            get
-            {
-                return _chartSeries;
-            }
-            set
-            {
-                _chartSeries = value;
-                OnPropertyChanged(nameof(ChartSeries));
-            }
-        }
 
         private ChartFrequency _selectedItem;
         public ChartFrequency SelectedItem
@@ -77,29 +73,69 @@ namespace Expensier.WPF.ViewModels.Charts
             set
             {
                 _selectedItem = value;
-                OnPropertyChanged(nameof(SelectedItem));
+                OnPropertyChanged( nameof( SelectedItem ) );
             }
         }
+        public IEnumerable<ChartFrequency> Frequency => Enum.GetValues( typeof( ChartFrequency ) ).Cast<ChartFrequency>();
 
-        public IEnumerable<ChartFrequency> Frequency => Enum.GetValues(typeof(ChartFrequency)).Cast<ChartFrequency>();
 
-        public ObservableCollection<string> xAxis { get; }
+        public ISeries[] Series { get; set; } = new ISeries[]
+        {
+            new LineSeries<double>
+            {
+                Values = new ObservableCollection<double>(),
+                Stroke = new SolidColorPaint(SKColor.Parse("#64927C")) { StrokeThickness = 2 },
+                GeometryFill = new SolidColorPaint(SKColor.Parse("#64927C")),
+                GeometryStroke = new SolidColorPaint(SKColor.Parse("#64927C")) {StrokeThickness = 2 },
+                Fill = new LinearGradientPaint(
+                    new[] { new SKColor( 100, 146, 124, 75 ), new SKColor( 100, 146, 124, 0 ) },
+                    new SKPoint( 0.25f, 0 ),
+                    new SKPoint( 0.25f, 1 )),
+                GeometrySize = 8,
+                LineSmoothness = 1,
+                DataPadding = new LvcPoint(0, 0.5f),
+                EnableNullSplitting = false,
+                YToolTipLabelFormatter = (chartPoint) => $"{chartPoint.Coordinate.PrimaryValue:C2}"
+            }
+        };
+        public Axis[] XAxis { get; set; } = new Axis[]
+        {
+            new Axis
+            {
+                TextSize = 13,
+                LabelsPaint = new SolidColorPaint(SKColors.LightGray)
+            }
+        };
+        public Axis[] YAxis { get; set; } = new Axis[]
+        {
+            new Axis
+            {
+                Labeler = Labelers.Currency,
+                TextSize = 13,
+                LabelsPaint = new SolidColorPaint( SKColors.LightGray),
+                SeparatorsPaint = new SolidColorPaint( SKColors.White.WithAlpha(100))
+                {
+                    StrokeThickness = 0.5f,
+                    PathEffect = new DashEffect(new float[] {4, 4})
+                }
+            }
+        };
 
-        public SpendingSummaryViewModel(TransactionStore transactionStore)
+
+        public SpendingSummaryViewModel( TransactionStore transactionStore )
         {
             _transactions = new ObservableCollection<TransactionDataModel>();
-            xAxis = new ObservableCollection<string>();
 
             _transactionStore = transactionStore;
-            TransactionViewModel = new TransactionViewModel(transactionStore,
+            TransactionViewModel = new TransactionViewModel( transactionStore,
                 transactions => transactions
-                .OrderBy(t => t.ProcessDate)
-                .Where(t => t.IsCredit == true));
+                .OrderBy( t => t.ProcessDate )
+                .Where( t => t.IsCredit == true ) );
 
             _transactions = TransactionViewModel.Transactions;
-            GetMonthlyExpenses(_transactions);
+            GetMonthlyTransactions( _transactions );
 
-            if (_transactions.IsNullOrEmpty())
+            if ( _transactions.IsNullOrEmpty() )
             {
                 _listEmpty = true;
                 _listNotEmpty = false;
@@ -110,55 +146,53 @@ namespace Expensier.WPF.ViewModels.Charts
                 _listNotEmpty = true;
             }
 
-            PropertyChanged += (sender, e) =>
+            PropertyChanged += ( sender, e ) =>
             {
-                if (e.PropertyName == nameof(SelectedItem))
+                if ( e.PropertyName == nameof( SelectedItem ) )
                 {
-                    if (SelectedItem == ChartFrequency.Yearly)
+                    if ( SelectedItem == ChartFrequency.Yearly )
                     {
-                        GetAnnualExpenses(_transactions);
+                        GetAnnualTransactions( _transactions );
                     }
                     else
                     {
-                        GetMonthlyExpenses(_transactions);
+                        GetMonthlyTransactions( _transactions );
                     }
                 }
             };
 
         }
 
-        private void GetMonthlyExpenses(IEnumerable<TransactionDataModel> transactions)
+
+        private void GetMonthlyTransactions( IEnumerable<TransactionDataModel> transactions )
         {
-            transactions = transactions
-                .Where(t => t.ProcessDate.Month == DateTime.Now.Month && t.ProcessDate.Year == DateTime.Now.Year)
-                .GroupBy(t => t.ProcessDate.Date)
-                .Select(g => new TransactionDataModel(g.Key.ToString("ddd, d"), g.Sum(t => t.Amount)));
-            ConstructSeries(transactions);
+            var filteredTransactions = transactions
+                .Where( t => t.ProcessDate.Month == DateTime.Now.Month && t.ProcessDate.Year == DateTime.Now.Year )
+                .GroupBy( t => t.ProcessDate.Date )
+                .Select( g => new ChartDataModel( g.Key.ToString( "ddd, d" ), g.Sum( t => t.Amount ) ) );
+
+            ConstructSeries( filteredTransactions );
         }
 
-        private void GetAnnualExpenses(IEnumerable<TransactionDataModel> transactions)
+        private void GetAnnualTransactions( IEnumerable<TransactionDataModel> transactions )
         {
-            transactions = transactions
-                .Where(t => t.ProcessDate.Year == DateTime.Now.Year)
-                .GroupBy(t => t.ProcessDate.Month)
-                .Select(g => new TransactionDataModel(g.Key.ToString(CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(g.Key)), g.Sum(t => t.Amount)));
-            ConstructSeries(transactions);
+            var filteredTransactions = transactions
+                .Where( t => t.ProcessDate.Year == DateTime.Now.Year )
+                .GroupBy( t => t.ProcessDate.Month )
+                .Select( g => new ChartDataModel( CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName( g.Key ), g.Sum( t => t.Amount ) ) );
+
+            ConstructSeries( filteredTransactions );
         }
 
-        private void ConstructSeries(IEnumerable<TransactionDataModel> transactions)
+        private void ConstructSeries( IEnumerable<ChartDataModel> transactions )
         {
-            ChartSeries = new ChartValues<double>(transactions.Select(t => t.Amount));
-            ConstructAxis(transactions);
+            Series[0].Values = new ObservableCollection<double>( transactions.Select( t => t.TotalAmount ) );
+            ConstructXAxis( transactions );
         }
 
-        public void ConstructAxis(IEnumerable<TransactionDataModel> transactions)
+        private void ConstructXAxis( IEnumerable<ChartDataModel> transactions )
         {
-            xAxis.Clear();
-            foreach (string record in transactions.Select(t => t.DateFormat))
-            {
-                xAxis.Add(record);
-            }
+            XAxis[0].Labels = transactions.Select( t => t.Label ).ToArray();
         }
-
     }
 }

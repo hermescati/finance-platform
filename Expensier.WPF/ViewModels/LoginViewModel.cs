@@ -23,10 +23,12 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _email = value;
-                OnPropertyChanged(nameof(Email));
-                OnPropertyChanged(nameof(CanLogin));
+                OnPropertyChanged( nameof( Email ) );
+                OnPropertyChanged( nameof( CanLogin ) );
             }
         }
+
+
         private string _password;
         public string Password
         {
@@ -37,12 +39,14 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _password = value;
-                OnPropertyChanged(nameof(Password));
-                OnPropertyChanged(nameof(CanLogin));
+                OnPropertyChanged( nameof( Password ) );
+                OnPropertyChanged( nameof( CanLogin ) );
             }
         }
 
-        public bool CanLogin => !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password);
+
+        public bool CanLogin => !string.IsNullOrEmpty( Email ) && !string.IsNullOrEmpty( Password );
+
 
         public MessageViewModel ErrorMessageViewModel { get; }
         public string ErrorMessage
@@ -50,17 +54,19 @@ namespace Expensier.WPF.ViewModels
             set => ErrorMessageViewModel.Message = value;
         }
 
+
         public ICommand LoginCommand { get; }
         public ICommand ViewRegisterCommand { get; }
         public ICommand ViewForgotPasswordCommand { get; }
 
-        public LoginViewModel(IAuthenticator authenticator, IRenavigator loginRenavigator, IRenavigator registerRenavigator, IRenavigator forgotPasswordRenavigator, SidePanelViewModel sidePanelViewModel)
+
+        public LoginViewModel( IAuthenticator authenticator, IRenavigator loginRenavigator, IRenavigator registerRenavigator, IRenavigator forgotPasswordRenavigator, SidePanelViewModel sidePanelViewModel )
         {
             ErrorMessageViewModel = new MessageViewModel();
 
-            LoginCommand = new LoginCommand(this, authenticator, loginRenavigator, sidePanelViewModel);
-            ViewRegisterCommand = new RenavigateCommand(registerRenavigator);
-            ViewForgotPasswordCommand = new RenavigateCommand(forgotPasswordRenavigator);
+            LoginCommand = new LoginCommand( this, authenticator, loginRenavigator, sidePanelViewModel );
+            ViewRegisterCommand = new RenavigateCommand( registerRenavigator );
+            ViewForgotPasswordCommand = new RenavigateCommand( forgotPasswordRenavigator );
         }
     }
 }
