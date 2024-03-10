@@ -16,6 +16,7 @@ namespace Expensier.WPF.ViewModels
         private readonly IAuthenticator _authenticator;
         private readonly IRenavigator _loginRenavigator;
 
+
         private string _greetingMessage;
         public string GreetingMessage
         {
@@ -26,17 +27,20 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _greetingMessage = value;
-                OnPropertyChanged(nameof(GreetingMessage));
+                OnPropertyChanged( nameof( GreetingMessage ) );
             }
         }
+
+
         public ICommand LogoutCommand { get; }
 
-        public SidePanelViewModel(IAuthenticator authenticator, IRenavigator loginRenavigator)
+
+        public SidePanelViewModel( IAuthenticator authenticator, IRenavigator loginRenavigator )
         {
             _authenticator = authenticator;
             _loginRenavigator = loginRenavigator;
 
-            LogoutCommand = new LogoutCommand(authenticator, loginRenavigator);
+            LogoutCommand = new LogoutCommand( authenticator, loginRenavigator );
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Expensier.WPF.ViewModels
         private readonly IAuthenticator authenticator;
         private readonly IRenavigator registerRenavigator;
 
+
         private string _firstName;
         public string FirstName
         {
@@ -26,10 +27,11 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _firstName = value;
-                OnPropertyChanged(nameof(FirstName));
-                OnPropertyChanged(nameof(CanRegister));
+                OnPropertyChanged( nameof( FirstName ) );
+                OnPropertyChanged( nameof( CanRegister ) );
             }
         }
+
 
         private string _lastName;
         public string LastName
@@ -41,10 +43,11 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _lastName = value;
-                OnPropertyChanged(nameof(LastName));
-                OnPropertyChanged(nameof(CanRegister));
+                OnPropertyChanged( nameof( LastName ) );
+                OnPropertyChanged( nameof( CanRegister ) );
             }
         }
+
 
         private string _email;
         public string Email
@@ -56,10 +59,11 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _email = value;
-                OnPropertyChanged(nameof(Email));
-                OnPropertyChanged(nameof(CanRegister));
+                OnPropertyChanged( nameof( Email ) );
+                OnPropertyChanged( nameof( CanRegister ) );
             }
         }
+
 
         private string _password;
         public string Password
@@ -71,10 +75,11 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _password = value;
-                OnPropertyChanged(nameof(Password));
-                OnPropertyChanged(nameof(CanRegister));
+                OnPropertyChanged( nameof( Password ) );
+                OnPropertyChanged( nameof( CanRegister ) );
             }
         }
+
 
         private string _confirmPassword;
         public string ConfirmPassword
@@ -86,10 +91,11 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _confirmPassword = value;
-                OnPropertyChanged(nameof(ConfirmPassword));
-                OnPropertyChanged(nameof(CanRegister));
+                OnPropertyChanged( nameof( ConfirmPassword ) );
+                OnPropertyChanged( nameof( CanRegister ) );
             }
         }
+
 
         private bool _isChecked = false;
         public bool IsChecked
@@ -101,17 +107,19 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _isChecked = value;
-                OnPropertyChanged(nameof(IsChecked));
-                OnPropertyChanged(nameof(CanRegister));
+                OnPropertyChanged( nameof( IsChecked ) );
+                OnPropertyChanged( nameof( CanRegister ) );
             }
         }
 
-        public bool CanRegister => !string.IsNullOrEmpty(FirstName) && 
-            !string.IsNullOrEmpty(LastName) &&
-            !string.IsNullOrEmpty(Email) &&
-            !string.IsNullOrEmpty(Password) &&
-            !string.IsNullOrEmpty(ConfirmPassword) && 
+
+        public bool CanRegister => !string.IsNullOrEmpty( FirstName ) &&
+            !string.IsNullOrEmpty( LastName ) &&
+            !string.IsNullOrEmpty( Email ) &&
+            !string.IsNullOrEmpty( Password ) &&
+            !string.IsNullOrEmpty( ConfirmPassword ) &&
             IsChecked == true;
+
 
         public MessageViewModel ErrorMessageViewModel { get; }
         public string ErrorMessage
@@ -119,15 +127,17 @@ namespace Expensier.WPF.ViewModels
             set => ErrorMessageViewModel.Message = value;
         }
 
+
         public ICommand RegisterCommand { get; }
         public ICommand ViewLoginCommand { get; }
 
-        public RegisterViewModel(IRenavigator loginRenavigator, IAuthenticator authenticator)
+
+        public RegisterViewModel( IRenavigator loginRenavigator, IAuthenticator authenticator )
         {
             ErrorMessageViewModel = new MessageViewModel();
 
-            RegisterCommand = new RegisterCommand(this, authenticator, loginRenavigator);
-            ViewLoginCommand = new RenavigateCommand(loginRenavigator);
+            RegisterCommand = new RegisterCommand( this, authenticator, loginRenavigator );
+            ViewLoginCommand = new RenavigateCommand( loginRenavigator );
         }
     }
 }

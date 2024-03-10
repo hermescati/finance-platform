@@ -70,6 +70,7 @@
                                     Foreground="{DynamicResource InactiveColor}"
                                     Style="{DynamicResource SmallText}"
                                     Text="{Binding DueDate, StringFormat='{}{0:yyyy}'}" />
+
                             </StackPanel>
                         </StackPanel>
 
@@ -79,6 +80,7 @@
                             VerticalAlignment="Top"
                             Style="{DynamicResource Header6}"
                             Text="{Binding Amount, StringFormat='c'}" />
+
                     </Grid>
                 </Border>
             </DataTemplate>

@@ -13,45 +13,50 @@
     VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
+
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
+
 
     <Grid x:Name="MainContent">
         <Border
             Width="Auto"
             Height="Auto"
-            Padding="48"
+            Padding="40"
             Background="{StaticResource PrimaryColor}"
             CornerRadius="12">
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="40" />
+                    <RowDefinition Height="88" />
+                    <RowDefinition Height="32" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
+                <!--#region Modals-->
                 <Popup IsOpen="False">
                     <modals:CryptoModal x:Name="AddCrypto" DataContext="{Binding CryptoModalViewModel}" />
                 </Popup>
+                <!--#endregion-->
 
                 <!--#region Watchlist-->
-                <Grid Grid.Row="0" Height="80">
+                <!--  Placeholder  -->
+                <TextBlock
+                    Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    DataContext="{Binding CryptoWatchlistViewModel}"
+                    Foreground="{StaticResource InactiveColor}"
+                    Style="{StaticResource SmallText}"
+                    Text="Your assets will appear on this page. Add your first asset to track by clicking the “Add new” button below."
+                    Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                    <!--  Placeholder  -->
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        DataContext="{Binding CryptoWatchlistViewModel}"
-                        Foreground="{StaticResource InactiveColor}"
-                        Style="{StaticResource SmallText}"
-                        Text="Your assets will appear on this page. Add your first asset to track by clicking the “Add new” button below."
-                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-                    <!--  Watchlist  -->
-                    <cryptos:CryptoWatchlist DataContext="{Binding CryptoWatchlistViewModel}" Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                </Grid>
+                <!--  Watchlist  -->
+                <cryptos:CryptoWatchlist
+                    Grid.Row="0"
+                    DataContext="{Binding CryptoWatchlistViewModel}"
+                    Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <!--#endregion-->
 
                 <Grid Grid.Row="2">
@@ -72,7 +77,7 @@
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="24" />
+                                <RowDefinition Height="8" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
@@ -153,7 +158,7 @@
                         <Grid Grid.Row="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="24" />
+                                <RowDefinition Height="8" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
@@ -219,14 +224,14 @@
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="24" />
+                            <RowDefinition Height="16" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="16" />
+                                <RowDefinition Height="24" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
@@ -251,7 +256,7 @@
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="8" />
+                                    <ColumnDefinition Width="12" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -259,18 +264,17 @@
 
                                 <Button
                                     Grid.Column="0"
-                                    Width="136"
-                                    Height="40"
-                                    Padding="0"
+                                    Width="128"
+                                    Height="42"
                                     Click="AddNewCrypto"
-                                    Content="New asset"
+                                    Content="Add new"
                                     Style="{StaticResource SquareButton}"
                                     Tag="{StaticResource AddNewIcon}" />
 
                                 <ComboBox
                                     Grid.Column="2"
-                                    Width="132"
-                                    Height="40"
+                                    Width="128"
+                                    Height="42"
                                     DataContext="{Binding CryptoViewModel}"
                                     IsEditable="True"
                                     IsReadOnly="True"

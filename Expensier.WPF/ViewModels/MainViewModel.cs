@@ -19,14 +19,16 @@ namespace Expensier.WPF.ViewModels
         private readonly IAuthenticator _authenticator;
         private readonly IRenavigator _loginRenavigator;
 
+
         public bool IsAuthenticated => _authenticator.Authenticated;
         public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
+
 
         public ICommand UpdateCurrentViewModelCommand { get; }
         public SidePanelViewModel SidePanelViewModel { get; }
 
 
-        public MainViewModel(INavigator navigator, IAuthenticator authenticator, IExpensierViewModelFactory viewModelFactory, IRenavigator loginRenavigator, SidePanelViewModel sidePanelViewModel)
+        public MainViewModel( INavigator navigator, IAuthenticator authenticator, IExpensierViewModelFactory viewModelFactory, IRenavigator loginRenavigator, SidePanelViewModel sidePanelViewModel )
         {
             _navigator = navigator;
             _authenticator = authenticator;
@@ -37,18 +39,19 @@ namespace Expensier.WPF.ViewModels
             _navigator.StateChanged += Navigator_StateChanged;
             _authenticator.StateChanged += Authenticator_StateChanged;
 
-            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navigator, _viewModelFactory);
-            UpdateCurrentViewModelCommand.Execute(ViewType.Login);
+            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand( navigator, _viewModelFactory );
+            UpdateCurrentViewModelCommand.Execute( ViewType.Login );
         }
+
 
         private void Authenticator_StateChanged()
         {
-            OnPropertyChanged(nameof(IsAuthenticated));
+            OnPropertyChanged( nameof( IsAuthenticated ) );
         }
 
         private void Navigator_StateChanged()
         {
-            OnPropertyChanged(nameof(CurrentViewModel));
+            OnPropertyChanged( nameof( CurrentViewModel ) );
         }
     }
 }

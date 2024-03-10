@@ -31,7 +31,7 @@ namespace Expensier.WPF.Controls.Cryptos
             ScrollViewer scrollViewer = FindVisualChild<ScrollViewer>(listView);
             if (scrollViewer != null)
             {
-                double pixelsToScroll = 12;
+                double pixelsToScroll = 16;
 
                 if (e.Delta > 0)
                     scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - pixelsToScroll);

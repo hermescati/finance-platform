@@ -15,15 +15,17 @@
     VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
+
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
+
 
     <Grid x:Name="MainContent">
         <Border
             Width="Auto"
             Height="Auto"
-            Padding="48"
+            Padding="40"
             Background="{StaticResource PrimaryColor}"
             CornerRadius="12">
 
@@ -34,18 +36,20 @@
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
+                <!--#region Modals-->
                 <Popup IsOpen="False">
                     <modals:TransactionModal x:Name="AddTransaction" DataContext="{Binding TransactionModalViewModel}" />
                 </Popup>
                 <Popup IsOpen="False">
                     <modals:SubscriptionModal x:Name="AddSubscription" DataContext="{Binding SubscriptionModalViewModel}" />
                 </Popup>
+                <!--#endregion-->
 
                 <!--#region Expenses-->
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="16" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="*" />
@@ -69,18 +73,17 @@
 
                         <Button
                             Grid.Column="0"
-                            Width="148"
-                            Height="40"
-                            Padding="0"
+                            Width="128"
+                            Height="42"
                             Click="AddNewTransaction"
-                            Content="New expense"
+                            Content="Add new"
                             Style="{StaticResource SquareButton}"
                             Tag="{StaticResource AddNewIcon}" />
 
                         <ComboBox
                             Grid.Column="2"
-                            Width="132"
-                            Height="40"
+                            Width="128"
+                            Height="42"
                             DataContext="{Binding TransactionViewModel}"
                             IsEditable="True"
                             IsReadOnly="True"
@@ -101,11 +104,11 @@
 
                         <Button
                             Grid.Column="6"
-                            Width="40"
-                            Height="40"
+                            Width="42"
+                            Height="42"
                             Padding="0"
                             Background="{StaticResource MenuButtonColor}"
-                            Style="{StaticResource SquareButton}"
+                            Style="{StaticResource IconButton}"
                             Tag="{StaticResource ExportIcon}" />
                     </Grid>
 
@@ -131,7 +134,7 @@
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="16" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="*" />
@@ -151,18 +154,17 @@
 
                         <Button
                             Grid.Column="0"
-                            Width="168"
-                            Height="40"
-                            Padding="0"
+                            Width="128"
+                            Height="42"
                             Click="AddNewSubscription"
-                            Content="New subscription"
+                            Content="Add new"
                             Style="{StaticResource SquareButton}"
                             Tag="{StaticResource AddNewIcon}" />
 
                         <ComboBox
                             Grid.Column="2"
-                            Width="132"
-                            Height="40"
+                            Width="128"
+                            Height="42"
                             DataContext="{Binding SubscriptionViewModel}"
                             IsEditable="True"
                             IsReadOnly="True"
@@ -178,11 +180,10 @@
                         </ComboBox>
                     </Grid>
 
-
                     <Grid Grid.Row="4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="40" />
+                            <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -201,21 +202,23 @@
                             DataContext="{Binding SubscriptionViewModel}"
                             Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
+
                         <!--#region Predictions-->
                         <Grid
                             Grid.Row="2"
                             DataContext="{Binding MonthlyExpensesViewModel}"
                             Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="24" />
+                                <RowDefinition Height="8" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <!--  Bar Chart  -->
                             <charts:CartesianChart
                                 Grid.Row="0"
-                                Height="240"
+                                Height="208"
                                 DrawMargin="{Binding Margin}"
                                 Series="{Binding Series}"
                                 XAxes="{Binding XAxis}"
@@ -225,14 +228,14 @@
                             <Grid Grid.Row="2" DataContext="{Binding PredictionsViewModel}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="24" />
+                                    <ColumnDefinition Width="16" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <!--  KNN  -->
                                 <Border
                                     Grid.Column="0"
-                                    Padding="24"
+                                    Padding="24,16"
                                     Background="{StaticResource BackgroundGradientColor}"
                                     CornerRadius="16">
                                     <Grid>
@@ -278,7 +281,7 @@
                                 <!--  Linear  -->
                                 <Border
                                     Grid.Column="2"
-                                    Padding="24"
+                                    Padding="24,16"
                                     Background="{StaticResource BackgroundGradientColor}"
                                     CornerRadius="16">
                                     <Grid>
@@ -321,12 +324,10 @@
                                     </Grid>
                                 </Border>
                             </Grid>
-
                         </Grid>
                         <!--#endregion-->
 
                     </Grid>
-
                 </Grid>
                 <!--#endregion-->
 

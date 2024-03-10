@@ -24,10 +24,11 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _email = value;
-                OnPropertyChanged(nameof(Email));
-                OnPropertyChanged(nameof(CanContinue));
+                OnPropertyChanged( nameof( Email ) );
+                OnPropertyChanged( nameof( CanContinue ) );
             }
         }
+
 
         private string _newPassword;
         public string NewPassword
@@ -39,10 +40,11 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _newPassword = value;
-                OnPropertyChanged(nameof(NewPassword));
-                OnPropertyChanged(nameof(CanReset));
+                OnPropertyChanged( nameof( NewPassword ) );
+                OnPropertyChanged( nameof( CanReset ) );
             }
         }
+
 
         private string _confirmPassword;
         public string ConfirmPassword
@@ -54,10 +56,11 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _confirmPassword = value;
-                OnPropertyChanged(nameof(ConfirmPassword)); 
-                OnPropertyChanged(nameof(CanReset));
+                OnPropertyChanged( nameof( ConfirmPassword ) );
+                OnPropertyChanged( nameof( CanReset ) );
             }
         }
+
 
         private bool _emailForm = true;
         public bool EmailForm
@@ -69,9 +72,10 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _emailForm = value;
-                OnPropertyChanged(nameof(EmailForm));
+                OnPropertyChanged( nameof( EmailForm ) );
             }
         }
+
 
         private bool _passwordForm = false;
         public bool PasswordForm
@@ -83,32 +87,35 @@ namespace Expensier.WPF.ViewModels
             set
             {
                 _passwordForm = value;
-                OnPropertyChanged(nameof(PasswordForm));
+                OnPropertyChanged( nameof( PasswordForm ) );
             }
         }
 
-        public MessageViewModel ErrorMessageViewModel { get; }
 
+        public MessageViewModel ErrorMessageViewModel { get; }
         public string ErrorMessage
         {
             set => ErrorMessageViewModel.Message = value;
         }
 
-        public bool CanContinue => !string.IsNullOrEmpty(Email);
-        public bool CanReset => !string.IsNullOrEmpty(NewPassword) && 
-            !string.IsNullOrEmpty(ConfirmPassword);
+
+        public bool CanContinue => !string.IsNullOrEmpty( Email );
+        public bool CanReset => !string.IsNullOrEmpty( NewPassword ) &&
+            !string.IsNullOrEmpty( ConfirmPassword );
+
 
         public ICommand ContinueCommand { get; }
         public ICommand ResetPasswordCommand { get; }
         public ICommand ViewLoginCommand { get; }
 
-        public ResetPasswordViewModel(IAuthenticationService authenticationService, IAuthenticator authenticator, IRenavigator loginRenagivator)
+
+        public ResetPasswordViewModel( IAuthenticationService authenticationService, IAuthenticator authenticator, IRenavigator loginRenagivator )
         {
             ErrorMessageViewModel = new MessageViewModel();
 
-            ContinueCommand = new ContinueCommand(this, authenticationService);
-            ResetPasswordCommand = new ResetPasswordCommand(this, authenticator, loginRenagivator);
-            ViewLoginCommand = new RenavigateCommand(loginRenagivator);
+            ContinueCommand = new ContinueCommand( this, authenticationService );
+            ResetPasswordCommand = new ResetPasswordCommand( this, authenticator, loginRenagivator );
+            ViewLoginCommand = new RenavigateCommand( loginRenagivator );
         }
     }
 }

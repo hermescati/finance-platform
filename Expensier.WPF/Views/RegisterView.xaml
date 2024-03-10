@@ -10,14 +10,16 @@
     VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
+
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 
+
     <Border
         Width="Auto"
         Height="Auto"
-        Padding="48"
+        Padding="40"
         Background="{StaticResource PrimaryColor}"
         CornerRadius="12">
 
@@ -59,7 +61,7 @@
                     <RowDefinition Height="16" />
                 </Grid.RowDefinitions>
 
-                <!--#region Header-->
+                <!--  Header  -->
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -82,9 +84,7 @@
                         </Hyperlink>
                     </TextBlock>
                 </Grid>
-                <!--#endregion-->
 
-                <!--#region User Names-->
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -92,8 +92,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-
-                    <!--#region First Name-->
+                    <!--  First Name  -->
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -111,9 +110,8 @@
                             Width="163.5"
                             Text="{Binding FirstName}" />
                     </Grid>
-                    <!--#endregion-->
 
-                    <!--#region Last Name-->
+                    <!--  Last Name  -->
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -131,11 +129,9 @@
                             Width="163.5"
                             Text="{Binding LastName}" />
                     </Grid>
-                    <!--#endregion-->
                 </Grid>
-                <!--#endregion-->
 
-                <!--#region Email-->
+                <!--  Email  -->
                 <Grid Grid.Row="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -150,9 +146,8 @@
 
                     <TextBox Grid.Row="2" Text="{Binding Email}" />
                 </Grid>
-                <!--#endregion-->
 
-                <!--#region Password-->
+                <!--  Password  -->
                 <Grid Grid.Row="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -167,9 +162,8 @@
 
                     <controls:PasswordBox Grid.Row="2" Password="{Binding Password}" />
                 </Grid>
-                <!--#endregion-->
 
-                <!--#region Confirm Password-->
+                <!--  Confirm Password  -->
                 <Grid Grid.Row="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -184,9 +178,8 @@
 
                     <controls:PasswordBox Grid.Row="2" Password="{Binding ConfirmPassword}" />
                 </Grid>
-                <!--#endregion-->
 
-                <!--#region Privacy Terms-->
+                <!--  Privacy Terms  -->
                 <CheckBox
                     Grid.Row="10"
                     IsChecked="{Binding IsChecked}"
@@ -200,9 +193,8 @@
                         </TextBlock>
                     </CheckBox.Content>
                 </CheckBox>
-                <!--#endregion-->
 
-                <!--#region Button-->
+                <!--  Button  -->
                 <Button
                     Grid.Row="12"
                     Width="351"
@@ -212,9 +204,8 @@
                     IsDefault="True"
                     Style="{StaticResource BaseButton}"
                     Tag="{StaticResource CreateAccountIcon}" />
-                <!--#endregion-->
 
-                <!--#region Error Message-->
+                <!--  Error Message  -->
                 <TextBlock
                     Grid.Row="14"
                     DataContext="{Binding ErrorMessageViewModel}"
@@ -222,8 +213,6 @@
                     Style="{StaticResource ErrorMessage}"
                     Text="{Binding Message}"
                     Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <!--#endregion-->
-
             </Grid>
             <!--#endregion-->
 

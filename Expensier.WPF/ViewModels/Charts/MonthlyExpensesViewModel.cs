@@ -61,7 +61,7 @@ namespace Expensier.WPF.ViewModels.Charts
                 Values = new ObservableCollection<double> {1500, 1500, 1500, 1500, 1500, 1500},
                 Stroke = null,
                 Fill = new SolidColorPaint(SKColor.Parse("#1F1D1F")),
-                Padding = 16,
+                Padding = 18,
                 Rx = 8,
                 Ry = 8,
                 IgnoresBarPosition = true,
@@ -71,7 +71,7 @@ namespace Expensier.WPF.ViewModels.Charts
                 Values = new ObservableCollection<double>(),
                 Stroke = new SolidColorPaint(SKColor.Parse("#64927C")) { StrokeThickness = 2 },
                 Fill = new SolidColorPaint(SKColor.Parse("#64927C")),
-                Padding = 16,
+                Padding = 18,
                 Rx = 8,
                 Ry = 8,
                 IgnoresBarPosition = true,
@@ -94,7 +94,7 @@ namespace Expensier.WPF.ViewModels.Charts
                 LabelsPaint = new SolidColorPaint(SKColor.Parse("#1B191B"))
             }
         };
-        public LiveChartsCore.Measure.Margin Margin { get; set; } = new LiveChartsCore.Measure.Margin( 0 );
+        public LiveChartsCore.Measure.Margin Margin { get; set; } = new LiveChartsCore.Measure.Margin( 0, -40, 0, 0 );
 
 
         public MonthlyExpensesViewModel( TransactionStore transactionStore )

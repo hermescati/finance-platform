@@ -21,15 +21,17 @@ namespace Expensier.WPF.ViewModels
         public SpendingSummaryViewModel SpendingSummaryViewModel { get; }
         public ExpenditureAllocationViewModel ExpenditureAllocationViewModel { get; }
 
+
         public ICommand NavigateToWatchlist { get; }
 
+
         public DashboardViewModel(
-            RecentExpensesViewModel recentExpensesViewModel, 
-            TopSubscriptionsViewModel topSubscriptionsViewModel, 
+            RecentExpensesViewModel recentExpensesViewModel,
+            TopSubscriptionsViewModel topSubscriptionsViewModel,
             TopPerformingCryptosViewModel topPerformingCryptosViewModel,
-            SpendingSummaryViewModel spendingSummaryViewModel, 
+            SpendingSummaryViewModel spendingSummaryViewModel,
             ExpenditureAllocationViewModel expenditureAllocationViewModel,
-            IRenavigator portfolioNavigator)
+            IRenavigator portfolioNavigator )
         {
             RecentExpensesViewModel = recentExpensesViewModel;
             TopSubscriptionsViewModel = topSubscriptionsViewModel;
@@ -37,7 +39,7 @@ namespace Expensier.WPF.ViewModels
             SpendingSummaryViewModel = spendingSummaryViewModel;
             ExpenditureAllocationViewModel = expenditureAllocationViewModel;
 
-            NavigateToWatchlist = new RenavigateCommand(portfolioNavigator);
+            NavigateToWatchlist = new RenavigateCommand( portfolioNavigator );
         }
     }
 }

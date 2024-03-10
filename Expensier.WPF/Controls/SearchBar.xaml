@@ -5,7 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    HorizontalAlignment="Stretch"
     mc:Ignorable="d">
+
 
     <UserControl.Resources>
 
@@ -15,9 +17,8 @@
             <Setter Property="Background" Value="{DynamicResource MenuButtonColor}" />
             <Setter Property="Foreground" Value="{DynamicResource TransparentColor}" />
             <Setter Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
-            <Setter Property="MaxWidth" Value="400" />
             <Setter Property="Width" Value="Auto" />
-            <Setter Property="Height" Value="40" />
+            <Setter Property="Height" Value="42" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="FontFamily" Value="SF Pro Display" />
             <Setter Property="FontWeight" Value="Medium" />
@@ -104,11 +105,10 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
-        <TextBox
-            x:Name="searchBar"
-            HorizontalAlignment="Stretch"
-            Style="{DynamicResource SearchBarTemplate}"
-            TextChanged="SeachBar_PasswordChanged" />
-    </Grid>
+
+    <TextBox
+        x:Name="searchBar"
+        HorizontalAlignment="Stretch"
+        Style="{DynamicResource SearchBarTemplate}"
+        TextChanged="SeachBar_PasswordChanged" />
 </UserControl>
