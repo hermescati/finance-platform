@@ -144,7 +144,11 @@
                             Content="Date"
                             Style="{StaticResource FormLabel}" />
 
-                        <DatePicker Grid.Row="2" SelectedDate="{Binding ProcessDate}" />
+                        <DatePicker
+                            Grid.Row="2"
+                            CalendarStyle="{StaticResource CalendarTemplate}"
+                            SelectedDate="{Binding ProcessDate}"
+                            Style="{StaticResource DatePickerTemplate}" />
                     </Grid>
                 </Grid>
                 <!--#endregion-->
@@ -153,14 +157,14 @@
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="16" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <!--  Cancel  -->
                     <Button
                         Grid.Column="0"
-                        Width="140"
+                        Width="146.5"
                         Height="48"
                         Background="{StaticResource PrimaryColor}"
                         Click="Button_Click"
@@ -171,7 +175,7 @@
                     <!--  Add  -->
                     <Button
                         Grid.Column="2"
-                        Width="140"
+                        Width="146.5"
                         Height="48"
                         Command="{Binding AddNewTransaction}"
                         Content="Add"

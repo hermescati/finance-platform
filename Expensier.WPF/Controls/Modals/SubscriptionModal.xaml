@@ -19,7 +19,7 @@
 
         <Border
             Width="360"
-            Height="536"
+            Height="464"
             Padding="24"
             Background="{StaticResource PrimaryColor}"
             BorderBrush="{StaticResource InactiveColor}"
@@ -54,49 +54,55 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="24" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--  Company  -->
                     <Grid Grid.Row="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                        <Label
-                            Grid.Row="0"
-                            Content="Company"
-                            Style="{StaticResource FormLabel}" />
+                        <!--  Company  -->
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                        <TextBox
-                            Grid.Row="2"
-                            Width="311"
-                            Text="{Binding CompanyName}" />
+                            <Label
+                                Grid.Row="0"
+                                Content="Company"
+                                Style="{StaticResource FormLabel}" />
+
+                            <TextBox
+                                Grid.Row="2"
+                                Width="146.5"
+                                Text="{Binding CompanyName}" />
+                        </Grid>
+
+                        <!--  Plan  -->
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label
+                                Grid.Row="0"
+                                Content="Plan"
+                                Style="{StaticResource FormLabel}" />
+
+                            <TextBox
+                                Grid.Row="2"
+                                Width="146.5"
+                                Text="{Binding SubscriptionPlan}" />
+                        </Grid>
                     </Grid>
 
-                    <!--  Plan  -->
                     <Grid Grid.Row="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <Label
-                            Grid.Row="0"
-                            Content="Plan"
-                            Style="{StaticResource FormLabel}" />
-
-                        <TextBox
-                            Grid.Row="2"
-                            Width="311"
-                            Text="{Binding SubscriptionPlan}" />
-                    </Grid>
-
-                    <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="16" />
@@ -152,7 +158,7 @@
                     </Grid>
 
                     <!--  Date Picker  -->
-                    <Grid Grid.Row="6">
+                    <Grid Grid.Row="4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="8" />
@@ -164,7 +170,11 @@
                             Content="Due date"
                             Style="{StaticResource FormLabel}" />
 
-                        <DatePicker Grid.Row="2" SelectedDate="{Binding DueDate}" />
+                        <DatePicker
+                            Grid.Row="2"
+                            CalendarStyle="{StaticResource CalendarTemplate}"
+                            SelectedDate="{Binding DueDate}"
+                            Style="{StaticResource DatePickerTemplate}" />
                     </Grid>
 
                 </Grid>
@@ -174,14 +184,14 @@
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="16" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <!--  Cancel  -->
                     <Button
                         Grid.Column="0"
-                        Width="140"
+                        Width="146.5"
                         Height="48"
                         Background="{StaticResource PrimaryColor}"
                         Click="Button_Click"
@@ -192,7 +202,7 @@
                     <!--  Add  -->
                     <Button
                         Grid.Column="2"
-                        Width="140"
+                        Width="146.5"
                         Height="48"
                         Command="{Binding AddSubscriptionCommand}"
                         Content="Add"

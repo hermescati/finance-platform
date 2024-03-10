@@ -225,7 +225,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="16" />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0">
@@ -301,7 +301,6 @@
                         <placeholders:VerticalPlaceholder
                             Title="It looks a bit empty here!"
                             Grid.Row="2"
-                            Padding="161,40"
                             Body="Add your first asset to track by clicking the “Add new” button above."
                             DataContext="{Binding CryptoViewModel}"
                             Icon="{StaticResource CryptoPlaceholderImage}"
