@@ -16,4 +16,14 @@ namespace Expensier.WPF.Enums
         Subscription,
         Shopping
     }
+
+    public enum CompanyName
+    {
+        Figma,
+        Adobe,
+        Netflix,
+        Disney,
+        Spotify,
+        Apple
+    }
 }
