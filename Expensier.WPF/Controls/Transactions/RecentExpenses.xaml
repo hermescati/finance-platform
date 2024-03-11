@@ -25,7 +25,7 @@
 
 
     <ListView
-        Margin="-6,0,0,0"
+        Margin="-8,0,0,0"
         HorizontalContentAlignment="Stretch"
         Background="{StaticResource Primary}"
         BorderThickness="0"
@@ -51,22 +51,31 @@
                         <!--  Icon  -->
                         <Image
                             Grid.Column="0"
-                            Width="40"
-                            Height="40"
+                            Width="42"
+                            Height="42"
                             Source="{Binding IsCredit, Converter={StaticResource BoolToImageConverter}}" />
 
                         <!--  Transaction Details  -->
-                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                            <TextBlock Style="{StaticResource Header6}" Text="{Binding TransactionName}" />
+                        <Grid Grid.Column="2" VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="4" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                Grid.Row="0"
+                                Style="{StaticResource Header6}"
+                                Text="{Binding TransactionName}" />
 
                             <StackPanel
-                                Margin="0,2,0,0"
+                                Grid.Row="2"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
 
                                 <TextBlock
                                     Foreground="{StaticResource ForegroundShade}"
-                                    Style="{StaticResource SmallText}"
+                                    Style="{StaticResource MediumText}"
                                     Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
 
                                 <Ellipse
@@ -77,22 +86,19 @@
 
                                 <TextBlock
                                     Foreground="{StaticResource ForegroundShade}"
-                                    Style="{StaticResource SmallText}"
+                                    Style="{StaticResource MediumText}"
                                     Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
-                        </StackPanel>
+
+                        </Grid>
 
                         <!--  Transaction Price  -->
-                        <StackPanel
+                        <TextBlock
                             Grid.Column="4"
-                            VerticalAlignment="Top"
-                            Orientation="Horizontal">
+                            VerticalAlignment="Center"
+                            Style="{StaticResource Header6}"
+                            Text="{Binding Amount, StringFormat='c'}" />
 
-                            <TextBlock Style="{StaticResource Header6}" Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
-
-                            <TextBlock Style="{StaticResource Header6}" Text="{Binding Amount, StringFormat='c'}" />
-
-                        </StackPanel>
                     </Grid>
                 </Border>
             </DataTemplate>

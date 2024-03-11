@@ -47,7 +47,6 @@
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="8" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
@@ -83,7 +82,7 @@
                     <!--  Placeholder  -->
                     <placeholders:HorizontalPlaceholder
                         Title="It looks a bit empty here!"
-                        Grid.Row="2"
+                        Grid.Row="1"
                         Body="Add a new expense to see your spending summary chart!"
                         DataContext="{Binding SpendingSummaryViewModel}"
                         Icon="{StaticResource GraphPlaceholderImage}"
@@ -91,8 +90,8 @@
 
                     <!--  Line Chart  -->
                     <charts:CartesianChart
-                        Grid.Row="2"
-                        Height="264"
+                        Grid.Row="1"
+                        Height="280"
                         DataContext="{Binding SpendingSummaryViewModel}"
                         Series="{Binding Series}"
                         Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -174,7 +173,7 @@
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="24" />
+                        <RowDefinition Height="16" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
@@ -211,7 +210,7 @@
                     <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="24" />
+                            <RowDefinition Height="16" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -272,7 +271,6 @@
                                     Grid.Row="1"
                                     Width="120"
                                     Margin="0,8,0,16"
-                                    FontWeight="Bold"
                                     Foreground="{StaticResource ForegroundShade}"
                                     Style="{StaticResource BodyText}"
                                     Text="Keep track of your favorite cryptos."

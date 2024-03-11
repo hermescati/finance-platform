@@ -95,7 +95,7 @@
 
                             <TextBlock
                                 Foreground="{StaticResource ForegroundShade}"
-                                Style="{StaticResource BodyText}"
+                                Style="{StaticResource BaseText}"
                                 Text="Log in to sync your account" />
                         </StackPanel>
                     </Grid>
@@ -149,7 +149,7 @@
                     <Button
                         Grid.Row="8"
                         Width="352"
-                        Height="52"
+                        Height="48"
                         Command="{Binding LoginCommand}"
                         Content="Login"
                         IsDefault="True"
@@ -194,7 +194,10 @@
             <!--#endregion-->
 
             <!--#region Privacy Terms-->
-            <Grid Grid.Row="3" Grid.Column="1">
+            <Grid
+                Grid.Row="3"
+                Grid.Column="1"
+                Opacity="0.75">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="32" />

@@ -39,7 +39,7 @@
                 Grid.Row="2"
                 Width="236"
                 Foreground="{StaticResource ForegroundShade}"
-                Style="{StaticResource MediumText}"
+                Style="{StaticResource BodyText}"
                 Text="{Binding Body, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 TextWrapping="Wrap" />
 

@@ -77,7 +77,7 @@
                     <TextBlock
                         Grid.Row="2"
                         Foreground="{StaticResource ForegroundShade}"
-                        Style="{StaticResource BodyText}">
+                        Style="{StaticResource BaseText}">
                         <Run Text="Already have an account?" />
                         <Hyperlink Command="{Binding ViewLoginCommand}" Style="{StaticResource CTALink}">
                             Log in
@@ -195,7 +195,7 @@
                 <Button
                     Grid.Row="12"
                     Width="352"
-                    Height="52"
+                    Height="48"
                     Command="{Binding RegisterCommand}"
                     Content="Create Account"
                     IsDefault="True"
@@ -212,7 +212,10 @@
             <!--#endregion-->
 
             <!--#region Footer-->
-            <Grid Grid.Row="3" Grid.Column="1">
+            <Grid
+                Grid.Row="3"
+                Grid.Column="1"
+                Opacity="0.75">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />

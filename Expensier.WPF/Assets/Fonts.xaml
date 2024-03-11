@@ -16,7 +16,6 @@
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="Opacity" Value="0.9" />
     </Style>
 
     <Style
@@ -94,9 +93,11 @@
 
     <!--#region Links-->
     <Style x:Key="BaseLink" TargetType="Hyperlink">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
         <Setter Property="FontFamily" Value="{StaticResource Lato}" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="TextDecorations" Value="None" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="{StaticResource Secondary}" />
@@ -108,7 +109,6 @@
         x:Key="BodyLink"
         BasedOn="{StaticResource BaseLink}"
         TargetType="Hyperlink">
-        <Setter Property="TextDecorations" Value="None" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
         <Setter Property="FontSize" Value="14" />
     </Style>
@@ -141,7 +141,7 @@
         <Setter Property="Margin" Value="0" />
         <Setter Property="Foreground" Value="{StaticResource Foreground}" />
         <Setter Property="FontFamily" Value="{StaticResource Lato}" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontSize" Value="15" />
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />

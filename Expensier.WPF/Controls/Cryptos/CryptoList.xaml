@@ -161,7 +161,7 @@
                     <Button
                         Grid.Column="4"
                         Command="{Binding DeleteCommand}"
-                        Style="{StaticResource DeleteCTA}"
+                        Style="{StaticResource InlineButton}"
                         Tag="{StaticResource DeleteIcon}" />
                     <!--#endregion-->
 

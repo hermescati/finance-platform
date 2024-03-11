@@ -11,6 +11,17 @@
     <!--#endregion-->
 
 
+    <!--#region Complementary Colors-->
+    <Color x:Key="YellowColor">#FFF1C114</Color>
+    <Color x:Key="NeonYellowColor">#FF96E645</Color>
+    <Color x:Key="OrangeColor">#FFE67B45</Color>
+    <Color x:Key="CherryRedColor">#FFFF4060</Color>
+    <Color x:Key="RedColor">#FFE62E2E</Color>
+    <Color x:Key="BlueColor">#FF447BE7</Color>
+    <Color x:Key="TealColor">#FF15CC9E</Color>
+    <!--#endregion-->
+
+
     <!--#region Solid Colors-->
     <SolidColorBrush x:Key="Background" Color="{StaticResource BackgroundColor}" />
     <SolidColorBrush x:Key="Foreground" Color="{StaticResource ForegroundColor}" />
@@ -47,6 +58,18 @@
         Opacity="0.3"
         Color="{StaticResource AccentColor}" />
     <!--#endregion-->
+
+
+    <!--#region Complemtary Brushes-->
+    <SolidColorBrush x:Key="Yellow" Color="{StaticResource YellowColor}" />
+    <SolidColorBrush x:Key="NeonYellow" Color="{StaticResource NeonYellowColor}" />
+    <SolidColorBrush x:Key="Orange" Color="{StaticResource OrangeColor}" />
+    <SolidColorBrush x:Key="CherryRed" Color="{StaticResource CherryRedColor}" />
+    <SolidColorBrush x:Key="Red" Color="{StaticResource RedColor}" />
+    <SolidColorBrush x:Key="Blue" Color="{StaticResource BlueColor}" />
+    <SolidColorBrush x:Key="Teal" Color="{StaticResource TealColor}" />
+    <!--#endregion-->
+
 
 
     <!--#region Gradients-->

@@ -74,7 +74,7 @@
                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                 TextElement.FontFamily="{StaticResource Lato}"
                 TextElement.FontSize="14"
-                TextElement.FontWeight="Bold"
+                TextElement.FontWeight="Regular"
                 TextElement.Foreground="{StaticResource ForegroundShade}" />
         </Grid>
         <ControlTemplate.Triggers>
