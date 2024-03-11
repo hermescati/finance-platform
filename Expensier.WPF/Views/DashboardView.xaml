@@ -26,14 +26,14 @@
         Width="Auto"
         Height="Auto"
         Padding="40"
-        Background="{StaticResource PrimaryColor}"
+        Background="{StaticResource Primary}"
         CornerRadius="12">
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="64" />
+                <RowDefinition Height="5*" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -48,7 +48,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="8" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
@@ -60,7 +60,7 @@
 
                         <TextBlock
                             Grid.Column="0"
-                            Style="{StaticResource Header3}"
+                            Style="{StaticResource Header4}"
                             Text="Spending summary" />
 
                         <ComboBox
@@ -84,8 +84,6 @@
                     <placeholders:HorizontalPlaceholder
                         Title="It looks a bit empty here!"
                         Grid.Row="2"
-                        Width="560"
-                        Height="240"
                         Body="Add a new expense to see your spending summary chart!"
                         DataContext="{Binding SpendingSummaryViewModel}"
                         Icon="{StaticResource GraphPlaceholderImage}"
@@ -108,7 +106,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="8" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
@@ -120,7 +118,7 @@
 
                         <TextBlock
                             Grid.Column="0"
-                            Style="{StaticResource Header3}"
+                            Style="{StaticResource Header4}"
                             Text="Expenditure" />
 
                         <ComboBox
@@ -144,8 +142,6 @@
                     <placeholders:HorizontalPlaceholder
                         Title="It looks a bit empty here!"
                         Grid.Row="2"
-                        Width="560"
-                        Height="240"
                         Body="Add a new expense to see your expenditure chart!"
                         DataContext="{Binding SpendingSummaryViewModel}"
                         Icon="{StaticResource GraphPlaceholderImage}"
@@ -179,20 +175,18 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="24" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <TextBlock
                         Grid.Row="0"
-                        Style="{StaticResource Header3}"
+                        Style="{StaticResource Header4}"
                         Text="Recent expenses" />
 
                     <!--  Placeholder  -->
                     <placeholders:VerticalPlaceholder
                         Title="It looks a bit empty here!"
                         Grid.Row="2"
-                        Width="360"
-                        Height="320"
                         Body="Add a new expense to see your latest transactions!"
                         DataContext="{Binding RecentExpensesViewModel}"
                         Icon="{StaticResource TransactionPlaceholderImage}"
@@ -223,7 +217,7 @@
 
                         <TextBlock
                             Grid.Row="0"
-                            Style="{StaticResource Header3}"
+                            Style="{StaticResource Header4}"
                             Text="Subscriptions" />
 
                         <!--  Placeholder  -->
@@ -232,8 +226,8 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 DataContext="{Binding TopSubscriptionsViewModel}"
-                                Foreground="{StaticResource InactiveColor}"
-                                Style="{StaticResource SmallText}"
+                                Foreground="{StaticResource ForegroundShade}"
+                                Style="{StaticResource MediumText}"
                                 Text="Your subscriptions will appear on this section. Head over to the Expenses tab and add a new subscription."
                                 Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
@@ -249,8 +243,8 @@
                     <!--#region Watchlist-->
                     <Border
                         Grid.Row="2"
-                        Padding="40,24,24,24"
-                        Background="{StaticResource BackgroundGradientColor}"
+                        Padding="48,24,24,24"
+                        Background="{StaticResource BackgroundGradient}"
                         CornerRadius="16">
 
                         <Grid>
@@ -260,43 +254,46 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <!--  Header  -->
+                            <Grid Grid.Column="0" VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="8" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
                                 <TextBlock
-                                    Grid.Row="1"
-                                    Style="{StaticResource Header3}"
+                                    Grid.Row="0"
+                                    Style="{StaticResource Header4}"
                                     Text="Watchlist" />
 
                                 <TextBlock
-                                    Grid.Row="3"
-                                    Width="144"
+                                    Grid.Row="1"
+                                    Width="120"
                                     Margin="0,8,0,16"
-                                    Foreground="{StaticResource InactiveColor}"
-                                    Style="{StaticResource MediumText}"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource ForegroundShade}"
+                                    Style="{StaticResource BodyText}"
                                     Text="Keep track of your favorite cryptos."
                                     TextWrapping="Wrap" />
 
                                 <Button
-                                    Grid.Row="5"
-                                    Width="120"
-                                    Height="40"
-                                    Padding="0"
-                                    HorizontalAlignment="Left"
+                                    Grid.Row="3"
+                                    Width="128"
+                                    Height="44"
                                     Command="{Binding NavigateToWatchlist}"
                                     Content="See all"
-                                    Style="{StaticResource BaseButton}"
                                     Visibility="{Binding TopPerformingCryptosViewModel.ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                                 <Button
-                                    Grid.Row="5"
-                                    Width="120"
-                                    Height="40"
-                                    Padding="0"
-                                    HorizontalAlignment="Left"
+                                    Grid.Row="3"
+                                    Width="128"
+                                    Height="44"
                                     Command="{Binding NavigateToWatchlist}"
                                     Content="Add Assets"
-                                    Style="{StaticResource BaseButton}"
                                     Visibility="{Binding TopPerformingCryptosViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            </StackPanel>
+                            </Grid>
 
                             <!--  Placeholder  -->
                             <placeholders:HorizontalPlaceholder

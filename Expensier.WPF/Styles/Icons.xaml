@@ -466,12 +466,12 @@
     <!--#region CheckMark-->
     <Style x:Key="CheckMarkCircle" TargetType="Path">
         <Setter Property="Data" Value="M7.00002 12.8333C10.2218 12.8333 12.8334 10.2217 12.8334 6.99996C12.8334 3.77821 10.2218 1.16663 7.00002 1.16663C3.77827 1.16663 1.16669 3.77821 1.16669 6.99996C1.16669 10.2217 3.77827 12.8333 7.00002 12.8333Z" />
-        <Setter Property="Fill" Value="{StaticResource SecondaryColor}" />
+        <Setter Property="Fill" Value="{StaticResource Secondary}" />
         <Setter Property="Opacity" Value="0.2" />
     </Style>
     <Style x:Key="CheckMark" TargetType="Path">
         <Setter Property="Data" Value="M6.17165 9.08949C6.05566 9.08939 5.94445 9.04323 5.86248 8.96116L4.21165 7.31032C4.13028 7.22799 4.08466 7.11691 4.08466 7.00116C4.08466 6.8854 4.13028 6.77432 4.21165 6.69199C4.38081 6.52282 4.66081 6.52282 4.82998 6.69199L6.17165 8.03366L9.16998 5.03532C9.33915 4.86616 9.61915 4.86616 9.78832 5.03532C9.95748 5.20449 9.95748 5.48449 9.78832 5.65366L6.48081 8.96116C6.39885 9.04323 6.28764 9.08939 6.17165 9.08949Z" />
-        <Setter Property="Fill" Value="{StaticResource SecondaryColor}" />
+        <Setter Property="Fill" Value="{StaticResource Secondary}" />
     </Style>
     <!--#endregion-->
 

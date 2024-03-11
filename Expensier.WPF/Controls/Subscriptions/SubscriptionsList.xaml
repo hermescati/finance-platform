@@ -72,7 +72,7 @@
     <ListView
         x:Name="ListView"
         VerticalContentAlignment="Top"
-        Background="{DynamicResource PrimaryColor}"
+        Background="{StaticResource Primary}"
         BorderThickness="0"
         ItemContainerStyle="{DynamicResource SubscriptionsViewItem}"
         ItemsSource="{Binding Subscriptions}"
@@ -95,7 +95,7 @@
                         Grid.Column="0"
                         Width="32"
                         Height="32"
-                        Source="{DynamicResource CreditTransactionIcon}" />
+                        Source="{StaticResource CreditTransactionIcon}" />
                     <!--#endregion-->
 
                     <!--#region Subscription-->
@@ -117,7 +117,7 @@
                             <TextBlock
                                 Grid.Row="0"
                                 Width="120"
-                                Style="{DynamicResource Header6}"
+                                Style="{StaticResource Header6}"
                                 Text="{Binding SubscriptionPlan}" />
 
                             <!--  Date  -->
@@ -127,19 +127,19 @@
                                 Orientation="Horizontal">
 
                                 <TextBlock
-                                    Foreground="{DynamicResource InactiveColor}"
-                                    Style="{DynamicResource SmallText}"
+                                    Foreground="{StaticResource ForegroundShade}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding DueDate, StringFormat='{}{0:MMM dd}'}" />
 
                                 <Ellipse
                                     Width="4"
                                     Height="4"
                                     Margin="8,0"
-                                    Fill="{DynamicResource InactiveColor}" />
+                                    Fill="{StaticResource ForegroundShade}" />
 
                                 <TextBlock
-                                    Foreground="{DynamicResource InactiveColor}"
-                                    Style="{DynamicResource SmallText}"
+                                    Foreground="{StaticResource ForegroundShade}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding DueDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
                         </Grid>
@@ -147,7 +147,7 @@
                         <TextBlock
                             Grid.Column="2"
                             VerticalAlignment="Center"
-                            Style="{DynamicResource Body}"
+                            Style="{StaticResource BodyText}"
                             Text="{Binding Amount, StringFormat='c'}" />
 
                     </Grid>
@@ -157,8 +157,8 @@
                     <Button
                         Grid.Column="4"
                         Command="{Binding DeleteCommand}"
-                        Style="{DynamicResource DeleteCTA}"
-                        Tag="{DynamicResource DeleteIcon}" />
+                        Style="{StaticResource DeleteCTA}"
+                        Tag="{StaticResource DeleteIcon}" />
                     <!--#endregion-->
 
                 </Grid>

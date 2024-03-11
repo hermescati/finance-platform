@@ -30,21 +30,6 @@ namespace Expensier.WPF.ViewModels
         public PredictionsViewModel PredictionsViewModel { get; }
 
 
-        private string _searchBar;
-        public string SearchBar
-        {
-            get
-            {
-                return _searchBar;
-            }
-            set
-            {
-                _searchBar = value;
-                OnPropertyChanged( nameof( SearchBar ) );
-            }
-        }
-
-
         public ExpensesViewModel(
             TransactionStore transactionStore,
             SubscriptionStore subscriptionStore,
@@ -63,21 +48,6 @@ namespace Expensier.WPF.ViewModels
             //PredictionsViewModel = predictionsViewModel;
             TransactionModalViewModel = transactionModalViewModel;
             SubscriptionModalViewModel = subscriptionModalViewModel;
-
-            PropertyChanged += ( sender, e ) =>
-            {
-                if ( e.PropertyName == nameof( SearchBar ) )
-                {
-                    if ( SearchBar.IsNullOrEmpty() )
-                    {
-                        TransactionViewModel.ResetTransactions();
-                    }
-                    else
-                    {
-                        TransactionViewModel.FilterTransactions( SearchBar );
-                    }
-                }
-            };
         }
     }
 }

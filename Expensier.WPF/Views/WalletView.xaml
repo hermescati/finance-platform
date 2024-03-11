@@ -24,7 +24,7 @@
             Width="Auto"
             Height="Auto"
             Padding="40"
-            Background="{StaticResource PrimaryColor}"
+            Background="{StaticResource Primary}"
             CornerRadius="12">
 
             <Grid>
@@ -47,7 +47,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     DataContext="{Binding CryptoWatchlistViewModel}"
-                    Foreground="{StaticResource InactiveColor}"
+                    Foreground="{StaticResource ForegroundShade}"
                     Style="{StaticResource SmallText}"
                     Text="Your assets will appear on this page. Add your first asset to track by clicking the “Add new” button below."
                     Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -83,7 +83,7 @@
 
                             <TextBlock
                                 Grid.Row="0"
-                                Style="{StaticResource Header3}"
+                                Style="{StaticResource Header5}"
                                 Text="Portfolio performance" />
 
                             <!--  Placeholder  -->
@@ -96,7 +96,7 @@
                                 Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <!--  Performance Graph  -->
-                            <charts:CartesianChart
+                            <!--<charts:CartesianChart
                                 Grid.Row="2"
                                 Width="477"
                                 Height="180"
@@ -150,7 +150,7 @@
                                     </charts:Axis>
                                 </charts:CartesianChart.AxisY>
 
-                            </charts:CartesianChart>
+                            </charts:CartesianChart>-->
                         </Grid>
                         <!--#endregion-->
 
@@ -164,7 +164,7 @@
 
                             <TextBlock
                                 Grid.Row="0"
-                                Style="{StaticResource Header3}"
+                                Style="{StaticResource Header5}"
                                 Text="Asset allocation" />
 
                             <!--  Placeholder  -->
@@ -177,7 +177,7 @@
                                 Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <!--  Asset Allocation Graph  -->
-                            <charts:PieChart
+                            <!--<charts:PieChart
                                 Grid.Row="2"
                                 Width="477"
                                 Height="220"
@@ -214,7 +214,7 @@
                                         ShowTitle="False" />
                                 </charts:PieChart.DataTooltip>
 
-                            </charts:PieChart>
+                            </charts:PieChart>-->
                         </Grid>
                         <!--#endregion-->
 
@@ -244,12 +244,12 @@
 
                                 <TextBlock
                                     Grid.Column="0"
-                                    Style="{StaticResource Header3}"
+                                    Style="{StaticResource Header5}"
                                     Text="Assets" />
 
                                 <TextBlock
                                     Grid.Column="2"
-                                    Style="{StaticResource Header3}"
+                                    Style="{StaticResource Header5}"
                                     Text="Total value" />
                             </Grid>
 

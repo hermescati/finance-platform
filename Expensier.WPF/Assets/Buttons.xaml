@@ -4,18 +4,20 @@
     xmlns:converters="clr-namespace:Expensier.WPF.Converters">
 
 
+    <!--  Converters  -->
     <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 
 
-    <Style x:Key="BaseButton" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource ForegroundColor}" />
-        <Setter Property="Foreground" Value="{StaticResource BackgroundColor}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ForegroundColor}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="FontFamily" Value="SF Pro Display" />
-        <Setter Property="FontWeight" Value="SemiBold" />
+    <!--#region Base Button-->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource Foreground}" />
+        <Setter Property="Foreground" Value="{StaticResource Primary}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Primary}" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="FontFamily" Value="{StaticResource Lato}" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Padding" Value="32,0" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Padding" Value="16,8" />
         <Setter Property="Width" Value="Auto" />
         <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -29,7 +31,7 @@
                     <Border
                         x:Name="Glow"
                         Margin="-4"
-                        BorderBrush="{StaticResource SecondaryGlowColor}"
+                        BorderBrush="{StaticResource SecondaryShade}"
                         BorderThickness="0"
                         CornerRadius="26">
                         <Border
@@ -52,6 +54,8 @@
                                     Width="24"
                                     Height="24"
                                     Margin="0,0,16,0"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                     Source="{TemplateBinding Tag}"
                                     Visibility="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}" />
                                 <ContentPresenter
@@ -66,16 +70,16 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
-                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
-                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Primary}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="Glow" Property="BorderThickness" Value="4" />
                             <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
-                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
-                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Primary}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" Value="0.5" />
@@ -85,20 +89,33 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <!--#endregion-->
 
 
-    <Style
-        x:Key="SquareButton"
-        BasedOn="{StaticResource BaseButton}"
-        TargetType="Button">
-        <Setter Property="Padding" Value="16,0" />
+    <!--#region Button Variants-->
+    <Style x:Key="SquareButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource Foreground}" />
+        <Setter Property="Foreground" Value="{StaticResource Secondary}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Primary}" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="FontFamily" Value="{StaticResource Lato}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
                         x:Name="Glow"
                         Margin="-4"
-                        BorderBrush="{StaticResource SecondaryGlowColor}"
+                        BorderBrush="{StaticResource SecondaryShade}"
                         BorderThickness="0"
                         CornerRadius="14">
                         <Border
@@ -117,15 +134,15 @@
                                     x:Name="Icon"
                                     Width="24"
                                     Height="24"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
+                                    Margin="0,0,8,0"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                     Source="{TemplateBinding Tag}"
                                     Visibility="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}" />
                                 <ContentPresenter
                                     x:Name="Content"
-                                    Margin="8,0,0,0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
                             </StackPanel>
@@ -134,16 +151,16 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
-                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
-                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Primary}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="Glow" Property="BorderThickness" Value="4" />
                             <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
-                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
-                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
-                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Primary}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" Value="0.5" />
@@ -154,10 +171,9 @@
         </Setter>
     </Style>
 
-
     <Style
         x:Key="IconButton"
-        BasedOn="{StaticResource BaseButton}"
+        BasedOn="{StaticResource SquareButton}"
         TargetType="Button">
         <Setter Property="Padding" Value="0" />
         <Setter Property="Template">
@@ -166,7 +182,7 @@
                     <Border
                         x:Name="Glow"
                         Margin="-4"
-                        BorderBrush="{StaticResource SecondaryGlowColor}"
+                        BorderBrush="{StaticResource SecondaryShade}"
                         BorderThickness="0"
                         CornerRadius="14">
                         <Border
@@ -184,21 +200,20 @@
                                 x:Name="Icon"
                                 Width="24"
                                 Height="24"
-                                Source="{TemplateBinding Tag}"
-                                Visibility="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}" />
+                                Source="{TemplateBinding Tag}" />
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
-                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
-                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Primary}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="Glow" Property="BorderThickness" Value="4" />
                             <Setter TargetName="Stroke" Property="BorderThickness" Value="1.5" />
-                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource PrimaryColor}" />
-                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource SecondaryColor}" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Primary}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" Value="0.5" />
@@ -209,9 +224,8 @@
         </Setter>
     </Style>
 
-
     <Style
-        x:Key="DeleteCTA"
+        x:Key="InlineButton"
         BasedOn="{StaticResource IconButton}"
         TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
@@ -226,11 +240,12 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <!--#endregion-->
 
 
     <!--#region Window Buttons-->
     <Style x:Key="BaseWindowButton" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+        <Setter Property="Background" Value="{StaticResource Background}" />
         <Setter Property="Width" Value="42" />
         <Setter Property="Height" Value="28" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -247,7 +262,7 @@
         </Style.Triggers>
     </Style>
 
-
+    <!--  Minimize  -->
     <Style
         x:Key="MinimizeButton"
         BasedOn="{StaticResource BaseWindowButton}"
@@ -286,7 +301,7 @@
         </Setter>
     </Style>
 
-
+    <!--  Maximize  -->
     <Style
         x:Key="MaximizeButton"
         BasedOn="{StaticResource BaseWindowButton}"
@@ -329,7 +344,7 @@
         </Setter>
     </Style>
 
-
+    <!--  Exit  -->
     <Style
         x:Key="ExitButton"
         BasedOn="{StaticResource BaseWindowButton}"
@@ -375,5 +390,6 @@
         </Style.Triggers>
     </Style>
     <!--#endregion-->
+
 
 </ResourceDictionary>

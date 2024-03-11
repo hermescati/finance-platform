@@ -38,7 +38,7 @@
                             <Border
                                 x:Name="Stroke"
                                 Padding="16"
-                                Background="{DynamicResource BackgroundGradientColor}"
+                                Background="{StaticResource BackgroundGradient}"
                                 BorderThickness="1.5"
                                 CornerRadius="16">
                                 <ContentPresenter
@@ -50,8 +50,8 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
-                                <Setter TargetName="Glow" Property="BorderBrush" Value="{DynamicResource SecondaryGlowColor}" />
+                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
+                                <Setter TargetName="Glow" Property="BorderBrush" Value="{StaticResource SecondaryShade}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -107,15 +107,15 @@
                             <!--  Current Price  -->
                             <TextBlock
                                 FontWeight="SemiBold"
-                                Style="{DynamicResource Body}"
+                                Style="{StaticResource BodyText}"
                                 Text="{Binding Crypto.Price, StringFormat='${0:#,##0.###}'}" />
 
                             <!--  Symbol  -->
                             <TextBlock
                                 Margin="0,2,0,0"
                                 FontWeight="Medium"
-                                Foreground="{DynamicResource InactiveColor}"
-                                Style="{DynamicResource SmallText}"
+                                Foreground="{StaticResource ForegroundShade}"
+                                Style="{StaticResource SmallText}"
                                 Text="{Binding Crypto.Symbol, Converter={StaticResource CryptoNameConverter}, ConverterParameter='USD'}" />
                         </StackPanel>
 
@@ -125,7 +125,7 @@
                                 HorizontalAlignment="Right"
                                 FontWeight="SemiBold"
                                 Foreground="{Binding Crypto.ChangesPercentage, Converter={StaticResource DoubleToColorConverter}}"
-                                Style="{DynamicResource SmallText}"
+                                Style="{StaticResource SmallText}"
                                 Text="{Binding Crypto.ChangesPercentage, StringFormat={}{0:#0.00'%'}}" />
 
                             <!--  Chart  -->

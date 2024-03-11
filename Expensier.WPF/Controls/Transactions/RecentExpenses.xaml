@@ -27,7 +27,7 @@
     <ListView
         Margin="-6,0,0,0"
         HorizontalContentAlignment="Stretch"
-        Background="{DynamicResource PrimaryColor}"
+        Background="{StaticResource Primary}"
         BorderThickness="0"
         Focusable="False"
         IsHitTestVisible="False"
@@ -57,7 +57,7 @@
 
                         <!--  Transaction Details  -->
                         <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding TransactionName}" />
+                            <TextBlock Style="{StaticResource Header6}" Text="{Binding TransactionName}" />
 
                             <StackPanel
                                 Margin="0,2,0,0"
@@ -65,19 +65,19 @@
                                 Orientation="Horizontal">
 
                                 <TextBlock
-                                    Foreground="{DynamicResource InactiveColor}"
-                                    Style="{DynamicResource SmallText}"
+                                    Foreground="{StaticResource ForegroundShade}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
 
                                 <Ellipse
                                     Width="4"
                                     Height="4"
                                     Margin="8,0"
-                                    Fill="{DynamicResource InactiveColor}" />
+                                    Fill="{StaticResource ForegroundShade}" />
 
                                 <TextBlock
-                                    Foreground="{DynamicResource InactiveColor}"
-                                    Style="{DynamicResource SmallText}"
+                                    Foreground="{StaticResource ForegroundShade}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
                         </StackPanel>
@@ -88,9 +88,9 @@
                             VerticalAlignment="Top"
                             Orientation="Horizontal">
 
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
+                            <TextBlock Style="{StaticResource Header6}" Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
 
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding Amount, StringFormat='c'}" />
+                            <TextBlock Style="{StaticResource Header6}" Text="{Binding Amount, StringFormat='c'}" />
 
                         </StackPanel>
                     </Grid>

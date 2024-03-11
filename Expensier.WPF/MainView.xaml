@@ -16,6 +16,7 @@
     WindowStyle="None"
     mc:Ignorable="d">
 
+
     <WindowChrome.WindowChrome>
         <WindowChrome
             CaptionHeight="0"
@@ -27,8 +28,8 @@
 
 
     <Border
-        Background="{StaticResource BackgroundColor}"
-        BorderBrush="{StaticResource TransparentColor}"
+        Background="{StaticResource Background}"
+        BorderBrush="{StaticResource Transparent}"
         BorderThickness="1.5"
         CornerRadius="12">
 
@@ -50,14 +51,20 @@
                     Grid.Column="0"
                     Fill="Transparent"
                     MouseDown="Rectangle_MouseDown" />
+
+                <!--  Minimize  -->
                 <Button
                     Grid.Column="1"
                     Click="Minimize_MouseDown"
                     Style="{StaticResource MinimizeButton}" />
+
+                <!--  Maximize  -->
                 <Button
                     Grid.Column="2"
                     Click="Maximize_MouseDown"
                     Style="{StaticResource MaximizeButton}" />
+
+                <!--  Exit  -->
                 <Button
                     Grid.Column="3"
                     Click="Exit_MouseDown"

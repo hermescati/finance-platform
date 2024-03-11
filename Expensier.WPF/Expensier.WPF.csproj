@@ -8,15 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Styles\Fonts\sfpro-blackitalic.OTF" />
-    <None Remove="Styles\Fonts\sfpro-bold.OTF" />
-    <None Remove="Styles\Fonts\sfpro-heavyitalic.OTF" />
-    <None Remove="Styles\Fonts\sfpro-lightitalic.OTF" />
-    <None Remove="Styles\Fonts\sfpro-medium.OTF" />
-    <None Remove="Styles\Fonts\sfpro-regular.OTF" />
-    <None Remove="Styles\Fonts\sfpro-semibolditalic.OTF" />
-    <None Remove="Styles\Fonts\sfpro-thinitalic.OTF" />
-    <None Remove="Styles\Fonts\sfpro-ultralightitalic.OTF" />
+    <None Remove="Assets\Fonts\Lato-Black.ttf" />
+    <None Remove="Assets\Fonts\Lato-BlackItalic.ttf" />
+    <None Remove="Assets\Fonts\Lato-Bold.ttf" />
+    <None Remove="Assets\Fonts\Lato-BoldItalic.ttf" />
+    <None Remove="Assets\Fonts\Lato-Italic.ttf" />
+    <None Remove="Assets\Fonts\Lato-Light.ttf" />
+    <None Remove="Assets\Fonts\Lato-LightItalic.ttf" />
+    <None Remove="Assets\Fonts\Lato-Regular.ttf" />
+    <None Remove="Assets\Fonts\Lato-Thin.ttf" />
+    <None Remove="Assets\Fonts\Lato-ThinItalic.ttf" />
+    <None Remove="Assets\Images\default_profile_picture.png" />
     <None Remove="Styles\Images\default_profile_picture.png" />
   </ItemGroup>
 
@@ -38,31 +40,37 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Styles\Fonts\sfpro-blackitalic.OTF">
+    <Resource Include="Assets\Fonts\Lato-Black.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Styles\Fonts\sfpro-bold.OTF">
+    <Resource Include="Assets\Fonts\Lato-BlackItalic.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Styles\Fonts\sfpro-heavyitalic.OTF">
+    <Resource Include="Assets\Fonts\Lato-Bold.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Styles\Fonts\sfpro-lightitalic.OTF">
+    <Resource Include="Assets\Fonts\Lato-BoldItalic.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Styles\Fonts\sfpro-medium.OTF">
+    <Resource Include="Assets\Fonts\Lato-Italic.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Styles\Fonts\sfpro-regular.OTF">
+    <Resource Include="Assets\Fonts\Lato-Light.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Styles\Fonts\sfpro-semibolditalic.OTF">
+    <Resource Include="Assets\Fonts\Lato-LightItalic.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Styles\Fonts\sfpro-thinitalic.OTF">
+    <Resource Include="Assets\Fonts\Lato-Regular.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Styles\Fonts\sfpro-ultralightitalic.OTF">
+    <Resource Include="Assets\Fonts\Lato-Thin.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\Lato-ThinItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\default_profile_picture.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Styles\Images\default_profile_picture.png">

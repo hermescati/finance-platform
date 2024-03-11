@@ -6,15 +6,19 @@
     xmlns:viewmodels="clr-namespace:Expensier.WPF.ViewModels"
     xmlns:views="clr-namespace:Expensier.WPF.Views">
 
-    <Application.Resources>
 
+    <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/ColorStyles.xaml" />
-                <ResourceDictionary Source="/Styles/FontStyles.xaml" />
+                <ResourceDictionary Source="/Assets/Colors.xaml" />
+                <ResourceDictionary Source="/Assets/Fonts.xaml" />
                 <ResourceDictionary Source="/Styles/Icons.xaml" />
-                <ResourceDictionary Source="/Styles/ButtonStyles.xaml" />
-                <ResourceDictionary Source="/Styles/MenuStyles.xaml" />
+                <ResourceDictionary Source="/Assets/Buttons.xaml" />
+                <ResourceDictionary Source="/Assets/Inputs.xaml" />
+                <ResourceDictionary Source="/Assets/DatePicker.xaml" />
+                <ResourceDictionary Source="/Assets/Dropdown.xaml" />
+                <ResourceDictionary Source="/Assets/Checkbox.xaml" />
+                <ResourceDictionary Source="/Assets/Scrollbar.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
@@ -40,8 +44,6 @@
             <DataTemplate DataType="{x:Type viewmodels:ResetPasswordViewModel}">
                 <views:ResetPasswordView />
             </DataTemplate>
-
         </ResourceDictionary>
-
     </Application.Resources>
 </Application>

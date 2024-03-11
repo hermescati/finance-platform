@@ -83,7 +83,7 @@
     <ListView
         x:Name="ListView"
         VerticalContentAlignment="Top"
-        Background="{DynamicResource PrimaryColor}"
+        Background="{StaticResource Primary}"
         BorderThickness="0"
         ItemContainerStyle="{DynamicResource TransactionViewItem}"
         ItemsSource="{Binding Transactions}"
@@ -128,20 +128,20 @@
                             Grid.Column="0"
                             Width="164"
                             VerticalAlignment="Center"
-                            Style="{DynamicResource Header6}"
+                            Style="{StaticResource Header6}"
                             Text="{Binding TransactionName}" />
 
                         <!--  Category  -->
                         <StackPanel Grid.Column="2" Width="88">
                             <TextBlock
                                 Margin="0,0,0,2"
-                                Foreground="{DynamicResource InactiveColor}"
-                                Style="{DynamicResource SmallText}"
+                                Foreground="{StaticResource ForegroundShade}"
+                                Style="{StaticResource SmallText}"
                                 Text="Category" />
 
                             <TextBlock
                                 Width="120"
-                                Style="{DynamicResource Header6}"
+                                Style="{StaticResource Header6}"
                                 Text="{Binding TransactionType}" />
                         </StackPanel>
 
@@ -149,20 +149,20 @@
                         <StackPanel Grid.Column="4" Width="132">
                             <TextBlock
                                 Margin="0,0,0,2"
-                                Foreground="{DynamicResource InactiveColor}"
-                                Style="{DynamicResource SmallText}"
+                                Foreground="{StaticResource ForegroundShade}"
+                                Style="{StaticResource SmallText}"
                                 Text="Date" />
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{DynamicResource Header6}" Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
+                                <TextBlock Style="{StaticResource Header6}" Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
 
                                 <Ellipse
                                     Width="4"
                                     Height="4"
                                     Margin="8,0"
-                                    Fill="{DynamicResource ForegroundColor}" />
+                                    Fill="{StaticResource Foreground}" />
 
-                                <TextBlock Style="{DynamicResource Header6}" Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
+                                <TextBlock Style="{StaticResource Header6}" Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
                         </StackPanel>
 
@@ -170,14 +170,14 @@
                         <StackPanel Grid.Column="6" Width="88">
                             <TextBlock
                                 Margin="0,0,0,2"
-                                Foreground="{DynamicResource InactiveColor}"
-                                Style="{DynamicResource SmallText}"
+                                Foreground="{StaticResource ForegroundShade}"
+                                Style="{StaticResource SmallText}"
                                 Text="Amount" />
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{DynamicResource Header6}" Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
+                                <TextBlock Style="{StaticResource Header6}" Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
 
-                                <TextBlock Style="{DynamicResource Header6}" Text="{Binding Amount, StringFormat='c'}" />
+                                <TextBlock Style="{StaticResource Header6}" Text="{Binding Amount, StringFormat='c'}" />
                             </StackPanel>
                         </StackPanel>
 
@@ -189,8 +189,8 @@
                         Grid.Column="4"
                         Background="Transparent"
                         Command="{Binding DeleteCommand}"
-                        Style="{DynamicResource DeleteCTA}"
-                        Tag="{DynamicResource DeleteIcon}" />
+                        Style="{StaticResource InlineButton}"
+                        Tag="{StaticResource DeleteIcon}" />
                     <!--#endregion-->
 
                 </Grid>

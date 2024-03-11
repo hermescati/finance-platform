@@ -67,6 +67,22 @@ namespace Expensier.WPF.ViewModels.Expenses
             }
         }
 
+
+        private string _searchBar;
+        public string SearchBar
+        {
+            get
+            {
+                return _searchBar;
+            }
+            set
+            {
+                _searchBar = value;
+                OnPropertyChanged(nameof(SearchBar));
+            }
+        }
+
+
         public IEnumerable<SortingFunctions> Sort => Enum.GetValues(typeof(SortingFunctions))
             .Cast<SortingFunctions>();
 
@@ -138,6 +154,17 @@ namespace Expensier.WPF.ViewModels.Expenses
                 if (e.PropertyName == nameof(SelectedItem))
                 {
                     SortTransactions();
+                }
+                if (e.PropertyName == nameof(SearchBar))
+                {
+                    if (SearchBar.IsNullOrEmpty())
+                    {
+                        ResetTransactions();
+                    }
+                    else
+                    {
+                        FilterTransactions(SearchBar);
+                    }
                 }
             };
         }

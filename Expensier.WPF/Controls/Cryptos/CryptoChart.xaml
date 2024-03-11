@@ -30,7 +30,7 @@
             <charts:CartesianChart.Series>
                 <charts:LineSeries
                     LineSmoothness="1"
-                    PointForeground="{StaticResource SecondaryColor}"
+                    PointForeground="{StaticResource Secondary}"
                     PointGeometrySize="0"
                     Values="{Binding CryptoPerformance}" />
             </charts:CartesianChart.Series>

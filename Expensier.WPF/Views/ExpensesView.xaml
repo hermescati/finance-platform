@@ -26,7 +26,7 @@
             Width="Auto"
             Height="Auto"
             Padding="40"
-            Background="{StaticResource PrimaryColor}"
+            Background="{StaticResource Primary}"
             CornerRadius="12">
 
             <Grid>
@@ -57,9 +57,10 @@
 
                     <TextBlock
                         Grid.Row="0"
-                        Style="{StaticResource Header3}"
+                        Style="{StaticResource Header4}"
                         Text="Expenses" />
 
+                    <!--  Navigation  -->
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -82,13 +83,14 @@
 
                         <ComboBox
                             Grid.Column="2"
-                            Width="128"
+                            Width="120"
                             Height="42"
                             DataContext="{Binding TransactionViewModel}"
                             IsEditable="True"
                             IsReadOnly="True"
                             ItemsSource="{Binding Sort}"
-                            SelectedItem="{Binding SelectedItem}">
+                            SelectedItem="{Binding SelectedItem}"
+                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
@@ -100,16 +102,19 @@
                         <controls:SearchBar
                             x:Name="SearchBar"
                             Grid.Column="4"
-                            Text="{Binding SearchBar}" />
+                            DataContext="{Binding TransactionViewModel}"
+                            Text="{Binding SearchBar}"
+                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <Button
                             Grid.Column="6"
                             Width="42"
                             Height="42"
-                            Padding="0"
-                            Background="{StaticResource MenuButtonColor}"
+                            Background="{StaticResource MenuShade}"
+                            DataContext="{Binding TransactionViewModel}"
                             Style="{StaticResource IconButton}"
-                            Tag="{StaticResource ExportIcon}" />
+                            Tag="{StaticResource ExportIcon}"
+                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </Grid>
 
                     <!--  Placeholder  -->
@@ -126,7 +131,6 @@
                         Grid.Row="4"
                         DataContext="{Binding TransactionViewModel}"
                         Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
                 </Grid>
                 <!--#endregion-->
 
@@ -142,9 +146,10 @@
 
                     <TextBlock
                         Grid.Row="0"
-                        Style="{StaticResource Header3}"
+                        Style="{StaticResource Header5}"
                         Text="Subscriptions" />
 
+                    <!--  Navigation  -->
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -163,7 +168,7 @@
 
                         <ComboBox
                             Grid.Column="2"
-                            Width="128"
+                            Width="120"
                             Height="42"
                             DataContext="{Binding SubscriptionViewModel}"
                             IsEditable="True"
@@ -236,7 +241,7 @@
                                 <Border
                                     Grid.Column="0"
                                     Padding="24,16"
-                                    Background="{StaticResource BackgroundGradientColor}"
+                                    Background="{StaticResource BackgroundGradient}"
                                     CornerRadius="16">
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -248,7 +253,7 @@
                                         <TextBlock
                                             Grid.Row="0"
                                             FontWeight="SemiBold"
-                                            Foreground="{StaticResource InactiveColor}"
+                                            Foreground="{StaticResource ForegroundShade}"
                                             Style="{StaticResource MediumText}"
                                             Text="KNN Forecast" />
 
@@ -263,14 +268,14 @@
                                                 Grid.Column="0"
                                                 Margin="0,0,4,0"
                                                 FontWeight="SemiBold"
-                                                Style="{StaticResource BaseText}"
+                                                Style="{StaticResource BodyText}"
                                                 Text="{Binding KnnResult, StringFormat='c'}" />
 
                                             <TextBlock
                                                 Grid.Column="2"
                                                 VerticalAlignment="Bottom"
                                                 FontWeight="SemiBold"
-                                                Foreground="{StaticResource InactiveColor}"
+                                                Foreground="{StaticResource ForegroundShade}"
                                                 Style="{StaticResource VerySmallText}"
                                                 Text="/  end of month" />
 
@@ -282,7 +287,7 @@
                                 <Border
                                     Grid.Column="2"
                                     Padding="24,16"
-                                    Background="{StaticResource BackgroundGradientColor}"
+                                    Background="{StaticResource BackgroundGradient}"
                                     CornerRadius="16">
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -294,7 +299,7 @@
                                         <TextBlock
                                             Grid.Row="0"
                                             FontWeight="SemiBold"
-                                            Foreground="{StaticResource InactiveColor}"
+                                            Foreground="{StaticResource ForegroundShade}"
                                             Style="{StaticResource MediumText}"
                                             Text="Linear Forecast" />
 
@@ -309,14 +314,14 @@
                                                 Grid.Column="0"
                                                 Margin="0,0,4,0"
                                                 FontWeight="SemiBold"
-                                                Style="{StaticResource BaseText}"
+                                                Style="{StaticResource BodyText}"
                                                 Text="{Binding LinearResult, StringFormat='c'}" />
 
                                             <TextBlock
                                                 Grid.Column="2"
                                                 VerticalAlignment="Bottom"
                                                 FontWeight="SemiBold"
-                                                Foreground="{StaticResource InactiveColor}"
+                                                Foreground="{StaticResource ForegroundShade}"
                                                 Style="{StaticResource VerySmallText}"
                                                 Text="/  end of month" />
 

@@ -20,7 +20,7 @@
         Width="Auto"
         Height="Auto"
         Padding="40"
-        Background="{StaticResource PrimaryColor}"
+        Background="{StaticResource Primary}"
         CornerRadius="12">
 
         <Grid>
@@ -53,7 +53,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="24" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="24" />
+                    <RowDefinition Height="16" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="40" />
                     <RowDefinition Height="Auto" />
@@ -71,13 +71,13 @@
 
                     <TextBlock
                         Grid.Row="0"
-                        Style="{StaticResource Header1}"
+                        Style="{StaticResource Header2}"
                         Text="Sign up with your email" />
 
                     <TextBlock
                         Grid.Row="2"
-                        Foreground="{StaticResource InactiveColor}"
-                        Style="{StaticResource BaseText}">
+                        Foreground="{StaticResource ForegroundShade}"
+                        Style="{StaticResource BodyText}">
                         <Run Text="Already have an account?" />
                         <Hyperlink Command="{Binding ViewLoginCommand}" Style="{StaticResource CTALink}">
                             Log in
@@ -88,7 +88,7 @@
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="16" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
@@ -96,7 +96,7 @@
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
+                            <RowDefinition Height="6" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -107,7 +107,7 @@
 
                         <TextBox
                             Grid.Row="2"
-                            Width="163.5"
+                            Width="168"
                             Text="{Binding FirstName}" />
                     </Grid>
 
@@ -115,7 +115,7 @@
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
+                            <RowDefinition Height="6" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -126,7 +126,7 @@
 
                         <TextBox
                             Grid.Row="2"
-                            Width="163.5"
+                            Width="168"
                             Text="{Binding LastName}" />
                     </Grid>
                 </Grid>
@@ -135,7 +135,7 @@
                 <Grid Grid.Row="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="8" />
+                        <RowDefinition Height="6" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -151,7 +151,7 @@
                 <Grid Grid.Row="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="8" />
+                        <RowDefinition Height="6" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -167,7 +167,7 @@
                 <Grid Grid.Row="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="8" />
+                        <RowDefinition Height="6" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -180,12 +180,9 @@
                 </Grid>
 
                 <!--  Privacy Terms  -->
-                <CheckBox
-                    Grid.Row="10"
-                    IsChecked="{Binding IsChecked}"
-                    Style="{DynamicResource CheckBoxTemplate}">
+                <CheckBox Grid.Row="10" IsChecked="{Binding IsChecked}">
                     <CheckBox.Content>
-                        <TextBlock Foreground="{StaticResource InactiveColor}" Style="{StaticResource Body}">
+                        <TextBlock Foreground="{StaticResource ForegroundShade}" Style="{StaticResource BodyText}">
                             <Run Text="I agree to the" />
                             <Hyperlink Style="{StaticResource TermsLink}">Terms &amp; Conditions</Hyperlink>
                             <Run Text="and" />
@@ -197,20 +194,18 @@
                 <!--  Button  -->
                 <Button
                     Grid.Row="12"
-                    Width="351"
-                    Height="48"
+                    Width="352"
+                    Height="52"
                     Command="{Binding RegisterCommand}"
                     Content="Create Account"
                     IsDefault="True"
-                    Style="{StaticResource BaseButton}"
                     Tag="{StaticResource CreateAccountIcon}" />
 
                 <!--  Error Message  -->
                 <TextBlock
                     Grid.Row="14"
                     DataContext="{Binding ErrorMessageViewModel}"
-                    Foreground="{StaticResource AccentColor}"
-                    Style="{StaticResource ErrorMessage}"
+                    Style="{StaticResource ErrorText}"
                     Text="{Binding Message}"
                     Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </Grid>
@@ -228,20 +223,20 @@
 
                 <TextBlock
                     Grid.Column="0"
-                    Foreground="{StaticResource InactiveColor}"
-                    Style="{StaticResource Body}"
+                    Foreground="{StaticResource ForegroundShade}"
+                    Style="{StaticResource BodyText}"
                     Text="Need help?" />
 
                 <TextBlock
                     Grid.Column="2"
-                    Foreground="{StaticResource InactiveColor}"
-                    Style="{StaticResource Body}"
+                    Foreground="{StaticResource ForegroundShade}"
+                    Style="{StaticResource BodyText}"
                     Text="Privacy &amp; Terms" />
 
                 <TextBlock
                     Grid.Column="4"
-                    Foreground="{StaticResource InactiveColor}"
-                    Style="{StaticResource Body}"
+                    Foreground="{StaticResource ForegroundShade}"
+                    Style="{StaticResource BodyText}"
                     Text="© 2023 Expensier" />
             </Grid>
             <!--#endregion-->

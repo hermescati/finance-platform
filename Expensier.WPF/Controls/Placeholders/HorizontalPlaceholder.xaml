@@ -38,8 +38,8 @@
             <TextBlock
                 Grid.Row="2"
                 Width="236"
-                Foreground="{StaticResource InactiveColor}"
-                Style="{StaticResource SmallText}"
+                Foreground="{StaticResource ForegroundShade}"
+                Style="{StaticResource MediumText}"
                 Text="{Binding Body, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 TextWrapping="Wrap" />
 

@@ -12,7 +12,7 @@
 
     <ListView
         HorizontalContentAlignment="Stretch"
-        Background="{DynamicResource PrimaryColor}"
+        Background="{StaticResource Primary}"
         BorderThickness="0"
         Focusable="False"
         IsHitTestVisible="False"
@@ -44,11 +44,11 @@
                             Grid.Column="0"
                             Width="40"
                             Height="40"
-                            Source="{DynamicResource CreditTransactionIcon}" />
+                            Source="{StaticResource CreditTransactionIcon}" />
 
                         <!--  Subscription Details  -->
                         <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding SubscriptionPlan}" />
+                            <TextBlock Style="{StaticResource Header6}" Text="{Binding SubscriptionPlan}" />
 
                             <StackPanel
                                 Margin="0,2,0,0"
@@ -56,19 +56,19 @@
                                 Orientation="Horizontal">
 
                                 <TextBlock
-                                    Foreground="{DynamicResource InactiveColor}"
-                                    Style="{DynamicResource SmallText}"
+                                    Foreground="{StaticResource ForegroundShade}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding DueDate, StringFormat='{}{0:MMM dd}'}" />
 
                                 <Ellipse
                                     Width="4"
                                     Height="4"
                                     Margin="8,0"
-                                    Fill="{DynamicResource InactiveColor}" />
+                                    Fill="{StaticResource ForegroundShade}" />
 
                                 <TextBlock
-                                    Foreground="{DynamicResource InactiveColor}"
-                                    Style="{DynamicResource SmallText}"
+                                    Foreground="{StaticResource ForegroundShade}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding DueDate, StringFormat='{}{0:yyyy}'}" />
 
                             </StackPanel>
@@ -78,7 +78,7 @@
                         <TextBlock
                             Grid.Column="4"
                             VerticalAlignment="Top"
-                            Style="{DynamicResource Header6}"
+                            Style="{StaticResource Header6}"
                             Text="{Binding Amount, StringFormat='c'}" />
 
                     </Grid>

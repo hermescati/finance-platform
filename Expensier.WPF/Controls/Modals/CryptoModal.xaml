@@ -25,10 +25,10 @@
 
         <Border
             Width="360"
-            Height="392"
+            Height="380"
             Padding="24"
-            Background="{StaticResource PrimaryColor}"
-            BorderBrush="{StaticResource InactiveColor}"
+            Background="{StaticResource Primary}"
+            BorderBrush="{StaticResource ForegroundShade}"
             BorderThickness=".5"
             CornerRadius="16">
 
@@ -48,7 +48,7 @@
                 <!--#region Header-->
                 <TextBlock
                     Grid.Row="0"
-                    Style="{StaticResource Header2}"
+                    Style="{StaticResource Header3}"
                     Text="Add new asset" />
                 <!--#endregion-->
 
@@ -58,7 +58,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="12" />
+                        <RowDefinition Height="8" />
                         <RowDefinition Height="16" />
                     </Grid.RowDefinitions>
 
@@ -66,7 +66,7 @@
                     <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
+                            <RowDefinition Height="6" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -74,17 +74,16 @@
 
                         <TextBox
                             Grid.Row="2"
-                            Width="311"
+                            Width="310"
                             Text="{Binding CryptoSymbol}" />
 
                         <Button
                             Grid.Row="2"
-                            Width="72"
+                            Width="80"
                             Height="40"
                             Margin="0,0,6,0"
-                            Padding="6,0"
                             HorizontalAlignment="Right"
-                            Background="{StaticResource SecondaryColor}"
+                            Background="{StaticResource Foreground}"
                             Command="{Binding SearchSymbolCommand}"
                             Content="Search"
                             Style="{StaticResource SquareButton}" />
@@ -101,7 +100,7 @@
                         <Grid Grid.Column="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="8" />
+                                <RowDefinition Height="6" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
@@ -121,7 +120,7 @@
                         <Grid Grid.Column="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="8" />
+                                <RowDefinition Height="6" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
@@ -142,7 +141,7 @@
                     <TextBlock
                         Grid.Row="4"
                         DataContext="{Binding ErrorMessageViewModel}"
-                        Style="{StaticResource ErrorMessage}"
+                        Style="{StaticResource ErrorText}"
                         Text="{Binding Message}"
                         TextWrapping="Wrap"
                         Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -154,29 +153,27 @@
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="8" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <!--  Cancel  -->
                     <Button
                         Grid.Column="0"
-                        Width="140"
+                        Width="150"
                         Height="48"
-                        Background="{StaticResource PrimaryColor}"
+                        Background="{StaticResource Primary}"
                         Click="Button_Click"
                         Content="Cancel"
-                        Foreground="{StaticResource InactiveColor}"
-                        Style="{StaticResource BaseButton}" />
+                        Foreground="{StaticResource ForegroundShade}" />
 
                     <!--  Add  -->
                     <Button
                         Grid.Column="2"
-                        Width="140"
+                        Width="150"
                         Height="48"
                         Command="{Binding AddCryptoCommand}"
-                        Content="Add"
-                        Style="{StaticResource BaseButton}" />
+                        Content="Add" />
                 </Grid>
                 <!--#endregion-->
 
