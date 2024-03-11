@@ -17,6 +17,8 @@
             CreditImage="{StaticResource CreditTransactionIcon}"
             DebitImage="{StaticResource DebitTransactionIcon}" />
 
+        <converters:CategoryToIconConverter x:Key="CategoryToIconConverter" />
+
         <converters:BoolToSymbolConverter
             x:Key="BoolToSymbolConverter"
             CreditSymbol="-"
@@ -38,7 +40,7 @@
 
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Border Padding="0,13" BorderThickness="0">
+                <Border Padding="0,14" BorderThickness="0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -51,15 +53,15 @@
                         <!--  Icon  -->
                         <Image
                             Grid.Column="0"
-                            Width="42"
-                            Height="42"
-                            Source="{Binding IsCredit, Converter={StaticResource BoolToImageConverter}}" />
+                            Width="38"
+                            Height="38"
+                            Source="{Binding TransactionType, Converter={StaticResource CategoryToIconConverter}}" />
 
                         <!--  Transaction Details  -->
                         <Grid Grid.Column="2" VerticalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="4" />
+                                <RowDefinition Height="2" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
@@ -75,18 +77,18 @@
 
                                 <TextBlock
                                     Foreground="{StaticResource ForegroundShade}"
-                                    Style="{StaticResource MediumText}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
 
                                 <Ellipse
                                     Width="4"
                                     Height="4"
-                                    Margin="8,0"
+                                    Margin="6,0"
                                     Fill="{StaticResource ForegroundShade}" />
 
                                 <TextBlock
                                     Foreground="{StaticResource ForegroundShade}"
-                                    Style="{StaticResource MediumText}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
 

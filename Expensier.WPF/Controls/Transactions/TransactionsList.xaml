@@ -17,6 +17,8 @@
             CreditImage="{StaticResource CreditTransactionIcon}"
             DebitImage="{StaticResource DebitTransactionIcon}" />
 
+        <converters:CategoryToIconConverter x:Key="CategoryToIconConverter" />
+
         <converters:BoolToSymbolConverter
             x:Key="BoolToSymbolConverter"
             CreditSymbol="-"
@@ -104,9 +106,9 @@
                     <!--#region Icon-->
                     <Image
                         Grid.Column="0"
-                        Width="40"
-                        Height="40"
-                        Source="{Binding IsCredit, Converter={StaticResource BoolToImageConverter}}" />
+                        Width="34"
+                        Height="34"
+                        Source="{Binding TransactionType, Converter={StaticResource CategoryToIconConverter}}" />
                     <!--#endregion-->
 
                     <!--#region Transaction-->

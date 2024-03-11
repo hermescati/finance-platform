@@ -1,0 +1,57 @@
+﻿using Expensier.WPF.Enums;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Media;
+
+namespace Expensier.WPF.Converters
+{
+    public class CategoryToIconConverter : IValueConverter
+    {
+        private Dictionary<TransactionCategory, ImageSource> categoryIconMap;
+
+        public CategoryToIconConverter()
+        {
+            InitializeCategoryIconMap();
+        }
+
+        private void InitializeCategoryIconMap()
+        {
+            categoryIconMap = new Dictionary<TransactionCategory, ImageSource>
+            {
+                { TransactionCategory.Salary, App.Current.FindResource("IncomeIcon") as ImageSource },
+                { TransactionCategory.Rent, App.Current.FindResource("RentIcon") as ImageSource },
+                { TransactionCategory.Utilities, App.Current.FindResource("UtilitiesIcon") as ImageSource },
+                { TransactionCategory.Food, App.Current.FindResource("FoodIcon") as ImageSource },
+                { TransactionCategory.Travel, App.Current.FindResource("TravelIcon") as ImageSource },
+                { TransactionCategory.Shopping, App.Current.FindResource("ShoppingIcon") as ImageSource },
+                { TransactionCategory.Subscription, App.Current.FindResource("SubscriptionIcon") as ImageSource }
+            };
+        }
+
+        public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
+        {
+            if ( value == null || !(value is string) )
+            {
+                return null;
+            }
+
+            string categoryStr = (string) value;
+
+            if ( Enum.TryParse( categoryStr, out TransactionCategory category ) && categoryIconMap.ContainsKey( category ) )
+            {
+                return categoryIconMap[category];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
