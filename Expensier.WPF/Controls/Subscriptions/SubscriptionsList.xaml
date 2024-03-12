@@ -61,20 +61,20 @@
                                             Storyboard.TargetName="Border"
                                             Storyboard.TargetProperty="Padding"
                                             From="0, 16"
-                                            To="16, 16, 24, 16"
-                                            Duration="0:0:0.1" />
+                                            To="16"
+                                            Duration="0:0:0.15" />
                                         <DoubleAnimation
                                             Storyboard.TargetName="DeleteButton"
                                             Storyboard.TargetProperty="Opacity"
                                             From="0"
                                             To="1"
-                                            Duration="0" />
+                                            Duration="0:0:0.2" />
                                         <ThicknessAnimation
                                             Storyboard.TargetName="DeleteButton"
                                             Storyboard.TargetProperty="Margin"
                                             From="0"
-                                            To="24, 0, 0, 0"
-                                            Duration="0" />
+                                            To="32, 0, 16, 0"
+                                            Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -82,24 +82,24 @@
                             <EventTrigger RoutedEvent="Border.MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        <ThicknessAnimation
+                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetProperty="Margin"
+                                            From="32, 0, 16, 0"
+                                            To="0"
+                                            Duration="0:0:0.2" />
                                         <DoubleAnimation
                                             Storyboard.TargetName="DeleteButton"
                                             Storyboard.TargetProperty="Opacity"
                                             From="1"
                                             To="0"
-                                            Duration="0" />
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="DeleteButton"
-                                            Storyboard.TargetProperty="Margin"
-                                            From="24, 0, 0, 0"
-                                            To="0"
-                                            Duration="0" />
+                                            Duration="0:0:0.2" />
                                         <ThicknessAnimation
                                             Storyboard.TargetName="Border"
                                             Storyboard.TargetProperty="Padding"
-                                            From="16, 16, 24, 16"
+                                            From="16"
                                             To="0, 16"
-                                            Duration="0:0:0.1" />
+                                            Duration="0:0:0.15" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

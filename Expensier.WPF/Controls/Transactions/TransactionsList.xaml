@@ -34,13 +34,29 @@
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                         <Border
                             x:Name="Border"
-                            Padding="0,16,16,16"
+                            Padding="0,16"
                             CornerRadius="16">
-                            <ContentPresenter
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ContentPresenter
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                    UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+
+                                <Button
+                                    x:Name="DeleteButton"
+                                    Grid.Column="4"
+                                    Background="Transparent"
+                                    Command="{Binding DeleteCommand}"
+                                    Opacity="0"
+                                    Style="{StaticResource InlineButton}"
+                                    Tag="{StaticResource DeleteIcon}" />
+                            </Grid>
                         </Border>
 
                         <ControlTemplate.Triggers>
@@ -54,9 +70,21 @@
                                         <ThicknessAnimation
                                             Storyboard.TargetName="Border"
                                             Storyboard.TargetProperty="Padding"
-                                            From="0, 16, 16, 16"
-                                            To="16, 16, 16, 16"
-                                            Duration="0:0:0.1" />
+                                            From="0, 16"
+                                            To="16"
+                                            Duration="0:0:0.15" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0"
+                                            To="1"
+                                            Duration="0:0:0.2" />
+                                        <ThicknessAnimation
+                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetProperty="Margin"
+                                            From="0"
+                                            To="32, 0, 16, 0"
+                                            Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -65,11 +93,23 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ThicknessAnimation
+                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetProperty="Margin"
+                                            From="32, 0, 16, 0"
+                                            To="0"
+                                            Duration="0:0:0.2" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="1"
+                                            To="0"
+                                            Duration="0:0:0.2" />
+                                        <ThicknessAnimation
                                             Storyboard.TargetName="Border"
                                             Storyboard.TargetProperty="Padding"
-                                            From="16, 16, 16, 16"
-                                            To="0, 16, 16, 16"
-                                            Duration="0:0:0.1" />
+                                            From="16"
+                                            To="0, 16"
+                                            Duration="0:0:0.15" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -99,8 +139,6 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="16" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="24" />
-                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <!--#region Icon-->
@@ -115,26 +153,24 @@
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="24" />
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="40" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <!--  Name  -->
                         <TextBlock
                             Grid.Column="0"
-                            Width="164"
+                            MinWidth="164"
                             VerticalAlignment="Center"
                             Style="{StaticResource Header6}"
                             Text="{Binding TransactionName}" />
 
                         <!--  Category  -->
-                        <StackPanel Grid.Column="2" Width="88">
+                        <StackPanel Grid.Column="2">
                             <TextBlock
                                 Margin="0,0,0,2"
                                 Foreground="{StaticResource ForegroundShade}"
@@ -142,13 +178,13 @@
                                 Text="Category" />
 
                             <TextBlock
-                                Width="120"
+                                MinWidth="80"
                                 Style="{StaticResource Header6}"
                                 Text="{Binding TransactionType}" />
                         </StackPanel>
 
                         <!--  Date  -->
-                        <StackPanel Grid.Column="4" Width="132">
+                        <StackPanel Grid.Column="4" MinWidth="120">
                             <TextBlock
                                 Margin="0,0,0,2"
                                 Foreground="{StaticResource ForegroundShade}"
@@ -169,9 +205,8 @@
                         </StackPanel>
 
                         <!--  Amount  -->
-                        <StackPanel Grid.Column="6" Width="88">
+                        <StackPanel Grid.Column="6" MinWidth="80">
                             <TextBlock
-                                Margin="0,0,0,2"
                                 Foreground="{StaticResource ForegroundShade}"
                                 Style="{StaticResource SmallText}"
                                 Text="Amount" />
@@ -184,15 +219,6 @@
                         </StackPanel>
 
                     </Grid>
-                    <!--#endregion-->
-
-                    <!--#region CTA-->
-                    <Button
-                        Grid.Column="4"
-                        Background="Transparent"
-                        Command="{Binding DeleteCommand}"
-                        Style="{StaticResource InlineButton}"
-                        Tag="{StaticResource DeleteIcon}" />
                     <!--#endregion-->
 
                 </Grid>
