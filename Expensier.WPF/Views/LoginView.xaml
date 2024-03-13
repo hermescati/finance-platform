@@ -21,7 +21,7 @@
         Height="Auto"
         Padding="40"
         Background="{StaticResource Primary}"
-        CornerRadius="12">
+        CornerRadius="24">
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -153,7 +153,7 @@
                         Command="{Binding LoginCommand}"
                         Content="Login"
                         IsDefault="True"
-                        Tag="{StaticResource LoginIcon}" />
+                        Tag="{StaticResource LoginSelectedIcon}" />
 
                     <!--  Error Message  -->
                     <TextBlock

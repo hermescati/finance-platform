@@ -19,10 +19,10 @@
 
         <Border
             Width="360"
-            Height="456"
+            Height="460"
             Padding="24"
             Background="{StaticResource Primary}"
-            BorderBrush="{StaticResource ForegroundShade}"
+            BorderBrush="{StaticResource Transparent}"
             BorderThickness=".5"
             CornerRadius="16">
 

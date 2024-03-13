@@ -19,8 +19,8 @@
 
         <converters:DoubleToColorConverter
             x:Key="DoubleToColorConverter"
-            NegativeColor="#D94E33"
-            PositiveColor="#64927C" />
+            NegativeColor="{StaticResource AccentColor}"
+            PositiveColor="{StaticResource SecondaryColor}" />
 
 
         <Style x:Key="TopPerformingCrypto" TargetType="{x:Type ListViewItem}">

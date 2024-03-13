@@ -37,14 +37,18 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontFamily="{StaticResource Lato}"
-                                FontSize="12"
-                                FontWeight="Bold"
-                                Foreground="DarkGray"
+                                FontSize="14"
+                                FontWeight="Regular"
+                                Foreground="{StaticResource ForegroundShade}"
                                 Text="{Binding}" />
                         </DataTemplate>
                     </ControlTemplate.Resources>
                     <Grid x:Name="PART_Root">
                         <Grid.Resources>
+                            <SolidColorBrush
+                                x:Key="ChevronColor"
+                                Opacity="0.4"
+                                Color="{StaticResource ForegroundColor}" />
                             <SolidColorBrush x:Key="DisabledColor" Color="{StaticResource SecondaryColor}" />
                         </Grid.Resources>
                         <Border
@@ -54,9 +58,9 @@
                             CornerRadius="12">
                             <Border
                                 Padding="16"
-                                BorderBrush="White"
-                                BorderThickness="0.1"
-                                CornerRadius="16">
+                                BorderBrush="{StaticResource ForegroundShade}"
+                                BorderThickness="0.2"
+                                CornerRadius="24">
                                 <Grid>
                                     <Grid.Resources>
                                         <ControlTemplate x:Key="PreviousButtonTemplate" TargetType="{x:Type Button}">
@@ -68,7 +72,7 @@
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
                                                     Data="M288.75,232.25 L288.75,240.625 L283,236.625 z"
-                                                    Fill="DarkGray"
+                                                    Fill="{DynamicResource ChevronColor}"
                                                     Stretch="Fill" />
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
@@ -78,7 +82,7 @@
                                                                 <ColorAnimation
                                                                     Storyboard.TargetName="path"
                                                                     Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
-                                                                    To="LightGray"
+                                                                    To="{StaticResource ForegroundColor}"
                                                                     Duration="0" />
                                                             </Storyboard>
                                                         </VisualState>
@@ -104,7 +108,7 @@
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
                                                     Data="M282.875,231.875 L282.875,240.375 L288.625,236 z"
-                                                    Fill="DarkGray"
+                                                    Fill="{DynamicResource ChevronColor}"
                                                     Stretch="Fill" />
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
@@ -114,7 +118,7 @@
                                                                 <ColorAnimation
                                                                     Storyboard.TargetName="path"
                                                                     Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
-                                                                    To="LightGray"
+                                                                    To="{StaticResource ForegroundColor}"
                                                                     Duration="0" />
                                                             </Storyboard>
                                                         </VisualState>
@@ -151,7 +155,7 @@
                                                                 <ColorAnimation
                                                                     Storyboard.TargetName="buttonContent"
                                                                     Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                                    To="LightGray"
+                                                                    To="{StaticResource SecondaryColor}"
                                                                     Duration="0" />
                                                             </Storyboard>
                                                         </VisualState>
@@ -309,8 +313,8 @@
         <Setter Property="Height" Value="40" />
         <Setter Property="Margin" Value="2" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="FontFamily" Value="SF Pro Display" />
-        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="FontFamily" Value="{StaticResource Lato}" />
+        <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
@@ -694,10 +698,12 @@
                             <Grid.Resources>
                                 <ControlTemplate x:Key="DropDownButtonTemplate" TargetType="{x:Type Button}">
                                     <Image
-                                        Width="24"
-                                        Height="24"
+                                        Width="15"
+                                        Height="15"
                                         HorizontalAlignment="Right"
-                                        Source="{DynamicResource ChevronDownIcon}" />
+                                        VerticalAlignment="Center"
+                                        Opacity="0.75"
+                                        Source="{StaticResource ChevronDownIcon}" />
                                 </ControlTemplate>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
@@ -708,9 +714,9 @@
                             </Grid.ColumnDefinitions>
                             <Image
                                 Grid.Column="0"
-                                Width="24"
-                                Height="24"
-                                Source="{DynamicResource CalendarIcon}" />
+                                Width="20"
+                                Height="20"
+                                Source="{StaticResource CalendarIcon}" />
                             <DatePickerTextBox
                                 x:Name="PART_TextBox"
                                 Grid.Column="2"
@@ -724,9 +730,7 @@
                                 Grid.Column="3"
                                 Height="24"
                                 HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
                                 Focusable="False"
-                                Foreground="{TemplateBinding Foreground}"
                                 Template="{DynamicResource DropDownButtonTemplate}" />
                             <Grid
                                 x:Name="PART_DisabledVisual"
@@ -795,13 +799,13 @@
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="FontFamily" Value="{StaticResource Lato}" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DatePickerTextBox}">
                     <Grid>
                         <Grid.Resources>
-                            <SolidColorBrush x:Key="WatermarkBrush" Color="#FFAAAAAA" />
+                            <SolidColorBrush x:Key="WatermarkBrush" Color="{TemplateBinding Foreground}" />
                         </Grid.Resources>
                         <Border
                             x:Name="Border"
@@ -817,12 +821,12 @@
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                 <Border
                                     x:Name="ContentElement"
-                                    BorderBrush="#FFFFFFFF"
+                                    BorderBrush="{TemplateBinding Foreground}"
                                     BorderThickness="1"
                                     Visibility="Hidden" />
                                 <Border
                                     x:Name="watermark_decorator"
-                                    BorderBrush="#FFFFFFFF"
+                                    BorderBrush="{TemplateBinding Foreground}"
                                     BorderThickness="1"
                                     Visibility="Hidden">
                                     <ContentControl

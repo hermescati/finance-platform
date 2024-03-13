@@ -15,14 +15,14 @@
 
         <Style x:Key="SearchBarTemplate" TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource MenuShade}" />
-            <Setter Property="Foreground" Value="{StaticResource Transparent}" />
+            <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
             <Setter Property="BorderBrush" Value="{StaticResource Secondary}" />
             <Setter Property="Width" Value="Auto" />
-            <Setter Property="Height" Value="42" />
+            <Setter Property="Height" Value="44" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="FontFamily" Value="{StaticResource Lato}" />
             <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -69,7 +69,7 @@
                                         FontSize="{TemplateBinding FontSize}"
                                         FontWeight="{TemplateBinding FontWeight}"
                                         Foreground="{TemplateBinding Foreground}"
-                                        Text="Search expenses history..."
+                                        Text="Search by name..."
                                         Visibility="Collapsed" />
                                     <ScrollViewer
                                         x:Name="PART_ContentHost"
@@ -86,7 +86,6 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
-                                <Setter TargetName="Icon" Property="Image.Source" Value="{StaticResource SearchSelectedIcon}" />
                             </Trigger>
                             <Trigger Property="IsKeyboardFocused" Value="True">
                                 <Setter TargetName="Icon" Property="Image.Source" Value="{StaticResource SearchSelectedIcon}" />

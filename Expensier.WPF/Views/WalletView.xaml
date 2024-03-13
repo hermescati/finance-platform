@@ -25,7 +25,7 @@
             Height="Auto"
             Padding="40"
             Background="{StaticResource Primary}"
-            CornerRadius="12">
+            CornerRadius="24">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -231,7 +231,7 @@
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="24" />
+                                <RowDefinition Height="16" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
@@ -268,8 +268,14 @@
                                     Height="42"
                                     Click="AddNewCrypto"
                                     Content="Add new"
-                                    Style="{StaticResource SquareButton}"
-                                    Tag="{StaticResource AddNewIcon}" />
+                                    Style="{StaticResource SquareButton}">
+                                    <Button.Tag>
+                                        <x:Array Type="DrawingImage">
+                                            <DrawingImage Drawing="{StaticResource AddSelectedVector}" />
+                                            <DrawingImage Drawing="{StaticResource AddVector}" />
+                                        </x:Array>
+                                    </Button.Tag>
+                                </Button>
 
                                 <ComboBox
                                     Grid.Column="2"

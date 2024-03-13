@@ -12,11 +12,6 @@
 
 
     <UserControl.Resources>
-        <converters:BoolToImageConverter
-            x:Key="BoolToImageConverter"
-            CreditImage="{StaticResource CreditTransactionIcon}"
-            DebitImage="{StaticResource DebitTransactionIcon}" />
-
         <converters:CategoryToIconConverter x:Key="CategoryToIconConverter" />
 
         <converters:BoolToSymbolConverter

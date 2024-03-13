@@ -19,7 +19,6 @@
     <None Remove="Assets\Fonts\Lato-Thin.ttf" />
     <None Remove="Assets\Fonts\Lato-ThinItalic.ttf" />
     <None Remove="Assets\Images\default_profile_picture.png" />
-    <None Remove="Styles\Images\default_profile_picture.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,9 +70,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Images\default_profile_picture.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Styles\Images\default_profile_picture.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

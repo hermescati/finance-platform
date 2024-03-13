@@ -21,7 +21,7 @@
         Height="Auto"
         Padding="40"
         Background="{StaticResource Primary}"
-        CornerRadius="12">
+        CornerRadius="24">
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -58,7 +58,7 @@
                     <RowDefinition Height="40" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="8" />
-                    <RowDefinition Height="16" />
+                    <RowDefinition Height="32" />
                 </Grid.RowDefinitions>
 
                 <!--  Header  -->
@@ -199,14 +199,17 @@
                     Command="{Binding RegisterCommand}"
                     Content="Create Account"
                     IsDefault="True"
-                    Tag="{StaticResource CreateAccountIcon}" />
+                    Tag="{StaticResource ProfileSelectedIcon}" />
 
                 <!--  Error Message  -->
                 <TextBlock
                     Grid.Row="14"
+                    Width="352"
+                    VerticalAlignment="Top"
                     DataContext="{Binding ErrorMessageViewModel}"
                     Style="{StaticResource ErrorText}"
                     Text="{Binding Message}"
+                    TextWrapping="Wrap"
                     Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </Grid>
             <!--#endregion-->

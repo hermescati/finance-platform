@@ -72,7 +72,7 @@
         Height="Auto"
         Padding="40"
         Background="{StaticResource Primary}"
-        CornerRadius="12">
+        CornerRadius="24">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -140,8 +140,8 @@
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Dashboard}" />
-                            <DrawingImage Drawing="{StaticResource DashboardSelected}" />
+                            <DrawingImage Drawing="{StaticResource DashboardVector}" />
+                            <DrawingImage Drawing="{StaticResource DashboardSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -151,13 +151,13 @@
                     Grid.Row="2"
                     Command="{Binding UpdateCurrentViewModelCommand}"
                     CommandParameter="{x:Static navigator:ViewType.Expenses}"
-                    Content="Expenses"
+                    Content="Transactions"
                     IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:ExpensesViewModel}}"
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Expenses}" />
-                            <DrawingImage Drawing="{StaticResource ExpensesSelected}" />
+                            <DrawingImage Drawing="{StaticResource TransactionsVector}" />
+                            <DrawingImage Drawing="{StaticResource TransactionsSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -172,8 +172,8 @@
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Wallet}" />
-                            <DrawingImage Drawing="{StaticResource WalletSelected}" />
+                            <DrawingImage Drawing="{StaticResource WalletVector}" />
+                            <DrawingImage Drawing="{StaticResource WalletSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -192,8 +192,8 @@
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Settings}" />
-                            <DrawingImage Drawing="{StaticResource SettingsSelected}" />
+                            <DrawingImage Drawing="{StaticResource SettingsVector}" />
+                            <DrawingImage Drawing="{StaticResource SettingsSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -205,8 +205,8 @@
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Support}" />
-                            <DrawingImage Drawing="{StaticResource SupportSelected}" />
+                            <DrawingImage Drawing="{StaticResource SupportVector}" />
+                            <DrawingImage Drawing="{StaticResource SupportSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -222,7 +222,7 @@
                 Command="{Binding LogoutCommand}"
                 Content="Log out"
                 DataContext="{Binding SidePanelViewModel}"
-                Tag="{StaticResource LogoutIcon}" />
+                Tag="{StaticResource LogoutSelectedIcon}" />
             <!--#endregion-->
 
         </Grid>

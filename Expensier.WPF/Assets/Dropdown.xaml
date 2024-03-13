@@ -59,8 +59,14 @@
                 Grid.ColumnSpan="2"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                Style="{DynamicResource DropDownButtonTemplate}"
-                Tag="{StaticResource ChevronDownIcon}" />
+                Style="{DynamicResource DropDownButtonTemplate}">
+                <ToggleButton.Tag>
+                    <x:Array Type="DrawingImage">
+                        <DrawingImage Drawing="{StaticResource ChevronDownVector}" />
+                        <DrawingImage Drawing="{StaticResource ChevronUpVector}" />
+                    </x:Array>
+                </ToggleButton.Tag>
+            </ToggleButton>
             <ContentPresenter
                 x:Name="contentPresenter"
                 Margin="16,0,0,0"
@@ -109,12 +115,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
-                        x:Name="GlowEffect"
+                        x:Name="Glow"
                         Margin="-4"
                         BorderThickness="4"
                         CornerRadius="14">
                         <Border
-                            x:Name="Border"
+                            x:Name="Stroke"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
                             Background="{StaticResource MenuShade}"
@@ -132,30 +138,30 @@
                                     <ColumnDefinition Width="16" />
                                 </Grid.ColumnDefinitions>
                                 <ContentPresenter
-                                    x:Name="ButtonContent"
+                                    x:Name="Content"
                                     Grid.Column="1"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="Center"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                    TextElement.FontFamily="SF Pro Display"
-                                    TextElement.FontSize="14"
-                                    TextElement.FontWeight="Medium"
-                                    TextElement.Foreground="{StaticResource ForegroundShade}"
+                                    TextElement.Foreground="{StaticResource Foreground}"
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
                                 <Image
+                                    x:Name="Icon"
                                     Grid.Column="3"
-                                    Width="22"
-                                    Height="22"
-                                    Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    Width="14"
+                                    Height="14"
+                                    Opacity="0.75"
+                                    Source="{Binding Tag[0], RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{StaticResource SecondaryShade}" />
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Secondary}" />
-                            <Setter TargetName="ButtonContent" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Glow" Property="BorderBrush" Value="{StaticResource SecondaryShade}" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Primary}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Icon" Property="Source" Value="{Binding Tag[1], RelativeSource={RelativeSource TemplatedParent}}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -167,7 +173,7 @@
         <Setter Property="FontFamily" Value="{StaticResource Lato}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Regular" />
-        <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
+        <Setter Property="Foreground" Value="{StaticResource Foreground}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
@@ -180,7 +186,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="18" />
                             </Grid.ColumnDefinitions>
                             <ContentPresenter Grid.Column="0" />
                             <Viewbox Grid.Column="2">
@@ -252,7 +258,6 @@
                     Color="Transparent">
                     <Border
                         x:Name="dropDownBorder"
-                        Margin="0,8,0,0"
                         Padding="4"
                         Background="{StaticResource Primary}"
                         BorderBrush="{StaticResource Transparent}"
@@ -289,8 +294,8 @@
                 Style="{DynamicResource SortingDropdownButtonTemplate}">
                 <ToggleButton.Tag>
                     <x:Array Type="DrawingImage">
-                        <DrawingImage Drawing="{StaticResource Sort}" />
-                        <DrawingImage Drawing="{StaticResource SortSelected}" />
+                        <DrawingImage Drawing="{StaticResource SortVector}" />
+                        <DrawingImage Drawing="{StaticResource SortSelectedVector}" />
                     </x:Array>
                 </ToggleButton.Tag>
             </ToggleButton>
@@ -306,7 +311,7 @@
                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                 TextElement.FontFamily="{StaticResource Lato}"
                 TextElement.FontSize="14"
-                TextElement.FontWeight="Bold"
+                TextElement.FontWeight="Regular"
                 TextElement.Foreground="{StaticResource ForegroundShade}" />
         </Grid>
         <ControlTemplate.Triggers>
@@ -341,12 +346,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
-                        x:Name="GlowEffect"
+                        x:Name="Glow"
                         Margin="-4"
                         BorderThickness="4"
                         CornerRadius="14">
                         <Border
-                            x:Name="Border"
+                            x:Name="Stroke"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
                             Background="{StaticResource MenuShade}"
@@ -359,22 +364,22 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="16" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="8" />
+                                    <ColumnDefinition Width="12" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="16" />
                                 </Grid.ColumnDefinitions>
                                 <Image
                                     x:Name="Icon"
                                     Grid.Column="1"
-                                    Width="24"
-                                    Height="24"
+                                    Width="20"
+                                    Height="20"
                                     Source="{Binding Tag[0], RelativeSource={RelativeSource TemplatedParent}}" />
                                 <ContentPresenter
-                                    x:Name="ButtonContent"
+                                    x:Name="Content"
                                     Grid.Column="3"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="Center"
-                                    Content="sort by"
+                                    Content="Sort by"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                     TextElement.FontFamily="{StaticResource Lato}"
                                     TextElement.FontSize="14"
@@ -387,10 +392,10 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="Icon" Property="Source" Value="{Binding Tag[1], RelativeSource={RelativeSource TemplatedParent}}" />
-                            <Setter TargetName="GlowEffect" Property="BorderBrush" Value="{StaticResource SecondaryShade}" />
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Secondary}" />
-                            <Setter TargetName="ButtonContent" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Glow" Property="BorderBrush" Value="{StaticResource SecondaryShade}" />
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Primary}" />
+                            <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -401,8 +406,8 @@
     <Style x:Key="SortingDropdownItemsTemplate" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="FontFamily" Value="{StaticResource Lato}" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="FontWeight" Value="Medium" />
-        <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
+        <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="Foreground" Value="{StaticResource Foreground}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
@@ -412,6 +417,11 @@
                         Background="{StaticResource Primary}"
                         CornerRadius="8">
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
                             <ContentPresenter Grid.Column="0" />
                         </Grid>
                     </Border>

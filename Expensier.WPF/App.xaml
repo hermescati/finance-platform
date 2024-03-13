@@ -12,7 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Assets/Colors.xaml" />
                 <ResourceDictionary Source="/Assets/Fonts.xaml" />
-                <ResourceDictionary Source="/Styles/Icons.xaml" />
+                <ResourceDictionary Source="/Assets/Icons.xaml" />
                 <ResourceDictionary Source="/Assets/Media.xaml" />
                 <ResourceDictionary Source="/Assets/Buttons.xaml" />
                 <ResourceDictionary Source="/Assets/Inputs.xaml" />

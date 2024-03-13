@@ -25,10 +25,10 @@
 
         <Border
             Width="360"
-            Height="380"
+            Height="388"
             Padding="24"
             Background="{StaticResource Primary}"
-            BorderBrush="{StaticResource ForegroundShade}"
+            BorderBrush="{StaticResource Transparent}"
             BorderThickness=".5"
             CornerRadius="16">
 
@@ -79,7 +79,7 @@
 
                         <Button
                             Grid.Row="2"
-                            Width="80"
+                            Width="88"
                             Height="40"
                             Margin="0,0,6,0"
                             HorizontalAlignment="Right"

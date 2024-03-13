@@ -27,7 +27,7 @@
         Height="Auto"
         Padding="40"
         Background="{StaticResource Primary}"
-        CornerRadius="12">
+        CornerRadius="24">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -244,7 +244,7 @@
                         Grid.Row="2"
                         Padding="48,24,24,24"
                         Background="{StaticResource BackgroundGradient}"
-                        CornerRadius="16">
+                        CornerRadius="24">
 
                         <Grid>
                             <Grid.ColumnDefinitions>

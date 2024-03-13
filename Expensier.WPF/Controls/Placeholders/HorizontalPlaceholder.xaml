@@ -20,7 +20,7 @@
 
         <Image
             Grid.Column="0"
-            Width="184"
+            Width="200"
             Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
         <Grid Grid.Column="2" VerticalAlignment="Center">
