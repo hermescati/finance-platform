@@ -12,10 +12,7 @@
 
 
     <UserControl.Resources>
-        <converters:BoolToImageConverter
-            x:Key="BoolToImageConverter"
-            CreditImage="{StaticResource CreditTransactionIcon}"
-            DebitImage="{StaticResource DebitTransactionIcon}" />
+        <converters:CategoryToIconConverter x:Key="CategoryToIconConverter" />
 
         <converters:BoolToSymbolConverter
             x:Key="BoolToSymbolConverter"
@@ -25,9 +22,9 @@
 
 
     <ListView
-        Margin="-6,0,0,0"
+        Margin="-8,0,0,0"
         HorizontalContentAlignment="Stretch"
-        Background="{DynamicResource PrimaryColor}"
+        Background="{StaticResource Primary}"
         BorderThickness="0"
         Focusable="False"
         IsHitTestVisible="False"
@@ -38,7 +35,7 @@
 
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Border Padding="0,13" BorderThickness="0">
+                <Border Padding="0,14" BorderThickness="0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -51,48 +48,54 @@
                         <!--  Icon  -->
                         <Image
                             Grid.Column="0"
-                            Width="40"
-                            Height="40"
-                            Source="{Binding IsCredit, Converter={StaticResource BoolToImageConverter}}" />
+                            Width="38"
+                            Height="38"
+                            Source="{Binding TransactionType, Converter={StaticResource CategoryToIconConverter}}" />
 
                         <!--  Transaction Details  -->
-                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding TransactionName}" />
+                        <Grid Grid.Column="2" VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                Grid.Row="0"
+                                Style="{StaticResource Header6}"
+                                Text="{Binding TransactionName}" />
 
                             <StackPanel
-                                Margin="0,2,0,0"
+                                Grid.Row="2"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
 
                                 <TextBlock
-                                    Foreground="{DynamicResource InactiveColor}"
-                                    Style="{DynamicResource SmallText}"
+                                    Foreground="{StaticResource ForegroundShade}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
 
                                 <Ellipse
                                     Width="4"
                                     Height="4"
-                                    Margin="8,0"
-                                    Fill="{DynamicResource InactiveColor}" />
+                                    Margin="6,0"
+                                    Fill="{StaticResource ForegroundShade}" />
 
                                 <TextBlock
-                                    Foreground="{DynamicResource InactiveColor}"
-                                    Style="{DynamicResource SmallText}"
+                                    Foreground="{StaticResource ForegroundShade}"
+                                    Style="{StaticResource SmallText}"
                                     Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
-                        </StackPanel>
+
+                        </Grid>
 
                         <!--  Transaction Price  -->
-                        <StackPanel
+                        <TextBlock
                             Grid.Column="4"
-                            VerticalAlignment="Top"
-                            Orientation="Horizontal">
+                            VerticalAlignment="Center"
+                            Style="{StaticResource Header6}"
+                            Text="{Binding Amount, StringFormat='c'}" />
 
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
-
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding Amount, StringFormat='c'}" />
-
-                        </StackPanel>
                     </Grid>
                 </Border>
             </DataTemplate>

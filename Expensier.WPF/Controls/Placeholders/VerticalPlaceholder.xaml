@@ -22,7 +22,7 @@
 
         <Image
             Grid.Row="0"
-            Width="184"
+            Width="200"
             Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
         <TextBlock
@@ -33,8 +33,8 @@
         <TextBlock
             Grid.Row="4"
             Width="236"
-            Foreground="{StaticResource InactiveColor}"
-            Style="{StaticResource SmallText}"
+            Foreground="{StaticResource ForegroundShade}"
+            Style="{StaticResource BodyText}"
             Text="{Binding Body, RelativeSource={RelativeSource AncestorType=UserControl}}"
             TextWrapping="Wrap" />
 

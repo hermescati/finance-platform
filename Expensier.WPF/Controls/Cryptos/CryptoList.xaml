@@ -76,7 +76,7 @@
     <ListView
         x:Name="ListView"
         VerticalContentAlignment="Top"
-        Background="{DynamicResource PrimaryColor}"
+        Background="{StaticResource Primary}"
         BorderThickness="0"
         ItemContainerStyle="{DynamicResource CryptoViewItem}"
         ItemsSource="{Binding Cryptos}"
@@ -99,7 +99,7 @@
                         Grid.Column="0"
                         Width="40"
                         Height="40"
-                        Source="{DynamicResource DebitTransactionIcon}" />
+                        Source="{StaticResource DebitTransactionIcon}" />
                     <!--#endregion-->
 
                     <!--#region Crypto Asset-->
@@ -119,40 +119,40 @@
                             Grid.Column="0"
                             Width="88"
                             VerticalAlignment="Center"
-                            Style="{DynamicResource Header6}"
+                            Style="{StaticResource Header6}"
                             Text="{Binding Crypto.Name, Converter={StaticResource CryptoNameConverter}, ConverterParameter=' USD'}" />
 
                         <!--  Current Price  -->
                         <StackPanel Grid.Column="2" Width="120">
                             <TextBlock
                                 Margin="0,0,0,2"
-                                Foreground="{DynamicResource InactiveColor}"
-                                Style="{DynamicResource SmallText}"
+                                Foreground="{StaticResource Foreground}"
+                                Style="{StaticResource SmallText}"
                                 Text="Current Price" />
 
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding Crypto.Price, StringFormat='c'}" />
+                            <TextBlock Style="{StaticResource Header6}" Text="{Binding Crypto.Price, StringFormat='c'}" />
                         </StackPanel>
 
                         <!--  Amount  -->
                         <StackPanel Grid.Column="4" Width="80">
                             <TextBlock
                                 Margin="0,0,0,2"
-                                Foreground="{DynamicResource InactiveColor}"
-                                Style="{DynamicResource SmallText}"
+                                Foreground="{StaticResource ForegroundShade}"
+                                Style="{StaticResource SmallText}"
                                 Text="Amount" />
 
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding Amount}" />
+                            <TextBlock Style="{StaticResource Header6}" Text="{Binding Amount}" />
                         </StackPanel>
 
                         <!--  Total Value  -->
                         <StackPanel Grid.Column="6" Width="120">
                             <TextBlock
                                 Margin="0,0,0,2"
-                                Foreground="{DynamicResource InactiveColor}"
-                                Style="{DynamicResource SmallText}"
+                                Foreground="{StaticResource ForegroundShade}"
+                                Style="{StaticResource SmallText}"
                                 Text="Total Value" />
 
-                            <TextBlock Style="{DynamicResource Header6}" Text="{Binding TotalValue, StringFormat='c'}" />
+                            <TextBlock Style="{StaticResource Header6}" Text="{Binding TotalValue, StringFormat='c'}" />
                         </StackPanel>
                     </Grid>
                     <!--#endregion-->
@@ -161,8 +161,8 @@
                     <Button
                         Grid.Column="4"
                         Command="{Binding DeleteCommand}"
-                        Style="{DynamicResource DeleteCTA}"
-                        Tag="{DynamicResource DeleteIcon}" />
+                        Style="{StaticResource InlineButton}"
+                        Tag="{StaticResource DeleteIcon}" />
                     <!--#endregion-->
 
                 </Grid>

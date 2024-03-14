@@ -20,7 +20,7 @@
 
         <Image
             Grid.Column="0"
-            Width="184"
+            Width="200"
             Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
         <Grid Grid.Column="2" VerticalAlignment="Center">
@@ -38,8 +38,8 @@
             <TextBlock
                 Grid.Row="2"
                 Width="236"
-                Foreground="{StaticResource InactiveColor}"
-                Style="{StaticResource SmallText}"
+                Foreground="{StaticResource ForegroundShade}"
+                Style="{StaticResource BodyText}"
                 Text="{Binding Body, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 TextWrapping="Wrap" />
 

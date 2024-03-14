@@ -14,16 +14,14 @@
 
 
     <UserControl.Resources>
-
         <converters:EqualValueToParameterConverter x:Key="EqualValueToParameterConverter" />
 
         <Style x:Key="SidePanelButton" TargetType="{x:Type RadioButton}">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{StaticResource InactiveColor}" />
-            <Setter Property="FontFamily" Value="SF Pro Display" />
-            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Background" Value="{StaticResource Transparent}" />
+            <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
+            <Setter Property="FontFamily" Value="{StaticResource Lato}" />
+            <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="FontSize" Value="16" />
-            <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Width" Value="Auto" />
             <Setter Property="Height" Value="Auto" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -55,10 +53,10 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
                                 <Setter Property="Cursor" Value="Hand" />
-                                <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+                                <Setter Property="Foreground" Value="{StaticResource Foreground}" />
                             </Trigger>
                             <Trigger Property="IsChecked" Value="true">
-                                <Setter Property="Foreground" Value="{StaticResource SecondaryColor}" />
+                                <Setter Property="Foreground" Value="{StaticResource Secondary}" />
                                 <Setter TargetName="Icon" Property="Source" Value="{Binding Tag[1], RelativeSource={RelativeSource TemplatedParent}}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -73,8 +71,8 @@
         Width="Auto"
         Height="Auto"
         Padding="40"
-        Background="{StaticResource PrimaryColor}"
-        CornerRadius="12">
+        Background="{StaticResource Primary}"
+        CornerRadius="24">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -90,7 +88,7 @@
                 <Border
                     Width="100"
                     Height="100"
-                    Background="{StaticResource BackgroundGradientColor}"
+                    Background="{StaticResource BackgroundGradient}"
                     CornerRadius="24">
 
                     <Border.Clip>
@@ -103,7 +101,7 @@
                     <Image
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Source="/Styles/Images/default_profile_picture.png" />
+                        Source="/Assets/Images/default_profile_picture.png" />
                 </Border>
 
                 <!--  Greeting Text  -->
@@ -111,8 +109,7 @@
                     Margin="0,16,0,0"
                     HorizontalAlignment="Center"
                     DataContext="{Binding SidePanelViewModel}"
-                    FontWeight="Medium"
-                    Style="{StaticResource BaseText}"
+                    Style="{StaticResource Header6}"
                     Text="{Binding GreetingMessage}" />
             </StackPanel>
             <!--#endregion-->
@@ -143,8 +140,8 @@
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Dashboard}" />
-                            <DrawingImage Drawing="{StaticResource DashboardSelected}" />
+                            <DrawingImage Drawing="{StaticResource DashboardVector}" />
+                            <DrawingImage Drawing="{StaticResource DashboardSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -154,13 +151,13 @@
                     Grid.Row="2"
                     Command="{Binding UpdateCurrentViewModelCommand}"
                     CommandParameter="{x:Static navigator:ViewType.Expenses}"
-                    Content="Expenses"
+                    Content="Transactions"
                     IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:ExpensesViewModel}}"
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Expenses}" />
-                            <DrawingImage Drawing="{StaticResource ExpensesSelected}" />
+                            <DrawingImage Drawing="{StaticResource TransactionsVector}" />
+                            <DrawingImage Drawing="{StaticResource TransactionsSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -175,8 +172,8 @@
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Wallet}" />
-                            <DrawingImage Drawing="{StaticResource WalletSelected}" />
+                            <DrawingImage Drawing="{StaticResource WalletVector}" />
+                            <DrawingImage Drawing="{StaticResource WalletSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -184,7 +181,7 @@
                 <!--  Divider  -->
                 <Border
                     Grid.Row="6"
-                    BorderBrush="{StaticResource InactiveColor}"
+                    BorderBrush="{StaticResource ForegroundShade}"
                     BorderThickness="0.5"
                     CornerRadius="1" />
 
@@ -195,8 +192,8 @@
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Settings}" />
-                            <DrawingImage Drawing="{StaticResource SettingsSelected}" />
+                            <DrawingImage Drawing="{StaticResource SettingsVector}" />
+                            <DrawingImage Drawing="{StaticResource SettingsSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -208,8 +205,8 @@
                     Style="{DynamicResource SidePanelButton}">
                     <RadioButton.Tag>
                         <x:Array Type="DrawingImage">
-                            <DrawingImage Drawing="{StaticResource Support}" />
-                            <DrawingImage Drawing="{StaticResource SupportSelected}" />
+                            <DrawingImage Drawing="{StaticResource SupportVector}" />
+                            <DrawingImage Drawing="{StaticResource SupportSelectedVector}" />
                         </x:Array>
                     </RadioButton.Tag>
                 </RadioButton>
@@ -225,8 +222,7 @@
                 Command="{Binding LogoutCommand}"
                 Content="Log out"
                 DataContext="{Binding SidePanelViewModel}"
-                Style="{DynamicResource BaseButton}"
-                Tag="{StaticResource LogoutIcon}" />
+                Tag="{StaticResource LogoutSelectedIcon}" />
             <!--#endregion-->
 
         </Grid>

@@ -20,8 +20,8 @@
         Width="Auto"
         Height="Auto"
         Padding="40"
-        Background="{StaticResource PrimaryColor}"
-        CornerRadius="12">
+        Background="{StaticResource Primary}"
+        CornerRadius="24">
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -54,13 +54,13 @@
                     Height="Auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="48" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="8" />
+                        <RowDefinition Height="12" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="48" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="8" />
                         <RowDefinition Height="16" />
@@ -70,7 +70,7 @@
                     <Grid Grid.Row="0" Margin="-8,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="16" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
@@ -87,25 +87,24 @@
                             HorizontalAlignment="Center"
                             Source="{StaticResource AppIcon}" />
 
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            Style="{StaticResource Header1}"
-                            Text="Welcome to Expensier" />
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock
+                                Margin="0,0,0,4"
+                                Style="{StaticResource Header2}"
+                                Text="Welcome to Expensier" />
 
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            Foreground="{StaticResource InactiveColor}"
-                            Style="{StaticResource BaseText}"
-                            Text="Log in to sync your account" />
+                            <TextBlock
+                                Foreground="{StaticResource ForegroundShade}"
+                                Style="{StaticResource BaseText}"
+                                Text="Log in to sync your account" />
+                        </StackPanel>
                     </Grid>
 
                     <!--  Email  -->
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
+                            <RowDefinition Height="6" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -121,7 +120,7 @@
                     <Grid Grid.Row="4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
+                            <RowDefinition Height="6" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -149,20 +148,18 @@
                     <!--  Button  -->
                     <Button
                         Grid.Row="8"
-                        Width="351"
+                        Width="352"
                         Height="48"
                         Command="{Binding LoginCommand}"
                         Content="Login"
                         IsDefault="True"
-                        Style="{StaticResource BaseButton}"
-                        Tag="{StaticResource LoginIcon}" />
+                        Tag="{StaticResource LoginSelectedIcon}" />
 
                     <!--  Error Message  -->
                     <TextBlock
                         Grid.Row="10"
                         DataContext="{Binding ErrorMessageViewModel}"
-                        Foreground="{StaticResource AccentColor}"
-                        Style="{StaticResource ErrorMessage}"
+                        Style="{StaticResource ErrorText}"
                         Text="{Binding Message}"
                         Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </Grid>
@@ -184,31 +181,33 @@
                 <TextBlock
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Style="{StaticResource Body}"
+                    Style="{StaticResource BodyText}"
                     Text="Not a member?" />
 
                 <Button
                     Grid.Column="2"
                     Width="120"
-                    Height="40"
+                    Height="44"
                     Command="{Binding ViewRegisterCommand}"
-                    Content="Sign up"
-                    Style="{StaticResource BaseButton}" />
+                    Content="Sign up" />
             </Grid>
             <!--#endregion-->
 
             <!--#region Privacy Terms-->
-            <Grid Grid.Row="3" Grid.Column="1">
+            <Grid
+                Grid.Row="3"
+                Grid.Column="1"
+                Opacity="0.75">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="40" />
+                    <RowDefinition Height="32" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
                     Grid.Row="0"
-                    Foreground="{StaticResource InactiveColor}"
-                    Style="{StaticResource Body}"
+                    Foreground="{StaticResource ForegroundShade}"
+                    Style="{StaticResource BodyText}"
                     TextAlignment="Center">
                     <Run Text="By clicking the button above, you acknowledge that you have read and understood," />
                     <LineBreak />
@@ -231,20 +230,20 @@
 
                     <TextBlock
                         Grid.Column="1"
-                        Foreground="{StaticResource InactiveColor}"
-                        Style="{StaticResource Body}"
+                        Foreground="{StaticResource ForegroundShade}"
+                        Style="{StaticResource BodyText}"
                         Text="Need help?" />
 
                     <TextBlock
                         Grid.Column="3"
-                        Foreground="{StaticResource InactiveColor}"
-                        Style="{StaticResource Body}"
+                        Foreground="{StaticResource ForegroundShade}"
+                        Style="{StaticResource BodyText}"
                         Text="Privacy &amp; Terms" />
 
                     <TextBlock
                         Grid.Column="5"
-                        Foreground="{StaticResource InactiveColor}"
-                        Style="{StaticResource Body}"
+                        Foreground="{StaticResource ForegroundShade}"
+                        Style="{StaticResource BodyText}"
                         Text="© 2023 Expensier" />
                 </Grid>
             </Grid>

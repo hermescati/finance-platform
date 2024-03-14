@@ -15,8 +15,8 @@
     <UserControl.Resources>
         <converters:DoubleToColorConverter
             x:Key="DoubleToColorConverter"
-            NegativeColor="#D94E33"
-            PositiveColor="#64927C" />
+            NegativeColor="{StaticResource AccentColor}"
+            PositiveColor="{StaticResource SecondaryColor}" />
     </UserControl.Resources>
 
 
@@ -30,7 +30,7 @@
             <charts:CartesianChart.Series>
                 <charts:LineSeries
                     LineSmoothness="1"
-                    PointForeground="{StaticResource SecondaryColor}"
+                    PointForeground="{StaticResource Secondary}"
                     PointGeometrySize="0"
                     Values="{Binding CryptoPerformance}" />
             </charts:CartesianChart.Series>

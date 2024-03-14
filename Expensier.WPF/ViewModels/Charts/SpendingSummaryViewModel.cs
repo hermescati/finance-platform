@@ -23,6 +23,7 @@ using System.Windows.Media;
 using LiveChartsCore.Drawing;
 using LiveChartsCore.SkiaSharpView.Painting.Effects;
 using Expensier.Domain.Models;
+using Expensier.WPF.Utils;
 
 namespace Expensier.WPF.ViewModels.Charts
 {
@@ -81,44 +82,15 @@ namespace Expensier.WPF.ViewModels.Charts
 
         public ISeries[] Series { get; set; } = new ISeries[]
         {
-            new LineSeries<double>
-            {
-                Values = new ObservableCollection<double>(),
-                Stroke = new SolidColorPaint(SKColor.Parse("#64927C")) { StrokeThickness = 2 },
-                GeometryFill = new SolidColorPaint(SKColor.Parse("#64927C")),
-                GeometryStroke = new SolidColorPaint(SKColor.Parse("#64927C")) {StrokeThickness = 2 },
-                Fill = new LinearGradientPaint(
-                    new[] { new SKColor( 100, 146, 124, 75 ), new SKColor( 100, 146, 124, 0 ) },
-                    new SKPoint( 0.25f, 0 ),
-                    new SKPoint( 0.25f, 1 )),
-                GeometrySize = 8,
-                LineSmoothness = 1,
-                DataPadding = new LvcPoint(0, 0.5f),
-                EnableNullSplitting = false,
-                YToolTipLabelFormatter = (chartPoint) => $"{chartPoint.Coordinate.PrimaryValue:C2}"
-            }
+            ChartSettings.DefaultLineSeries()
         };
         public Axis[] XAxis { get; set; } = new Axis[]
         {
-            new Axis
-            {
-                TextSize = 13,
-                LabelsPaint = new SolidColorPaint(SKColors.LightGray)
-            }
+            ChartSettings.DefaultXAxis()
         };
         public Axis[] YAxis { get; set; } = new Axis[]
         {
-            new Axis
-            {
-                Labeler = Labelers.Currency,
-                TextSize = 13,
-                LabelsPaint = new SolidColorPaint( SKColors.LightGray),
-                SeparatorsPaint = new SolidColorPaint( SKColors.White.WithAlpha(100))
-                {
-                    StrokeThickness = 0.5f,
-                    PathEffect = new DashEffect(new float[] {4, 4})
-                }
-            }
+            ChartSettings.DefaultYAxis()
         };
 
 
@@ -186,13 +158,14 @@ namespace Expensier.WPF.ViewModels.Charts
 
         private void ConstructSeries( IEnumerable<ChartDataModel> transactions )
         {
-            Series[0].Values = new ObservableCollection<double>( transactions.Select( t => t.TotalAmount ) );
+            Series[0].Values = new ObservableCollection<double>( transactions.Select( t => t.SeriesValue ) );
+            
             ConstructXAxis( transactions );
         }
 
         private void ConstructXAxis( IEnumerable<ChartDataModel> transactions )
         {
-            XAxis[0].Labels = transactions.Select( t => t.Label ).ToArray();
+            XAxis[0].Labels = transactions.Select( t => t.SeriesLabel ).ToArray();
         }
     }
 }

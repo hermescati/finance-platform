@@ -14,15 +14,15 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
         <Style x:Key="SearchBarTemplate" TargetType="TextBox">
-            <Setter Property="Background" Value="{DynamicResource MenuButtonColor}" />
-            <Setter Property="Foreground" Value="{DynamicResource TransparentColor}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
+            <Setter Property="Background" Value="{StaticResource MenuShade}" />
+            <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Secondary}" />
             <Setter Property="Width" Value="Auto" />
-            <Setter Property="Height" Value="42" />
+            <Setter Property="Height" Value="44" />
             <Setter Property="Padding" Value="0" />
-            <Setter Property="FontFamily" Value="SF Pro Display" />
-            <Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontFamily" Value="{StaticResource Lato}" />
+            <Setter Property="FontWeight" Value="Regular" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -40,7 +40,7 @@
                                 Height="{TemplateBinding Height}"
                                 Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
-                                BorderBrush="{DynamicResource MenuButtonColor}"
+                                BorderBrush="{DynamicResource MenuShade}"
                                 BorderThickness="1.5"
                                 CornerRadius="12"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
@@ -69,7 +69,7 @@
                                         FontSize="{TemplateBinding FontSize}"
                                         FontWeight="{TemplateBinding FontWeight}"
                                         Foreground="{TemplateBinding Foreground}"
-                                        Text="Search expenses history..."
+                                        Text="Search by name..."
                                         Visibility="Collapsed" />
                                     <ScrollViewer
                                         x:Name="PART_ContentHost"
@@ -85,15 +85,14 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
-                                <Setter TargetName="Icon" Property="Image.Source" Value="{DynamicResource SearchSelectedIcon}" />
+                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
                             </Trigger>
                             <Trigger Property="IsKeyboardFocused" Value="True">
-                                <Setter TargetName="Icon" Property="Image.Source" Value="{DynamicResource SearchSelectedIcon}" />
-                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
+                                <Setter TargetName="Icon" Property="Image.Source" Value="{StaticResource SearchSelectedIcon}" />
+                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
                                 <Setter TargetName="Glow" Property="BorderThickness" Value="4" />
-                                <Setter TargetName="Glow" Property="BorderBrush" Value="{DynamicResource SecondaryGlowColor}" />
-                                <Setter Property="Foreground" Value="{DynamicResource SecondaryColor}" />
+                                <Setter TargetName="Glow" Property="BorderBrush" Value="{StaticResource SecondaryShade}" />
+                                <Setter Property="Foreground" Value="{StaticResource Secondary}" />
                             </Trigger>
                             <Trigger Property="Text" Value="">
                                 <Setter TargetName="Placeholder" Property="Visibility" Value="Visible" />

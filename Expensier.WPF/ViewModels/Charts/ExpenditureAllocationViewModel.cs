@@ -19,6 +19,7 @@ using System.Transactions;
 using System.Windows.Media;
 using static Expensier.WPF.ViewModels.Charts.ChartDropdownValues;
 using LiveChartsCore.SkiaSharpView.Extensions;
+using Expensier.WPF.Utils;
 
 namespace Expensier.WPF.ViewModels.Charts
 {
@@ -27,6 +28,7 @@ namespace Expensier.WPF.ViewModels.Charts
         private readonly TransactionStore _transactionStore;
         private readonly IEnumerable<TransactionDataModel> _transactions;
         private readonly ObservableCollection<ISeries> _series;
+        private readonly ObservableCollection<ChartDataModel> _legend;
 
 
         private bool _listEmpty;
@@ -58,6 +60,21 @@ namespace Expensier.WPF.ViewModels.Charts
         }
 
 
+        private double _totalExpenditure;
+        public double TotalExpenditure
+        {
+            get
+            {
+                return _totalExpenditure;
+            }
+            set
+            {
+                _totalExpenditure = value;
+                OnPropertyChanged( nameof( TotalExpenditure ) );
+            }
+        }
+
+
         private ChartFrequency _selectedItem;
         public ChartFrequency SelectedItem
         {
@@ -75,15 +92,7 @@ namespace Expensier.WPF.ViewModels.Charts
 
 
         public IEnumerable<ISeries> Series => _series;
-        public string[] ChartColors = new string[]
-        {
-            "#FFA7DDBC",
-            "#FF64927C",
-            "#FF497F76",
-            "#FF255F5B",
-            "#FF3C5549",
-            "#FF2C3E35"
-        };
+        public IEnumerable<ChartDataModel> Legend => _legend;
         public SolidColorPaint LegendTextPaint { get; set; } = new SolidColorPaint( SKColors.WhiteSmoke );
 
 
@@ -95,6 +104,7 @@ namespace Expensier.WPF.ViewModels.Charts
         {
             _transactions = new ObservableCollection<TransactionDataModel>();
             _series = new ObservableCollection<ISeries>();
+            _legend = new ObservableCollection<ChartDataModel>();
 
             _transactionStore = transactionStore;
             TransactionViewModel = new TransactionViewModel( transactionStore,
@@ -153,21 +163,47 @@ namespace Expensier.WPF.ViewModels.Charts
                 .GroupBy( t => t.TransactionType )
                 .Select( g => new ChartDataModel( g.Key, g.Sum( t => t.Amount ) ) ).ToList();
 
+            TotalExpenditure = grouppedTransactions.Sum( t => t.SeriesValue );
+
             foreach ( var group in grouppedTransactions )
             {
-                var index = grouppedTransactions.IndexOf(group );
+                var index = grouppedTransactions.IndexOf( group );
 
                 ISeries pieSeries = new PieSeries<double>
                 {
-                    Name = group.Label,
-                    Values = new ObservableCollection<double> { group.TotalAmount },
-                    Fill = new SolidColorPaint( SKColor.Parse( ChartColors[index] ) ),
-                    OuterRadiusOffset = 0,
-                    MaxRadialColumnWidth = 56,
-                    ToolTipLabelFormatter = ( chartPoint ) => $"{group.TotalAmount:C2}",
+                    Name = group.SeriesLabel,
+                    Values = new ObservableCollection<double> { group.SeriesValue },
+
+                    Fill = new SolidColorPaint( ChartSettings.ApplyPieChartColor( index ) ),
+
+                    OuterRadiusOffset = ChartSettings.outerRadiusOffset,
+                    MaxRadialColumnWidth = ChartSettings.maxRadialColumnWidth,
+                    ToolTipLabelFormatter = ( chartPoint ) => $"{group.SeriesValue:C2}",
                 };
 
                 _series.Add( pieSeries );
+            }
+
+            ConstructLegend( _series );
+        }
+
+        private void ConstructLegend( ObservableCollection<ISeries> seriesCollection )
+        {
+            _legend.Clear();
+
+            foreach ( var series in seriesCollection )
+            {
+                var index = seriesCollection.IndexOf( series );
+
+                double totalValue = series.Values.Cast<double>().ToList()[0];
+                SKColor seriesColor = ChartSettings.ApplyPieChartColor( index );
+
+                ChartDataModel legendData = new ChartDataModel(
+                    label: series.Name,
+                    percentage: totalValue / TotalExpenditure,
+                    color: new SolidColorBrush( Color.FromArgb( seriesColor.Alpha, seriesColor.Red, seriesColor.Green, seriesColor.Blue ) ) );
+
+                _legend.Add( legendData );
             }
         }
     }

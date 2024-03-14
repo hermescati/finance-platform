@@ -19,8 +19,8 @@
 
         <converters:DoubleToColorConverter
             x:Key="DoubleToColorConverter"
-            NegativeColor="#D94E33"
-            PositiveColor="#64927C" />
+            NegativeColor="{StaticResource AccentColor}"
+            PositiveColor="{StaticResource SecondaryColor}" />
 
 
         <Style x:Key="TopPerformingCrypto" TargetType="{x:Type ListViewItem}">
@@ -38,8 +38,8 @@
                             <Border
                                 x:Name="Stroke"
                                 Padding="12"
-                                Background="{DynamicResource PrimaryColor}"
-                                BorderBrush="{DynamicResource TransparentColor}"
+                                Background="{StaticResource Primary}"
+                                BorderBrush="{StaticResource Transparent}"
                                 BorderThickness="1.5"
                                 CornerRadius="16">
                                 <ContentPresenter
@@ -51,8 +51,8 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{DynamicResource SecondaryColor}" />
-                                <Setter TargetName="Glow" Property="BorderBrush" Value="{DynamicResource SecondaryGlowColor}" />
+                                <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
+                                <Setter TargetName="Glow" Property="BorderBrush" Value="{StaticResource SecondaryShade}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -96,14 +96,14 @@
                         <TextBlock
                             Grid.Row="0"
                             FontWeight="SemiBold"
-                            Style="{DynamicResource BaseText}"
+                            Style="{StaticResource BodyText}"
                             Text="{Binding Crypto.Symbol, Converter={StaticResource CryptoNameConverter}, ConverterParameter='USD'}" />
 
                         <!--  Name  -->
                         <TextBlock
                             Grid.Row="1"
-                            Foreground="{DynamicResource InactiveColor}"
-                            Style="{DynamicResource VerySmallText}"
+                            Foreground="{StaticResource ForegroundShade}"
+                            Style="{StaticResource VerySmallText}"
                             Text="{Binding Crypto.Name, Converter={StaticResource CryptoNameConverter}, ConverterParameter=' USD'}" />
                     </StackPanel>
 
@@ -127,8 +127,8 @@
                                 Grid.Row="0"
                                 HorizontalAlignment="Center"
                                 FontWeight="SemiBold"
-                                Foreground="{DynamicResource PrimaryColor}"
-                                Style="{DynamicResource VerySmallText}"
+                                Foreground="{StaticResource Primary}"
+                                Style="{StaticResource VerySmallText}"
                                 Text="{Binding Crypto.ChangesPercentage, StringFormat={}{0:#0.00'%'}}" />
                         </Border>
 
@@ -155,15 +155,15 @@
                             Width="16"
                             Height="16"
                             VerticalAlignment="Center"
-                            Source="{DynamicResource AppIcon}" />
+                            Source="{StaticResource AppIcon}" />
 
                         <!--  Current Price  -->
                         <TextBlock
                             Grid.Column="2"
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
-                            Foreground="{DynamicResource InactiveColor}"
-                            Style="{DynamicResource VerySmallText}"
+                            Foreground="{StaticResource ForegroundShade}"
+                            Style="{StaticResource VerySmallText}"
                             Text="{Binding Crypto.Price, StringFormat='${0:#,##0.###}'}" />
                     </Grid>
                 </Grid>
