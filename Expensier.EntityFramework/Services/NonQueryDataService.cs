@@ -29,7 +29,7 @@ namespace Expensier.EntityFramework.Services
             }
         }
 
-        public async Task<T> Update(int id, T entity)
+        public async Task<T> Update(Guid id, T entity)
         {
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
@@ -42,7 +42,7 @@ namespace Expensier.EntityFramework.Services
             }
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(Guid id)
         {
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {

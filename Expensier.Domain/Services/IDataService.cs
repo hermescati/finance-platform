@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Expensier.Doman.Services
+namespace Expensier.Domain.Services
 {
     public interface IDataService<T>
     {
-        Task<T> Create(T entity);
+        Task<T> Create( T entity );
 
-        Task<T> Update(int id, T entity);
+        Task<T> Update( Guid id, T entity );
 
-        Task<bool> Delete(int id);
+        Task<bool> Delete( Guid id );
 
-        Task<T> GetByID(int id);
+        Task<T> GetByID( Guid id );
 
         Task<IEnumerable<T>> GetAll();
     }

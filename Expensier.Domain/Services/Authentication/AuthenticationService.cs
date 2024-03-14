@@ -1,6 +1,6 @@
 ﻿using Expensier.Domain.Exceptions;
 using Expensier.Domain.Models;
-using Expensier.Doman.Services;
+using Expensier.Domain.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;

@@ -25,6 +25,6 @@ namespace Expensier.Domain.Services
 
         Task<Account> DeleteCrypto(
             Account currentAccount,
-            int cryptoID);
+            Guid cryptoID);
     }
 }

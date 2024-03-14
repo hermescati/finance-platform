@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expensier.Domain", "Expensier.Doman\Expensier.Domain.csproj", "{19778AD3-121C-42C3-B764-AF7F4337AD47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expensier.Domain", "Expensier.Domain\Expensier.Domain.csproj", "{19778AD3-121C-42C3-B764-AF7F4337AD47}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expensier.EntityFramework", "Expensier.EntityFramework\Expensier.EntityFramework.csproj", "{5F48B799-FCCF-4047-8B29-5DFA76AC8466}"
 EndProject

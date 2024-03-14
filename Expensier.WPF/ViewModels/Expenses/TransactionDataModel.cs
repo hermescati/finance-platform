@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Expensier.WPF.ViewModels
+namespace Expensier.WPF.ViewModels.Expenses
 {
     public class TransactionDataModel : ViewModelBase
     {
@@ -17,7 +17,7 @@ namespace Expensier.WPF.ViewModels
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string TransactionName { get; set; }
         public string TransactionType { get; set; }
         public double Amount { get; set; }
@@ -28,22 +28,22 @@ namespace Expensier.WPF.ViewModels
         public ICommand DeleteCommand { get; }
 
 
-        public TransactionDataModel(DateTime processDate, double amount)
+        public TransactionDataModel( DateTime processDate, double amount )
         {
             ProcessDate = processDate;
             Amount = amount;
         }
 
         public TransactionDataModel(
-            int id, 
-            string transactionName, 
-            DateTime processDate, 
-            double amount, 
-            string transactionType, 
-            bool isCredit, 
+            Guid id,
+            string transactionName,
+            DateTime processDate,
+            double amount,
+            string transactionType,
+            bool isCredit,
             ITransactionService transactionService,
             AccountStore accountStore,
-            IRenavigator renavigator)
+            IRenavigator renavigator )
         {
             Id = id;
             TransactionName = transactionName;
@@ -56,7 +56,7 @@ namespace Expensier.WPF.ViewModels
             _accountStore = accountStore;
             _renavigator = renavigator;
 
-            DeleteCommand = new DeleteTransactionCommand(this, _transactionService, _accountStore, _renavigator);
+            DeleteCommand = new DeleteTransactionCommand( this, _transactionService, _accountStore, _renavigator );
         }
     }
 }

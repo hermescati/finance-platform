@@ -9,7 +9,6 @@ using Expensier.Domain.Exceptions;
 using Newtonsoft.Json;
 using Expensier.Domain.Models;
 using System.Collections;
-using Expensier.Doman.Services;
 using Expensier.API.Models;
 using Expensier.Domain.Services.Portfolio;
 
@@ -95,7 +94,7 @@ namespace Expensier.API.Services
             return currentAccount;
         }
 
-        public async Task<Account> DeleteCrypto(Account currentAccount, int cryptoID)
+        public async Task<Account> DeleteCrypto(Account currentAccount, Guid cryptoID)
         {
             currentAccount.CryptoAssetList
                 .Remove(currentAccount.CryptoAssetList

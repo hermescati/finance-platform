@@ -2,7 +2,7 @@
 using Expensier.Domain.Services.Transactions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
-using Expensier.WPF.ViewModels;
+using Expensier.WPF.ViewModels.Expenses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
