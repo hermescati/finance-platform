@@ -30,6 +30,6 @@ namespace Expensier.Domain.Services.Transactions
 
         Task<Account> DeleteTransaction(
             Account currentAccount,
-            int transactionID);
+            Guid transactionID);
     }
 }

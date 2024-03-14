@@ -17,7 +17,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string CompanyName { get; set; }
         public string SubscriptionPlan { get; set; }
         public DateTime DueDate { get; set; }
@@ -26,7 +26,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         public ICommand DeleteCommand { get; }
 
         public SubscriptionDataModel(
-            int id,
+            Guid id,
             string companyName, 
             string subscriptionPlan, 
             DateTime dueDate, 

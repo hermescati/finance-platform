@@ -9,256 +9,256 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expensier.EntityFramework.Migrations
 {
-    [DbContext(typeof(ExpensierDbContext))]
+    [DbContext( typeof( ExpensierDbContext ) )]
     partial class ExpensierDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildModel( ModelBuilder modelBuilder )
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
+            modelBuilder.HasAnnotation( "ProductVersion", "7.0.4" );
 
-            modelBuilder.Entity("Expensier.Domain.Models.Account", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.Account", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>( "ID" )
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<int>("AccountHolderID")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>( "AccountHolderID" )
+                        .HasColumnType( "TEXT" );
 
-                    b.HasKey("ID");
+                    b.HasKey( "ID" );
 
-                    b.HasIndex("AccountHolderID");
+                    b.HasIndex( "AccountHolderID" );
 
-                    b.ToTable("Accounts");
-                });
+                    b.ToTable( "Accounts" );
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.CryptoAsset", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.CryptoAsset", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>( "ID" )
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<int>("AccountHolderID")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>( "AccountHolderID" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<double>("Coins")
-                        .HasColumnType("REAL");
+                    b.Property<double>( "Coins" )
+                        .HasColumnType( "REAL" );
 
-                    b.Property<double>("PurchasePrice")
-                        .HasColumnType("REAL");
+                    b.Property<double>( "PurchasePrice" )
+                        .HasColumnType( "REAL" );
 
-                    b.HasKey("ID");
+                    b.HasKey( "ID" );
 
-                    b.HasIndex("AccountHolderID");
+                    b.HasIndex( "AccountHolderID" );
 
-                    b.ToTable("CryptoAssets");
-                });
+                    b.ToTable( "CryptoAssets" );
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.PortfolioReturn", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.PortfolioReturn", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>( "ID" )
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<int>("AccountHolderID")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>( "AccountHolderID" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<DateTime>("RecordedDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime>( "RecordedDate" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<double>("ReturnPercentage")
-                        .HasColumnType("REAL");
+                    b.Property<double>( "ReturnPercentage" )
+                        .HasColumnType( "REAL" );
 
-                    b.HasKey("ID");
+                    b.HasKey( "ID" );
 
-                    b.HasIndex("AccountHolderID");
+                    b.HasIndex( "AccountHolderID" );
 
-                    b.ToTable("PortfolioReturns");
-                });
+                    b.ToTable( "PortfolioReturns" );
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.Subscription", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.Subscription", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>( "ID" )
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<int>("AccountHolderID")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>( "AccountHolderID" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("REAL");
+                    b.Property<double>( "Amount" )
+                        .HasColumnType( "REAL" );
 
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>( "CompanyName" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime>( "DueDate" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<string>("SubscriptionPlan")
-                        .HasColumnType("TEXT");
+                    b.Property<string>( "SubscriptionPlan" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<string>("SubscriptionType")
-                        .HasColumnType("TEXT");
+                    b.Property<string>( "SubscriptionType" )
+                        .HasColumnType( "TEXT" );
 
-                    b.HasKey("ID");
+                    b.HasKey( "ID" );
 
-                    b.HasIndex("AccountHolderID");
+                    b.HasIndex( "AccountHolderID" );
 
-                    b.ToTable("Subscriptions");
-                });
+                    b.ToTable( "Subscriptions" );
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.Transaction", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.Transaction", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>( "ID" )
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<int>("AccountHolderID")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>( "AccountHolderID" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("REAL");
+                    b.Property<double>( "Amount" )
+                        .HasColumnType( "REAL" );
 
-                    b.Property<bool>("IsCredit")
-                        .HasColumnType("INTEGER");
+                    b.Property<bool>( "IsCredit" )
+                        .HasColumnType( "INTEGER" );
 
-                    b.Property<DateTime>("ProcessDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime>( "ProcessDate" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<string>("TransactionName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>( "TransactionName" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<string>("TransactionType")
-                        .HasColumnType("TEXT");
+                    b.Property<string>( "TransactionType" )
+                        .HasColumnType( "TEXT" );
 
-                    b.HasKey("ID");
+                    b.HasKey( "ID" );
 
-                    b.HasIndex("AccountHolderID");
+                    b.HasIndex( "AccountHolderID" );
 
-                    b.ToTable("Transactions");
-                });
+                    b.ToTable( "Transactions" );
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.User", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.User", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>( "ID" )
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                    b.Property<string>( "Email" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>( "FirstName" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<DateTime>("JoinDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime>( "JoinDate" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>( "LastName" )
+                        .HasColumnType( "TEXT" );
 
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                    b.Property<string>( "PasswordHash" )
+                        .HasColumnType( "TEXT" );
 
-                    b.HasKey("ID");
+                    b.HasKey( "ID" );
 
-                    b.ToTable("Users");
-                });
+                    b.ToTable( "Users" );
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.Account", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.Account", b =>
                 {
-                    b.HasOne("Expensier.Domain.Models.User", "AccountHolder")
+                    b.HasOne( "Expensier.Domain.Models.User", "AccountHolder" )
                         .WithMany()
-                        .HasForeignKey("AccountHolderID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey( "AccountHolderID" )
+                        .OnDelete( DeleteBehavior.Cascade )
                         .IsRequired();
 
-                    b.Navigation("AccountHolder");
-                });
+                    b.Navigation( "AccountHolder" );
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.CryptoAsset", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.CryptoAsset", b =>
                 {
-                    b.HasOne("Expensier.Domain.Models.Account", "AccountHolder")
-                        .WithMany("CryptoAssetList")
-                        .HasForeignKey("AccountHolderID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne( "Expensier.Domain.Models.Account", "AccountHolder" )
+                        .WithMany( "CryptoAssetList" )
+                        .HasForeignKey( "AccountHolderID" )
+                        .OnDelete( DeleteBehavior.Cascade )
                         .IsRequired();
 
-                    b.OwnsOne("Expensier.Domain.Models.Crypto", "Asset", b1 =>
+                    b.OwnsOne( "Expensier.Domain.Models.Crypto", "Asset", b1 =>
                         {
-                            b1.Property<int>("CryptoAssetID")
-                                .HasColumnType("INTEGER");
+                            b1.Property<Guid>( "CryptoAssetID" )
+                                .HasColumnType( "TEXT" );
 
-                            b1.Property<double?>("ChangesPercentage")
-                                .HasColumnType("REAL");
+                            b1.Property<double?>( "ChangesPercentage" )
+                                .HasColumnType( "REAL" );
 
-                            b1.Property<string>("Name")
-                                .HasColumnType("TEXT");
+                            b1.Property<string>( "Name" )
+                                .HasColumnType( "TEXT" );
 
-                            b1.Property<double?>("Price")
-                                .HasColumnType("REAL");
+                            b1.Property<double?>( "Price" )
+                                .HasColumnType( "REAL" );
 
-                            b1.Property<string>("Symbol")
+                            b1.Property<string>( "Symbol" )
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType( "TEXT" );
 
-                            b1.HasKey("CryptoAssetID");
+                            b1.HasKey( "CryptoAssetID" );
 
-                            b1.ToTable("CryptoAssets");
+                            b1.ToTable( "CryptoAssets" );
 
                             b1.WithOwner()
-                                .HasForeignKey("CryptoAssetID");
-                        });
+                                .HasForeignKey( "CryptoAssetID" );
+                        } );
 
-                    b.Navigation("AccountHolder");
+                    b.Navigation( "AccountHolder" );
 
-                    b.Navigation("Asset")
+                    b.Navigation( "Asset" )
                         .IsRequired();
-                });
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.PortfolioReturn", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.PortfolioReturn", b =>
                 {
-                    b.HasOne("Expensier.Domain.Models.Account", "AccountHolder")
-                        .WithMany("PortfolioReturn")
-                        .HasForeignKey("AccountHolderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AccountHolder");
-                });
-
-            modelBuilder.Entity("Expensier.Domain.Models.Subscription", b =>
-                {
-                    b.HasOne("Expensier.Domain.Models.Account", "AccountHolder")
-                        .WithMany("SubscriptionList")
-                        .HasForeignKey("AccountHolderID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne( "Expensier.Domain.Models.Account", "AccountHolder" )
+                        .WithMany( "PortfolioReturn" )
+                        .HasForeignKey( "AccountHolderID" )
+                        .OnDelete( DeleteBehavior.Cascade )
                         .IsRequired();
 
-                    b.Navigation("AccountHolder");
-                });
+                    b.Navigation( "AccountHolder" );
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.Transaction", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.Subscription", b =>
                 {
-                    b.HasOne("Expensier.Domain.Models.Account", "AccountHolder")
-                        .WithMany("TransactionList")
-                        .HasForeignKey("AccountHolderID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne( "Expensier.Domain.Models.Account", "AccountHolder" )
+                        .WithMany( "SubscriptionList" )
+                        .HasForeignKey( "AccountHolderID" )
+                        .OnDelete( DeleteBehavior.Cascade )
                         .IsRequired();
 
-                    b.Navigation("AccountHolder");
-                });
+                    b.Navigation( "AccountHolder" );
+                } );
 
-            modelBuilder.Entity("Expensier.Domain.Models.Account", b =>
+            modelBuilder.Entity( "Expensier.Domain.Models.Transaction", b =>
                 {
-                    b.Navigation("CryptoAssetList");
+                    b.HasOne( "Expensier.Domain.Models.Account", "AccountHolder" )
+                        .WithMany( "TransactionList" )
+                        .HasForeignKey( "AccountHolderID" )
+                        .OnDelete( DeleteBehavior.Cascade )
+                        .IsRequired();
 
-                    b.Navigation("PortfolioReturn");
+                    b.Navigation( "AccountHolder" );
+                } );
 
-                    b.Navigation("SubscriptionList");
+            modelBuilder.Entity( "Expensier.Domain.Models.Account", b =>
+                {
+                    b.Navigation( "CryptoAssetList" );
 
-                    b.Navigation("TransactionList");
-                });
+                    b.Navigation( "PortfolioReturn" );
+
+                    b.Navigation( "SubscriptionList" );
+
+                    b.Navigation( "TransactionList" );
+                } );
 #pragma warning restore 612, 618
         }
     }

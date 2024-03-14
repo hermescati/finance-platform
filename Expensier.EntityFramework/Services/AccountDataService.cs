@@ -25,17 +25,17 @@ namespace Expensier.EntityFramework.Services
             return await _nonQueryDataService.Create(entity);
         }
 
-        public async Task<Account> Update(int id, Account entity)
+        public async Task<Account> Update(Guid id, Account entity)
         {
             return await _nonQueryDataService.Update(id, entity);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(Guid id)
         {
             return await _nonQueryDataService.Delete(id);
         }
 
-        public async Task<Account> GetByID(int id)
+        public async Task<Account> GetByID(Guid id)
         {
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {

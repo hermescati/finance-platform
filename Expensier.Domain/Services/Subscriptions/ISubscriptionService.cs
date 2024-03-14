@@ -25,6 +25,6 @@ namespace Expensier.Domain.Services.Subscriptions
 
         Task<Account> DeleteSubscription(
             Account currentAccount,
-            int subscriptionID);
+            Guid subscriptionID);
     }
 }

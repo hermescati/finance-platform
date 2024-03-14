@@ -3,7 +3,6 @@ using Expensier.Domain.Models;
 using Expensier.Domain.Services.Authentication;
 using Expensier.Domain.Services.Transactions;
 using Expensier.Domain.Services;
-using Expensier.Doman.Services;
 using Expensier.EntityFramework.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

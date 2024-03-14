@@ -34,7 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Expensier.API\Expensier.API.csproj" />
-    <ProjectReference Include="..\Expensier.Doman\Expensier.Domain.csproj" />
+    <ProjectReference Include="..\Expensier.Domain\Expensier.Domain.csproj" />
     <ProjectReference Include="..\Expensier.EntityFramework\Expensier.EntityFramework.csproj" />
   </ItemGroup>
 

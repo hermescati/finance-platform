@@ -1,5 +1,5 @@
 ﻿using Expensier.Domain.Models;
-using Expensier.Doman.Services;
+using Expensier.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -26,17 +26,17 @@ namespace Expensier.EntityFramework.Services
             return await _nonQueryDataService.Create(entity);
         }
 
-        public async Task<T> Update(int id, T entity)
+        public async Task<T> Update(Guid id, T entity)
         {
             return await _nonQueryDataService.Update(id, entity);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(Guid id)
         {
             return await _nonQueryDataService.Delete(id);
         }
 
-        public async Task<T> GetByID(int id)
+        public async Task<T> GetByID(Guid id)
         {
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {

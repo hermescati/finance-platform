@@ -1,5 +1,4 @@
 ﻿using Expensier.Domain.Models;
-using Expensier.Doman.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +45,7 @@ namespace Expensier.Domain.Services.Transactions
         }
 
 
-        public async Task<Account> DeleteTransaction(Account currentAccount, int transactionID)
+        public async Task<Account> DeleteTransaction(Account currentAccount, Guid transactionID)
         { 
             currentAccount.TransactionList
                 .Remove(currentAccount.TransactionList

@@ -21,7 +21,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Crypto Crypto { get; set; }
         public double PurchasePrice { get; set; }
         public double Amount { get; set; }
@@ -55,7 +55,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         /// <param name="accountStore"></param>
         /// <param name="renavigator"></param>
         public CryptoDataModel(
-            int id,
+            Guid id,
             Crypto crypto,
             double purchasePrice,
             double amount, 

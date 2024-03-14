@@ -1,5 +1,4 @@
 ﻿using Expensier.Domain.Models;
-using Expensier.Doman.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +37,7 @@ namespace Expensier.Domain.Services.Subscriptions
             return currentAccount;
         }
 
-        public async Task<Account> DeleteSubscription(Account currentAccount, int subscriptionID)
+        public async Task<Account> DeleteSubscription(Account currentAccount, Guid subscriptionID)
         {
             currentAccount.SubscriptionList
                 .Remove(currentAccount.SubscriptionList
