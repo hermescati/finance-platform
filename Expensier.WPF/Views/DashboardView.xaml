@@ -84,6 +84,7 @@
                     <placeholders:HorizontalPlaceholder
                         Title="It looks a bit empty here!"
                         Grid.Row="1"
+                        Height="280"
                         Body="Add a new expense to see your spending summary chart!"
                         Icon="{StaticResource GraphPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -134,6 +135,7 @@
                     <placeholders:HorizontalPlaceholder
                         Title="It looks a bit empty here!"
                         Grid.Row="2"
+                        Height="280"
                         Body="Add a new expense to see your expenditure chart!"
                         Icon="{StaticResource GraphPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -199,7 +201,7 @@
                             Text="Subscriptions" />
 
                         <!--  Placeholder  -->
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="2" Height="88">
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
