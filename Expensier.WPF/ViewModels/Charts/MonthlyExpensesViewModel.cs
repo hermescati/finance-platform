@@ -1,4 +1,5 @@
 ﻿using Expensier.WPF.State.Expenses;
+using Expensier.WPF.Utils;
 using Expensier.WPF.ViewModels.Expenses;
 using LiveCharts;
 using LiveChartsCore;
@@ -53,48 +54,16 @@ namespace Expensier.WPF.ViewModels.Charts
         }
 
 
-        public ISeries[] Series { get; set; } = new ISeries[]
-        {
-            new ColumnSeries<double>
-            {
-                IsHoverable = false,
-                Values = new ObservableCollection<double> {1500, 1500, 1500, 1500, 1500, 1500},
-                Stroke = null,
-                Fill = new SolidColorPaint(SKColor.Parse("#1F1D1F")),
-                Padding = 18,
-                Rx = 8,
-                Ry = 8,
-                IgnoresBarPosition = true,
-            },
-            new ColumnSeries<double>
-            {
-                Values = new ObservableCollection<double>(),
-                Stroke = new SolidColorPaint(SKColor.Parse("#64927C")) { StrokeThickness = 2 },
-                Fill = new SolidColorPaint(SKColor.Parse("#64927C")),
-                Padding = 18,
-                Rx = 8,
-                Ry = 8,
-                IgnoresBarPosition = true,
-                YToolTipLabelFormatter = (chartPoint) => $"{chartPoint.Coordinate.PrimaryValue:C2}"
-            }
-        };
+        public ISeries[] Series { get; set; } = ChartSettings.DefaultColumnSeries();
         public Axis[] XAxis { get; set; } = new Axis[]
         {
-            new Axis
-            {
-                TextSize = 13,
-                LabelsPaint = new SolidColorPaint(SKColors.LightGray)
-            }
+            ChartSettings.DefaultXAxis()
         };
         public Axis[] YAxis { get; set; } = new Axis[]
         {
-            new Axis
-            {
-                ShowSeparatorLines = false,
-                LabelsPaint = new SolidColorPaint(SKColor.Parse("#1B191B"))
-            }
+            ChartSettings.DefaultYAxis(showAxis: false)
         };
-        public LiveChartsCore.Measure.Margin Margin { get; set; } = new LiveChartsCore.Measure.Margin( 0, -40, 0, 0 );
+        public LiveChartsCore.Measure.Margin Margin { get; set; } = ChartSettings.DrawMargin;
 
 
         public MonthlyExpensesViewModel( TransactionStore transactionStore )
@@ -149,13 +118,15 @@ namespace Expensier.WPF.ViewModels.Charts
 
         private void ConstructSeries( IEnumerable<ChartDataModel> transactions )
         {
-            Series[1].Values = new ObservableCollection<double>( transactions.Select( t => t.TotalAmount ));
+            Series[0].Values = new ObservableCollection<double> { 1500, 1500, 1500, 1500, 1500, 1500 };
+            Series[1].Values = new ObservableCollection<double>( transactions.Select( t => t.SeriesValue ));
+            
             ConstructXAxis( transactions );
         }
 
         private void ConstructXAxis( IEnumerable<ChartDataModel> transactions )
         {
-            XAxis[0].Labels = transactions.Select( t => t.Label ).ToArray();
+            XAxis[0].Labels = transactions.Select( t => t.SeriesLabel ).ToArray();
         }
     }
 }

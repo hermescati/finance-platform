@@ -34,9 +34,11 @@ namespace Expensier.WPF.Converters
 
         public object Convert(object value, Type targetType, object paramter, CultureInfo culture)
         {
+            var defaultSubscriptionIcon = App.Current.FindResource( "SubscriptionIcon" ) as ImageSource;
+
             if (value == null || !(value is string))
             {
-                return null;
+                return defaultSubscriptionIcon;
             }
 
             string companyName = (string)value;
@@ -46,7 +48,7 @@ namespace Expensier.WPF.Converters
             }
             else
             {
-                return null;
+                return defaultSubscriptionIcon;
             }
         }
 

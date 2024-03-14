@@ -38,6 +38,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <ContentPresenter
+                                    Grid.Column="0"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
@@ -45,7 +46,7 @@
 
                                 <Button
                                     x:Name="DeleteButton"
-                                    Grid.Column="4"
+                                    Grid.Column="1"
                                     Background="Transparent"
                                     Command="{Binding DeleteCommand}"
                                     Opacity="0"
