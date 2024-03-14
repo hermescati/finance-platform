@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Expensier.WPF.Controls
+namespace Expensier.WPF.Controls.Charts
 {
     /// <summary>
-    /// Interaction logic for ChartLegend.xaml
+    /// Interaction logic for PieChart.xaml
     /// </summary>
-    public partial class ChartLegend : UserControl
+    public partial class PieChart : UserControl
     {
-        public ChartLegend()
+        public PieChart()
         {
             InitializeComponent();
         }
