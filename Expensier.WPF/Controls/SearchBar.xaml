@@ -21,7 +21,7 @@
             <Setter Property="Height" Value="44" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="FontFamily" Value="{StaticResource Lato}" />
-            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontWeight" Value="Regular" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Left" />

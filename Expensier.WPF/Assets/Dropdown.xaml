@@ -382,7 +382,7 @@
                                     Content="Sort by"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                     TextElement.FontFamily="{StaticResource Lato}"
-                                    TextElement.FontSize="14"
+                                    TextElement.FontSize="15"
                                     TextElement.FontWeight="Bold"
                                     TextElement.Foreground="{StaticResource ForegroundShade}"
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
