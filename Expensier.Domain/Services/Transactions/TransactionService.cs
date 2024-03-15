@@ -12,17 +12,19 @@ namespace Expensier.Domain.Services.Transactions
         private readonly IDataService<Account> _accountService;
         private readonly IDataService<Transaction> _transactionService;
 
-        public TransactionService(IDataService<Account> accountService, IDataService<Transaction> transactionService)
+
+        public TransactionService( IDataService<Account> accountService, IDataService<Transaction> transactionService )
         {
             _accountService = accountService;
             _transactionService = transactionService;
         }
 
-        public async Task<Account> AddTransaction(Account currentAccount, string transactionName, DateTime processDate, double amount, TransactionType transactionType)
+
+        public async Task<Account> AddTransaction( Account currentAccount, string transactionName, DateTime processDate, double amount, TransactionType transactionType )
         {
             bool IsCredit = true;
 
-            if (transactionType == TransactionType.Salary)
+            if ( transactionType == TransactionType.Salary )
             {
                 IsCredit = false;
             }
@@ -37,25 +39,44 @@ namespace Expensier.Domain.Services.Transactions
                 IsCredit = IsCredit
             };
 
-            currentAccount.TransactionList.Add(newTransaction);
+            currentAccount.TransactionList.Add( newTransaction );
 
-            await _accountService.Update(currentAccount.ID, currentAccount);
+            await _accountService.Update( currentAccount.ID, currentAccount );
 
             return currentAccount;
         }
 
 
-        public async Task<Account> DeleteTransaction(Account currentAccount, Guid transactionID)
-        { 
+        public async Task<Account> DeleteTransaction( Account currentAccount, Guid transactionID )
+        {
             currentAccount.TransactionList
-                .Remove(currentAccount.TransactionList
-                .FirstOrDefault((transaction) => transaction.ID == transactionID));
+                .Remove( currentAccount.TransactionList
+                .FirstOrDefault( ( transaction ) => transaction.ID == transactionID ) );
 
-            await _accountService.Update(currentAccount.ID, currentAccount);
+            await _accountService.Update( currentAccount.ID, currentAccount );
 
-            await _transactionService.Delete(transactionID);
+            await _transactionService.Delete( transactionID );
 
             return currentAccount;
+        }
+
+
+        public async Task ExportTransactionData( Account currentAccount, string filePath )
+        {
+            List<Transaction> transactionList = currentAccount.TransactionList.ToList();
+
+            using ( StreamWriter writer = new StreamWriter( filePath ) )
+            {
+                writer.WriteLine( "Name, Category, Amount, Processed_Date" );
+
+                foreach ( Transaction transaction in transactionList )
+                {
+                    string transactionAmount = transaction.Amount.ToString();
+                    transactionAmount = transaction.IsCredit ? "- $" + transactionAmount : "+ $" + transactionAmount;
+
+                    writer.WriteLine( $"{transaction.TransactionName}, {transaction.TransactionType}, {transactionAmount}, {transaction.ProcessDate.ToString( "dd/MM/yyyy" )}" );
+                }
+            }
         }
     }
 }

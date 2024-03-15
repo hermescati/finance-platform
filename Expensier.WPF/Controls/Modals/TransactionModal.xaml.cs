@@ -24,6 +24,7 @@ namespace Expensier.WPF.Controls.Modals
         {
             InitializeComponent();
         }
+
         private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Visibility = Visibility.Collapsed;
