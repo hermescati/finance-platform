@@ -149,12 +149,21 @@
     <!--#endregion-->
 
 
-    <!--#region Errors-->
+    <!--#region Status-->
     <Style
         x:Key="ErrorText"
         BasedOn="{StaticResource SmallText}"
         TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource Accent}" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+
+    <Style
+        x:Key="SuccessText"
+        BasedOn="{StaticResource SmallText}"
+        TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource Secondary}" />
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
     <!--#endregion-->

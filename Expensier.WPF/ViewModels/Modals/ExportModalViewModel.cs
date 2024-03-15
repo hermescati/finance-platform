@@ -2,8 +2,10 @@
 using Expensier.WPF.Commands;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
+using Expensier.WPF.ViewModels.Errors;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ namespace Expensier.WPF.ViewModels.Modals
 {
     public class ExportModalViewModel : ViewModelBase
     {
-        private string _fileName = $"transactions_{DateTime.Now.ToString( "yyyy-MM-dd" )}.csv";
+        private static string _fileName = $"transactions_{DateTime.Now.ToString( "yyyy-MM-dd" )}.csv";
         public string FileName
         {
             get { return _fileName; }
@@ -21,27 +23,31 @@ namespace Expensier.WPF.ViewModels.Modals
             {
                 _fileName = value;
                 OnPropertyChanged( nameof( FileName ) );
-                OnPropertyChanged( nameof( CanExport ) );
             }
         }
 
 
-        private string _fileLocation = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
-        public string FileLocation
+        private static string _filePath = Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.UserProfile ) + "\\Downloads", _fileName );
+        public string FilePath
         {
-            get { return _fileLocation; }
+            get { return _filePath; }
             set
             {
-                _fileLocation = value;
-                OnPropertyChanged( nameof( FileLocation ) );
+                _filePath = value;
+                OnPropertyChanged( nameof( FilePath ) );
                 OnPropertyChanged( nameof( CanExport ) );
             }
         }
 
 
-        public bool CanExport =>
-            !string.IsNullOrEmpty( FileName ) &&
-            !string.IsNullOrEmpty( FileLocation );
+        public MessageViewModel ErrorMessage { get; }
+        public string ErrorMessageContent { set => ErrorMessage.Message = value; }
+
+        public MessageViewModel SuccessMessage { get; }
+        public string SuccessMessageContent { set => SuccessMessage.Message = value; }
+
+
+        public bool CanExport => !string.IsNullOrEmpty( FilePath );
 
 
         public ICommand ExportTransactionData { get; }
@@ -49,6 +55,9 @@ namespace Expensier.WPF.ViewModels.Modals
 
         public ExportModalViewModel( ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator )
         {
+            ErrorMessage = new MessageViewModel();
+            SuccessMessage = new MessageViewModel();
+
             ExportTransactionData = new ExportTransactionDataCommand( this, transactionService, accountStore, renavigator );
         }
     }

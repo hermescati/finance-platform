@@ -165,7 +165,7 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<DelegateRenavigator<WalletViewModel>>() );
         }
 
-        private static ExportModalViewModel CreateExportModalViewModel (IServiceProvider services )
+        private static ExportModalViewModel CreateExportModalViewModel( IServiceProvider services )
         {
             return new ExportModalViewModel(
                 services.GetRequiredService<ITransactionService>(),

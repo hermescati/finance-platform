@@ -15,10 +15,9 @@ namespace Expensier.WPF.Commands
     public class ExportTransactionDataCommand : AsyncCommandBase
     {
         private readonly ExportModalViewModel _exportModalViewModel;
-        private readonly AccountStore _accountStore;
         private readonly ITransactionService _transactionService;
+        private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
-
 
         public ExportTransactionDataCommand( ExportModalViewModel exportModalViewModel, ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator )
         {
@@ -33,29 +32,33 @@ namespace Expensier.WPF.Commands
 
         public override bool CanExecute( object parameter )
         {
-            return _exportModalViewModel.CanExport && base.CanExecute(parameter);
+            return _exportModalViewModel.CanExport && base.CanExecute( parameter );
         }
 
 
-        public override async Task ExecuteAsync(object parameter )
+        public override async Task ExecuteAsync( object parameter )
         {
+            _exportModalViewModel.ErrorMessageContent = string.Empty;
+            _exportModalViewModel.SuccessMessageContent = string.Empty;
+
             try
             {
-                string filePath = Path.Combine(_exportModalViewModel.FileLocation, _exportModalViewModel.FileName);
-                await _transactionService.ExportTransactionData(_accountStore.CurrentAccount, filePath);
+                await _transactionService.ExportTransactionData( _accountStore.CurrentAccount, _exportModalViewModel.FilePath );
+                _exportModalViewModel.SuccessMessageContent = "Data successfully exported!";
 
                 _renavigator.Renavigate();
             }
             catch ( Exception )
             {
+                _exportModalViewModel.ErrorMessageContent = "There was an error exporting data. Please try again!";
                 throw;
             }
         }
 
 
-        private void ExportModalViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e )
+        private void ExportModalViewModel_PropertyChanged( object? sender, PropertyChangedEventArgs e )
         {
-            if (e.PropertyName == nameof( ExportModalViewModel.CanExport) )
+            if ( e.PropertyName == nameof( ExportModalViewModel.CanExport ) )
             {
                 OnCallExecuteChanged();
             }
