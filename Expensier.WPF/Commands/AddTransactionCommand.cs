@@ -20,7 +20,7 @@ namespace Expensier.WPF.Commands
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
-        public AddTransactionCommand(TransactionModalViewModel transactionModalViewModel, ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator)
+        public AddTransactionCommand( TransactionModalViewModel transactionModalViewModel, ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator )
         {
             _transactionModalViewModel = transactionModalViewModel;
             _transactionService = transactionService;
@@ -30,12 +30,12 @@ namespace Expensier.WPF.Commands
             _transactionModalViewModel.PropertyChanged += TransactionModalViewModel_PropertyChanged;
         }
 
-        public override bool CanExecute(object parameter)
+        public override bool CanExecute( object parameter )
         {
-            return _transactionModalViewModel.CanAdd && base.CanExecute(parameter);
+            return _transactionModalViewModel.CanAdd && base.CanExecute( parameter );
         }
 
-        public override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync( object parameter )
         {
             try
             {
@@ -44,7 +44,7 @@ namespace Expensier.WPF.Commands
                     _transactionModalViewModel.TransactionName,
                     _transactionModalViewModel.ProcessDate,
                     _transactionModalViewModel.Amount,
-                    _transactionModalViewModel.Category);
+                    _transactionModalViewModel.Category );
 
                 _accountStore.CurrentAccount = updatedAccount;
                 _transactionModalViewModel.TransactionName = string.Empty;
@@ -53,15 +53,15 @@ namespace Expensier.WPF.Commands
                 _transactionModalViewModel.Category = TransactionType.Salary;
                 _renavigator.Renavigate();
             }
-            catch (Exception)
+            catch ( Exception )
             {
                 throw;
             }
         }
 
-        private void TransactionModalViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void TransactionModalViewModel_PropertyChanged( object? sender, PropertyChangedEventArgs e )
         {
-            if (e.PropertyName == nameof(TransactionModalViewModel.CanAdd))
+            if ( e.PropertyName == nameof( TransactionModalViewModel.CanAdd ) )
             {
                 OnCallExecuteChanged();
             }

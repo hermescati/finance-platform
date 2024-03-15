@@ -43,6 +43,9 @@
                 <Popup IsOpen="False">
                     <modals:SubscriptionModal x:Name="AddSubscription" DataContext="{Binding SubscriptionModalViewModel}" />
                 </Popup>
+                <Popup IsOpen="False">
+                    <modals:ExportModal x:Name="ExportModal" DataContext="{Binding ExportModalViewModel}" />
+                </Popup>
                 <!--#endregion-->
 
                 <!--#region Expenses-->
@@ -115,6 +118,7 @@
                             Width="44"
                             Height="44"
                             Background="{StaticResource MenuShade}"
+                            Click="ExportTransactions"
                             Style="{StaticResource IconButton}"
                             Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Button.Tag>

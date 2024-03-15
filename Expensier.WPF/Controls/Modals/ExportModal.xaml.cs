@@ -16,21 +16,21 @@ using System.Windows.Shapes;
 namespace Expensier.WPF.Controls.Modals
 {
     /// <summary>
-    /// Interaction logic for AddNewModal.xaml
+    /// Interaction logic for ExportModal.xaml
     /// </summary>
-    public partial class TransactionModal : UserControl
+    public partial class ExportModal : UserControl
     {
-        public TransactionModal()
+        public ExportModal()
         {
             InitializeComponent();
         }
 
-        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Rectangle_MouseDown( object sender, MouseButtonEventArgs e )
         {
             this.Visibility = Visibility.Collapsed;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click( object sender, RoutedEventArgs e )
         {
             this.Visibility = Visibility.Collapsed;
         }

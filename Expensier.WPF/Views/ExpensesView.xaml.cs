@@ -28,24 +28,34 @@ namespace Expensier.WPF.Views
             InitializeComponent();
         }
 
-        private void AddNewTransaction(object sender, RoutedEventArgs e)
+        private void AddNewTransaction( object sender, RoutedEventArgs e )
         {
             var modal = new TransactionModal()
             {
                 DataContext = AddTransaction.DataContext
             };
 
-            MainContent.Children.Add(modal);
+            MainContent.Children.Add( modal );
         }
 
-        private void AddNewSubscription(object sender, RoutedEventArgs e)
+        private void AddNewSubscription( object sender, RoutedEventArgs e )
         {
             var modal = new SubscriptionModal()
             {
                 DataContext = AddSubscription.DataContext
             };
 
-            MainContent.Children.Add(modal);
+            MainContent.Children.Add( modal );
+        }
+
+        private void ExportTransactions( object sender, RoutedEventArgs e )
+        {
+            var modal = new ExportModal()
+            {
+                DataContext = ExportModal.DataContext
+            };
+
+            MainContent.Children.Add( modal );
         }
     }
 }

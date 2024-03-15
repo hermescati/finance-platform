@@ -10,9 +10,9 @@ namespace Expensier.Domain.Services.Transactions
     public enum TransactionType
     {
         Salary,
-        Rent, 
+        Rent,
         Utilities,
-        Food, 
+        Food,
         Travel,
         Subscription,
         Shopping
@@ -25,11 +25,16 @@ namespace Expensier.Domain.Services.Transactions
             string transactionName,
             DateTime processDate,
             double amount,
-            TransactionType transactionType);
+            TransactionType transactionType );
 
 
         Task<Account> DeleteTransaction(
             Account currentAccount,
-            Guid transactionID);
+            Guid transactionID );
+
+
+        Task ExportTransactionData( 
+            Account currentAccount, 
+            string filePath );
     }
 }
