@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Expensier.WPF.Commands.Assets;
 
 namespace Expensier.WPF.ViewModels.Cryptos
 {

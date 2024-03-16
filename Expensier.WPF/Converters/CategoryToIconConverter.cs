@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using static Expensier.Domain.Models.Transaction;
 
 namespace Expensier.WPF.Converters
 {
@@ -20,7 +21,7 @@ namespace Expensier.WPF.Converters
         {
             categoryIconMap = new Dictionary<TransactionCategory, ImageSource>
             {
-                { TransactionCategory.Salary, App.Current.FindResource("IncomeIcon") as ImageSource },
+                { TransactionCategory.Income, App.Current.FindResource("IncomeIcon") as ImageSource },
                 { TransactionCategory.Rent, App.Current.FindResource("RentIcon") as ImageSource },
                 { TransactionCategory.Utilities, App.Current.FindResource("UtilitiesIcon") as ImageSource },
                 { TransactionCategory.Food, App.Current.FindResource("FoodIcon") as ImageSource },

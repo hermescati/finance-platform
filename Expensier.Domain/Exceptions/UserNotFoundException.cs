@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Expensier.Domain.Exceptions
+﻿namespace Expensier.Domain.Exceptions
 {
     public class UserNotFoundException : Exception
     {
         public string Email { get; set; }
 
-        public UserNotFoundException(string email)
+
+        public UserNotFoundException( string email )
         {
             Email = email;
         }
 
-        public UserNotFoundException(string message, string email) : base(message)
+
+        public UserNotFoundException( string message, string email ) : base( message )
         {
             Email = email;
         }
+        
 
-        public UserNotFoundException(string message, Exception innerException, string email) : base(message, innerException)
+        public UserNotFoundException( string message, Exception innerException, string email ) : base( message, innerException )
         {
             Email = email;
         }

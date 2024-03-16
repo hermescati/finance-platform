@@ -1,6 +1,6 @@
 ﻿using Expensier.Domain.Models;
 using Expensier.Domain.Services;
-using Expensier.WPF.Commands;
+using Expensier.WPF.Commands.Assets;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Errors;

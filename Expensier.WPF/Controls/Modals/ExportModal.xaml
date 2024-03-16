@@ -14,7 +14,6 @@
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
     </UserControl.Resources>
 
 

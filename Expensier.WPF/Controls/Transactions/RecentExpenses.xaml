@@ -50,7 +50,7 @@
                             Grid.Column="0"
                             Width="38"
                             Height="38"
-                            Source="{Binding TransactionType, Converter={StaticResource CategoryToIconConverter}}" />
+                            Source="{Binding Category, Converter={StaticResource CategoryToIconConverter}}" />
 
                         <!--  Transaction Details  -->
                         <Grid Grid.Column="2" VerticalAlignment="Center">
@@ -63,7 +63,7 @@
                             <TextBlock
                                 Grid.Row="0"
                                 Style="{StaticResource Header6}"
-                                Text="{Binding TransactionName}" />
+                                Text="{Binding Name}" />
 
                             <StackPanel
                                 Grid.Row="2"
@@ -73,7 +73,7 @@
                                 <TextBlock
                                     Foreground="{StaticResource ForegroundShade}"
                                     Style="{StaticResource SmallText}"
-                                    Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
+                                    Text="{Binding ProcessedDate, StringFormat='{}{0:MMM dd}'}" />
 
                                 <Ellipse
                                     Width="4"
@@ -84,7 +84,7 @@
                                 <TextBlock
                                     Foreground="{StaticResource ForegroundShade}"
                                     Style="{StaticResource SmallText}"
-                                    Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
+                                    Text="{Binding ProcessedDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
 
                         </Grid>

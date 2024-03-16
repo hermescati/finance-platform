@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Expensier.Domain.Models.Transaction;
 
 namespace Expensier.Domain.Services.Transactions
 {
@@ -20,26 +21,26 @@ namespace Expensier.Domain.Services.Transactions
         }
 
 
-        public async Task<Account> AddTransaction( Account currentAccount, string transactionName, DateTime processDate, double amount, TransactionType transactionType )
+        public async Task<Account> AddTransaction( 
+            Account currentAccount, 
+            string transactionName, 
+            TransactionCategory transactionCategory, 
+            double amount, 
+            DateTime processedDate )
         {
-            bool IsCredit = true;
-
-            if ( transactionType == TransactionType.Salary )
-            {
-                IsCredit = false;
-            }
+            bool isCredit = transactionCategory != TransactionCategory.Income;
 
             Transaction newTransaction = new Transaction()
             {
-                AccountHolder = currentAccount,
-                TransactionName = transactionName,
-                ProcessDate = processDate,
+                User = currentAccount,
+                Name = transactionName,
                 Amount = amount,
-                TransactionType = transactionType.ToString(),
-                IsCredit = IsCredit
+                Category = transactionCategory.ToString(),
+                IsCredit = isCredit,
+                ProcessedDate = processedDate,
             };
 
-            currentAccount.TransactionList.Add( newTransaction );
+            currentAccount.TransactionList?.Add( newTransaction );
 
             await _accountService.Update( currentAccount.ID, currentAccount );
 
@@ -50,11 +51,9 @@ namespace Expensier.Domain.Services.Transactions
         public async Task<Account> DeleteTransaction( Account currentAccount, Guid transactionID )
         {
             currentAccount.TransactionList
-                .Remove( currentAccount.TransactionList
-                .FirstOrDefault( ( transaction ) => transaction.ID == transactionID ) );
+                .Remove( currentAccount.TransactionList.FirstOrDefault( ( transaction ) => transaction.ID == transactionID ) );
 
             await _accountService.Update( currentAccount.ID, currentAccount );
-
             await _transactionService.Delete( transactionID );
 
             return currentAccount;
@@ -63,18 +62,22 @@ namespace Expensier.Domain.Services.Transactions
 
         public async Task ExportTransactionData( Account currentAccount, string filePath )
         {
-            List<Transaction> transactionList = currentAccount.TransactionList.ToList();
+            IEnumerable<Transaction> transactionList = currentAccount.TransactionList;
 
             using ( StreamWriter writer = new StreamWriter( filePath ) )
             {
-                writer.WriteLine( "Name, Category, Amount, Processed_Date" );
+                await writer.WriteLineAsync( "Name, Category, Amount, Processed_Date" );
 
                 foreach ( Transaction transaction in transactionList )
                 {
-                    string transactionAmount = transaction.Amount.ToString();
+                    string transactionAmount = string.Format( "{0}", transaction.Amount );
                     transactionAmount = transaction.IsCredit ? "- $" + transactionAmount : "+ $" + transactionAmount;
 
-                    writer.WriteLine( $"{transaction.TransactionName}, {transaction.TransactionType}, {transactionAmount}, {transaction.ProcessDate.ToString( "dd/MM/yyyy" )}" );
+                    writer.WriteLine( string.Format( "{0}, {1}, {2}, {3}",
+                        transaction.Name,
+                        transaction.Category,
+                        transactionAmount,
+                        transaction.ProcessedDate.ToString( "dd/MM/yyyy" ) ) );
                 }
             }
         }

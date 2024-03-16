@@ -109,7 +109,7 @@ namespace Expensier.WPF.ViewModels.Charts
             _transactionStore = transactionStore;
             TransactionViewModel = new TransactionViewModel( transactionStore,
                 transactions => transactions
-                .OrderBy( t => t.ProcessDate )
+                .OrderBy( t => t.ProcessedDate )
                 .Where( t => t.IsCredit == true ) );
 
             _transactions = TransactionViewModel.Transactions;
@@ -145,13 +145,13 @@ namespace Expensier.WPF.ViewModels.Charts
 
         private void GetMonthlyExpenditures( IEnumerable<TransactionDataModel> transactions )
         {
-            transactions = transactions.Where( t => t.ProcessDate.Month == DateTime.Now.Month && t.ProcessDate.Year == DateTime.Now.Year );
+            transactions = transactions.Where( t => t.ProcessedDate.Month == DateTime.Now.Month && t.ProcessedDate.Year == DateTime.Now.Year );
             ConstructChart( transactions );
         }
 
         private void GetAnnualExpenditures( IEnumerable<TransactionDataModel> transactions )
         {
-            transactions = transactions.Where( t => t.ProcessDate.Year == DateTime.Now.Year );
+            transactions = transactions.Where( t => t.ProcessedDate.Year == DateTime.Now.Year );
             ConstructChart( transactions );
         }
 
@@ -160,8 +160,8 @@ namespace Expensier.WPF.ViewModels.Charts
             _series.Clear();
 
             var grouppedTransactions = transactions
-                .GroupBy( t => t.TransactionType )
-                .Select( g => new ChartDataModel( g.Key, g.Sum( t => t.Amount ) ) ).ToList();
+                .GroupBy( t => t.Category )
+                .Select( g => new ChartDataModel( g.Key.ToString(), g.Sum( t => t.Amount ) ) ).ToList();
 
             TotalExpenditure = grouppedTransactions.Sum( t => t.SeriesValue );
 

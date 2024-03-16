@@ -1,13 +1,10 @@
 ﻿using Expensier.WPF.Commands;
+using Expensier.WPF.Commands.Authentication;
 using Expensier.WPF.State.Authenticators;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Errors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+
 
 namespace Expensier.WPF.ViewModels
 {
@@ -20,10 +17,7 @@ namespace Expensier.WPF.ViewModels
         private string _firstName;
         public string FirstName
         {
-            get
-            {
-                return _firstName;
-            }
+            get => _firstName;
             set
             {
                 _firstName = value;
@@ -36,10 +30,7 @@ namespace Expensier.WPF.ViewModels
         private string _lastName;
         public string LastName
         {
-            get
-            {
-                return _lastName;
-            }
+            get => _lastName;
             set
             {
                 _lastName = value;
@@ -52,10 +43,7 @@ namespace Expensier.WPF.ViewModels
         private string _email;
         public string Email
         {
-            get
-            {
-                return _email;
-            }
+            get => _email;
             set
             {
                 _email = value;
@@ -68,10 +56,7 @@ namespace Expensier.WPF.ViewModels
         private string _password;
         public string Password
         {
-            get
-            {
-                return _password;
-            }
+            get => _password;
             set
             {
                 _password = value;
@@ -84,10 +69,7 @@ namespace Expensier.WPF.ViewModels
         private string _confirmPassword;
         public string ConfirmPassword
         {
-            get
-            {
-                return _confirmPassword;
-            }
+            get => _confirmPassword;
             set
             {
                 _confirmPassword = value;
@@ -100,10 +82,7 @@ namespace Expensier.WPF.ViewModels
         private bool _isChecked = false;
         public bool IsChecked
         {
-            get
-            {
-                return _isChecked;
-            }
+            get => _isChecked;
             set
             {
                 _isChecked = value;

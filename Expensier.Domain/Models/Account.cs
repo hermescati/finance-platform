@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace Expensier.Domain.Models
 {
     public class Account : DomainObject
     {
-        public User AccountHolder { get; set; }
-        public ICollection<Transaction>? TransactionList { get; set; }
-        public ICollection<Subscription>? SubscriptionList { get; set; }
-        public ICollection<CryptoAsset>? CryptoAssetList { get; set; }
-        public ICollection<PortfolioReturn>? PortfolioReturn { get; set; }
+        [Column( Order = 1 )]
+        public required User User { get; set; }
+
+
+        public virtual ICollection<Transaction>? TransactionList { get; set; }
+        public virtual ICollection<Subscription>? SubscriptionList { get; set; }
+        public virtual ICollection<CryptoAsset>? CryptoAssetList { get; set; }
+        public virtual ICollection<PortfolioReturn>? PortfolioReturn { get; set; }
     }
 }

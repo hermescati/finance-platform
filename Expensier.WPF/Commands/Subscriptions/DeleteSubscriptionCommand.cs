@@ -4,41 +4,47 @@ using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Subscriptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace Expensier.WPF.Commands
+
+namespace Expensier.WPF.Commands.Subscriptions
 {
     public class DeleteSubscriptionCommand : AsyncCommandBase
     {
         private readonly SubscriptionDataModel _subscriptionDataModel;
         private readonly ISubscriptionService _subscriptionService;
-        private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
+        private readonly AccountStore _accountStore;
 
-        public DeleteSubscriptionCommand(SubscriptionDataModel subscriptionDataModel, ISubscriptionService subscriptionService, AccountStore accountStore, IRenavigator renavigator)
+
+        public DeleteSubscriptionCommand(
+            SubscriptionDataModel subscriptionDataModel,
+            ISubscriptionService subscriptionService,
+             IRenavigator renavigator,
+             AccountStore accountStore )
         {
             _subscriptionDataModel = subscriptionDataModel;
             _subscriptionService = subscriptionService;
-            _accountStore = accountStore;
             _renavigator = renavigator;
+            _accountStore = accountStore;
         }
 
-        public override async Task ExecuteAsync(object parameter)
+
+        public override async Task ExecuteAsync( object parameter )
         {
             try
             {
                 Account updatedAccount = await _subscriptionService.DeleteSubscription(
                     _accountStore.CurrentAccount,
-                    _subscriptionDataModel.Id);
+                    _subscriptionDataModel.ID );
 
                 _accountStore.CurrentAccount = updatedAccount;
                 _renavigator.Renavigate();
             }
-            catch (Exception)
+            catch ( Exception e )
             {
+                Trace.TraceError( e.Message );
                 throw;
             }
         }

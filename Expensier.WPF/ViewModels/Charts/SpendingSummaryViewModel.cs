@@ -101,7 +101,7 @@ namespace Expensier.WPF.ViewModels.Charts
             _transactionStore = transactionStore;
             TransactionViewModel = new TransactionViewModel( transactionStore,
                 transactions => transactions
-                .OrderBy( t => t.ProcessDate )
+                .OrderBy( t => t.ProcessedDate )
                 .Where( t => t.IsCredit == true ) );
 
             _transactions = TransactionViewModel.Transactions;
@@ -139,8 +139,8 @@ namespace Expensier.WPF.ViewModels.Charts
         private void GetMonthlyTransactions( IEnumerable<TransactionDataModel> transactions )
         {
             var filteredTransactions = transactions
-                .Where( t => t.ProcessDate.Month == DateTime.Now.Month && t.ProcessDate.Year == DateTime.Now.Year )
-                .GroupBy( t => t.ProcessDate.Date )
+                .Where( t => t.ProcessedDate.Month == DateTime.Now.Month && t.ProcessedDate.Year == DateTime.Now.Year )
+                .GroupBy( t => t.ProcessedDate.Date )
                 .Select( g => new ChartDataModel( g.Key.ToString( "ddd, d" ), g.Sum( t => t.Amount ) ) );
 
             ConstructSeries( filteredTransactions );
@@ -149,8 +149,8 @@ namespace Expensier.WPF.ViewModels.Charts
         private void GetAnnualTransactions( IEnumerable<TransactionDataModel> transactions )
         {
             var filteredTransactions = transactions
-                .Where( t => t.ProcessDate.Year == DateTime.Now.Year )
-                .GroupBy( t => t.ProcessDate.Month )
+                .Where( t => t.ProcessedDate.Year == DateTime.Now.Year )
+                .GroupBy( t => t.ProcessedDate.Month )
                 .Select( g => new ChartDataModel( CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName( g.Key ), g.Sum( t => t.Amount ) ) );
 
             ConstructSeries( filteredTransactions );

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Expensier.WPF.Enums
 {
-    public enum TransactionCategory
+    public enum Transaction
     {
         Salary,
         Rent,
@@ -17,7 +17,7 @@ namespace Expensier.WPF.Enums
         Shopping
     }
 
-    public enum CompanyName
+    public enum Company
     {
         Figma,
         Adobe,

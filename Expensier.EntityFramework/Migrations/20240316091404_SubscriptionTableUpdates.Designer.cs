@@ -3,6 +3,7 @@ using System;
 using Expensier.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Expensier.EntityFramework.Migrations
 {
     [DbContext(typeof(ExpensierDbContext))]
-    partial class ExpensierDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240316091404_SubscriptionTableUpdates")]
+    partial class SubscriptionTableUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
@@ -21,15 +24,14 @@ namespace Expensier.EntityFramework.Migrations
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(0);
+                        .HasColumnType("TEXT");
 
-                    b.Property<Guid>("UserID")
+                    b.Property<Guid>("AccountHolderID")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("AccountHolderID");
 
                     b.ToTable("Accounts");
                 });
@@ -38,8 +40,7 @@ namespace Expensier.EntityFramework.Migrations
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(0);
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("AccountHolderID")
                         .HasColumnType("TEXT");
@@ -61,8 +62,7 @@ namespace Expensier.EntityFramework.Migrations
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(0);
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("AccountHolderID")
                         .HasColumnType("TEXT");
@@ -84,35 +84,28 @@ namespace Expensier.EntityFramework.Migrations
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(0);
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("Amount")
-                        .HasColumnType("REAL")
-                        .HasColumnOrder(4);
+                        .HasColumnType("REAL");
 
                     b.Property<DateTime>("DueDate")
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(7);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Frequency")
                         .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(5);
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER")
-                        .HasColumnOrder(6);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(2);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Plan")
                         .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(3);
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserID")
                         .HasColumnType("TEXT");
@@ -128,30 +121,24 @@ namespace Expensier.EntityFramework.Migrations
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(0);
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("Amount")
-                        .HasColumnType("REAL")
-                        .HasColumnOrder(4);
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(3);
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsCredit")
-                        .HasColumnType("INTEGER")
-                        .HasColumnOrder(5);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(2);
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ProcessedDate")
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(6);
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserID")
                         .HasColumnType("TEXT");
@@ -167,32 +154,22 @@ namespace Expensier.EntityFramework.Migrations
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(0);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(3);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(1);
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("JoinDate")
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(5);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(2);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnOrder(4);
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 
@@ -201,13 +178,13 @@ namespace Expensier.EntityFramework.Migrations
 
             modelBuilder.Entity("Expensier.Domain.Models.Account", b =>
                 {
-                    b.HasOne("Expensier.Domain.Models.User", "User")
+                    b.HasOne("Expensier.Domain.Models.User", "AccountHolder")
                         .WithMany()
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("AccountHolderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("AccountHolder");
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.CryptoAsset", b =>

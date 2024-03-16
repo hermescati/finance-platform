@@ -3,6 +3,7 @@ using System;
 using Expensier.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Expensier.EntityFramework.Migrations
 {
     [DbContext(typeof(ExpensierDbContext))]
-    partial class ExpensierDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240316093230_UserTableUpdates")]
+    partial class UserTableUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
@@ -24,12 +27,12 @@ namespace Expensier.EntityFramework.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnOrder(0);
 
-                    b.Property<Guid>("UserID")
+                    b.Property<Guid>("AccountHolderID")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("AccountHolderID");
 
                     b.ToTable("Accounts");
                 });
@@ -201,13 +204,13 @@ namespace Expensier.EntityFramework.Migrations
 
             modelBuilder.Entity("Expensier.Domain.Models.Account", b =>
                 {
-                    b.HasOne("Expensier.Domain.Models.User", "User")
+                    b.HasOne("Expensier.Domain.Models.User", "AccountHolder")
                         .WithMany()
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("AccountHolderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("AccountHolder");
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.CryptoAsset", b =>

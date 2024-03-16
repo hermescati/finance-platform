@@ -142,7 +142,7 @@
                         Grid.Column="0"
                         Width="34"
                         Height="34"
-                        Source="{Binding TransactionType, Converter={StaticResource CategoryToIconConverter}}" />
+                        Source="{Binding Category, Converter={StaticResource CategoryToIconConverter}}" />
                     <!--#endregion-->
 
                     <!--#region Transaction-->
@@ -163,7 +163,7 @@
                             MinWidth="164"
                             VerticalAlignment="Center"
                             Style="{StaticResource Header6}"
-                            Text="{Binding TransactionName}" />
+                            Text="{Binding Name}" />
 
                         <!--  Category  -->
                         <StackPanel Grid.Column="2">
@@ -176,7 +176,7 @@
                             <TextBlock
                                 MinWidth="80"
                                 Style="{StaticResource Header6}"
-                                Text="{Binding TransactionType}" />
+                                Text="{Binding Category}" />
                         </StackPanel>
 
                         <!--  Date  -->
@@ -188,7 +188,7 @@
                                 Text="Date" />
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource Header6}" Text="{Binding ProcessDate, StringFormat='{}{0:MMM dd}'}" />
+                                <TextBlock Style="{StaticResource Header6}" Text="{Binding ProcessedDate, StringFormat='{}{0:MMM dd}'}" />
 
                                 <Ellipse
                                     Width="4"
@@ -196,7 +196,7 @@
                                     Margin="8,0"
                                     Fill="{StaticResource Foreground}" />
 
-                                <TextBlock Style="{StaticResource Header6}" Text="{Binding ProcessDate, StringFormat='{}{0:yyyy}'}" />
+                                <TextBlock Style="{StaticResource Header6}" Text="{Binding ProcessedDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
                         </StackPanel>
 

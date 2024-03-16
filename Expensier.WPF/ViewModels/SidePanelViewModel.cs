@@ -1,13 +1,8 @@
-﻿using Expensier.WPF.Commands;
+﻿using Expensier.WPF.Commands.Authentication;
 using Expensier.WPF.State.Authenticators;
 using Expensier.WPF.State.Navigators;
-using Expensier.WPF.ViewModels.Factories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+
 
 namespace Expensier.WPF.ViewModels
 {
@@ -20,10 +15,7 @@ namespace Expensier.WPF.ViewModels
         private string _greetingMessage;
         public string GreetingMessage
         {
-            get
-            {
-                return _greetingMessage;
-            }
+            get => _greetingMessage;
             set
             {
                 _greetingMessage = value;

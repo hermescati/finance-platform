@@ -1,14 +1,11 @@
 ﻿using Expensier.Domain.Services.Authentication;
 using Expensier.WPF.Commands;
+using Expensier.WPF.Commands.Authentication;
 using Expensier.WPF.State.Authenticators;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Errors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+
 
 namespace Expensier.WPF.ViewModels
 {
@@ -17,10 +14,7 @@ namespace Expensier.WPF.ViewModels
         private string _email;
         public string Email
         {
-            get
-            {
-                return _email;
-            }
+            get => _email;
             set
             {
                 _email = value;
@@ -33,10 +27,7 @@ namespace Expensier.WPF.ViewModels
         private string _newPassword;
         public string NewPassword
         {
-            get
-            {
-                return _newPassword;
-            }
+            get => _newPassword;
             set
             {
                 _newPassword = value;
@@ -49,10 +40,7 @@ namespace Expensier.WPF.ViewModels
         private string _confirmPassword;
         public string ConfirmPassword
         {
-            get
-            {
-                return _confirmPassword;
-            }
+            get => _confirmPassword;
             set
             {
                 _confirmPassword = value;
@@ -62,32 +50,26 @@ namespace Expensier.WPF.ViewModels
         }
 
 
-        private bool _emailForm = true;
-        public bool EmailForm
+        private bool _showEmailForm = true;
+        public bool ShowEmailForm
         {
-            get
-            {
-                return _emailForm;
-            }
+            get => _showEmailForm;
             set
             {
-                _emailForm = value;
-                OnPropertyChanged( nameof( EmailForm ) );
+                _showEmailForm = value;
+                OnPropertyChanged( nameof( ShowEmailForm ) );
             }
         }
 
 
-        private bool _passwordForm = false;
-        public bool PasswordForm
+        private bool _showPasswordForm = false;
+        public bool ShowPasswordForm
         {
-            get
-            {
-                return _passwordForm;
-            }
+            get => _showPasswordForm;
             set
             {
-                _passwordForm = value;
-                OnPropertyChanged( nameof( PasswordForm ) );
+                _showPasswordForm = value;
+                OnPropertyChanged( nameof( ShowPasswordForm ) );
             }
         }
 
@@ -100,7 +82,8 @@ namespace Expensier.WPF.ViewModels
 
 
         public bool CanContinue => !string.IsNullOrEmpty( Email );
-        public bool CanReset => !string.IsNullOrEmpty( NewPassword ) &&
+        public bool CanReset => 
+            !string.IsNullOrEmpty( NewPassword ) &&
             !string.IsNullOrEmpty( ConfirmPassword );
 
 

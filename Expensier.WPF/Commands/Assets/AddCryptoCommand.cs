@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Expensier.WPF.Commands
+namespace Expensier.WPF.Commands.Assets
 {
     public class AddCryptoCommand : AsyncCommandBase
     {
@@ -51,7 +51,8 @@ namespace Expensier.WPF.Commands
                 _cryptoModalViewModel.Coins = 0.0;
                 _renavigator.Renavigate();
             }
-            catch(Exception){
+            catch (Exception)
+            {
                 throw;
             }
         }
