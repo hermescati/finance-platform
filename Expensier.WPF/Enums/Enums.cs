@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Expensier.WPF.Enums
 {
-    public enum TransactionCategory
+    public enum Transaction
     {
         Salary,
         Rent,

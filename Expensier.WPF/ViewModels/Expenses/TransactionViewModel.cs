@@ -127,8 +127,8 @@ namespace Expensier.WPF.ViewModels.Expenses
         public void ResetTransactions()
         {
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
-                .Select(t => new TransactionDataModel(t.ID, t.TransactionName, t.ProcessDate, t.Amount, t.TransactionType, t.IsCredit, _transactionService, _accountStore, _renavigator))
-                .OrderByDescending(o => o.ProcessDate);
+                .Select(t => new TransactionDataModel(t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _accountStore, _renavigator))
+                .OrderByDescending(o => o.ProcessedDate );
 
             transactionDataModel = _filterTransaction(transactionDataModel);
 
@@ -172,9 +172,9 @@ namespace Expensier.WPF.ViewModels.Expenses
         public void FilterTransactions(string query)
         {
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
-                .Select(t => new TransactionDataModel(t.ID, t.TransactionName, t.ProcessDate, t.Amount, t.TransactionType, t.IsCredit, _transactionService, _accountStore, _renavigator));
+                .Select(t => new TransactionDataModel(t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _accountStore, _renavigator));
 
-            transactionDataModel = transactionDataModel.Where(t => t.TransactionName.ToLower().Contains(query.ToLower()));
+            transactionDataModel = transactionDataModel.Where(t => t.Name.ToLower().Contains(query.ToLower()));
 
             _transactions.Clear();
             foreach (TransactionDataModel dataModel in transactionDataModel)
@@ -186,15 +186,15 @@ namespace Expensier.WPF.ViewModels.Expenses
         public void SortTransactions()
         {
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
-                .Select(t => new TransactionDataModel(t.ID, t.TransactionName, t.ProcessDate, t.Amount, t.TransactionType, t.IsCredit, _transactionService, _accountStore, _renavigator));
+                .Select(t => new TransactionDataModel(t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _accountStore, _renavigator));
 
             if (_selectedItem == SortingFunctions.Asceding)
             {
-                transactionDataModel = transactionDataModel.OrderBy(t => t.TransactionName);
+                transactionDataModel = transactionDataModel.OrderBy(t => t.Name);
             }
             else if (_selectedItem == SortingFunctions.Descending)
             {
-                transactionDataModel = transactionDataModel.OrderByDescending(t => t.TransactionName);
+                transactionDataModel = transactionDataModel.OrderByDescending(t => t.Name);
             }
             else if (_selectedItem == SortingFunctions.Amount)
             {
@@ -202,7 +202,7 @@ namespace Expensier.WPF.ViewModels.Expenses
             }
             else
             {
-                transactionDataModel = transactionDataModel.OrderByDescending(t => t.ProcessDate);
+                transactionDataModel = transactionDataModel.OrderByDescending(t => t.ProcessedDate);
             }
             
             _transactions.Clear();

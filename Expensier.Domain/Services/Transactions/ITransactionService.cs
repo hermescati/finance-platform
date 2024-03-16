@@ -4,28 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Expensier.Domain.Models.Transaction;
 
 namespace Expensier.Domain.Services.Transactions
 {
-    public enum TransactionType
-    {
-        Salary,
-        Rent,
-        Utilities,
-        Food,
-        Travel,
-        Subscription,
-        Shopping
-    }
-
     public interface ITransactionService
     {
         Task<Account> AddTransaction(
             Account currentAccount,
             string transactionName,
-            DateTime processDate,
+            TransactionCategory transactionCategory,
             double amount,
-            TransactionType transactionType );
+            DateTime processedDate );
 
 
         Task<Account> DeleteTransaction(
@@ -33,8 +23,8 @@ namespace Expensier.Domain.Services.Transactions
             Guid transactionID );
 
 
-        Task ExportTransactionData( 
-            Account currentAccount, 
+        Task ExportTransactionData(
+            Account currentAccount,
             string filePath );
     }
 }

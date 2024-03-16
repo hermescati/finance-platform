@@ -57,10 +57,10 @@ namespace Expensier.WPF.ViewModels
             _transactions = new ObservableCollection<TransactionDataModel>();
 
             TransactionViewModel = new TransactionViewModel(transactionStore, transactions => transactions
-                .OrderBy(t => t.ProcessDate)
+                .OrderBy(t => t.ProcessedDate )
                 .Where(t => t.IsCredit == true)
-                .Where(t => t.ProcessDate >= new DateTime(DateTime.Now.Year, 1, 1) && t.ProcessDate < new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1))
-                .GroupBy(t => t.ProcessDate.Month)
+                .Where(t => t.ProcessedDate >= new DateTime(DateTime.Now.Year, 1, 1) && t.ProcessedDate < new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1))
+                .GroupBy(t => t.ProcessedDate.Month)
                 .Select(g => new TransactionDataModel(
                     new DateTime(DateTime.Now.Year, g.Key, DateTime.DaysInMonth(DateTime.Now.Year, g.Key)),
                     g.Sum(t => t.Amount))));
@@ -83,7 +83,7 @@ namespace Expensier.WPF.ViewModels
 
             for (int i = 0; i < transactionsList.Count(); i++)
             {
-                inputX[i] = TranslateDateToDays(transactionsList[i].ProcessDate);
+                inputX[i] = TranslateDateToDays(transactionsList[i].ProcessedDate );
                 inputY[i] = transactionsList[i].Amount;
             }
 
@@ -99,7 +99,7 @@ namespace Expensier.WPF.ViewModels
 
             for (int i = 0; i < transactionsList.Count(); i++)
             {
-                inputData[i] = TranslateDateToDays(transactionsList[i].ProcessDate);
+                inputData[i] = TranslateDateToDays(transactionsList[i].ProcessedDate );
                 dataLabels[i] = transactionsList[i].Amount;
             }
 

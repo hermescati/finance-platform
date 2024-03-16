@@ -73,7 +73,7 @@ namespace Expensier.WPF.ViewModels.Charts
             _transactionStore = transactionStore;
             TransactionViewModel = new TransactionViewModel( transactionStore,
                 transactions => transactions
-                .OrderBy( t => t.ProcessDate )
+                .OrderBy( t => t.ProcessedDate )
                 .Where( t => t.IsCredit == true ) );
 
             _transactions = TransactionViewModel.Transactions;
@@ -105,7 +105,7 @@ namespace Expensier.WPF.ViewModels.Charts
             var filteredTransactions = lastSixMonths
                 .GroupJoin( transactions,
                     date => new { date.Year, date.Month },
-                    transaction => new { transaction.ProcessDate.Year, transaction.ProcessDate.Month },
+                    transaction => new { transaction.ProcessedDate.Year, transaction.ProcessedDate.Month },
                     ( date, transactionGroup ) => new
                     {
                         MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(date.Month),

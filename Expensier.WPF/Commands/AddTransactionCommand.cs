@@ -42,15 +42,15 @@ namespace Expensier.WPF.Commands
                 Account updatedAccount = await _transactionService.AddTransaction(
                     _accountStore.CurrentAccount,
                     _transactionModalViewModel.TransactionName,
-                    _transactionModalViewModel.ProcessDate,
+                    _transactionModalViewModel.Category,
                     _transactionModalViewModel.Amount,
-                    _transactionModalViewModel.Category );
+                    _transactionModalViewModel.ProcessDate );
 
                 _accountStore.CurrentAccount = updatedAccount;
                 _transactionModalViewModel.TransactionName = string.Empty;
                 _transactionModalViewModel.ProcessDate = DateTime.Now;
                 _transactionModalViewModel.Amount = 0.0;
-                _transactionModalViewModel.Category = TransactionType.Salary;
+                _transactionModalViewModel.Category = Transaction.TransactionCategory.Income;
                 _renavigator.Renavigate();
             }
             catch ( Exception )

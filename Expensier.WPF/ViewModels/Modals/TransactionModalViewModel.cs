@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static Expensier.Domain.Models.Transaction;
 
 namespace Expensier.WPF.ViewModels.Modals
 {
@@ -43,8 +44,8 @@ namespace Expensier.WPF.ViewModels.Modals
             }
         }
 
-        private TransactionType _category;
-        public TransactionType Category
+        private TransactionCategory _category;
+        public TransactionCategory Category
         {
             get
             {
@@ -73,7 +74,7 @@ namespace Expensier.WPF.ViewModels.Modals
 
         public bool CanAdd => !string.IsNullOrEmpty(TransactionName) && Amount > 0.0;
 
-        public IEnumerable<TransactionType> TransactionType => Enum.GetValues(typeof(TransactionType)).Cast<TransactionType>();
+        public IEnumerable<TransactionCategory> TransactionType => Enum.GetValues(typeof( TransactionCategory ) ).Cast<TransactionCategory>();
 
         public ICommand AddNewTransaction { get; }
 

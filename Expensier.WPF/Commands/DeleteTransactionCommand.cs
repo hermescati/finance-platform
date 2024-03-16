@@ -32,7 +32,7 @@ namespace Expensier.WPF.Commands
             {
                 Account updatedAccount = await _transactionService.DeleteTransaction(
                     _accountStore.CurrentAccount,
-                    _transactionDataModel.Id);
+                    _transactionDataModel.ID);
 
                 _accountStore.CurrentAccount = updatedAccount;
                 _renavigator.Renavigate();
