@@ -41,7 +41,7 @@ namespace Expensier.WPF.Commands
             try
             {
                 await _authenticator.userLogin(_loginViewModel.Email, _loginViewModel.Password);
-                _sidePanelViewModel.GreetingMessage = "Hello,  " + _authenticator.CurrentAccount.AccountHolder.FirstName;
+                _sidePanelViewModel.GreetingMessage = "Hello,  " + _authenticator.CurrentAccount.User.FirstName;
                 _renavigator.Renavigate();
             }
             catch (UserNotFoundException)

@@ -36,7 +36,7 @@ namespace Expensier.Domain.Services.Authentication
         public async Task<Account> userLogin(string email, string password)
         {
             Account storedAccount = await getAccount(email);
-            PasswordVerificationResult passwordResult = verifyPassword(storedAccount.AccountHolder.PasswordHash, password);
+            PasswordVerificationResult passwordResult = verifyPassword(storedAccount.User.PasswordHash, password);
             
             if (passwordResult != PasswordVerificationResult.Success)
             {
@@ -82,7 +82,7 @@ namespace Expensier.Domain.Services.Authentication
 
                 Account account = new Account()
                 {
-                    AccountHolder = user
+                    User = user
                 };
 
                 await _accountService.Create(account);
@@ -101,7 +101,7 @@ namespace Expensier.Domain.Services.Authentication
                 result = PasswordResetResult.PasswordsDoNotMatch;
             }
 
-            PasswordVerificationResult passwordResult = verifyPassword(userAccount.AccountHolder.PasswordHash, newPassword);
+            PasswordVerificationResult passwordResult = verifyPassword(userAccount.User.PasswordHash, newPassword);
             if (passwordResult == PasswordVerificationResult.Success)
             {
                 result = PasswordResetResult.SameOldPassword;
@@ -111,12 +111,12 @@ namespace Expensier.Domain.Services.Authentication
             {
                 string newHashedPassword = hashPassword(newPassword);
 
-                User user = userAccount.AccountHolder;
+                User user = userAccount.User;
                 user.PasswordHash = newHashedPassword;
 
                 Account account = new Account()
                 {
-                    AccountHolder = user
+                    User = user
                 };
 
                 await _accountService.Update(userAccount.ID, account);

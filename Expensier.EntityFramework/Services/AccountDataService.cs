@@ -40,7 +40,7 @@ namespace Expensier.EntityFramework.Services
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
                 Account entity = await context.Accounts
-                    .Include(holder => holder.AccountHolder)
+                    .Include(holder => holder.User)
                     .Include(transaction => transaction.TransactionList)
                     .Include(subscription => subscription.SubscriptionList)
                     .Include(crypto => crypto.CryptoAssetList)
@@ -56,12 +56,12 @@ namespace Expensier.EntityFramework.Services
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
                 return await context.Accounts
-                    .Include(holder => holder.AccountHolder)
+                    .Include(holder => holder.User )
                     .Include(transaction => transaction.TransactionList)
                     .Include(subscription => subscription.SubscriptionList)
                     .Include(crypto => crypto.CryptoAssetList)
                     .Include(returns => returns.PortfolioReturn)
-                    .FirstOrDefaultAsync((entity) => entity.AccountHolder.Email == email);
+                    .FirstOrDefaultAsync((entity) => entity.User.Email == email);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Expensier.EntityFramework.Services
             using (ExpensierDbContext context = _contextFactory.CreateDbContext())
             {
                 IEnumerable<Account> entities = await context.Accounts
-                    .Include(holder => holder.AccountHolder)
+                    .Include(holder => holder.User )
                     .Include(transaction => transaction.TransactionList)
                     .Include(subscription => subscription.SubscriptionList)
                     .Include(crypto => crypto.CryptoAssetList)
