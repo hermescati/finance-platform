@@ -2,38 +2,42 @@
 using Expensier.Domain.Services.Transactions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
-using Expensier.WPF.ViewModels;
 using Expensier.WPF.ViewModels.Modals;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace Expensier.WPF.Commands
+
+namespace Expensier.WPF.Commands.Transactions
 {
     public class AddTransactionCommand : AsyncCommandBase
     {
         private readonly TransactionModalViewModel _transactionModalViewModel;
         private readonly ITransactionService _transactionService;
-        private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
+        private readonly AccountStore _accountStore;
 
-        public AddTransactionCommand( TransactionModalViewModel transactionModalViewModel, ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator )
+
+        public AddTransactionCommand(
+            TransactionModalViewModel transactionModalViewModel,
+            ITransactionService transactionService,
+            IRenavigator renavigator,
+            AccountStore accountStore )
         {
             _transactionModalViewModel = transactionModalViewModel;
             _transactionService = transactionService;
-            _accountStore = accountStore;
             _renavigator = renavigator;
+            _accountStore = accountStore;
 
             _transactionModalViewModel.PropertyChanged += TransactionModalViewModel_PropertyChanged;
         }
 
-        public override bool CanExecute( object parameter )
-        {
-            return _transactionModalViewModel.CanAdd && base.CanExecute( parameter );
-        }
+
+        public override bool CanExecute( object parameter ) =>
+            _transactionModalViewModel.CanAdd &&
+            base.CanExecute( parameter );
+
 
         public override async Task ExecuteAsync( object parameter )
         {
@@ -53,18 +57,18 @@ namespace Expensier.WPF.Commands
                 _transactionModalViewModel.Category = Transaction.TransactionCategory.Income;
                 _renavigator.Renavigate();
             }
-            catch ( Exception )
+            catch ( Exception e )
             {
+                Trace.TraceError( e.Message );
                 throw;
             }
         }
 
+
         private void TransactionModalViewModel_PropertyChanged( object? sender, PropertyChangedEventArgs e )
         {
             if ( e.PropertyName == nameof( TransactionModalViewModel.CanAdd ) )
-            {
                 OnCallExecuteChanged();
-            }
         }
     }
 }

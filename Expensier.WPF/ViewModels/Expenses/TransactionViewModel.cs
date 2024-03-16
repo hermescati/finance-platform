@@ -35,7 +35,7 @@ namespace Expensier.WPF.ViewModels.Expenses
             set
             {
                 _listEmpty = value;
-                OnPropertyChanged(nameof(ListEmpty));
+                OnPropertyChanged( nameof( ListEmpty ) );
             }
         }
 
@@ -49,7 +49,7 @@ namespace Expensier.WPF.ViewModels.Expenses
             set
             {
                 _listNotEmpty = value;
-                OnPropertyChanged(nameof(ListNotEmpty));
+                OnPropertyChanged( nameof( ListNotEmpty ) );
             }
         }
 
@@ -63,7 +63,7 @@ namespace Expensier.WPF.ViewModels.Expenses
             set
             {
                 _selectedItem = value;
-                OnPropertyChanged(nameof(SelectedItem));
+                OnPropertyChanged( nameof( SelectedItem ) );
             }
         }
 
@@ -78,28 +78,28 @@ namespace Expensier.WPF.ViewModels.Expenses
             set
             {
                 _searchBar = value;
-                OnPropertyChanged(nameof(SearchBar));
+                OnPropertyChanged( nameof( SearchBar ) );
             }
         }
 
 
-        public IEnumerable<SortingFunctions> Sort => Enum.GetValues(typeof(SortingFunctions))
+        public IEnumerable<SortingFunctions> Sort => Enum.GetValues( typeof( SortingFunctions ) )
             .Cast<SortingFunctions>();
 
         public IEnumerable<TransactionDataModel> Transactions => _transactions;
 
         public TransactionViewModel(
-            TransactionStore transactionStore, 
+            TransactionStore transactionStore,
             ITransactionService transactionService,
             AccountStore accountStore,
-            IRenavigator renavigator) : this(transactionStore, transactions => transactions, transactionService, accountStore, renavigator) { }
+            IRenavigator renavigator ) : this( transactionStore, transactions => transactions, transactionService, accountStore, renavigator ) { }
 
         public TransactionViewModel(
-            TransactionStore transactionStore, 
-            Func<IEnumerable<TransactionDataModel>, IEnumerable<TransactionDataModel>> filterTransactions, 
-            ITransactionService transactionService, 
+            TransactionStore transactionStore,
+            Func<IEnumerable<TransactionDataModel>, IEnumerable<TransactionDataModel>> filterTransactions,
+            ITransactionService transactionService,
             AccountStore accountStore,
-            IRenavigator renavigator)
+            IRenavigator renavigator )
         {
             _transactionStore = transactionStore;
             _transactionService = transactionService;
@@ -113,7 +113,7 @@ namespace Expensier.WPF.ViewModels.Expenses
             ResetTransactions();
         }
 
-        public TransactionViewModel(TransactionStore transactionStore, Func<IEnumerable<TransactionDataModel>, IEnumerable<TransactionDataModel>> filterTransactions)
+        public TransactionViewModel( TransactionStore transactionStore, Func<IEnumerable<TransactionDataModel>, IEnumerable<TransactionDataModel>> filterTransactions )
         {
             _transactionStore = transactionStore;
             _filterTransaction = filterTransactions;
@@ -127,19 +127,19 @@ namespace Expensier.WPF.ViewModels.Expenses
         public void ResetTransactions()
         {
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
-                .Select(t => new TransactionDataModel(t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _accountStore, _renavigator))
-                .OrderByDescending(o => o.ProcessedDate );
+                .Select( t => new TransactionDataModel( t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _renavigator, _accountStore ) )
+                .OrderByDescending( o => o.ProcessedDate );
 
-            transactionDataModel = _filterTransaction(transactionDataModel);
+            transactionDataModel = _filterTransaction( transactionDataModel );
 
             _transactions.Clear();
-            foreach (TransactionDataModel dataModel in transactionDataModel)
+            foreach ( TransactionDataModel dataModel in transactionDataModel )
             {
-                _transactions.Add(dataModel);
+                _transactions.Add( dataModel );
             }
 
-            if (_transactions.IsNullOrEmpty())
-            {   
+            if ( _transactions.IsNullOrEmpty() )
+            {
                 _listEmpty = true;
                 _listNotEmpty = false;
             }
@@ -149,66 +149,66 @@ namespace Expensier.WPF.ViewModels.Expenses
                 _listNotEmpty = true;
             }
 
-            PropertyChanged += (sender, e) =>
+            PropertyChanged += ( sender, e ) =>
             {
-                if (e.PropertyName == nameof(SelectedItem))
+                if ( e.PropertyName == nameof( SelectedItem ) )
                 {
                     SortTransactions();
                 }
-                if (e.PropertyName == nameof(SearchBar))
+                if ( e.PropertyName == nameof( SearchBar ) )
                 {
-                    if (SearchBar.IsNullOrEmpty())
+                    if ( SearchBar.IsNullOrEmpty() )
                     {
                         ResetTransactions();
                     }
                     else
                     {
-                        FilterTransactions(SearchBar);
+                        FilterTransactions( SearchBar );
                     }
                 }
             };
         }
 
-        public void FilterTransactions(string query)
+        public void FilterTransactions( string query )
         {
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
-                .Select(t => new TransactionDataModel(t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _accountStore, _renavigator));
+                .Select( t => new TransactionDataModel( t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _renavigator, _accountStore ) );
 
-            transactionDataModel = transactionDataModel.Where(t => t.Name.ToLower().Contains(query.ToLower()));
+            transactionDataModel = transactionDataModel.Where( t => t.Name.ToLower().Contains( query.ToLower() ) );
 
             _transactions.Clear();
-            foreach (TransactionDataModel dataModel in transactionDataModel)
+            foreach ( TransactionDataModel dataModel in transactionDataModel )
             {
-                _transactions.Add(dataModel);
+                _transactions.Add( dataModel );
             }
         }
 
         public void SortTransactions()
         {
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
-                .Select(t => new TransactionDataModel(t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _accountStore, _renavigator));
+                .Select( t => new TransactionDataModel( t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _renavigator, _accountStore ) );
 
-            if (_selectedItem == SortingFunctions.Asceding)
+            if ( _selectedItem == SortingFunctions.Asceding )
             {
-                transactionDataModel = transactionDataModel.OrderBy(t => t.Name);
+                transactionDataModel = transactionDataModel.OrderBy( t => t.Name );
             }
-            else if (_selectedItem == SortingFunctions.Descending)
+            else if ( _selectedItem == SortingFunctions.Descending )
             {
-                transactionDataModel = transactionDataModel.OrderByDescending(t => t.Name);
+                transactionDataModel = transactionDataModel.OrderByDescending( t => t.Name );
             }
-            else if (_selectedItem == SortingFunctions.Amount)
+            else if ( _selectedItem == SortingFunctions.Amount )
             {
-                transactionDataModel = transactionDataModel.OrderByDescending(t => t.Amount);
+                transactionDataModel = transactionDataModel.OrderByDescending( t => t.Amount );
             }
             else
             {
-                transactionDataModel = transactionDataModel.OrderByDescending(t => t.ProcessedDate);
+                transactionDataModel = transactionDataModel.OrderByDescending( t => t.ProcessedDate );
             }
-            
+
             _transactions.Clear();
-            foreach (TransactionDataModel dataModel in transactionDataModel)
+            foreach ( TransactionDataModel dataModel in transactionDataModel )
             {
-                _transactions.Add(dataModel);
+                _transactions.Add( dataModel );
             }
         }
 

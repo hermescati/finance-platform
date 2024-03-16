@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 
 namespace Expensier.WPF.Commands
 {
@@ -12,10 +10,7 @@ namespace Expensier.WPF.Commands
         private bool _isExecuting;
         public bool IsExecuting
         {
-            get
-            {
-                return _isExecuting;
-            }
+            get => _isExecuting;
             set
             {
                 _isExecuting = value;
@@ -23,26 +18,28 @@ namespace Expensier.WPF.Commands
             }
         }
 
+
         public event EventHandler CanExecuteChanged;
 
-        public virtual bool CanExecute(object parameter)
-        {
-            return !IsExecuting;
-        }
 
-        public async void Execute(object parameter)
+        public virtual bool CanExecute( object parameter ) => !IsExecuting;
+
+
+        public async void Execute( object parameter )
         {
             IsExecuting = true;
 
-            await ExecuteAsync(parameter);
+            await ExecuteAsync( parameter );
             IsExecuting = false;
         }
 
-        public abstract Task ExecuteAsync(object parameter);
+
+        public abstract Task ExecuteAsync( object parameter );
+
 
         protected void OnCallExecuteChanged()
         {
-            CanExecuteChanged?.Invoke(this, new EventArgs());
+            CanExecuteChanged?.Invoke( this, new EventArgs() );
         }
     }
 }

@@ -55,6 +55,7 @@ namespace Expensier.WPF.Commands.Authentication
             }
         }
 
+
         private void HandlePasswordResetResult( PasswordResetResult result )
         {
             switch ( result )

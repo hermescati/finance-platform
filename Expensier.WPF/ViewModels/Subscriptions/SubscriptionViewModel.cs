@@ -33,7 +33,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             set
             {
                 _listEmpty = value;
-                OnPropertyChanged(nameof(ListEmpty));
+                OnPropertyChanged( nameof( ListEmpty ) );
             }
         }
 
@@ -47,7 +47,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             set
             {
                 _listNotEmpty = value;
-                OnPropertyChanged(nameof(ListNotEmpty));
+                OnPropertyChanged( nameof( ListNotEmpty ) );
             }
         }
 
@@ -61,11 +61,11 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             set
             {
                 _selectedItem = value;
-                OnPropertyChanged(nameof(SelectedItem));
+                OnPropertyChanged( nameof( SelectedItem ) );
             }
         }
 
-        public IEnumerable<SortingFunctions> Sort => Enum.GetValues(typeof(SortingFunctions))
+        public IEnumerable<SortingFunctions> Sort => Enum.GetValues( typeof( SortingFunctions ) )
             .Cast<SortingFunctions>();
 
         public IEnumerable<SubscriptionDataModel> Subscriptions => _subscriptions;
@@ -74,14 +74,14 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             SubscriptionStore subscriptionStore,
             ISubscriptionService subscriptionService,
             AccountStore accountStore,
-            IRenavigator renavigator) : this(subscriptionStore, subscriptions => subscriptions, subscriptionService, accountStore, renavigator) { }
+            IRenavigator renavigator ) : this( subscriptionStore, subscriptions => subscriptions, subscriptionService, accountStore, renavigator ) { }
 
         public SubscriptionViewModel(
-            SubscriptionStore subscriptionStore, 
+            SubscriptionStore subscriptionStore,
             Func<IEnumerable<SubscriptionDataModel>, IEnumerable<SubscriptionDataModel>> filterSubscriptions,
-            ISubscriptionService subscriptionService, 
-            AccountStore accountStore, 
-            IRenavigator renavigator)
+            ISubscriptionService subscriptionService,
+            AccountStore accountStore,
+            IRenavigator renavigator )
         {
             _subscriptionStore = subscriptionStore;
             _subscriptionService = subscriptionService;
@@ -95,7 +95,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             ResetSubscriptions();
         }
 
-        public SubscriptionViewModel(SubscriptionStore subscriptionStore, Func<IEnumerable<SubscriptionDataModel>, IEnumerable<SubscriptionDataModel>> filterSubscriptions)
+        public SubscriptionViewModel( SubscriptionStore subscriptionStore, Func<IEnumerable<SubscriptionDataModel>, IEnumerable<SubscriptionDataModel>> filterSubscriptions )
         {
             _subscriptionStore = subscriptionStore;
             _filterSubscriptions = filterSubscriptions;
@@ -109,16 +109,16 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         private void ResetSubscriptions()
         {
             IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
-                .Select(s => new SubscriptionDataModel(s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.IsActive, s.DueDate, _subscriptionService, _accountStore, _renavigator))
-                .OrderBy(s => s.DueDate);
+                .Select( s => new SubscriptionDataModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.IsActive, s.DueDate, _subscriptionService, _renavigator, _accountStore ) )
+                .OrderBy( s => s.DueDate );
 
             _subscriptions.Clear();
-            foreach (SubscriptionDataModel dataModel in subscriptionDataModel)
+            foreach ( SubscriptionDataModel dataModel in subscriptionDataModel )
             {
-                _subscriptions.Add(dataModel);
+                _subscriptions.Add( dataModel );
             }
 
-            if (_subscriptions.IsNullOrEmpty())
+            if ( _subscriptions.IsNullOrEmpty() )
             {
                 _listEmpty = true;
                 _listNotEmpty = false;
@@ -129,9 +129,9 @@ namespace Expensier.WPF.ViewModels.Subscriptions
                 _listNotEmpty = true;
             }
 
-            PropertyChanged += (sender, e) =>
+            PropertyChanged += ( sender, e ) =>
             {
-                if (e.PropertyName == nameof(SelectedItem))
+                if ( e.PropertyName == nameof( SelectedItem ) )
                 {
                     SortSubscriptions();
                 }
@@ -141,29 +141,29 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         public void SortSubscriptions()
         {
             IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
-                .Select(s => new SubscriptionDataModel(s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.IsActive, s.DueDate, _subscriptionService, _accountStore, _renavigator));
+                .Select( s => new SubscriptionDataModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.IsActive, s.DueDate, _subscriptionService, _renavigator, _accountStore ) );
 
-            if (_selectedItem == SortingFunctions.Asceding)
+            if ( _selectedItem == SortingFunctions.Asceding )
             {
-                subscriptionDataModel = subscriptionDataModel.OrderBy(t => t.Name);
+                subscriptionDataModel = subscriptionDataModel.OrderBy( t => t.Name );
             }
-            else if (_selectedItem == SortingFunctions.Descending)
+            else if ( _selectedItem == SortingFunctions.Descending )
             {
-                subscriptionDataModel = subscriptionDataModel.OrderByDescending(t => t.Name);
+                subscriptionDataModel = subscriptionDataModel.OrderByDescending( t => t.Name );
             }
-            else if (_selectedItem == SortingFunctions.Amount)
+            else if ( _selectedItem == SortingFunctions.Amount )
             {
-                subscriptionDataModel = subscriptionDataModel.OrderByDescending(t => t.Amount);
+                subscriptionDataModel = subscriptionDataModel.OrderByDescending( t => t.Amount );
             }
             else
             {
-                subscriptionDataModel = subscriptionDataModel.OrderByDescending(t => t.DueDate);
+                subscriptionDataModel = subscriptionDataModel.OrderByDescending( t => t.DueDate );
             }
 
             _subscriptions.Clear();
-            foreach (SubscriptionDataModel dataModel in subscriptionDataModel)
+            foreach ( SubscriptionDataModel dataModel in subscriptionDataModel )
             {
-                _subscriptions.Add(dataModel);
+                _subscriptions.Add( dataModel );
             }
         }
 

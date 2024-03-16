@@ -1,15 +1,12 @@
 ﻿using Expensier.Domain.Services.Transactions;
-using Expensier.WPF.Commands;
+using Expensier.WPF.Commands.Transactions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Errors;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+
 
 namespace Expensier.WPF.ViewModels.Modals
 {
@@ -18,7 +15,7 @@ namespace Expensier.WPF.ViewModels.Modals
         private static string _fileName = $"transactions_{DateTime.Now.ToString( "yyyy-MM-dd" )}.csv";
         public string FileName
         {
-            get { return _fileName; }
+            get => _fileName;
             set
             {
                 _fileName = value;
@@ -30,7 +27,7 @@ namespace Expensier.WPF.ViewModels.Modals
         private static string _filePath = Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.UserProfile ) + "\\Downloads", _fileName );
         public string FilePath
         {
-            get { return _filePath; }
+            get => _filePath;
             set
             {
                 _filePath = value;
@@ -41,9 +38,8 @@ namespace Expensier.WPF.ViewModels.Modals
 
 
         public MessageViewModel ErrorMessage { get; }
-        public string ErrorMessageContent { set => ErrorMessage.Message = value; }
-
         public MessageViewModel SuccessMessage { get; }
+        public string ErrorMessageContent { set => ErrorMessage.Message = value; }
         public string SuccessMessageContent { set => SuccessMessage.Message = value; }
 
 
@@ -53,12 +49,15 @@ namespace Expensier.WPF.ViewModels.Modals
         public ICommand ExportTransactionData { get; }
 
 
-        public ExportModalViewModel( ITransactionService transactionService, AccountStore accountStore, IRenavigator renavigator )
+        public ExportModalViewModel(
+            ITransactionService transactionService,
+            AccountStore accountStore,
+            IRenavigator renavigator )
         {
             ErrorMessage = new MessageViewModel();
             SuccessMessage = new MessageViewModel();
 
-            ExportTransactionData = new ExportTransactionDataCommand( this, transactionService, accountStore, renavigator );
+            ExportTransactionData = new ExportTransactionsCommand( this, transactionService, renavigator, accountStore );
         }
     }
 }

@@ -1,21 +1,18 @@
 ﻿using Expensier.Domain.Services.Subscriptions;
-using Expensier.WPF.Commands;
+using Expensier.WPF.Commands.Subscriptions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+
 
 namespace Expensier.WPF.ViewModels.Subscriptions
 {
     public class SubscriptionDataModel : ViewModelBase
     {
         private readonly ISubscriptionService _subscriptionService;
-        private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
+        private readonly AccountStore _accountStore;
 
 
         public Guid ID { get; set; }
@@ -37,8 +34,8 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             bool isActive,
             DateTime dueDate,
             ISubscriptionService subscriptionService,
-            AccountStore accountStore,
-            IRenavigator renavigator )
+            IRenavigator renavigator,
+            AccountStore accountStore )
         {
             ID = id;
             Name = name;
@@ -49,10 +46,10 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             DueDate = dueDate;
 
             _subscriptionService = subscriptionService;
-            _accountStore = accountStore;
             _renavigator = renavigator;
+            _accountStore = accountStore;
 
-            DeleteCommand = new DeleteSubscriptionCommand( this, _subscriptionService, _accountStore, _renavigator );
+            DeleteCommand = new DeleteSubscriptionCommand( this, _subscriptionService, _renavigator, _accountStore );
         }
     }
 }
