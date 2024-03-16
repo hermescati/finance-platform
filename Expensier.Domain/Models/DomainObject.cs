@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace Expensier.Domain.Models
 {
     public class DomainObject
     {
-        [Column(Order = 0)]
+        [Column( Order = 0 )]
         public Guid ID { get; set; }
     }
 }

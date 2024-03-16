@@ -1,14 +1,17 @@
 ﻿using Expensier.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Expensier.Domain.Exceptions;
+
 
 namespace Expensier.Domain.Services
 {
     public interface IAccountService : IDataService<Account>
     {
-        Task<Account> GetByEmail(string email);
+        /// <summary>
+        /// Retrieves an account by its associated email.
+        /// </summary>
+        /// <param name="email">The email associated with the account.</param>
+        /// <returns>The account corresponding to the provided email.</returns>
+        /// <exception cref="UserNotFoundException">Thrown when the user does not exist.</exception>
+        Task<Account> GetByEmail( string email );
     }
 }

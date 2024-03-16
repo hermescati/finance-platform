@@ -1,13 +1,12 @@
 ﻿using Expensier.Domain.Models;
 using Expensier.Domain.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.Domain.Services.Authentication
 {
+    /// <summary>
+    /// Represents the result of a user's registration attempt.
+    /// </summary>
     public enum RegistrationResult
     {
         Success,
@@ -16,6 +15,9 @@ namespace Expensier.Domain.Services.Authentication
         EmailInUse,
     }
 
+    /// <summary>
+    /// Represents the result of a password reset attempt.
+    /// </summary>
     public enum PasswordResetResult
     {
         Success,
@@ -24,48 +26,55 @@ namespace Expensier.Domain.Services.Authentication
         SameOldPassword
     }
 
+
+    /// <summary>
+    /// Defines operations for authentication and user account management.
+    /// </summary>
     public interface IAuthenticationService
     {
         /// <summary>
-        /// Retrieve user account.
+        /// Retrieves an account based on the provided email address.
         /// </summary>
-        /// <param name="email">The user's email.</param>
-        /// <returns>The account of the user.</returns>
-        /// <exception cref="UserNotFoundException">Thrown if the user does not exist.</exception>
-        /// <exception cref="Exception">Thrown if the login fails.</exception>
-        Task<Account> getAccount(string email);
+        /// <param name="email">Provided email address associated with the account.</param>
+        /// <returns>The account corresponding to the provided email address.</returns>
+        /// <exception cref="UserNotFoundException">Thrown when the user does not exist.</exception>
+        /// <exception cref="Exception">Thrown when the retrieval process fails.</exception>
+        Task<Account> GetAccount(string email);
+
 
         /// <summary>
-        /// Accesses user account.
+        /// Authenticates a user with the provided credentials.
         /// </summary>
-        /// <param name="email">User's email.</param>
-        /// <param name="password">User's password.</param>
-        /// <returns>The current account that the user accessed.</returns>
-        /// <exception cref="UserNotFoundException">Thrown if the user does not exist.</exception>
-        /// <exception cref="InvalidPasswordException">Thrown if the entered password does not match the one stored in the account.</exception>
-        /// <exception cref="Exception">Thrown if the login fails.</exception>
-        Task<Account> userLogin(string email, string password);
+        /// <params name="email">The user's email address.</param>
+        /// <params name="password">The user's password.</param>
+        /// <returns>The authenticated user's account.</returns>
+        /// <exception cref="UserNotFoundException">Thrown when the user does not exist.</exception>
+        /// <exception cref="InvalidPasswordException">Thrown when the provided password does not match the user's account password.</exception>
+        /// <exception cref="Exception">Thrown when the authentication fails.</exception>
+        Task<Account> UserLogin(string email, string password);
+
 
         /// <summary>
-        /// Creates a new account.
+        /// Creates a new user account.
         /// </summary>
-        /// <param name="firstName">User's first name.</param>
-        /// <param name="lastName">User's last name.</param>
-        /// <param name="email">User's email.</param>
-        /// <param name="password">User's password.</param>
-        /// <param name="confirmPassword">User's confirm password.</param>
+        /// <param name="firstName">The user's first name.</param>
+        /// <param name="lastName">The user's last name.</param>
+        /// <param name="email">The user's email address.</param>
+        /// <param name="password">The user's password.</param>
+        /// <param name="confirmPassword">Confirmation of the user's password.</param>
         /// <returns>The result of the registration process.</returns>
-        Task<RegistrationResult> userRegister(string firstName, string lastName, string email, string password, string confirmPassword);
+        Task<RegistrationResult> UserRegister(string firstName, string lastName, string email, string password, string confirmPassword);
+
 
         /// <summary>
-        /// Resets the password of an account.
+        /// Resets the password of a user account.
         /// </summary>
-        /// <param name="email">User's email.</param>
-        /// <param name="password">User's new password.</param>
-        /// <param name="confirmPassword">User's new confirm password.</param>
-        /// <returns>The result of the reseting process.</returns>
-        /// <exception cref="UserNotFoundException">Thrown if the entered email does not exist.</exception>
-        /// <exception cref="Exception">Thrown if the login fails.</exception>
-        Task<PasswordResetResult> resetPassword(string email, string newPassword, string confirmNewPassword);
+        /// <param name="email">The user's email address.</param>
+        /// <param name="newPassword">The new password.</param>
+        /// <param name="confirmNewPassword">Confirmation of the new password.</param>
+        /// <returns>The result of the password reset process.</returns>
+        /// <exception cref="UserNotFoundException">Thrown when the user does not exist.</exception>
+        /// <exception cref="Exception">Thrown when the password reset fails.</exception>
+        Task<PasswordResetResult> ResetPassword(string email, string newPassword, string confirmNewPassword);
     }
 }

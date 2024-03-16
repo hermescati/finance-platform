@@ -1,12 +1,7 @@
 ﻿using Expensier.Domain.Exceptions;
 using Expensier.Domain.Models;
-using Expensier.Domain.Services;
 using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.Domain.Services.Authentication
 {
@@ -15,124 +10,95 @@ namespace Expensier.Domain.Services.Authentication
         private readonly IAccountService _accountService;
         private readonly IPasswordHasher _passwordHasher;
 
-        public AuthenticationService(IAccountService accountService, IPasswordHasher passwordHasher)
+
+        public AuthenticationService( IAccountService accountService, IPasswordHasher passwordHasher )
         {
             _accountService = accountService;
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<Account> getAccount(string email)
-        {
-            Account userAccount = await _accountService.GetByEmail(email);
 
-            if (userAccount == null)
+        public async Task<Account> GetAccount( string email )
+        {
+            Account userAccount = await _accountService.GetByEmail( email );
+            if ( userAccount == null )
             {
-                throw new UserNotFoundException(email);
+                throw new UserNotFoundException( email );
             }
 
             return userAccount;
         }
 
-        public async Task<Account> userLogin(string email, string password)
+
+        public async Task<Account> UserLogin( string email, string password )
         {
-            Account storedAccount = await getAccount(email);
-            PasswordVerificationResult passwordResult = verifyPassword(storedAccount.User.PasswordHash, password);
-            
-            if (passwordResult != PasswordVerificationResult.Success)
+            Account storedAccount = await GetAccount( email );
+            PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword( storedAccount.User.PasswordHash, password );
+
+            if ( passwordResult != PasswordVerificationResult.Success )
             {
-                throw new InvalidPasswordException(email, password);
+                throw new InvalidPasswordException( email, password );
             }
 
             return storedAccount;
         }
 
-        public async Task<RegistrationResult> userRegister(string firstName, string lastName, string email, string password, string confirmPassword)
+
+        public async Task<RegistrationResult> UserRegister( string firstName, string lastName, string email, string password, string confirmPassword )
         {
-            RegistrationResult result = RegistrationResult.Success;
+            if ( password.Length < 8 )
+                return RegistrationResult.PasswordTooShort;
 
-            if (password.Length < 8)
+            if ( password != confirmPassword )
+                return RegistrationResult.PasswordsDoNotMatch;
+
+            Account existingUser = await _accountService.GetByEmail( email );
+            if ( existingUser != null )
+                return RegistrationResult.EmailInUse;
+
+
+            User newUser = new User()
             {
-                result = RegistrationResult.PasswordTooShort;
-            }
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                PasswordHash = _passwordHasher.HashPassword( password ),
+                JoinDate = DateTime.Now,
+            };
 
-            if (password != confirmPassword)
+            Account newAccount = new Account()
             {
-                result = RegistrationResult.PasswordsDoNotMatch;
-            }
+                User = newUser
+            };
 
-            Account existingUser = await _accountService.GetByEmail(email);
+            await _accountService.Create( newAccount );
 
-            if (existingUser != null)
-            {
-                result = RegistrationResult.EmailInUse;
-            }
-
-            if (result == RegistrationResult.Success)
-            {
-                string hashedPassword = hashPassword(password);
-
-                User user = new User()
-                {
-                    FirstName = firstName,
-                    LastName = lastName,
-                    Email = email,
-                    PasswordHash = hashedPassword,
-                    JoinDate = DateTime.Now,
-                };
-
-                Account account = new Account()
-                {
-                    User = user
-                };
-
-                await _accountService.Create(account);
-            }
-
-            return result;
+            return RegistrationResult.Success;
         }
 
-        public async Task<PasswordResetResult> resetPassword(string email, string newPassword, string confirmPassword)
+
+        public async Task<PasswordResetResult> ResetPassword( string email, string newPassword, string confirmPassword )
         {
-            Account userAccount = await getAccount(email);
-            PasswordResetResult result = PasswordResetResult.Success;
+            if ( newPassword != confirmPassword )
+                return PasswordResetResult.PasswordsDoNotMatch;
 
-            if (newPassword != confirmPassword)
+            Account userAccount = await GetAccount( email );
+
+            PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword( userAccount.User.PasswordHash, newPassword );
+            if ( passwordResult == PasswordVerificationResult.Success )
+                return PasswordResetResult.SameOldPassword;
+
+
+            userAccount.User.PasswordHash = _passwordHasher.HashPassword( newPassword );
+
+            Account account = new Account()
             {
-                result = PasswordResetResult.PasswordsDoNotMatch;
-            }
+                User = userAccount.User
+            };
 
-            PasswordVerificationResult passwordResult = verifyPassword(userAccount.User.PasswordHash, newPassword);
-            if (passwordResult == PasswordVerificationResult.Success)
-            {
-                result = PasswordResetResult.SameOldPassword;
-            }
+            await _accountService.Update( userAccount.ID, account );
 
-            if (result == PasswordResetResult.Success)
-            {
-                string newHashedPassword = hashPassword(newPassword);
-
-                User user = userAccount.User;
-                user.PasswordHash = newHashedPassword;
-
-                Account account = new Account()
-                {
-                    User = user
-                };
-
-                await _accountService.Update(userAccount.ID, account);
-            }
-
-            return result;
-        }
-
-        public string hashPassword(string password)
-        {
-            return _passwordHasher.HashPassword(password);
-        }
-
-        public PasswordVerificationResult verifyPassword(string userPassword, string enteredPassword)
-        {
-            return _passwordHasher.VerifyHashedPassword(userPassword, enteredPassword);
+            return PasswordResetResult.Success;
         }
     }
 }

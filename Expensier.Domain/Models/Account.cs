@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace Expensier.Domain.Models
 {
     public class Account : DomainObject
     {
-        [Column(Order = 1)]
+        [Column( Order = 1 )]
         public required User User { get; set; }
 
 

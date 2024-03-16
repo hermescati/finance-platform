@@ -1,17 +1,15 @@
 ﻿using Expensier.WPF.State.Authenticators;
 using Expensier.WPF.State.Navigators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Expensier.WPF.Commands
+
+namespace Expensier.WPF.Commands.Authentication
 {
     public class LogoutCommand : AsyncCommandBase
     {
         private readonly IAuthenticator _authenticator;
         private readonly IRenavigator _renavigator;
+
 
         public LogoutCommand(IAuthenticator authenticator, IRenavigator renavigator)
         {
@@ -19,9 +17,10 @@ namespace Expensier.WPF.Commands
             _renavigator = renavigator;
         }
 
+
         public override async Task ExecuteAsync(object parameter)
         {
-            await _authenticator.userLogout();
+            await _authenticator.UserLogout();
             _renavigator.Renavigate();
         }
     }

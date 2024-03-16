@@ -1,12 +1,6 @@
 ﻿using Expensier.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.EntityFramework
 {
@@ -19,7 +13,9 @@ namespace Expensier.EntityFramework
         public DbSet<CryptoAsset> CryptoAssets { get; set; }
         public DbSet<PortfolioReturn> PortfolioReturns { get; set; }
 
+
         public ExpensierDbContext(DbContextOptions options) : base(options) { }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
