@@ -32,7 +32,7 @@ namespace Expensier.WPF.Commands
             {
                 Account updatedAccount = await _subscriptionService.DeleteSubscription(
                     _accountStore.CurrentAccount,
-                    _subscriptionDataModel.Id);
+                    _subscriptionDataModel.ID);
 
                 _accountStore.CurrentAccount = updatedAccount;
                 _renavigator.Renavigate();

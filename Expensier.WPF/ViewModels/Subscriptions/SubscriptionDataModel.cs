@@ -17,37 +17,42 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
-        public Guid Id { get; set; }
-        public string CompanyName { get; set; }
-        public string SubscriptionPlan { get; set; }
-        public DateTime DueDate { get; set; }
+
+        public Guid ID { get; set; }
+        public string Name { get; set; }
+        public string Plan { get; set; }
         public double Amount { get; set; }
-        public string SubscriptionCycle { get; set; } 
+        public string Frequency { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime DueDate { get; set; }
         public ICommand DeleteCommand { get; }
+
 
         public SubscriptionDataModel(
             Guid id,
-            string companyName, 
-            string subscriptionPlan, 
-            DateTime dueDate, 
-            double amount, 
-            string subscriptionCycle, 
-            ISubscriptionService subscriptionService, 
-            AccountStore accountStore, 
-            IRenavigator renavigator)
+            string name,
+            string plan,
+            double amount,
+            string frequency,
+            bool isActive,
+            DateTime dueDate,
+            ISubscriptionService subscriptionService,
+            AccountStore accountStore,
+            IRenavigator renavigator )
         {
-            Id = id;
-            CompanyName = companyName;
-            SubscriptionPlan = subscriptionPlan;
-            DueDate = dueDate;
+            ID = id;
+            Name = name;
+            Plan = plan;
             Amount = amount;
-            SubscriptionCycle = subscriptionCycle;
+            Frequency = frequency;
+            IsActive = isActive;
+            DueDate = dueDate;
 
             _subscriptionService = subscriptionService;
             _accountStore = accountStore;
             _renavigator = renavigator;
 
-            DeleteCommand = new DeleteSubscriptionCommand(this, _subscriptionService, _accountStore, _renavigator);
+            DeleteCommand = new DeleteSubscriptionCommand( this, _subscriptionService, _accountStore, _renavigator );
         }
     }
 }

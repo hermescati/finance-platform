@@ -17,7 +17,7 @@ namespace Expensier.WPF.Enums
         Shopping
     }
 
-    public enum CompanyName
+    public enum Company
     {
         Figma,
         Adobe,

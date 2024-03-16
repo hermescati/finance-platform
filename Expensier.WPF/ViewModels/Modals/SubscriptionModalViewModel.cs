@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static Expensier.Domain.Models.Subscription;
 
 namespace Expensier.WPF.ViewModels.Modals
 {
@@ -59,8 +60,8 @@ namespace Expensier.WPF.ViewModels.Modals
             }
         }
 
-        private SubscriptionCycle _subscriptionCycle;
-        public SubscriptionCycle SubscriptionCycle
+        private SubscriptionFrequency _subscriptionCycle;
+        public SubscriptionFrequency SubscriptionCycle
         {
             get
             {
@@ -91,7 +92,7 @@ namespace Expensier.WPF.ViewModels.Modals
             !string.IsNullOrEmpty(SubscriptionPlan) && 
             Amount > 0.0;
 
-        public IEnumerable<SubscriptionCycle> SubscriptionCycles => Enum.GetValues(typeof(SubscriptionCycle)).Cast<SubscriptionCycle>();
+        public IEnumerable<SubscriptionFrequency> SubscriptionCycles => Enum.GetValues(typeof(SubscriptionFrequency )).Cast<SubscriptionFrequency>();
 
         public ICommand AddSubscriptionCommand { get; }
 

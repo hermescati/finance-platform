@@ -51,7 +51,7 @@
                             Grid.Column="0"
                             Width="38"
                             Height="38"
-                            Source="{Binding CompanyName, Converter={StaticResource CompanyNameToLogoConverter}}" />
+                            Source="{Binding Name, Converter={StaticResource CompanyNameToLogoConverter}}" />
 
                         <!--  Subscription Details  -->
                         <Grid Grid.Column="2" VerticalAlignment="Center">
@@ -64,7 +64,7 @@
                             <TextBlock
                                 Grid.Row="0"
                                 Style="{StaticResource Header6}"
-                                Text="{Binding SubscriptionPlan}" />
+                                Text="{Binding Plan}" />
 
                             <StackPanel
                                 Grid.Row="2"

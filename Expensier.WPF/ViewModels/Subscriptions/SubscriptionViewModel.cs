@@ -109,7 +109,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         private void ResetSubscriptions()
         {
             IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
-                .Select(s => new SubscriptionDataModel(s.ID, s.CompanyName, s.SubscriptionPlan, s.DueDate, s.Amount, s.SubscriptionType, _subscriptionService, _accountStore, _renavigator))
+                .Select(s => new SubscriptionDataModel(s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.IsActive, s.DueDate, _subscriptionService, _accountStore, _renavigator))
                 .OrderBy(s => s.DueDate);
 
             _subscriptions.Clear();
@@ -141,15 +141,15 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         public void SortSubscriptions()
         {
             IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
-                .Select(s => new SubscriptionDataModel(s.ID, s.CompanyName, s.SubscriptionPlan, s.DueDate, s.Amount, s.SubscriptionType, _subscriptionService, _accountStore, _renavigator));
+                .Select(s => new SubscriptionDataModel(s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.IsActive, s.DueDate, _subscriptionService, _accountStore, _renavigator));
 
             if (_selectedItem == SortingFunctions.Asceding)
             {
-                subscriptionDataModel = subscriptionDataModel.OrderBy(t => t.CompanyName);
+                subscriptionDataModel = subscriptionDataModel.OrderBy(t => t.Name);
             }
             else if (_selectedItem == SortingFunctions.Descending)
             {
-                subscriptionDataModel = subscriptionDataModel.OrderByDescending(t => t.CompanyName);
+                subscriptionDataModel = subscriptionDataModel.OrderByDescending(t => t.Name);
             }
             else if (_selectedItem == SortingFunctions.Amount)
             {
