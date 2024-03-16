@@ -22,6 +22,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         public string Frequency { get; set; }
         public bool IsActive { get; set; }
         public DateTime DueDate { get; set; }
+        public ICommand CancelCommand { get; }
         public ICommand DeleteCommand { get; }
 
 
@@ -49,6 +50,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             _renavigator = renavigator;
             _accountStore = accountStore;
 
+            CancelCommand = new CancelSubscriptionCommand( this, _subscriptionService, _renavigator, _accountStore );
             DeleteCommand = new DeleteSubscriptionCommand( this, _subscriptionService, _renavigator, _accountStore );
         }
     }

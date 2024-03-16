@@ -39,13 +39,26 @@
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
 
-                                <Button
-                                    x:Name="DeleteButton"
-                                    Grid.Column="1"
-                                    Command="{Binding DeleteCommand}"
+                                <StackPanel
+                                    x:Name="CTAs"
+                                    Grid.Column="2"
                                     Opacity="0"
-                                    Style="{StaticResource InlineButton}"
-                                    Tag="{StaticResource DeleteIcon}" />
+                                    Orientation="Horizontal">
+
+                                    <Button
+                                        Command="{Binding CancelCommand}"
+                                        Opacity="1"
+                                        Style="{StaticResource InlineButton}"
+                                        Tag="{StaticResource CancelIcon}" />
+
+                                    <Button
+                                        Margin="16,0,0,0"
+                                        Command="{Binding DeleteCommand}"
+                                        Opacity="1"
+                                        Style="{StaticResource InlineButton}"
+                                        Tag="{StaticResource DeleteIcon}" />
+
+                                </StackPanel>
                             </Grid>
                         </Border>
 
@@ -64,13 +77,13 @@
                                             To="16"
                                             Duration="0:0:0.15" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTAs"
                                             Storyboard.TargetProperty="Opacity"
                                             From="0"
                                             To="1"
                                             Duration="0:0:0.2" />
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTAs"
                                             Storyboard.TargetProperty="Margin"
                                             From="0"
                                             To="32, 0, 16, 0"
@@ -83,13 +96,13 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTAs"
                                             Storyboard.TargetProperty="Margin"
                                             From="32, 0, 16, 0"
                                             To="0"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTAs"
                                             Storyboard.TargetProperty="Opacity"
                                             From="1"
                                             To="0"

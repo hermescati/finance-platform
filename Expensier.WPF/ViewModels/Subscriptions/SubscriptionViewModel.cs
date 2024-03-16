@@ -110,6 +110,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         {
             IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
                 .Select( s => new SubscriptionDataModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.IsActive, s.DueDate, _subscriptionService, _renavigator, _accountStore ) )
+                .Where( s => s.IsActive == true )
                 .OrderBy( s => s.DueDate );
 
             _subscriptions.Clear();

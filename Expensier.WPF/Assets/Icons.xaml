@@ -479,6 +479,35 @@
     <!--#endregion-->
 
 
+    <!--#region Cancel Icon-->
+    <Geometry x:Key="CancelVector1">F1 M24,24z M0,0z M12,22C17.5228,22 22,17.5228 22,12 22,6.47715 17.5228,2 12,2 6.47715,2 2,6.47715 2,12 2,17.5228 6.47715,22 12,22z</Geometry>
+    <Geometry x:Key="CancelVector2">F1 M24,24z M0,0z M12,22C17.5,22 22,17.5 22,12 22,6.5 17.5,2 12,2 6.5,2 2,6.5 2,12 2,17.5 6.5,22 12,22z</Geometry>
+    <Geometry x:Key="CancelVector3">F1 M24,24z M0,0z M13.06,11.9999L15.36,9.69986C15.65,9.40986 15.65,8.92986 15.36,8.63986 15.07,8.34986 14.59,8.34986 14.3,8.63986L12,10.9399 9.69998,8.63986C9.40998,8.34986 8.92999,8.34986 8.63999,8.63986 8.34999,8.92986 8.34999,9.40986 8.63999,9.69986L10.94,11.9999 8.63999,14.2999C8.34999,14.5899 8.34999,15.0699 8.63999,15.3599 8.78999,15.5099 8.97999,15.5799 9.16999,15.5799 9.35999,15.5799 9.54998,15.5099 9.69998,15.3599L12,13.0599 14.3,15.3599C14.45,15.5099 14.64,15.5799 14.83,15.5799 15.02,15.5799 15.21,15.5099 15.36,15.3599 15.65,15.0699 15.65,14.5899 15.36,14.2999L13.06,11.9999z</Geometry>
+
+    <DrawingGroup x:Key="CancelVector" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource CancelVector1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.25" Color="{StaticResource AccentColor}" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Geometry="{StaticResource CancelVector2}">
+            <GeometryDrawing.Pen>
+                <Pen
+                    Brush="{StaticResource Accent}"
+                    EndLineCap="Round"
+                    LineJoin="Round"
+                    MiterLimit="1"
+                    StartLineCap="Round"
+                    Thickness="1.5" />
+            </GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource Accent}" Geometry="{StaticResource CancelVector3}" />
+    </DrawingGroup>
+
+    <DrawingImage x:Key="CancelIcon" Drawing="{StaticResource CancelVector}" />
+    <!--#endregion-->
+
+
     <!--#region Delete Icon-->
     <Geometry x:Key="DeleteVector1">F1 M48,48z M0,0z M42.1401,10.46C38.9201,10.14,35.7001,9.9,32.4601,9.72L32.4601,9.7 32.0201,7.1C31.7201,5.26,31.2801,2.5,26.6001,2.5L21.3601,2.5C16.7001,2.5,16.2601,5.14,15.9401,7.08L15.5201,9.64C13.6601,9.76,11.8001,9.88,9.94007,10.06L5.86007,10.46C5.02007,10.54 4.42007,11.28 4.50007,12.1 4.58007,12.92 5.30007,13.52 6.14007,13.44L10.2201,13.04C20.7001,12,31.2601,12.4,41.8601,13.46L42.0201,13.46C42.7801,13.46 43.4401,12.88 43.5201,12.1 43.5502,11.7005 43.4226,11.3051 43.1646,10.9985 42.9067,10.6919 42.5389,10.4986 42.1401,10.46z</Geometry>
     <Geometry x:Key="DeleteVector2">F1 M48,48z M0,0z M38.46,16.28C37.98,15.78,37.32,15.5,36.64,15.5L11.36,15.5C10.68,15.5 9.99999,15.78 9.53999,16.28 9.07999,16.78 8.81999,17.46 8.85999,18.16L10.1,38.68C10.32,41.72,10.6,45.52,17.58,45.52L30.42,45.52C37.4,45.52,37.68,41.74,37.9,38.68L39.14,18.18C39.18,17.46,38.92,16.78,38.46,16.28z</Geometry>
