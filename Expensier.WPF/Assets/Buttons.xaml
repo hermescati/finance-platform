@@ -235,8 +235,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Image
-                        Width="20"
-                        Height="20"
+                        Width="22"
+                        Height="22"
                         Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
                 </ControlTemplate>
             </Setter.Value>

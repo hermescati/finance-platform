@@ -1,6 +1,5 @@
 ﻿using Expensier.Domain.Models;
 using Expensier.Domain.Services.Subscriptions;
-using Expensier.Domain.Services.Transactions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Subscriptions;

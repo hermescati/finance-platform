@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Expensier.WPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
@@ -15,6 +14,7 @@
         <converters:CompanyNameToLogoConverter x:Key="CompanyNameToLogoConverter" />
         <converters:StatusToVisibilityConverter x:Key="ActiveStatusToVisibilityConverter" />
         <converters:StatusToVisibilityConverter x:Key="CancelledStatusToVisibilityConverter" />
+
 
         <Style x:Key="SubscriptionsViewItem" TargetType="{x:Type ListViewItem}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -41,42 +41,46 @@
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
 
-                                <StackPanel
+                                <Grid
                                     x:Name="CTAs"
                                     Grid.Column="2"
-                                    Opacity="0"
-                                    Orientation="Horizontal">
+                                    Width="0"
+                                    Opacity="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="24" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="8" />
+                                    </Grid.ColumnDefinitions>
 
                                     <Button
+                                        Grid.Column="1"
                                         Command="{Binding ActivateCommand}"
-                                        Opacity="1"
                                         Style="{StaticResource InlineButton}"
                                         Tag="{StaticResource ActivateIcon}"
                                         Visibility="{Binding Status, Converter={StaticResource ActiveStatusToVisibilityConverter}, ConverterParameter=Cancelled}" />
 
-
                                     <Button
+                                        Grid.Column="1"
                                         Command="{Binding CancelCommand}"
-                                        Opacity="1"
                                         Style="{StaticResource InlineButton}"
                                         Tag="{StaticResource CancelIcon}"
                                         Visibility="{Binding Status, Converter={StaticResource CancelledStatusToVisibilityConverter}, ConverterParameter=Active}" />
 
-
                                     <Button
-                                        Margin="12,0,0,0"
+                                        Grid.Column="3"
                                         Command="{Binding DeleteCommand}"
-                                        Opacity="1"
                                         Style="{StaticResource InlineButton}"
                                         Tag="{StaticResource DeleteIcon}" />
 
-                                </StackPanel>
+                                </Grid>
                             </Grid>
                         </Border>
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#4D000000" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundShade}" />
                             </Trigger>
 
                             <EventTrigger RoutedEvent="Border.MouseEnter">
@@ -94,11 +98,11 @@
                                             From="0"
                                             To="1"
                                             Duration="0:0:0.2" />
-                                        <ThicknessAnimation
+                                        <DoubleAnimation
                                             Storyboard.TargetName="CTAs"
-                                            Storyboard.TargetProperty="Margin"
+                                            Storyboard.TargetProperty="Width"
                                             From="0"
-                                            To="32, 0, 16, 0"
+                                            To="88"
                                             Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -107,10 +111,10 @@
                             <EventTrigger RoutedEvent="Border.MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ThicknessAnimation
+                                        <DoubleAnimation
                                             Storyboard.TargetName="CTAs"
-                                            Storyboard.TargetProperty="Margin"
-                                            From="32, 0, 16, 0"
+                                            Storyboard.TargetProperty="Width"
+                                            From="88"
                                             To="0"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimation
