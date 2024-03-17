@@ -24,12 +24,15 @@ namespace Expensier.Domain.Services.Subscriptions
             Guid subscriptionID );
 
 
+        //Task UpdateSubscriptionDate();
+
+
         Task<Account> DeleteSubscription(
             Account currentAccount,
             Guid subscriptionID );
 
 
-        Task<Account> AcivateSubscription(
+        Task<Account> RenewSubscription(
             Account currentAccount,
             Guid subscriptionID );
 

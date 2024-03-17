@@ -13,6 +13,8 @@
 
     <UserControl.Resources>
         <converters:CompanyNameToLogoConverter x:Key="CompanyNameToLogoConverter" />
+        <converters:StatusToVisibilityConverter x:Key="ActiveStatusToVisibilityConverter" />
+        <converters:StatusToVisibilityConverter x:Key="CancelledStatusToVisibilityConverter" />
 
         <Style x:Key="SubscriptionsViewItem" TargetType="{x:Type ListViewItem}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -46,13 +48,23 @@
                                     Orientation="Horizontal">
 
                                     <Button
+                                        Command="{Binding ActivateCommand}"
+                                        Opacity="1"
+                                        Style="{StaticResource InlineButton}"
+                                        Tag="{StaticResource ActivateIcon}"
+                                        Visibility="{Binding Status, Converter={StaticResource ActiveStatusToVisibilityConverter}, ConverterParameter=Cancelled}" />
+
+
+                                    <Button
                                         Command="{Binding CancelCommand}"
                                         Opacity="1"
                                         Style="{StaticResource InlineButton}"
-                                        Tag="{StaticResource CancelIcon}" />
+                                        Tag="{StaticResource CancelIcon}"
+                                        Visibility="{Binding Status, Converter={StaticResource CancelledStatusToVisibilityConverter}, ConverterParameter=Active}" />
+
 
                                     <Button
-                                        Margin="16,0,0,0"
+                                        Margin="12,0,0,0"
                                         Command="{Binding DeleteCommand}"
                                         Opacity="1"
                                         Style="{StaticResource InlineButton}"

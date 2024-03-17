@@ -1,4 +1,5 @@
 ﻿using Expensier.Domain.Services.Subscriptions;
+using Expensier.Domain.Services.Transactions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Expenses;
 using Expensier.WPF.State.Navigators;
@@ -17,6 +18,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
     public class SubscriptionViewModel : ViewModelBase
     {
         private readonly ISubscriptionService _subscriptionService;
+        private readonly ITransactionService _transactionService;
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
         private readonly SubscriptionStore _subscriptionStore;
@@ -109,8 +111,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         private void ResetSubscriptions()
         {
             IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
-                .Select( s => new SubscriptionDataModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.IsActive, s.DueDate, _subscriptionService, _renavigator, _accountStore ) )
-                .Where( s => s.IsActive == true )
+                .Select( s => new SubscriptionDataModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.Status, s.DueDate, _subscriptionService, _renavigator, _accountStore ) )
                 .OrderBy( s => s.DueDate );
 
             _subscriptions.Clear();
@@ -142,7 +143,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         public void SortSubscriptions()
         {
             IEnumerable<SubscriptionDataModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
-                .Select( s => new SubscriptionDataModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.IsActive, s.DueDate, _subscriptionService, _renavigator, _accountStore ) );
+                .Select( s => new SubscriptionDataModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.Status, s.DueDate, _subscriptionService, _renavigator, _accountStore ) );
 
             if ( _selectedItem == SortingFunctions.Asceding )
             {

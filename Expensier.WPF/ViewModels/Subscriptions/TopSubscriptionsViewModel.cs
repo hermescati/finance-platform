@@ -3,9 +3,11 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Expensier.Domain.Models.Subscription;
 
 namespace Expensier.WPF.ViewModels.Subscriptions
 {
@@ -52,7 +54,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
 
             SubscriptionViewModel = new SubscriptionViewModel(subscriptionStore, 
                 subscriptions => subscriptions
-                .Where(s => s.IsActive == true)
+                .Where(s => s.Status == SubscriptionStatus.Active)
                 .OrderByDescending(s => s.DueDate)
                 .Take(3));
 

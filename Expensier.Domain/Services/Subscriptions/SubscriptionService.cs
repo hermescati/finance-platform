@@ -1,22 +1,24 @@
 ﻿using Expensier.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Expensier.Domain.Models.Subscription;
+using static Expensier.Domain.Models.Transaction;
+
 
 namespace Expensier.Domain.Services.Subscriptions
 {
     public class SubscriptionService : ISubscriptionService
     {
         private readonly IDataService<Account> _accountService;
+        private readonly IDataService<Transaction> _transactionService;
         private readonly IDataService<Subscription> _subscriptionService;
 
 
-        public SubscriptionService( IDataService<Account> accountService, IDataService<Subscription> subscriptionService )
+        public SubscriptionService(
+            IDataService<Account> accountService,
+            IDataService<Transaction> transactionService,
+            IDataService<Subscription> subscriptionService )
         {
             _accountService = accountService;
+            _transactionService = transactionService;
             _subscriptionService = subscriptionService;
         }
 
@@ -34,9 +36,9 @@ namespace Expensier.Domain.Services.Subscriptions
                 User = currentAccount,
                 Name = companyName,
                 Plan = subscriptionPlan,
-                Frequency = subscriptionFrequency.ToString(),
+                Frequency = subscriptionFrequency,
                 Amount = amount,
-                IsActive = true,
+                Status = SubscriptionStatus.Active,
                 DueDate = dueDate,
             };
 
@@ -47,10 +49,8 @@ namespace Expensier.Domain.Services.Subscriptions
         }
 
 
-        public Subscription GetSubscriptionByID( Account currentAccount, Guid subscriptionID )
-        {
-            return currentAccount.SubscriptionList.FirstOrDefault( ( subscription ) => subscription.ID == subscriptionID );
-        }
+        public Subscription GetSubscriptionByID( Account currentAccount, Guid subscriptionID ) => currentAccount.SubscriptionList
+            .Single( ( subscription ) => subscription.ID == subscriptionID );
 
 
         public async Task<Account> DeleteSubscription( Account currentAccount, Guid subscriptionID )
@@ -69,15 +69,38 @@ namespace Expensier.Domain.Services.Subscriptions
         }
 
 
-        public async Task<Account> AcivateSubscription( Account currentAccount, Guid subscriptionID )
+        public async Task<Account> RenewSubscription( Account currentAccount, Guid subscriptionID )
         {
-            Subscription subscriptionToActivate = GetSubscriptionByID( currentAccount, subscriptionID );
+            Subscription subscriptionToRenew = GetSubscriptionByID( currentAccount, subscriptionID );
 
-            if ( subscriptionToActivate != null )
+            if ( subscriptionToRenew == null || subscriptionToRenew.Status == SubscriptionStatus.Active )
             {
-                subscriptionToActivate.IsActive = true;
-                await _accountService.Update( currentAccount.ID, currentAccount );
+                return currentAccount;
             }
+
+            if (subscriptionToRenew.Frequency == SubscriptionFrequency.Monthly )
+            {
+                subscriptionToRenew.DueDate = DateTime.Now.AddMonths( 1 );
+            }
+            else if (subscriptionToRenew.Frequency == SubscriptionFrequency.Annual )
+            {
+                subscriptionToRenew.DueDate = DateTime.Now.AddYears( 1 );
+            }
+            subscriptionToRenew.Status = SubscriptionStatus.Active;
+
+            Transaction subscriptionPayment = new Transaction()
+            {
+                User = currentAccount,
+                Name = $"{subscriptionToRenew.Name} Payment",
+                Category = TransactionCategory.Subscription.ToString(),
+                Amount = subscriptionToRenew.Amount,
+                IsCredit = true,
+                ProcessedDate = DateTime.Now,
+            };
+            currentAccount.TransactionList?.Add(subscriptionPayment);
+
+            await _subscriptionService.Update( subscriptionID, subscriptionToRenew );
+            await _accountService.Update( currentAccount.ID, currentAccount );
 
             return currentAccount;
         }
@@ -89,7 +112,9 @@ namespace Expensier.Domain.Services.Subscriptions
 
             if ( subscriptionToCancel != null )
             {
-                subscriptionToCancel.IsActive = false;
+                subscriptionToCancel.Status = SubscriptionStatus.Cancelled;
+                subscriptionToCancel.DueDate = null;
+
                 await _accountService.Update( currentAccount.ID, currentAccount );
             }
 

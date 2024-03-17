@@ -1,9 +1,11 @@
 ﻿using Expensier.Domain.Services.Subscriptions;
+using Expensier.Domain.Services.Transactions;
 using Expensier.WPF.Commands.Subscriptions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using System;
 using System.Windows.Input;
+using static Expensier.Domain.Models.Subscription;
 
 
 namespace Expensier.WPF.ViewModels.Subscriptions
@@ -19,9 +21,10 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         public string Name { get; set; }
         public string Plan { get; set; }
         public double Amount { get; set; }
-        public string Frequency { get; set; }
-        public bool IsActive { get; set; }
-        public DateTime DueDate { get; set; }
+        public SubscriptionFrequency Frequency { get; set; }
+        public SubscriptionStatus Status { get; set; }
+        public DateTime? DueDate { get; set; }
+        public ICommand ActivateCommand { get; }
         public ICommand CancelCommand { get; }
         public ICommand DeleteCommand { get; }
 
@@ -31,9 +34,9 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             string name,
             string plan,
             double amount,
-            string frequency,
-            bool isActive,
-            DateTime dueDate,
+            SubscriptionFrequency frequency,
+            SubscriptionStatus status,
+            DateTime? dueDate,
             ISubscriptionService subscriptionService,
             IRenavigator renavigator,
             AccountStore accountStore )
@@ -43,13 +46,14 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             Plan = plan;
             Amount = amount;
             Frequency = frequency;
-            IsActive = isActive;
+            Status = status;
             DueDate = dueDate;
 
             _subscriptionService = subscriptionService;
             _renavigator = renavigator;
             _accountStore = accountStore;
 
+            ActivateCommand = new RenewSubscriptionCommand( this, _subscriptionService, _renavigator, _accountStore );
             CancelCommand = new CancelSubscriptionCommand( this, _subscriptionService, _renavigator, _accountStore );
             DeleteCommand = new DeleteSubscriptionCommand( this, _subscriptionService, _renavigator, _accountStore );
         }

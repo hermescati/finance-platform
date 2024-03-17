@@ -1,5 +1,6 @@
 ﻿using Expensier.Domain.Models;
 using Expensier.Domain.Services.Subscriptions;
+using Expensier.Domain.Services.Transactions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Subscriptions;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Expensier.WPF.Commands.Subscriptions
 {
-    public class CancelSubscriptionCommand : AsyncCommandBase
+    public class RenewSubscriptionCommand : AsyncCommandBase
     {
         private readonly SubscriptionDataModel _subscriptionDataModel;
         private readonly ISubscriptionService _subscriptionService;
@@ -18,7 +19,7 @@ namespace Expensier.WPF.Commands.Subscriptions
         private readonly AccountStore _accountStore;
 
 
-        public CancelSubscriptionCommand(
+        public RenewSubscriptionCommand(
             SubscriptionDataModel subscriptionDataModel,
             ISubscriptionService subscriptionService,
             IRenavigator renavigator,
@@ -35,7 +36,7 @@ namespace Expensier.WPF.Commands.Subscriptions
         {
             try
             {
-                Account updatedAccount = await _subscriptionService.CancelSubscription(
+                Account updatedAccount = await _subscriptionService.RenewSubscription(
                     _accountStore.CurrentAccount,
                     _subscriptionDataModel.ID );
 
