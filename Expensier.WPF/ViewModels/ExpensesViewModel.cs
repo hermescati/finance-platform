@@ -23,7 +23,7 @@ namespace Expensier.WPF.ViewModels
     public class ExpensesViewModel : ViewModelBase
     {
         public TransactionViewModel TransactionViewModel { get; }
-        public SubscriptionViewModel SubscriptionViewModel { get; }
+        public SubscriptionsViewModel SubscriptionViewModel { get; }
         public TransactionModalViewModel TransactionModalViewModel { get; }
         public ExportModalViewModel ExportModalViewModel { get; }
         public SubscriptionModalViewModel SubscriptionModalViewModel { get; }
@@ -45,7 +45,7 @@ namespace Expensier.WPF.ViewModels
             IRenavigator renavigator )
         {
             TransactionViewModel = new TransactionViewModel( transactionStore, transactionService, accountStore, renavigator );
-            SubscriptionViewModel = new SubscriptionViewModel( subscriptionStore, subscriptionService, accountStore, renavigator );
+            SubscriptionViewModel = new SubscriptionsViewModel( accountStore, subscriptionStore, subscriptionService,  renavigator );
             ExportModalViewModel = new ExportModalViewModel( transactionService, accountStore, renavigator );
             MonthlyExpensesViewModel = monthlyExpensesViewModel;
             //PredictionsViewModel = predictionsViewModel;

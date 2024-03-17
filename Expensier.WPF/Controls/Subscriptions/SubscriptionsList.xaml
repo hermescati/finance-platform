@@ -176,12 +176,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
                             <!--  Name  -->
                             <TextBlock
                                 Grid.Row="0"
@@ -190,7 +185,10 @@
                                 Text="{Binding Plan}" />
 
                             <!--  Date  -->
-                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <StackPanel
+                                Grid.Row="1"
+                                Orientation="Horizontal"
+                                Visibility="{Binding Status, Converter={StaticResource ActiveStatusToVisibilityConverter}, ConverterParameter=Active}">
 
                                 <TextBlock
                                     Foreground="{StaticResource ForegroundShade}"
@@ -208,7 +206,7 @@
                                     Style="{StaticResource SmallText}"
                                     Text="{Binding DueDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
-                        </Grid>
+                        </StackPanel>
 
                         <TextBlock
                             Grid.Column="2"

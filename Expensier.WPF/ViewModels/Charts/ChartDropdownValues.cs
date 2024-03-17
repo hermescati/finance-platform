@@ -15,13 +15,5 @@ namespace Expensier.WPF.ViewModels.Charts
             Monthly,
             Yearly
         }
-
-        public enum SortingFunctions
-        {
-            Date,
-            Amount,
-            Asceding,
-            Descending
-        }
     }
 }

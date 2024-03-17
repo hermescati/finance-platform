@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:charts="clr-namespace:Expensier.WPF.Controls.Charts"
     xmlns:controls="clr-namespace:Expensier.WPF.Controls"
+    xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,7 +18,7 @@
 
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 
 
@@ -31,9 +32,9 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="64" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <!--#region Modals-->
@@ -172,6 +173,8 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="12" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Button
@@ -189,8 +192,19 @@
                                 </Button.Tag>
                             </Button>
 
-                            <ComboBox
+                            <ToggleButton
                                 Grid.Column="2"
+                                Width="128"
+                                Height="44"
+                                Padding="0"
+                                Background="{StaticResource MenuShade}"
+                                Content="Cancelled"
+                                DataContext="{Binding SubscriptionViewModel}"
+                                Foreground="{StaticResource ForegroundShade}"
+                                IsChecked="{Binding ShowCancelled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <ComboBox
+                                Grid.Column="4"
                                 Width="120"
                                 Height="44"
                                 DataContext="{Binding SubscriptionViewModel}"
@@ -198,7 +212,7 @@
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Sort}"
                                 SelectedItem="{Binding SelectedItem}"
-                                Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox">
                                         <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
@@ -212,6 +226,7 @@
                         <placeholders:VerticalPlaceholder
                             Title="It looks a bit empty here!"
                             Grid.Row="4"
+                            MinWidth="400"
                             Body="Add your first subscription by clicking the “Add new” button above."
                             DataContext="{Binding SubscriptionViewModel}"
                             Icon="{StaticResource SubscriptionsPlaceholderImage}"
@@ -221,7 +236,7 @@
                         <subscription:SubscriptionsList
                             Grid.Row="4"
                             DataContext="{Binding SubscriptionViewModel}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" />
 
                     </Grid>
                     <!--#endregion-->

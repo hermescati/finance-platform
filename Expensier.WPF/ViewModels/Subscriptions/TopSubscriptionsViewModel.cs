@@ -1,4 +1,5 @@
-﻿using Expensier.WPF.State.Subscriptions;
+﻿using Expensier.WPF.DataObjects;
+using Expensier.WPF.State.Subscriptions;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace Expensier.WPF.ViewModels.Subscriptions
     public class TopSubscriptionsViewModel : ViewModelBase
     {
         private readonly SubscriptionStore _subscriptionStore;
-        public SubscriptionViewModel SubscriptionViewModel { get; }
-        private readonly ObservableCollection<SubscriptionDataModel> _subscriptions;
+        public SubscriptionsViewModel SubscriptionViewModel { get; }
+        private readonly ObservableCollection<SubscriptionModel> _subscriptions;
 
         private bool _listEmpty;
         public bool ListEmpty
@@ -45,20 +46,20 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             }
         }
 
-        public IEnumerable<SubscriptionDataModel> Subscriptions => _subscriptions;
+        public IEnumerable<SubscriptionModel> Subscriptions => _subscriptions;
 
         public TopSubscriptionsViewModel(SubscriptionStore subscriptionStore)
         {
-            _subscriptions = new ObservableCollection<SubscriptionDataModel>();
+            _subscriptions = new ObservableCollection<SubscriptionModel>();
             _subscriptionStore = subscriptionStore;
 
-            SubscriptionViewModel = new SubscriptionViewModel(subscriptionStore, 
+            SubscriptionViewModel = new SubscriptionsViewModel(subscriptionStore, 
                 subscriptions => subscriptions
                 .Where(s => s.Status == SubscriptionStatus.Active)
                 .OrderByDescending(s => s.DueDate)
                 .Take(3));
 
-            _subscriptions = (ObservableCollection<SubscriptionDataModel>)SubscriptionViewModel.Subscriptions;
+            _subscriptions = (ObservableCollection<SubscriptionModel>)SubscriptionViewModel.Subscriptions;
 
             if (_subscriptions.IsNullOrEmpty())
             {

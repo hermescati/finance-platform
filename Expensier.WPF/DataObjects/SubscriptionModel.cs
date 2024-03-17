@@ -1,20 +1,20 @@
 ﻿using Expensier.Domain.Services.Subscriptions;
-using Expensier.Domain.Services.Transactions;
 using Expensier.WPF.Commands.Subscriptions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
+using Expensier.WPF.ViewModels;
 using System;
 using System.Windows.Input;
 using static Expensier.Domain.Models.Subscription;
 
 
-namespace Expensier.WPF.ViewModels.Subscriptions
+namespace Expensier.WPF.DataObjects
 {
-    public class SubscriptionDataModel : ViewModelBase
+    public class SubscriptionModel : ViewModelBase
     {
+        private readonly AccountStore _accountStore;
         private readonly ISubscriptionService _subscriptionService;
         private readonly IRenavigator _renavigator;
-        private readonly AccountStore _accountStore;
 
 
         public Guid ID { get; set; }
@@ -29,7 +29,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         public ICommand DeleteCommand { get; }
 
 
-        public SubscriptionDataModel(
+        public SubscriptionModel(
             Guid id,
             string name,
             string plan,
@@ -37,9 +37,9 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             SubscriptionFrequency frequency,
             SubscriptionStatus status,
             DateTime? dueDate,
+            AccountStore accountStore,
             ISubscriptionService subscriptionService,
-            IRenavigator renavigator,
-            AccountStore accountStore )
+            IRenavigator renavigator )
         {
             ID = id;
             Name = name;
@@ -49,9 +49,9 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             Status = status;
             DueDate = dueDate;
 
+            _accountStore = accountStore;
             _subscriptionService = subscriptionService;
             _renavigator = renavigator;
-            _accountStore = accountStore;
 
             ActivateCommand = new RenewSubscriptionCommand( this, _subscriptionService, _renavigator, _accountStore );
             CancelCommand = new CancelSubscriptionCommand( this, _subscriptionService, _renavigator, _accountStore );

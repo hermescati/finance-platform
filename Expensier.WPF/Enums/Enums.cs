@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace Expensier.WPF.Enums
 {
+    public enum SortOptions
+    {
+        Date,
+        Amount,
+        Asceding,
+        Descending
+    }
+
     public enum Transaction
     {
         Salary,
