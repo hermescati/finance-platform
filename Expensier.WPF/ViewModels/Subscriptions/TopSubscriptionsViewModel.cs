@@ -1,73 +1,35 @@
-﻿using Expensier.WPF.State.Subscriptions;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using Expensier.WPF.DataObjects;
+using Expensier.WPF.State.Subscriptions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Expensier.Domain.Models.Subscription;
+
 
 namespace Expensier.WPF.ViewModels.Subscriptions
 {
     public class TopSubscriptionsViewModel : ViewModelBase
     {
         private readonly SubscriptionStore _subscriptionStore;
-        public SubscriptionViewModel SubscriptionViewModel { get; }
-        private readonly ObservableCollection<SubscriptionDataModel> _subscriptions;
+        public SubscriptionsViewModel SubscriptionViewModel { get; }
 
-        private bool _listEmpty;
-        public bool ListEmpty
+
+        private readonly ObservableCollection<SubscriptionModel> _subscriptions;
+        public IEnumerable<SubscriptionModel> Subscriptions => _subscriptions;
+
+
+        public TopSubscriptionsViewModel( SubscriptionStore subscriptionStore )
         {
-            get
-            {
-                return _listEmpty;
-            }
-            set
-            {
-                _listEmpty = value;
-                OnPropertyChanged(nameof(ListEmpty));
-            }
-        }
-
-        private bool _listNotEmpty;
-        public bool ListNotEmpty
-        {
-            get
-            {
-                return _listNotEmpty;
-            }
-            set
-            {
-                _listNotEmpty = value;
-                OnPropertyChanged(nameof(ListNotEmpty));
-            }
-        }
-
-        public IEnumerable<SubscriptionDataModel> Subscriptions => _subscriptions;
-
-        public TopSubscriptionsViewModel(SubscriptionStore subscriptionStore)
-        {
-            _subscriptions = new ObservableCollection<SubscriptionDataModel>();
             _subscriptionStore = subscriptionStore;
+            _subscriptions = new ObservableCollection<SubscriptionModel>();
 
-            SubscriptionViewModel = new SubscriptionViewModel(subscriptionStore, 
-                subscriptions => subscriptions
-                .Where(s => s.IsActive == true)
-                .OrderByDescending(s => s.DueDate)
-                .Take(3));
+            SubscriptionViewModel = new SubscriptionsViewModel( 
+                subscriptionStore,
+                subscriptions => subscriptions.Where( s => s.Status == SubscriptionStatus.Active )
+                .OrderBy( s => s.DueDate )
+                .Take( 3 ) );
 
-            _subscriptions = (ObservableCollection<SubscriptionDataModel>)SubscriptionViewModel.Subscriptions;
-
-            if (_subscriptions.IsNullOrEmpty())
-            {
-                _listEmpty = true;
-                _listNotEmpty = false;
-            }
-            else
-            {
-                _listEmpty = false;
-                _listNotEmpty = true;
-            }
+            _subscriptions = (ObservableCollection<SubscriptionModel>) SubscriptionViewModel.Subscriptions;
         }
     }
 }

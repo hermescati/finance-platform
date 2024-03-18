@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace Expensier.WPF.Enums
 {
+    public enum SortOptions
+    {
+        Date,
+        Amount,
+        Asceding,
+        Descending
+    }
+
     public enum Transaction
     {
         Salary,
@@ -15,15 +23,5 @@ namespace Expensier.WPF.Enums
         Travel,
         Subscription,
         Shopping
-    }
-
-    public enum Company
-    {
-        Figma,
-        Adobe,
-        Netflix,
-        Disney,
-        Spotify,
-        Apple
     }
 }

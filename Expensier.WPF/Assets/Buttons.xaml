@@ -12,7 +12,7 @@
     <Style TargetType="Button">
         <Setter Property="Background" Value="{StaticResource Foreground}" />
         <Setter Property="Foreground" Value="{StaticResource Primary}" />
-        <Setter Property="BorderBrush" Value="{StaticResource Primary}" />
+        <Setter Property="BorderBrush" Value="{StaticResource SecondaryShade}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontFamily" Value="{StaticResource Lato}" />
         <Setter Property="FontSize" Value="15" />
@@ -31,7 +31,7 @@
                     <Border
                         x:Name="Glow"
                         Margin="-4"
-                        BorderBrush="{StaticResource SecondaryShade}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="0"
                         CornerRadius="26">
                         <Border
@@ -137,7 +137,7 @@
                                     Margin="0,0,12,0"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    Source="{Binding Tag[0], RelativeSource={RelativeSource TemplatedParent}}"
+                                    Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
                                     Visibility="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}" />
                                 <ContentPresenter
                                     x:Name="Content"
@@ -170,6 +170,70 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
+    <Style x:Key="ToggleButton" TargetType="ToggleButton">
+        <Setter Property="Background" Value="{StaticResource MenuShade}" />
+        <Setter Property="Foreground" Value="{StaticResource Foreground}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Accent}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontFamily" Value="{StaticResource Lato}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border
+                        x:Name="Stroke"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="12"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                        UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                        <StackPanel HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Orientation="Horizontal">
+                            <Image
+                                x:Name="Icon"
+                                Width="18"
+                                Height="18"
+                                Margin="0,0,8,0"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                Visibility="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}" />
+                            <ContentPresenter
+                                x:Name="Content"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Foreground}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Accent}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
     <Style
         x:Key="IconButton"
@@ -226,6 +290,7 @@
         </Setter>
     </Style>
 
+
     <Style
         x:Key="InlineButton"
         BasedOn="{StaticResource IconButton}"
@@ -235,8 +300,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Image
-                        Width="20"
-                        Height="20"
+                        Width="22"
+                        Height="22"
                         Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
                 </ControlTemplate>
             </Setter.Value>

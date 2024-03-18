@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:charts="clr-namespace:Expensier.WPF.Controls.Charts"
     xmlns:controls="clr-namespace:Expensier.WPF.Controls"
+    xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Expensier.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modals="clr-namespace:Expensier.WPF.Controls.Modals"
     xmlns:placeholders="clr-namespace:Expensier.WPF.Controls.Placeholders"
@@ -17,7 +17,7 @@
 
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 
 
@@ -31,9 +31,9 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="64" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <!--#region Modals-->
@@ -81,14 +81,8 @@
                             Height="44"
                             Click="AddNewTransaction"
                             Content="Add new"
-                            Style="{StaticResource SquareButton}">
-                            <Button.Tag>
-                                <x:Array Type="DrawingImage">
-                                    <DrawingImage Drawing="{StaticResource AddSelectedVector}" />
-                                    <DrawingImage Drawing="{StaticResource AddVector}" />
-                                </x:Array>
-                            </Button.Tag>
-                        </Button>
+                            Style="{StaticResource SquareButton}"
+                            Tag="{StaticResource AddSelectedIcon}" />
 
                         <ComboBox
                             Grid.Column="2"
@@ -152,7 +146,7 @@
                     </Grid.RowDefinitions>
 
                     <!--#region Subscriptions-->
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0" DataContext="{Binding SubscriptionViewModel}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="16" />
@@ -161,6 +155,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
+                        <!--  Header  -->
                         <TextBlock
                             Grid.Row="0"
                             Style="{StaticResource Header5}"
@@ -172,33 +167,43 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="12" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
+                            <!--  Add New  -->
                             <Button
                                 Grid.Column="0"
                                 Width="128"
                                 Height="44"
                                 Click="AddNewSubscription"
                                 Content="Add new"
-                                Style="{StaticResource SquareButton}">
-                                <Button.Tag>
-                                    <x:Array Type="DrawingImage">
-                                        <DrawingImage Drawing="{StaticResource AddSelectedVector}" />
-                                        <DrawingImage Drawing="{StaticResource AddVector}" />
-                                    </x:Array>
-                                </Button.Tag>
-                            </Button>
+                                Style="{StaticResource SquareButton}"
+                                Tag="{StaticResource AddSelectedIcon}" />
 
-                            <ComboBox
+                            <!--  Show Cancelled  -->
+                            <ToggleButton
                                 Grid.Column="2"
+                                Width="128"
+                                Height="44"
+                                Padding="0"
+                                Background="{StaticResource MenuShade}"
+                                Content="Cancelled"
+                                Foreground="{StaticResource ForegroundShade}"
+                                IsChecked="{Binding ShowCancelled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource ToggleButton}"
+                                Tag="{StaticResource CancelIcon}" />
+
+                            <!--  Sorting  -->
+                            <ComboBox
+                                Grid.Column="4"
                                 Width="120"
                                 Height="44"
-                                DataContext="{Binding SubscriptionViewModel}"
                                 IsEditable="True"
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Sort}"
                                 SelectedItem="{Binding SelectedItem}"
-                                Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox">
                                         <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
@@ -212,16 +217,13 @@
                         <placeholders:VerticalPlaceholder
                             Title="It looks a bit empty here!"
                             Grid.Row="4"
-                            Body="Add your first subscription by clicking the “Add new” button above."
-                            DataContext="{Binding SubscriptionViewModel}"
+                            MinWidth="400"
+                            Body="Looks like there's nothing to show here at the moment"
                             Icon="{StaticResource SubscriptionsPlaceholderImage}"
                             Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <!--  Subscriptions  -->
-                        <subscription:SubscriptionsList
-                            Grid.Row="4"
-                            DataContext="{Binding SubscriptionViewModel}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <subscription:SubscriptionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" />
 
                     </Grid>
                     <!--#endregion-->

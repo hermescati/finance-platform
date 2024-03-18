@@ -14,13 +14,23 @@ namespace Expensier.EntityFramework
         public DbSet<PortfolioReturn> PortfolioReturns { get; set; }
 
 
-        public ExpensierDbContext(DbContextOptions options) : base(options) { }
+        public ExpensierDbContext( DbContextOptions options ) : base( options ) { }
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating( ModelBuilder modelBuilder )
         {
-            modelBuilder.Entity<CryptoAsset>().OwnsOne(c => c.Asset);
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CryptoAsset>()
+                .OwnsOne( c => c.Asset );
+
+            modelBuilder.Entity<Subscription>()
+                .Property( s => s.Status )
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Subscription>()
+                .Property( s => s.Frequency )
+                .HasConversion<string>();
+
+            base.OnModelCreating( modelBuilder );
         }
     }
 }

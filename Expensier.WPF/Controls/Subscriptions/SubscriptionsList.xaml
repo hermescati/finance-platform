@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Expensier.WPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
@@ -13,6 +12,9 @@
 
     <UserControl.Resources>
         <converters:CompanyNameToLogoConverter x:Key="CompanyNameToLogoConverter" />
+        <converters:StatusToVisibilityConverter x:Key="ActiveStatusToVisibilityConverter" />
+        <converters:StatusToVisibilityConverter x:Key="CancelledStatusToVisibilityConverter" />
+
 
         <Style x:Key="SubscriptionsViewItem" TargetType="{x:Type ListViewItem}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -39,19 +41,46 @@
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
 
-                                <Button
-                                    x:Name="DeleteButton"
-                                    Grid.Column="1"
-                                    Command="{Binding DeleteCommand}"
-                                    Opacity="0"
-                                    Style="{StaticResource InlineButton}"
-                                    Tag="{StaticResource DeleteIcon}" />
+                                <Grid
+                                    x:Name="CTAs"
+                                    Grid.Column="2"
+                                    Width="0"
+                                    Opacity="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="24" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="8" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button
+                                        Grid.Column="1"
+                                        Command="{Binding ActivateCommand}"
+                                        Style="{StaticResource InlineButton}"
+                                        Tag="{StaticResource ActivateIcon}"
+                                        Visibility="{Binding Status, Converter={StaticResource ActiveStatusToVisibilityConverter}, ConverterParameter=Cancelled}" />
+
+                                    <Button
+                                        Grid.Column="1"
+                                        Command="{Binding CancelCommand}"
+                                        Style="{StaticResource InlineButton}"
+                                        Tag="{StaticResource CancelIcon}"
+                                        Visibility="{Binding Status, Converter={StaticResource CancelledStatusToVisibilityConverter}, ConverterParameter=Active}" />
+
+                                    <Button
+                                        Grid.Column="3"
+                                        Command="{Binding DeleteCommand}"
+                                        Style="{StaticResource InlineButton}"
+                                        Tag="{StaticResource DeleteIcon}" />
+
+                                </Grid>
                             </Grid>
                         </Border>
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#4D000000" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundShade}" />
                             </Trigger>
 
                             <EventTrigger RoutedEvent="Border.MouseEnter">
@@ -64,16 +93,16 @@
                                             To="16"
                                             Duration="0:0:0.15" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTAs"
                                             Storyboard.TargetProperty="Opacity"
                                             From="0"
                                             To="1"
                                             Duration="0:0:0.2" />
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="DeleteButton"
-                                            Storyboard.TargetProperty="Margin"
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="CTAs"
+                                            Storyboard.TargetProperty="Width"
                                             From="0"
-                                            To="32, 0, 16, 0"
+                                            To="88"
                                             Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -82,14 +111,14 @@
                             <EventTrigger RoutedEvent="Border.MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ThicknessAnimation
-                                            Storyboard.TargetName="DeleteButton"
-                                            Storyboard.TargetProperty="Margin"
-                                            From="32, 0, 16, 0"
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="CTAs"
+                                            Storyboard.TargetProperty="Width"
+                                            From="88"
                                             To="0"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTAs"
                                             Storyboard.TargetProperty="Opacity"
                                             From="1"
                                             To="0"
@@ -131,15 +160,14 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!--#region Icon-->
+                    <!--  Icon  -->
                     <Image
                         Grid.Column="0"
                         Width="40"
                         Height="40"
                         Source="{Binding Name, Converter={StaticResource CompanyNameToLogoConverter}}" />
-                    <!--#endregion-->
 
-                    <!--#region Subscription-->
+                    <!--#region Details-->
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -147,13 +175,9 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
 
-                            <!--  Name  -->
+                            <!--  Plan  -->
                             <TextBlock
                                 Grid.Row="0"
                                 HorizontalAlignment="Stretch"
@@ -161,7 +185,10 @@
                                 Text="{Binding Plan}" />
 
                             <!--  Date  -->
-                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <StackPanel
+                                Grid.Row="1"
+                                Orientation="Horizontal"
+                                Visibility="{Binding Status, Converter={StaticResource ActiveStatusToVisibilityConverter}, ConverterParameter=Active}">
 
                                 <TextBlock
                                     Foreground="{StaticResource ForegroundShade}"
@@ -179,8 +206,9 @@
                                     Style="{StaticResource SmallText}"
                                     Text="{Binding DueDate, StringFormat='{}{0:yyyy}'}" />
                             </StackPanel>
-                        </Grid>
+                        </StackPanel>
 
+                        <!--  Amount  -->
                         <TextBlock
                             Grid.Column="2"
                             VerticalAlignment="Center"

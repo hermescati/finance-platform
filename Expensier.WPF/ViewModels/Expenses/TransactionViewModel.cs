@@ -1,5 +1,6 @@
 ﻿using Expensier.Domain.Models;
 using Expensier.Domain.Services.Transactions;
+using Expensier.WPF.Enums;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Expenses;
 using Expensier.WPF.State.Navigators;
@@ -53,8 +54,8 @@ namespace Expensier.WPF.ViewModels.Expenses
             }
         }
 
-        private SortingFunctions _selectedItem;
-        public SortingFunctions SelectedItem
+        private SortOptions _selectedItem;
+        public SortOptions SelectedItem
         {
             get
             {
@@ -83,8 +84,8 @@ namespace Expensier.WPF.ViewModels.Expenses
         }
 
 
-        public IEnumerable<SortingFunctions> Sort => Enum.GetValues( typeof( SortingFunctions ) )
-            .Cast<SortingFunctions>();
+        public IEnumerable<SortOptions> Sort => Enum.GetValues( typeof( SortOptions ) )
+            .Cast<SortOptions>();
 
         public IEnumerable<TransactionDataModel> Transactions => _transactions;
 
@@ -188,15 +189,15 @@ namespace Expensier.WPF.ViewModels.Expenses
             IEnumerable<TransactionDataModel> transactionDataModel = _transactionStore.TransactionList
                 .Select( t => new TransactionDataModel( t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _transactionService, _renavigator, _accountStore ) );
 
-            if ( _selectedItem == SortingFunctions.Asceding )
+            if ( _selectedItem == SortOptions.Asceding )
             {
                 transactionDataModel = transactionDataModel.OrderBy( t => t.Name );
             }
-            else if ( _selectedItem == SortingFunctions.Descending )
+            else if ( _selectedItem == SortOptions.Descending )
             {
                 transactionDataModel = transactionDataModel.OrderByDescending( t => t.Name );
             }
-            else if ( _selectedItem == SortingFunctions.Amount )
+            else if ( _selectedItem == SortOptions.Amount )
             {
                 transactionDataModel = transactionDataModel.OrderByDescending( t => t.Amount );
             }

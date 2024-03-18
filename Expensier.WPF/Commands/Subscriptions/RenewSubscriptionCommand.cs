@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Expensier.WPF.Commands.Subscriptions
 {
-    public class DeleteSubscriptionCommand : AsyncCommandBase
+    public class RenewSubscriptionCommand : AsyncCommandBase
     {
         private readonly SubscriptionModel _subscriptionDataModel;
         private readonly ISubscriptionService _subscriptionService;
@@ -18,11 +18,11 @@ namespace Expensier.WPF.Commands.Subscriptions
         private readonly AccountStore _accountStore;
 
 
-        public DeleteSubscriptionCommand(
+        public RenewSubscriptionCommand(
             SubscriptionModel subscriptionDataModel,
             ISubscriptionService subscriptionService,
-             IRenavigator renavigator,
-             AccountStore accountStore )
+            IRenavigator renavigator,
+            AccountStore accountStore )
         {
             _subscriptionDataModel = subscriptionDataModel;
             _subscriptionService = subscriptionService;
@@ -35,12 +35,11 @@ namespace Expensier.WPF.Commands.Subscriptions
         {
             try
             {
-                Account updatedAccount = await _subscriptionService.DeleteSubscription(
+                Account updatedAccount = await _subscriptionService.RenewSubscription(
                     _accountStore.CurrentAccount,
                     _subscriptionDataModel.ID );
 
                 _accountStore.CurrentAccount = updatedAccount;
-                _renavigator.Renavigate();
             }
             catch ( Exception e )
             {

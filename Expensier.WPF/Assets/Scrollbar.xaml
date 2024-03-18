@@ -39,7 +39,7 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
         <Setter Property="Background" Value="{StaticResource Transparent}" />
         <Setter Property="Width" Value="4" />
-        <Setter Property="Margin" Value="8,0,0,0" />
+        <Setter Property="Margin" Value="16,0,0,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">

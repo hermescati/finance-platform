@@ -5,6 +5,12 @@ namespace Expensier.Domain.Models
 {
     public class Subscription : DomainObject
     {
+        public enum SubscriptionStatus
+        {
+            Active,
+            Cancelled
+        }
+
         public enum SubscriptionFrequency
         {
             Monthly,
@@ -35,12 +41,12 @@ namespace Expensier.Domain.Models
         public required double Amount { get; set; }
 
         [Column( Order = 5 )]
-        public required string Frequency { get; set; }
+        public SubscriptionFrequency Frequency { get; set; }
 
         [Column( Order = 6 )]
-        public bool IsActive { get; set; }
+        public SubscriptionStatus Status { get; set; }
 
         [Column( Order = 7 )]
-        public DateTime DueDate { get; set; }
+        public DateTime? DueDate { get; set; }
     }
 }
