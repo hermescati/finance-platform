@@ -160,15 +160,14 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!--#region Icon-->
+                    <!--  Icon  -->
                     <Image
                         Grid.Column="0"
                         Width="40"
                         Height="40"
                         Source="{Binding Name, Converter={StaticResource CompanyNameToLogoConverter}}" />
-                    <!--#endregion-->
 
-                    <!--#region Subscription-->
+                    <!--#region Details-->
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -177,7 +176,8 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <!--  Name  -->
+
+                            <!--  Plan  -->
                             <TextBlock
                                 Grid.Row="0"
                                 HorizontalAlignment="Stretch"
@@ -208,6 +208,7 @@
                             </StackPanel>
                         </StackPanel>
 
+                        <!--  Amount  -->
                         <TextBlock
                             Grid.Column="2"
                             VerticalAlignment="Center"

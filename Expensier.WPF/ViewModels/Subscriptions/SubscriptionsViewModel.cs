@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using static Expensier.Domain.Models.Subscription;
 
@@ -115,68 +116,55 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         {
             _subscriptions.Clear();
 
-            IEnumerable<SubscriptionModel> subscriptions = _subscriptionStore.SubscriptionList
+            IEnumerable<SubscriptionModel> filteredSubscriptions = _subscriptionStore.SubscriptionList
                 .Select( s => new SubscriptionModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.Status, s.DueDate, _accountStore, _subscriptionService, _renavigator ) )
+                .Where( s => _showCancelled ? s.Status == SubscriptionStatus.Cancelled : s.Status == SubscriptionStatus.Active )
                 .OrderBy( s => s.DueDate );
 
-            if ( _showCancelled )
-            {
-                subscriptions = subscriptions.Where( s => s.Status == SubscriptionStatus.Cancelled );
-            }
-            else
-            {
-                subscriptions = subscriptions.Where( s => s.Status == SubscriptionStatus.Active );
-            }
-
-            foreach ( SubscriptionModel subscription in subscriptions )
+            foreach ( SubscriptionModel subscription in filteredSubscriptions )
             {
                 _subscriptions.Add( subscription );
             }
 
             ListEmpty = _subscriptions.IsNullOrEmpty();
 
-            PropertyChanged += ( sender, e ) =>
-            {
-                if ( e.PropertyName == nameof( SelectedItem ) )
-                {
-                    SortSubscriptions();
-                }
-                else if ( e.PropertyName == nameof( ShowCancelled ) )
-                {
-                    ResetSubscriptions();
-                }
-            };
+            PropertyChanged += PropertyChangedEventHandler;
         }
 
 
         private void SortSubscriptions()
         {
-            IEnumerable<SubscriptionModel> subscriptionDataModel = _subscriptionStore.SubscriptionList
-                .Select( s => new SubscriptionModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.Status, s.DueDate, _accountStore, _subscriptionService, _renavigator ) );
+            IEnumerable<SubscriptionModel> sortedSubscriptions = new List<SubscriptionModel>(_subscriptions);
 
-            if ( _selectedItem == SortOptions.Asceding )
+            sortedSubscriptions = _selectedItem switch
             {
-                subscriptionDataModel = subscriptionDataModel.OrderBy( t => t.Name );
-            }
-            else if ( _selectedItem == SortOptions.Descending )
-            {
-                subscriptionDataModel = subscriptionDataModel.OrderByDescending( t => t.Name );
-            }
-            else if ( _selectedItem == SortOptions.Amount )
-            {
-                subscriptionDataModel = subscriptionDataModel.OrderByDescending( t => t.Amount );
-            }
-            else
-            {
-                subscriptionDataModel = subscriptionDataModel.OrderByDescending( t => t.DueDate );
-            }
+                SortOptions.Asceding => sortedSubscriptions.OrderBy( s => s.Name ),
+                SortOptions.Descending => sortedSubscriptions.OrderByDescending( s => s.Name ),
+                SortOptions.Amount => sortedSubscriptions.OrderByDescending( s => s.Amount ),
+                _ => sortedSubscriptions.OrderBy( s => s.DueDate )
+            };
 
             _subscriptions.Clear();
-            foreach ( SubscriptionModel dataModel in subscriptionDataModel )
+            foreach ( SubscriptionModel subscription in sortedSubscriptions )
             {
-                _subscriptions.Add( dataModel );
+                _subscriptions.Add( subscription );
             }
         }
+
+
+        private void PropertyChangedEventHandler( object sender, PropertyChangedEventArgs e )
+        {
+            if ( e.PropertyName == nameof( SelectedItem ) )
+            {
+                SortSubscriptions();
+            }
+            else if ( e.PropertyName == nameof( ShowCancelled ) )
+            {
+                ResetSubscriptions();
+            }
+
+        }
+
 
         private void Subscription_StateChanged()
         {

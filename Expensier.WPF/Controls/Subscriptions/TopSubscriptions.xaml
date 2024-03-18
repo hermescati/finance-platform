@@ -52,7 +52,7 @@
                             Height="38"
                             Source="{Binding Name, Converter={StaticResource CompanyNameToLogoConverter}}" />
 
-                        <!--  Subscription Details  -->
+                        <!--#region Details-->
                         <Grid Grid.Column="2" VerticalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -60,11 +60,13 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
+                            <!--  Plan  -->
                             <TextBlock
                                 Grid.Row="0"
                                 Style="{StaticResource Header6}"
                                 Text="{Binding Plan}" />
 
+                            <!--  Date  -->
                             <StackPanel
                                 Grid.Row="2"
                                 VerticalAlignment="Center"
@@ -90,13 +92,14 @@
 
                         </Grid>
 
-                        <!--  Subscription Price  -->
+                        <!--  Amount  -->
                         <TextBlock
                             Grid.Column="4"
                             VerticalAlignment="Center"
                             Style="{StaticResource Header6}"
                             Text="{Binding Amount, StringFormat='c'}" />
 
+                        <!--#endregion-->
                     </Grid>
                 </Border>
             </DataTemplate>

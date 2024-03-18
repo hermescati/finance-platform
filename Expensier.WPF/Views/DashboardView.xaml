@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:charts="clr-namespace:Expensier.WPF.Controls.Charts"
     xmlns:controls="clr-namespace:Expensier.WPF.Controls"
+    xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:cryptos="clr-namespace:Expensier.WPF.Controls.Cryptos"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:legend="clr-namespace:Expensier.WPF.ViewModels.Charts"
@@ -20,7 +21,7 @@
 
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 
 
@@ -195,6 +196,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
+                        <!--  Header  -->
                         <TextBlock
                             Grid.Row="0"
                             Style="{StaticResource Header4}"
@@ -207,12 +209,12 @@
                                 VerticalAlignment="Center"
                                 Foreground="{StaticResource ForegroundShade}"
                                 Style="{StaticResource MediumText}"
-                                Text="Your subscriptions will appear on this section. Head over to the Expenses tab and add a new subscription."
-                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Text="Your subscriptions will appear on this section. Head over to the Transactions tab and add a new subscription."
+                                Visibility="{Binding SubscriptionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
 
                         <!--  Top Subscriptions  -->
-                        <subscriptions:TopSubscriptions Grid.Row="2" Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <subscriptions:TopSubscriptions Grid.Row="2" Visibility="{Binding SubscriptionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" />
                     </Grid>
                     <!--#endregion-->
 

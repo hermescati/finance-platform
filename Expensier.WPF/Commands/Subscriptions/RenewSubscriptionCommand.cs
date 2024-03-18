@@ -40,7 +40,6 @@ namespace Expensier.WPF.Commands.Subscriptions
                     _subscriptionDataModel.ID );
 
                 _accountStore.CurrentAccount = updatedAccount;
-                _renavigator.Renavigate();
             }
             catch ( Exception e )
             {
