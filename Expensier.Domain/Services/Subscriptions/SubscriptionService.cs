@@ -78,11 +78,11 @@ namespace Expensier.Domain.Services.Subscriptions
                 return currentAccount;
             }
 
-            if (subscriptionToRenew.Frequency == SubscriptionFrequency.Monthly )
+            if ( subscriptionToRenew.Frequency == SubscriptionFrequency.Monthly )
             {
                 subscriptionToRenew.DueDate = DateTime.Now.AddMonths( 1 );
             }
-            else if (subscriptionToRenew.Frequency == SubscriptionFrequency.Annual )
+            else if ( subscriptionToRenew.Frequency == SubscriptionFrequency.Annual )
             {
                 subscriptionToRenew.DueDate = DateTime.Now.AddYears( 1 );
             }
@@ -97,7 +97,7 @@ namespace Expensier.Domain.Services.Subscriptions
                 IsCredit = true,
                 ProcessedDate = DateTime.Now,
             };
-            currentAccount.TransactionList?.Add(subscriptionPayment);
+            currentAccount.TransactionList?.Add( subscriptionPayment );
 
             await _subscriptionService.Update( subscriptionID, subscriptionToRenew );
             await _accountService.Update( currentAccount.ID, currentAccount );
@@ -119,6 +119,32 @@ namespace Expensier.Domain.Services.Subscriptions
             }
 
             return currentAccount;
+        }
+
+
+        public async Task UpdateSubscriptionDate()
+        {
+            IEnumerable<Subscription> subscriptionList = await _subscriptionService.GetAll();
+            IEnumerable<Subscription> activeSubscriptions = subscriptionList.Where( s => s.Status == SubscriptionStatus.Active );
+
+            foreach ( Subscription subscription in activeSubscriptions )
+            {
+                if ( subscription.DueDate > DateTime.Now )
+                {
+                    continue;
+                }
+
+                if ( subscription.Frequency == SubscriptionFrequency.Monthly )
+                {
+                    subscription.DueDate = subscription.DueDate?.AddMonths( 1 );
+                }
+                else if ( subscription.Frequency == SubscriptionFrequency.Annual )
+                {
+                    subscription.DueDate = subscription.DueDate?.AddYears( 1 );
+                }
+
+                await _subscriptionService.Update(subscription.ID, subscription );
+            }
         }
     }
 }

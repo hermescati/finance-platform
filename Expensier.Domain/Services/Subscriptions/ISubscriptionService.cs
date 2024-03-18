@@ -24,9 +24,6 @@ namespace Expensier.Domain.Services.Subscriptions
             Guid subscriptionID );
 
 
-        //Task UpdateSubscriptionDate();
-
-
         Task<Account> DeleteSubscription(
             Account currentAccount,
             Guid subscriptionID );
@@ -40,5 +37,8 @@ namespace Expensier.Domain.Services.Subscriptions
         Task<Account> CancelSubscription(
             Account currentAccount,
             Guid subscriptionID );
+
+
+        Task UpdateSubscriptionDate();
     }
 }
