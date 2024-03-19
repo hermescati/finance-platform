@@ -25,7 +25,8 @@ namespace Expensier.WPF.ViewModels.Subscriptions
 
             SubscriptionViewModel = new SubscriptionsViewModel( 
                 subscriptionStore,
-                subscriptions => subscriptions.Where( s => s.Status == SubscriptionStatus.Active )
+                subscriptions => subscriptions
+                .Where( s => s.Status == SubscriptionStatus.Active )
                 .OrderBy( s => s.DueDate )
                 .Take( 3 ) );
 

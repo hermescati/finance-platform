@@ -1,8 +1,8 @@
 ﻿using Expensier.Domain.Models;
 using Expensier.Domain.Services.Transactions;
+using Expensier.WPF.DataObjects;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
-using Expensier.WPF.ViewModels.Expenses;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -12,14 +12,14 @@ namespace Expensier.WPF.Commands.Transactions
 {
     public class DeleteTransactionCommand : AsyncCommandBase
     {
-        private readonly TransactionDataModel _transactionDataModel;
+        private readonly TransactionModel _transactionDataModel;
         private readonly ITransactionService _transactionService;
         private readonly IRenavigator _renavigator;
         private readonly AccountStore _accountStore;
 
 
         public DeleteTransactionCommand(
-            TransactionDataModel transactionDataModel,
+            TransactionModel transactionDataModel,
             ITransactionService transactionService,
             IRenavigator renavigator,
             AccountStore accountStore )

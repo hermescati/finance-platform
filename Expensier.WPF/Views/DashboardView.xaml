@@ -21,7 +21,8 @@
 
 
     <UserControl.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" />
     </UserControl.Resources>
 
 
@@ -174,10 +175,10 @@
                         Grid.Row="2"
                         Body="Add a new expense to see your latest transactions!"
                         Icon="{StaticResource TransactionPlaceholderImage}"
-                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     <!--  Top Expenses  -->
-                    <transactions:RecentExpenses Grid.Row="2" Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <transactions:RecentExpenses Grid.Row="2" Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                 </Grid>
                 <!--#endregion-->
 
@@ -214,7 +215,7 @@
                         </Grid>
 
                         <!--  Top Subscriptions  -->
-                        <subscriptions:TopSubscriptions Grid.Row="2" Visibility="{Binding SubscriptionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" />
+                        <subscriptions:TopSubscriptions Grid.Row="2" Visibility="{Binding SubscriptionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                     </Grid>
                     <!--#endregion-->
 

@@ -8,17 +8,14 @@ namespace Expensier.Domain.Services.Subscriptions
     public class SubscriptionService : ISubscriptionService
     {
         private readonly IDataService<Account> _accountService;
-        private readonly IDataService<Transaction> _transactionService;
         private readonly IDataService<Subscription> _subscriptionService;
 
 
         public SubscriptionService(
             IDataService<Account> accountService,
-            IDataService<Transaction> transactionService,
             IDataService<Subscription> subscriptionService )
         {
             _accountService = accountService;
-            _transactionService = transactionService;
             _subscriptionService = subscriptionService;
         }
 

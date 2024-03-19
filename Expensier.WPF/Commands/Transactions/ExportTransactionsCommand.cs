@@ -44,7 +44,7 @@ namespace Expensier.WPF.Commands.Transactions
 
             try
             {
-                await _transactionService.ExportTransactionData( _accountStore.CurrentAccount, _exportModalViewModel.FilePath );
+                await _transactionService.ExportTransactions( _accountStore.CurrentAccount, _exportModalViewModel.FilePath );
                 _exportModalViewModel.SuccessMessageContent = "Data successfully exported!";
 
                 _renavigator.Renavigate();

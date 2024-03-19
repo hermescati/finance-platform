@@ -1,4 +1,5 @@
 ﻿using Expensier.WPF.Commands;
+using Expensier.WPF.DataObjects;
 using Expensier.WPF.Models;
 using Expensier.WPF.State.Expenses;
 using Expensier.WPF.ViewModels.Expenses;
@@ -19,7 +20,7 @@ namespace Expensier.WPF.ViewModels
         private readonly LinearRegression _linearModel;
         private readonly TransactionStore _transactionStore;
         public TransactionViewModel TransactionViewModel { get; }
-        private readonly IEnumerable<TransactionDataModel> _transactions;
+        private readonly IEnumerable<TransactionModel> _transactions;
 
         private double _knnResult;
         public double KnnResult
@@ -49,37 +50,37 @@ namespace Expensier.WPF.ViewModels
             }
         }
 
-        public IEnumerable<TransactionDataModel> Transactions => _transactions;
+        public IEnumerable<TransactionModel> Transactions => _transactions;
 
-        public PredictionsViewModel(TransactionStore transactionStore)
-        {
-            _transactionStore = transactionStore;
-            _transactions = new ObservableCollection<TransactionDataModel>();
+        //public PredictionsViewModel(TransactionStore transactionStore)
+        //{
+        //    _transactionStore = transactionStore;
+        //    _transactions = new ObservableCollection<TransactionModel>();
 
-            TransactionViewModel = new TransactionViewModel(transactionStore, transactions => transactions
-                .OrderBy(t => t.ProcessedDate )
-                .Where(t => t.IsCredit == true)
-                .Where(t => t.ProcessedDate >= new DateTime(DateTime.Now.Year, 1, 1) && t.ProcessedDate < new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1))
-                .GroupBy(t => t.ProcessedDate.Month)
-                .Select(g => new TransactionDataModel(
-                    new DateTime(DateTime.Now.Year, g.Key, DateTime.DaysInMonth(DateTime.Now.Year, g.Key)),
-                    g.Sum(t => t.Amount))));
+        //    TransactionViewModel = new TransactionViewModel(transactionStore, transactions => transactions
+        //        .OrderBy(t => t.ProcessedDate )
+        //        .Where(t => t.IsCredit == true)
+        //        .Where(t => t.ProcessedDate >= new DateTime(DateTime.Now.Year, 1, 1) && t.ProcessedDate < new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1))
+        //        .GroupBy(t => t.ProcessedDate.Month)
+        //        .Select(g => new TransactionModel(
+        //            new DateTime(DateTime.Now.Year, g.Key, DateTime.DaysInMonth(DateTime.Now.Year, g.Key)),
+        //            g.Sum(t => t.Amount))));
 
-            _transactions = TransactionViewModel.Transactions;
+        //    _transactions = TransactionViewModel.Transactions;
 
-            _knnModel = new KNNRegression(3);
-            _linearModel = new LinearRegression();
+        //    _knnModel = new KNNRegression(3);
+        //    _linearModel = new LinearRegression();
 
-            TrainKnnModel(_transactions);
-            TrainLinearModel(_transactions);
-            PredictData();
-        }
+        //    TrainKnnModel(_transactions);
+        //    TrainLinearModel(_transactions);
+        //    PredictData();
+        //}
 
-        private void TrainLinearModel(IEnumerable<TransactionDataModel> transactions)
+        private void TrainLinearModel(IEnumerable<TransactionModel> transactions)
         {
             double[] inputX = new double[transactions.Count()];
             double[] inputY = new double[transactions.Count()];
-            List<TransactionDataModel> transactionsList = transactions.ToList();
+            List<TransactionModel> transactionsList = transactions.ToList();
 
             for (int i = 0; i < transactionsList.Count(); i++)
             {
@@ -91,11 +92,11 @@ namespace Expensier.WPF.ViewModels
             CalculateError(inputX, inputY);
         }
 
-        private void TrainKnnModel(IEnumerable<TransactionDataModel> transactions)
+        private void TrainKnnModel(IEnumerable<TransactionModel> transactions)
         {
             double[] inputData = new double[transactions.Count()];
             double[] dataLabels = new double[transactions.Count()];
-            List<TransactionDataModel> transactionsList = transactions.ToList();
+            List<TransactionModel> transactionsList = transactions.ToList();
 
             for (int i = 0; i < transactionsList.Count(); i++)
             {

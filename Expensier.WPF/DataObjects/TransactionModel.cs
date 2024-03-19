@@ -2,18 +2,19 @@
 using Expensier.WPF.Commands.Transactions;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
+using Expensier.WPF.ViewModels;
 using System;
 using System.Windows.Input;
 using static Expensier.Domain.Models.Transaction;
 
 
-namespace Expensier.WPF.ViewModels.Expenses
+namespace Expensier.WPF.DataObjects
 {
-    public class TransactionDataModel : ViewModelBase
+    public class TransactionModel : ViewModelBase
     {
+        private readonly AccountStore _accountStore;
         private readonly ITransactionService _transactionService;
         private readonly IRenavigator _renavigator;
-        private readonly AccountStore _accountStore;
 
 
         public Guid ID { get; set; }
@@ -25,23 +26,16 @@ namespace Expensier.WPF.ViewModels.Expenses
         public ICommand DeleteCommand { get; }
 
 
-        public TransactionDataModel( DateTime processDate, double amount )
-        {
-            ProcessedDate = processDate;
-            Amount = amount;
-        }
-
-
-        public TransactionDataModel(
+        public TransactionModel(
             Guid id,
             string name,
             TransactionCategory category,
             double amount,
             bool isCredit,
             DateTime processedDate,
+            AccountStore accountStore,
             ITransactionService transactionService,
-            IRenavigator renavigator,
-            AccountStore accountStore )
+            IRenavigator renavigator )
         {
             ID = id;
             Name = name;
@@ -50,9 +44,9 @@ namespace Expensier.WPF.ViewModels.Expenses
             IsCredit = isCredit;
             ProcessedDate = processedDate;
 
+            _accountStore = accountStore;
             _transactionService = transactionService;
             _renavigator = renavigator;
-            _accountStore = accountStore;
 
             DeleteCommand = new DeleteTransactionCommand( this, _transactionService, _renavigator, _accountStore );
         }

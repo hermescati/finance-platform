@@ -44,7 +44,7 @@ namespace Expensier.WPF.ViewModels
             AccountStore accountStore,
             IRenavigator renavigator )
         {
-            TransactionViewModel = new TransactionViewModel( transactionStore, transactionService, accountStore, renavigator );
+            TransactionViewModel = new TransactionViewModel( accountStore, transactionStore, transactionService, renavigator );
             SubscriptionViewModel = new SubscriptionsViewModel( accountStore, subscriptionStore, subscriptionService,  renavigator );
             ExportModalViewModel = new ExportModalViewModel( transactionService, accountStore, renavigator );
             MonthlyExpensesViewModel = monthlyExpensesViewModel;

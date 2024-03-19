@@ -1,10 +1,6 @@
 ﻿using Expensier.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Expensier.Domain.Models.Transaction;
+
 
 namespace Expensier.Domain.Services.Transactions
 {
@@ -18,12 +14,17 @@ namespace Expensier.Domain.Services.Transactions
             DateTime processedDate );
 
 
+        Transaction GetTransactionByID(
+            Account currentAccount,
+            Guid transactionID );
+
+
         Task<Account> DeleteTransaction(
             Account currentAccount,
             Guid transactionID );
 
 
-        Task ExportTransactionData(
+        Task ExportTransactions(
             Account currentAccount,
             string filePath );
     }

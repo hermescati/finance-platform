@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:Expensier.WPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
     mc:Ignorable="d">
 
 
@@ -51,7 +52,7 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="16" />
                                         <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="24" />
                                     </Grid.ColumnDefinitions>
                                     <Image
                                         x:Name="Icon"

@@ -24,6 +24,7 @@ using LiveChartsCore.Drawing;
 using LiveChartsCore.SkiaSharpView.Painting.Effects;
 using Expensier.Domain.Models;
 using Expensier.WPF.Utils;
+using Expensier.WPF.DataObjects;
 
 namespace Expensier.WPF.ViewModels.Charts
 {
@@ -31,8 +32,8 @@ namespace Expensier.WPF.ViewModels.Charts
     {
         private readonly TransactionStore _transactionStore;
         public TransactionViewModel TransactionViewModel { get; }
-        private readonly IEnumerable<TransactionDataModel> _transactions;
-        public IEnumerable<TransactionDataModel> Transactions => _transactions;
+        private readonly IEnumerable<TransactionModel> _transactions;
+        public IEnumerable<TransactionModel> Transactions => _transactions;
 
 
         private bool _listEmpty;
@@ -96,7 +97,7 @@ namespace Expensier.WPF.ViewModels.Charts
 
         public SpendingSummaryViewModel( TransactionStore transactionStore )
         {
-            _transactions = new ObservableCollection<TransactionDataModel>();
+            _transactions = new ObservableCollection<TransactionModel>();
 
             _transactionStore = transactionStore;
             TransactionViewModel = new TransactionViewModel( transactionStore,
@@ -136,7 +137,7 @@ namespace Expensier.WPF.ViewModels.Charts
         }
 
 
-        private void GetMonthlyTransactions( IEnumerable<TransactionDataModel> transactions )
+        private void GetMonthlyTransactions( IEnumerable<TransactionModel> transactions )
         {
             var filteredTransactions = transactions
                 .Where( t => t.ProcessedDate.Month == DateTime.Now.Month && t.ProcessedDate.Year == DateTime.Now.Year )
@@ -146,7 +147,7 @@ namespace Expensier.WPF.ViewModels.Charts
             ConstructSeries( filteredTransactions );
         }
 
-        private void GetAnnualTransactions( IEnumerable<TransactionDataModel> transactions )
+        private void GetAnnualTransactions( IEnumerable<TransactionModel> transactions )
         {
             var filteredTransactions = transactions
                 .Where( t => t.ProcessedDate.Year == DateTime.Now.Year )

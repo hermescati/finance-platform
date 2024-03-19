@@ -6,19 +6,12 @@ using System;
 
 namespace Expensier.WPF.Converters
 {
-    public class BooleanToVisibilityConverter : IValueConverter
+    public class ReverseBooleanToVisibilityConverter : IValueConverter
     {
         public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
         {
-            if ( value is bool boolValue )
-            {
-                bool inverted = parameter != null && parameter.ToString() == "Inverse";
-                return boolValue ^ inverted ? Visibility.Visible : Visibility.Collapsed;
-            }
-
-            return Visibility.Collapsed;
+            return (bool)value ? Visibility.Collapsed : Visibility.Visible;
         }
-
 
         public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
         {

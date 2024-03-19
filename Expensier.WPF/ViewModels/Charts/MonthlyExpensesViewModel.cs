@@ -1,4 +1,5 @@
-﻿using Expensier.WPF.State.Expenses;
+﻿using Expensier.WPF.DataObjects;
+using Expensier.WPF.State.Expenses;
 using Expensier.WPF.Utils;
 using Expensier.WPF.ViewModels.Expenses;
 using LiveCharts;
@@ -21,8 +22,8 @@ namespace Expensier.WPF.ViewModels.Charts
     {
         private readonly TransactionStore _transactionStore;
         public TransactionViewModel TransactionViewModel { get; }
-        private readonly IEnumerable<TransactionDataModel> _transactions;
-        public IEnumerable<TransactionDataModel> Transactions => _transactions;
+        private readonly IEnumerable<TransactionModel> _transactions;
+        public IEnumerable<TransactionModel> Transactions => _transactions;
 
 
         private bool _listEmpty;
@@ -68,7 +69,7 @@ namespace Expensier.WPF.ViewModels.Charts
 
         public MonthlyExpensesViewModel( TransactionStore transactionStore )
         {
-            _transactions = new ObservableCollection<TransactionDataModel>();
+            _transactions = new ObservableCollection<TransactionModel>();
 
             _transactionStore = transactionStore;
             TransactionViewModel = new TransactionViewModel( transactionStore,
@@ -93,7 +94,7 @@ namespace Expensier.WPF.ViewModels.Charts
         }
 
 
-        private void GetLastSixMonthsExpenses( IEnumerable<TransactionDataModel> transactions )
+        private void GetLastSixMonthsExpenses( IEnumerable<TransactionModel> transactions )
         {
             var sixMonthsAgo = DateTime.Now.AddMonths( -6 );
 

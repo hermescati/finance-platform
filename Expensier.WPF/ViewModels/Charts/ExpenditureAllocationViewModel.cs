@@ -20,13 +20,14 @@ using System.Windows.Media;
 using static Expensier.WPF.ViewModels.Charts.ChartDropdownValues;
 using LiveChartsCore.SkiaSharpView.Extensions;
 using Expensier.WPF.Utils;
+using Expensier.WPF.DataObjects;
 
 namespace Expensier.WPF.ViewModels.Charts
 {
     public class ExpenditureAllocationViewModel : ViewModelBase
     {
         private readonly TransactionStore _transactionStore;
-        private readonly IEnumerable<TransactionDataModel> _transactions;
+        private readonly IEnumerable<TransactionModel> _transactions;
         private readonly ObservableCollection<ISeries> _series;
         private readonly ObservableCollection<ChartDataModel> _legend;
 
@@ -97,12 +98,12 @@ namespace Expensier.WPF.ViewModels.Charts
 
 
         public TransactionViewModel TransactionViewModel { get; }
-        public IEnumerable<TransactionDataModel> Transactions => _transactions;
+        public IEnumerable<TransactionModel> Transactions => _transactions;
 
 
         public ExpenditureAllocationViewModel( TransactionStore transactionStore )
         {
-            _transactions = new ObservableCollection<TransactionDataModel>();
+            _transactions = new ObservableCollection<TransactionModel>();
             _series = new ObservableCollection<ISeries>();
             _legend = new ObservableCollection<ChartDataModel>();
 
@@ -143,19 +144,19 @@ namespace Expensier.WPF.ViewModels.Charts
         }
 
 
-        private void GetMonthlyExpenditures( IEnumerable<TransactionDataModel> transactions )
+        private void GetMonthlyExpenditures( IEnumerable<TransactionModel> transactions )
         {
             transactions = transactions.Where( t => t.ProcessedDate.Month == DateTime.Now.Month && t.ProcessedDate.Year == DateTime.Now.Year );
             ConstructChart( transactions );
         }
 
-        private void GetAnnualExpenditures( IEnumerable<TransactionDataModel> transactions )
+        private void GetAnnualExpenditures( IEnumerable<TransactionModel> transactions )
         {
             transactions = transactions.Where( t => t.ProcessedDate.Year == DateTime.Now.Year );
             ConstructChart( transactions );
         }
 
-        private void ConstructChart( IEnumerable<TransactionDataModel> transactions )
+        private void ConstructChart( IEnumerable<TransactionModel> transactions )
         {
             _series.Clear();
 

@@ -17,7 +17,8 @@
 
 
     <UserControl.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" />
     </UserControl.Resources>
 
 
@@ -60,7 +61,7 @@
 
                     <TextBlock
                         Grid.Row="0"
-                        Style="{StaticResource Header4}"
+                        Style="{StaticResource Header5}"
                         Text="Expenses" />
 
                     <!--  Navigation  -->
@@ -92,7 +93,7 @@
                             IsReadOnly="True"
                             ItemsSource="{Binding Sort}"
                             SelectedItem="{Binding SelectedItem}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
@@ -102,10 +103,9 @@
                         </ComboBox>
 
                         <controls:SearchBar
-                            x:Name="SearchBar"
                             Grid.Column="4"
-                            Text="{Binding SearchBar}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            Text="{Binding SearchQuery}"
+                            Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                         <Button
                             Grid.Column="6"
@@ -115,7 +115,7 @@
                             Click="ExportTransactions"
                             Content="Export data"
                             Style="{StaticResource IconButton}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                             <Button.Tag>
                                 <x:Array Type="DrawingImage">
                                     <DrawingImage Drawing="{StaticResource ExportVector}" />
@@ -134,7 +134,7 @@
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     <!--  Expenses List  -->
-                    <transactions:TransactionsList Grid.Row="4" Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <transactions:TransactionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                 </Grid>
                 <!--#endregion-->
 
@@ -203,7 +203,7 @@
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Sort}"
                                 SelectedItem="{Binding SelectedItem}"
-                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
+                                Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox">
                                         <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
@@ -223,7 +223,7 @@
                             Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <!--  Subscriptions  -->
-                        <subscription:SubscriptionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" />
+                        <subscription:SubscriptionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                     </Grid>
                     <!--#endregion-->
