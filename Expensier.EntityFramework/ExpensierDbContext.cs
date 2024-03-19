@@ -30,6 +30,10 @@ namespace Expensier.EntityFramework
                 .Property( s => s.Frequency )
                 .HasConversion<string>();
 
+            modelBuilder.Entity<Transaction>()
+                .Property( t => t.Category )
+                .HasConversion<string>();
+
             base.OnModelCreating( modelBuilder );
         }
     }

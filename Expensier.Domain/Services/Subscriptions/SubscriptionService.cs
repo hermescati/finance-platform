@@ -92,7 +92,7 @@ namespace Expensier.Domain.Services.Subscriptions
             {
                 User = currentAccount,
                 Name = $"{subscriptionToRenew.Name} Payment",
-                Category = TransactionCategory.Subscription.ToString(),
+                Category = TransactionCategory.Subscription,
                 Amount = subscriptionToRenew.Amount,
                 IsCredit = true,
                 ProcessedDate = DateTime.Now,

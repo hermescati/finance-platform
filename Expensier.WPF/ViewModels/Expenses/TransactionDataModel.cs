@@ -4,6 +4,7 @@ using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using System;
 using System.Windows.Input;
+using static Expensier.Domain.Models.Transaction;
 
 
 namespace Expensier.WPF.ViewModels.Expenses
@@ -17,7 +18,7 @@ namespace Expensier.WPF.ViewModels.Expenses
 
         public Guid ID { get; set; }
         public string Name { get; set; }
-        public string Category { get; set; }
+        public TransactionCategory Category { get; set; }
         public double Amount { get; set; }
         public bool IsCredit { get; }
         public DateTime ProcessedDate { get; set; }
@@ -34,7 +35,7 @@ namespace Expensier.WPF.ViewModels.Expenses
         public TransactionDataModel(
             Guid id,
             string name,
-            string category,
+            TransactionCategory category,
             double amount,
             bool isCredit,
             DateTime processedDate,

@@ -35,7 +35,7 @@ namespace Expensier.Domain.Services.Transactions
                 User = currentAccount,
                 Name = transactionName,
                 Amount = amount,
-                Category = transactionCategory.ToString(),
+                Category = transactionCategory,
                 IsCredit = isCredit,
                 ProcessedDate = processedDate,
             };

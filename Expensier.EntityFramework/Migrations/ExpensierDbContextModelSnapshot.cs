@@ -31,7 +31,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.CryptoAsset", b =>
@@ -54,7 +54,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasIndex("AccountHolderID");
 
-                    b.ToTable("CryptoAssets");
+                    b.ToTable("CryptoAssets", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.PortfolioReturn", b =>
@@ -77,7 +77,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasIndex("AccountHolderID");
 
-                    b.ToTable("PortfolioReturns");
+                    b.ToTable("PortfolioReturns", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.Subscription", b =>
@@ -122,7 +122,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.Transaction", b =>
@@ -161,7 +161,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.User", b =>
@@ -197,7 +197,7 @@ namespace Expensier.EntityFramework.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Expensier.Domain.Models.Account", b =>
@@ -219,7 +219,7 @@ namespace Expensier.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Expensier.Domain.Models.Crypto", "Asset", b1 =>
+                    b.OwnsOne("Expensier.Domain.Models.CryptoAsset.Asset#Expensier.Domain.Models.Crypto", "Asset", b1 =>
                         {
                             b1.Property<Guid>("CryptoAssetID")
                                 .HasColumnType("TEXT");
@@ -239,7 +239,7 @@ namespace Expensier.EntityFramework.Migrations
 
                             b1.HasKey("CryptoAssetID");
 
-                            b1.ToTable("CryptoAssets");
+                            b1.ToTable("CryptoAssets", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("CryptoAssetID");

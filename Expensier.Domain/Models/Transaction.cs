@@ -24,7 +24,7 @@ namespace Expensier.Domain.Models
         public required string Name { get; set; }
 
         [Column( Order = 3 )]
-        public required string Category { get; set; }
+        public TransactionCategory Category { get; set; }
 
         [Column( Order = 4 )]
         public required double Amount { get; set; }
