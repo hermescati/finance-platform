@@ -142,7 +142,7 @@
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="24" />
+                        <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -229,25 +229,24 @@
                     </Grid>
                     <!--#endregion-->
 
-                    <!--#region Predictions-->
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
+                            <RowDefinition Height="12" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <!--  Monthly Expenses Chart  -->
+                        <!--  Monthly Expenses  -->
                         <charts:BarChart
                             Grid.Row="0"
-                            Height="192"
-                            DataContext="{Binding MonthlyExpensesViewModel}" />
+                            Height="200"
+                            DataContext="{Binding MonthlyExpensesViewModel}"
+                            Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
-                        <!--#region Forecasted Values-->
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="24" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
@@ -257,7 +256,8 @@
                                 Padding="24,16"
                                 Background="{StaticResource BackgroundGradient}"
                                 CornerRadius="16"
-                                DataContext="{Binding MonthlyExpensesViewModel}">
+                                DataContext="{Binding MonthlyExpensesViewModel}"
+                                Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
 
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -270,7 +270,7 @@
                                         Grid.Row="0"
                                         FontWeight="Bold"
                                         Foreground="{StaticResource Foreground}"
-                                        Opacity="0.85"
+                                        Opacity="0.75"
                                         Style="{StaticResource MediumText}"
                                         Text="Total spent" />
 
@@ -285,7 +285,7 @@
                                             Margin="0,0,4,0"
                                             FontWeight="Black"
                                             Style="{StaticResource BaseText}"
-                                            Text="{Binding ForecastedResult, StringFormat='C1'}" />
+                                            Text="{Binding TotalExpenditure, StringFormat='C0'}" />
 
                                         <TextBlock
                                             Grid.Column="2"
@@ -318,7 +318,7 @@
                                         Grid.Row="0"
                                         FontWeight="Bold"
                                         Foreground="{StaticResource Foreground}"
-                                        Opacity="0.85"
+                                        Opacity="0.75"
                                         Style="{StaticResource MediumText}"
                                         Text="Projected total" />
 
@@ -333,7 +333,7 @@
                                             Margin="0,0,4,0"
                                             FontWeight="Black"
                                             Style="{StaticResource BaseText}"
-                                            Text="{Binding ForecastedResult, StringFormat='C1'}" />
+                                            Text="{Binding ForecastedResult, StringFormat='C0'}" />
 
                                         <TextBlock
                                             Grid.Column="2"
@@ -348,10 +348,8 @@
                             </Border>
 
                         </Grid>
-                        <!--#endregion-->
 
                     </Grid>
-                    <!--#endregion-->
 
                 </Grid>
             </Grid>

@@ -1,18 +1,11 @@
-﻿using Expensier.WPF.Enums;
-using LiveChartsCore;
+﻿using LiveChartsCore;
 using LiveChartsCore.Drawing;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.SkiaSharpView.Painting.Effects;
 using SkiaSharp;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+
 
 namespace Expensier.WPF.Utils
 {
@@ -32,9 +25,9 @@ namespace Expensier.WPF.Utils
         private static readonly int _geometrySize = 8;
         private static readonly int _lineSmoothness = 1;
         private static readonly int _textSize = 14;
+        private static readonly int _cornerRadius = 8;
         private static readonly int _padding = 18;
         public static readonly LiveChartsCore.Measure.Margin DrawMargin = new LiveChartsCore.Measure.Margin( 0, -40, 0, 0 );
-        private static readonly int _cornerRadius = 8;
 
 
         public static readonly int outerRadiusOffset = 0;
@@ -105,7 +98,7 @@ namespace Expensier.WPF.Utils
             return new Axis
             {
                 TextSize = _textSize,
-                LabelsPaint = new SolidColorPaint( _foregroundColor.WithAlpha( 153 ) ) { FontFamily = _fontFamily }
+                LabelsPaint = new SolidColorPaint( _foregroundColor.WithAlpha( 170 ) ) { FontFamily = _fontFamily }
             };
         }
 
@@ -117,7 +110,7 @@ namespace Expensier.WPF.Utils
                 Labeler = Labelers.Currency,
                 TextSize = showAxis ? _textSize : 0,
 
-                LabelsPaint = new SolidColorPaint( _foregroundColor.WithAlpha( 153 ) ) { FontFamily = _fontFamily },
+                LabelsPaint = new SolidColorPaint( _foregroundColor.WithAlpha( 170 ) ) { FontFamily = _fontFamily },
                 SeparatorsPaint = showAxis ? new SolidColorPaint( _foregroundColor.WithAlpha( 102 ) )
                 {
                     StrokeThickness = 0.5f,

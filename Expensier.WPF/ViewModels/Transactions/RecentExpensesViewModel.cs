@@ -1,6 +1,5 @@
 ﻿using Expensier.WPF.DataObjects;
 using Expensier.WPF.State.Expenses;
-using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
