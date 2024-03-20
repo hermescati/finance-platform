@@ -72,12 +72,13 @@ namespace Expensier.WPF.ViewModels.Charts
             _transactions = new ObservableCollection<TransactionModel>();
 
             _transactionStore = transactionStore;
-            TransactionViewModel = new TransactionViewModel( transactionStore,
-                transactions => transactions
-                .OrderBy( t => t.ProcessedDate )
-                .Where( t => t.IsCredit == true ) );
+            TransactionViewModel = new TransactionViewModel(
+                transactionStore,
+                transactions => transactions );
 
-            _transactions = TransactionViewModel.Transactions;
+            _transactions = TransactionViewModel.Transactions
+                .Where( t => t.IsCredit )
+                .OrderBy( t => t.ProcessedDate );
 
             if ( _transactions.IsNullOrEmpty() )
             {
@@ -109,7 +110,7 @@ namespace Expensier.WPF.ViewModels.Charts
                     transaction => new { transaction.ProcessedDate.Year, transaction.ProcessedDate.Month },
                     ( date, transactionGroup ) => new
                     {
-                        MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(date.Month),
+                        MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName( date.Month ),
                         Amount = transactionGroup.Any() ? transactionGroup.Sum( t => t.Amount ) : 0
                     } )
                 .Select( data => new ChartDataModel( data.MonthName, data.Amount ) );
@@ -120,8 +121,8 @@ namespace Expensier.WPF.ViewModels.Charts
         private void ConstructSeries( IEnumerable<ChartDataModel> transactions )
         {
             Series[0].Values = new ObservableCollection<double> { 1500, 1500, 1500, 1500, 1500, 1500 };
-            Series[1].Values = new ObservableCollection<double>( transactions.Select( t => t.SeriesValue ));
-            
+            Series[1].Values = new ObservableCollection<double>( transactions.Select( t => t.SeriesValue ) );
+
             ConstructXAxis( transactions );
         }
 

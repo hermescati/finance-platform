@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.WPF.Models
 {
@@ -11,11 +8,13 @@ namespace Expensier.WPF.Models
         private double _slope;
         private double _intercept;
 
+
         public LinearRegression()
         {
             _slope = 0.0;
             _intercept = 0.0;
         }
+
 
         public void Fit(double[] x, double[] y)
         {
@@ -59,10 +58,12 @@ namespace Expensier.WPF.Models
             _intercept = meanY - (_slope * meanX);
         }
 
+
         public double Predict(double x)
         {
             return _slope * x + _intercept;
         }
+
 
         public double MeanAbsoluteError(double[] trainX, double[] trainY)
         {

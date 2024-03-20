@@ -108,12 +108,14 @@ namespace Expensier.WPF.ViewModels.Charts
             _legend = new ObservableCollection<ChartDataModel>();
 
             _transactionStore = transactionStore;
-            TransactionViewModel = new TransactionViewModel( transactionStore,
-                transactions => transactions
-                .OrderBy( t => t.ProcessedDate )
-                .Where( t => t.IsCredit == true ) );
+            TransactionViewModel = new TransactionViewModel(
+                transactionStore,
+                transactions => transactions );
 
-            _transactions = TransactionViewModel.Transactions;
+            _transactions = TransactionViewModel.Transactions
+                .Where( t => t.IsCredit )
+                .OrderBy( t => t.ProcessedDate );
+
             GetMonthlyExpenditures( _transactions );
 
             if ( _transactions.IsNullOrEmpty() )

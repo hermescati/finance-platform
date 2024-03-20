@@ -244,19 +244,20 @@
                             DataContext="{Binding MonthlyExpensesViewModel}" />
 
                         <!--#region Forecasted Values-->
-                        <Grid Grid.Row="2" DataContext="{Binding PredictionsViewModel}">
+                        <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="16" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <!--  KNN Values  -->
+                            <!--  Previous Expenditure  -->
                             <Border
                                 Grid.Column="0"
                                 Padding="24,16"
                                 Background="{StaticResource BackgroundGradient}"
-                                CornerRadius="16">
+                                CornerRadius="16"
+                                DataContext="{Binding MonthlyExpensesViewModel}">
 
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -267,10 +268,11 @@
 
                                     <TextBlock
                                         Grid.Row="0"
-                                        FontWeight="SemiBold"
-                                        Foreground="{StaticResource ForegroundShade}"
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource Foreground}"
+                                        Opacity="0.85"
                                         Style="{StaticResource MediumText}"
-                                        Text="KNN Forecast" />
+                                        Text="Total spent" />
 
                                     <StackPanel
                                         Grid.Row="2"
@@ -280,29 +282,31 @@
 
                                         <TextBlock
                                             Grid.Column="0"
-                                            Margin="0,0,2,0"
-                                            FontWeight="SemiBold"
-                                            Style="{StaticResource BodyText}"
-                                            Text="{Binding KnnResult, StringFormat='C0'}" />
+                                            Margin="0,0,4,0"
+                                            FontWeight="Black"
+                                            Style="{StaticResource BaseText}"
+                                            Text="{Binding ForecastedResult, StringFormat='C1'}" />
 
                                         <TextBlock
                                             Grid.Column="2"
                                             VerticalAlignment="Bottom"
-                                            FontWeight="SemiBold"
+                                            FontWeight="Regular"
                                             Foreground="{StaticResource ForegroundShade}"
                                             Style="{StaticResource VerySmallText}"
-                                            Text="/ end of month" />
+                                            Text="/ last 6 months" />
 
                                     </StackPanel>
                                 </Grid>
                             </Border>
 
-                            <!--  Linear Values  -->
+                            <!--  Forecasted Expenditure  -->
                             <Border
                                 Grid.Column="2"
                                 Padding="24,16"
                                 Background="{StaticResource BackgroundGradient}"
-                                CornerRadius="16">
+                                CornerRadius="16"
+                                DataContext="{Binding PredictionsViewModel}"
+                                Visibility="{Binding CorrectData, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -312,10 +316,11 @@
 
                                     <TextBlock
                                         Grid.Row="0"
-                                        FontWeight="SemiBold"
-                                        Foreground="{StaticResource ForegroundShade}"
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource Foreground}"
+                                        Opacity="0.85"
                                         Style="{StaticResource MediumText}"
-                                        Text="Linear Forecast" />
+                                        Text="Projected total" />
 
                                     <StackPanel
                                         Grid.Row="2"
@@ -325,15 +330,15 @@
 
                                         <TextBlock
                                             Grid.Column="0"
-                                            Margin="0,0,2,0"
-                                            FontWeight="SemiBold"
-                                            Style="{StaticResource BodyText}"
-                                            Text="{Binding LinearResult, StringFormat='C0'}" />
+                                            Margin="0,0,4,0"
+                                            FontWeight="Black"
+                                            Style="{StaticResource BaseText}"
+                                            Text="{Binding ForecastedResult, StringFormat='C1'}" />
 
                                         <TextBlock
                                             Grid.Column="2"
                                             VerticalAlignment="Bottom"
-                                            FontWeight="SemiBold"
+                                            FontWeight="Regular"
                                             Foreground="{StaticResource ForegroundShade}"
                                             Style="{StaticResource VerySmallText}"
                                             Text="/ end of month" />

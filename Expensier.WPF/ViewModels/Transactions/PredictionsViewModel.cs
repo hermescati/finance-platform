@@ -6,44 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using static Expensier.WPF.ViewModels.Transactions.PredictionModel;
 
 
 namespace Expensier.WPF.ViewModels.Transactions
 {
-    public class PredictionModel
-    {
-        public enum PredictionModels
-        {
-            KNN,
-            Linear
-        }
-
-
-        public DateTime Date { get; set; }
-        public double Amount { get; set; }
-
-
-        public PredictionModel( DateTime date, double amount )
-        {
-            Date = date;
-            Amount = amount;
-        }
-    }
-
     public class PredictionsViewModel : ViewModelBase
     {
         private readonly TransactionStore _transactionStore;
         private readonly KNNRegression _knnModel;
         private readonly LinearRegression _linearModel;
+        
         public TransactionViewModel TransactionViewModel { get; }
-
 
         private readonly IEnumerable<TransactionModel> _transactions;
         public IEnumerable<TransactionModel> Transactions => _transactions;
 
 
-        private bool _correctData;
+        private bool _correctData = true;
         public bool CorrectData
         {
             get => _correctData;
@@ -55,24 +34,15 @@ namespace Expensier.WPF.ViewModels.Transactions
         }
 
         private double _knnResult;
-        public double KnnResult
-        {
-            get => _knnResult;
-            set
-            {
-                _knnResult = value;
-                OnPropertyChanged( nameof( KnnResult ) );
-            }
-        }
-
         private double _linearResult;
-        public double LinearResult
+        private double _forecastedResult;
+        public double ForecastedResult
         {
-            get => _linearResult;
+            get => _forecastedResult;
             set
             {
-                _linearResult = value;
-                OnPropertyChanged( nameof( LinearResult ) );
+                _forecastedResult = value;
+                OnPropertyChanged( nameof( ForecastedResult ) );
             }
         }
 
@@ -83,93 +53,87 @@ namespace Expensier.WPF.ViewModels.Transactions
             _transactions = new ObservableCollection<TransactionModel>();
 
             TransactionViewModel = new TransactionViewModel(
-                transactionStore, transactions => transactions
-                .Where( t => t.IsCredit )
-                .Where( t => t.ProcessedDate >= new DateTime( DateTime.Now.Year, 1, 1 ) && t.ProcessedDate < new DateTime( DateTime.Now.Year, DateTime.Now.Month, 1 ) )
-                .OrderBy( t => t.ProcessedDate ) );
+                transactionStore,
+                transactions => transactions );
 
             IEnumerable<PredictionModel> filteredTransactions = TransactionViewModel.Transactions
+                .Where( t => t.IsCredit )
+                .Where( t => t.ProcessedDate >= new DateTime( DateTime.Now.Year, 1, 1 ) && t.ProcessedDate < new DateTime( DateTime.Now.Year, DateTime.Now.Month, 1 ) )
+                .OrderBy( t => t.ProcessedDate )
                 .GroupBy( t => t.ProcessedDate.Month )
                 .Select( g => new PredictionModel(
                     new DateTime( DateTime.Now.Year, g.Key, DateTime.DaysInMonth( DateTime.Now.Year, g.Key ) ),
                     g.Sum( t => t.Amount ) ) );
 
-            int transactionsNumber = filteredTransactions.Count();
-
-            //_knnModel = new KNNRegression( 3 );
+            _knnModel = new KNNRegression( 3 );
             _linearModel = new LinearRegression();
 
-            TrainLinearModel( filteredTransactions, transactionsNumber );
-            //TrainKnnModel( filteredTransactions, transactionsNumber );
+            TrainModels( filteredTransactions, filteredTransactions.Count() );
 
+            if ( !CorrectData ) return;
 
-            PredictData();
+            PredictData( filteredTransactions.Count() );
+            CalculateResults();
         }
 
 
-        private void TrainLinearModel( IEnumerable<PredictionModel> transactions, int count )
+        private void TrainModels( IEnumerable<PredictionModel> transactions, int transactionsNumber )
         {
-            double[] inputX = new double[count];
-            double[] inputY = new double[count];
+            if ( transactionsNumber < 2 )
+            {
+                CorrectData = false;
+                return;
+            }
+
+            double[] inputX = new double[transactionsNumber];
+            double[] inputY = new double[transactionsNumber];
 
             List<PredictionModel> transactionsList = transactions.ToList();
 
-            foreach ( PredictionModel transction in transactionsList )
+            foreach ( PredictionModel transaction in transactionsList )
             {
-                int index = transactionsList.IndexOf( transction );
+                int index = transactionsList.IndexOf( transaction );
 
                 inputX[index] = TranslateDateToDays( transactionsList[index].Date );
                 inputY[index] = transactionsList[index].Amount;
             }
 
             _linearModel.Fit( inputX, inputY );
+
+            if ( transactionsNumber > 3 )
+                _knnModel.Fit( inputX, inputY );
         }
 
 
-        private void TrainKnnModel( IEnumerable<PredictionModel> transactions, int count )
-        {
-            double[] inputData = new double[count];
-            double[] dataLabels = new double[count];
-
-            List<PredictionModel> transactionsList = transactions.ToList();
-
-            for ( int i = 0; i < transactionsList.Count(); i++ )
-            {
-                inputData[i] = TranslateDateToDays( transactionsList[i].Date );
-                dataLabels[i] = transactionsList[i].Amount;
-            }
-
-            _knnModel.Fit( inputData, dataLabels );
-        }
-
-        private void PredictData()
+        private void PredictData( int transactionsNumber )
         {
             DateTime predictionDate = new DateTime( DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth( DateTime.Now.Year, DateTime.Now.Month ) );
-            double date = TranslateDateToDays( predictionDate );
+            double[] predictionInput = new double[] { TranslateDateToDays( predictionDate ) };
 
-            double[] input = new double[]
-            {
-                date
-            };
+            _linearResult = _linearModel.Predict( predictionInput[0] );
 
-            //KnnResult = _knnModel.Predict( input );
-            LinearResult = _linearModel.Predict( date );
+            if ( transactionsNumber > 3 )
+                _knnResult = _knnModel.Predict( predictionInput );
         }
+
+
+        private void CalculateResults()
+        {
+            if ( _linearResult == 0 && _knnResult == 0 )
+            {
+                CorrectData = false;
+                return;
+            }
+
+            ForecastedResult = _linearResult + _knnResult / 2;
+        }
+
 
         private double TranslateDateToDays( DateTime dateToTranslate )
         {
             DateTime referenceDate = new DateTime( DateTime.Now.Year, 1, 1 );
 
-            return (dateToTranslate - referenceDate).TotalDays;
+            return ( dateToTranslate - referenceDate ).TotalDays;
         }
-
-        //private void CalculateError( double[] trainX, double[] trainY )
-        //{
-        //    double errorLR = _linearModel.MeanAbsoluteError( trainX, trainY );
-        //    double errorLRPercentage = _linearModel.MeanAbsolutePercentageError( trainX, trainY );
-
-        //    double errorKNN = _knnModel.MeanAbsoluteError( trainX, trainY );
-        //    double errorKNNPercentage = _knnModel.MeanAbsolutePercentageError( trainX, trainY );
-        //}
     }
 }

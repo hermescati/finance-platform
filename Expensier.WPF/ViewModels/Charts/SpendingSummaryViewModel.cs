@@ -100,12 +100,14 @@ namespace Expensier.WPF.ViewModels.Charts
             _transactions = new ObservableCollection<TransactionModel>();
 
             _transactionStore = transactionStore;
-            TransactionViewModel = new TransactionViewModel( transactionStore,
-                transactions => transactions
-                .OrderBy( t => t.ProcessedDate )
-                .Where( t => t.IsCredit == true ) );
+            TransactionViewModel = new TransactionViewModel( 
+                transactionStore,
+                transactions => transactions);
 
-            _transactions = TransactionViewModel.Transactions;
+            _transactions = TransactionViewModel.Transactions
+                .Where( t => t.IsCredit )
+                .OrderBy( t => t.ProcessedDate );
+
             GetMonthlyTransactions( _transactions );
 
             if ( _transactions.IsNullOrEmpty() )
@@ -160,7 +162,7 @@ namespace Expensier.WPF.ViewModels.Charts
         private void ConstructSeries( IEnumerable<ChartDataModel> transactions )
         {
             Series[0].Values = new ObservableCollection<double>( transactions.Select( t => t.SeriesValue ) );
-            
+
             ConstructXAxis( transactions );
         }
 
