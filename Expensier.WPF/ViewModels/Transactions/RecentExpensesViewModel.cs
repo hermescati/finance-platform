@@ -22,9 +22,7 @@ namespace Expensier.WPF.ViewModels.Expenses
             _transactionStore = transactionStore;
             _transactions = new ObservableCollection<TransactionModel>();
 
-            TransactionViewModel = new TransactionViewModel(
-                transactionStore,
-                transactions => transactions );
+            TransactionViewModel = new TransactionViewModel( transactionStore, transactions => transactions );
 
             _transactions = TransactionViewModel.Transactions
                 .Where( t => t.IsCredit )

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Expensier.WPF.Enums
+﻿namespace Expensier.WPF.Enums
 {
     public enum SortOptions
     {
@@ -14,14 +8,9 @@ namespace Expensier.WPF.Enums
         Descending
     }
 
-    public enum Transaction
+    public enum ChartFrequency
     {
-        Salary,
-        Rent,
-        Utilities,
-        Food,
-        Travel,
-        Subscription,
-        Shopping
+        Monthly,
+        Yearly
     }
 }

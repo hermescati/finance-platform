@@ -4,6 +4,7 @@ using Expensier.WPF.Utils;
 using Expensier.WPF.ViewModels.Expenses;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -53,11 +54,16 @@ namespace Expensier.WPF.ViewModels.Charts
 
         private double GetHighestIncomeValue()
         {
-            IEnumerable<ChartDataModel> incomeTransactions = TransactionViewModel.Transactions
+            IEnumerable<ChartModel> incomeTransactions = TransactionViewModel.Transactions
                 .Where( t => !t.IsCredit )
                 .OrderBy( t => t.ProcessedDate )
                 .GroupBy( t => t.ProcessedDate.Month )
-                .Select( g => new ChartDataModel( g.Key.ToString(), g.Sum( t => t.Amount ) ) );
+                .Select( g => new ChartModel( g.Key.ToString(), g.Sum( t => t.Amount ) ) );
+
+            if (incomeTransactions.IsNullOrEmpty())
+            {
+                return 0;
+            }
 
             return incomeTransactions.Max( t => t.SeriesValue );
         }
@@ -69,7 +75,7 @@ namespace Expensier.WPF.ViewModels.Charts
                 .Select( i => DateTime.Now.AddMonths( -i ) )
                 .OrderBy( date => date );
 
-            IEnumerable<ChartDataModel> filteredTransactions = lastSixMonths
+            IEnumerable<ChartModel> filteredTransactions = lastSixMonths
                 .GroupJoin( transactions,
                     date => new { date.Year, date.Month },
                     transaction => new { transaction.ProcessedDate.Year, transaction.ProcessedDate.Month },
@@ -78,21 +84,21 @@ namespace Expensier.WPF.ViewModels.Charts
                         MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName( date.Month ),
                         Amount = transactionGroup.Any() ? transactionGroup.Sum( t => t.Amount ) : 0
                     } )
-                .Select( data => new ChartDataModel( data.MonthName, data.Amount ) );
+                .Select( data => new ChartModel( data.MonthName, data.Amount ) );
 
             ConstructSeries( filteredTransactions, defaultIncome );
             ConstructXAxis( filteredTransactions );
         }
 
 
-        private void ConstructSeries( IEnumerable<ChartDataModel> transactions, double defaultIncome )
+        private void ConstructSeries( IEnumerable<ChartModel> transactions, double defaultIncome )
         {
             Series[0].Values = Enumerable.Repeat( defaultIncome, 6 );
             Series[1].Values = transactions.Select( t => t.SeriesValue );
         }
 
 
-        private void ConstructXAxis( IEnumerable<ChartDataModel> transactions )
+        private void ConstructXAxis( IEnumerable<ChartModel> transactions )
         {
             XAxis[0].Labels = transactions.Select( t => t.SeriesLabel ).ToArray();
         }

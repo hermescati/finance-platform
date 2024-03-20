@@ -17,7 +17,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static Expensier.WPF.ViewModels.Charts.ChartDropdownValues;
 
 namespace Expensier.WPF.ViewModels
 {
