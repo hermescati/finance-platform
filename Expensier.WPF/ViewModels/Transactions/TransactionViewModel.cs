@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
 
 
 namespace Expensier.WPF.ViewModels.Expenses
@@ -64,6 +65,55 @@ namespace Expensier.WPF.ViewModels.Expenses
             .Cast<SortOptions>();
 
 
+        private int _pageSize = 9;
+        public int PageSize
+        {
+            get => _pageSize;
+            set
+            {
+                _pageSize = value;
+                OnPropertyChanged( nameof( PageSize ) );
+                OnPropertyChanged( nameof( TotalPages ) );
+                ResetTransactions();
+            }
+        }
+        private int _currentPage = 1;
+        public int CurrentPage
+        {
+            get => _currentPage;
+            set
+            {
+                _currentPage = value;
+                OnPropertyChanged( nameof( CurrentPage ) );
+                ResetTransactions();
+            }
+        }
+        public int TotalPages
+        {
+            get
+            {
+                int totalTransactions = _transactionStore.TransactionList.Count();
+                return (int) Math.Ceiling( (double) totalTransactions / PageSize );
+            }
+        }
+
+
+        public ICommand NextPageCommand => new RelayCommand(
+            _ => NextPage(),
+            _ => CurrentPage < TotalPages );
+        private void NextPage()
+        {
+            CurrentPage++;
+        }
+        public ICommand PreviousPageCommand => new RelayCommand(
+            _ => PreviousPage(),
+            _ => CurrentPage > 1 );
+        private void PreviousPage()
+        {
+            CurrentPage--;
+        }
+
+
         public TransactionViewModel(
             AccountStore accountStore,
             TransactionStore transactionStore,
@@ -107,15 +157,37 @@ namespace Expensier.WPF.ViewModels.Expenses
             _transactions = new ObservableCollection<TransactionModel>();
             _transactionStore.StateChanged += Transaction_StateChanged;
 
-            ResetTransactions();
+            LoadAllTransactions();
+        }
+
+
+        private void LoadAllTransactions()
+        {
+            IEnumerable<TransactionModel> filteredTransactions = _transactionStore.TransactionList
+                .Select( t => new TransactionModel( t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _accountStore, _transactionService, _renavigator ) )
+                .OrderByDescending( o => o.ProcessedDate );
+
+            _transactions.Clear();
+            foreach ( TransactionModel transaction in filteredTransactions )
+            {
+                _transactions.Add( transaction );
+            }
+
+            ListEmpty = _transactions.IsNullOrEmpty();
+
+            PropertyChanged += PropertyChangedEventHandlerAll;
         }
 
 
         private void ResetTransactions()
         {
+            int startIndex = (CurrentPage - 1) * PageSize;
+
             IEnumerable<TransactionModel> filteredTransactions = _transactionStore.TransactionList
                 .Select( t => new TransactionModel( t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _accountStore, _transactionService, _renavigator ) )
-                .OrderByDescending( o => o.ProcessedDate );
+                .OrderByDescending( o => o.ProcessedDate )
+                .Skip( startIndex )
+                .Take( PageSize );
 
             _transactions.Clear();
             foreach ( TransactionModel transaction in filteredTransactions )
@@ -131,7 +203,9 @@ namespace Expensier.WPF.ViewModels.Expenses
 
         private void FilterTransactions( string query )
         {
-            IEnumerable<TransactionModel> filteredTransactions = new List<TransactionModel>( _transactions );
+            IEnumerable<TransactionModel> filteredTransactions = _transactionStore.TransactionList
+                .Select( t => new TransactionModel( t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _accountStore, _transactionService, _renavigator ) )
+                .OrderByDescending( o => o.ProcessedDate );
 
             filteredTransactions = filteredTransactions
                 .Where( t => t.Name.ToLower().Contains( query.ToLower() ) );
@@ -175,6 +249,26 @@ namespace Expensier.WPF.ViewModels.Expenses
                 if ( SearchQuery.IsNullOrEmpty() )
                 {
                     ResetTransactions();
+                }
+                else
+                {
+                    FilterTransactions( SearchQuery );
+                }
+            }
+        }
+
+
+        private void PropertyChangedEventHandlerAll( object sender, PropertyChangedEventArgs e )
+        {
+            if ( e.PropertyName == nameof( SelectedItem ) )
+            {
+                LoadAllTransactions();
+            }
+            if ( e.PropertyName == nameof( SearchQuery ) )
+            {
+                if ( SearchQuery.IsNullOrEmpty() )
+                {
+                    LoadAllTransactions();
                 }
                 else
                 {

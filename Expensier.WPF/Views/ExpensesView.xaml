@@ -57,6 +57,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock
@@ -136,6 +138,45 @@
 
                     <!--  Expenses List  -->
                     <transactions:TransactionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
+                    <Grid Grid.Row="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Foreground="{StaticResource ForegroundShade}"
+                            Style="{StaticResource BodyText}">
+                            <Run Text="Showing" />
+                            <Run Text="{Binding CurrentPage}" />
+                            <Run Text="of" />
+                            <Run Text="{Binding TotalPages, Mode=OneWay}" />
+                        </TextBlock>
+
+                        <Grid Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                Grid.Column="0"
+                                Command="{Binding PreviousPageCommand}"
+                                Content="Previous" />
+
+                            <Button
+                                Grid.Column="2"
+                                Command="{Binding NextPageCommand}"
+                                Content="Next" />
+
+
+                        </Grid>
+
+                    </Grid>
                 </Grid>
                 <!--#endregion-->
 
