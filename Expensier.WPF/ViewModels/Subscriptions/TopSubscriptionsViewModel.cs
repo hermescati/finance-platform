@@ -23,14 +23,12 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             _subscriptionStore = subscriptionStore;
             _subscriptions = new ObservableCollection<SubscriptionModel>();
 
-            SubscriptionViewModel = new SubscriptionsViewModel( 
-                subscriptionStore,
-                subscriptions => subscriptions
+            SubscriptionViewModel = new SubscriptionsViewModel( subscriptionStore, subscriptions => subscriptions );
+
+            _subscriptions = SubscriptionViewModel.Subscriptions
                 .Where( s => s.Status == SubscriptionStatus.Active )
                 .OrderBy( s => s.DueDate )
-                .Take( 3 ) );
-
-            _subscriptions = SubscriptionViewModel.Subscriptions;
+                .Take( 3 );
         }
     }
 }
