@@ -16,6 +16,9 @@ namespace Expensier.WPF.ViewModels.Charts
 {
     public class MonthlyExpensesViewModel : ViewModelBase
     {
+        private static readonly double _defaultIncome = 2000;
+
+
         private readonly TransactionStore _transactionStore;
         public TransactionViewModel TransactionViewModel { get; }
 
@@ -62,7 +65,7 @@ namespace Expensier.WPF.ViewModels.Charts
 
             if (incomeTransactions.IsNullOrEmpty())
             {
-                return 0;
+                return _defaultIncome;
             }
 
             return incomeTransactions.Max( t => t.SeriesValue );

@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Expensier.WPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
@@ -11,20 +10,18 @@
 
 
     <UserControl.Resources>
-
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-
         <Style x:Key="SearchBarTemplate" TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource MenuShade}" />
             <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
             <Setter Property="BorderBrush" Value="{StaticResource MenuShade}" />
             <Setter Property="BorderThickness" Value="1.5" />
-            <Setter Property="Padding" Value="16,8" />
             <Setter Property="FontFamily" Value="{StaticResource Lato}" />
             <Setter Property="FontWeight" Value="Regular" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Padding" Value="16,0" />
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="UseLayoutRounding" Value="True" />
             <Setter Property="Template">
@@ -33,6 +30,8 @@
                         <Grid>
                             <Border
                                 x:Name="Stroke"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
                                 Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -43,7 +42,7 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="16" />
+                                        <ColumnDefinition Width="12" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <Image
@@ -55,9 +54,7 @@
                                     <TextBlock
                                         x:Name="Placeholder"
                                         Grid.Column="2"
-                                        Padding="0"
-                                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                         FontFamily="{TemplateBinding FontFamily}"
                                         FontSize="{TemplateBinding FontSize}"
                                         FontWeight="{TemplateBinding FontWeight}"
@@ -67,9 +64,7 @@
                                     <ScrollViewer
                                         x:Name="PART_ContentHost"
                                         Grid.Column="2"
-                                        Padding="0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
+                                        Margin="-18,0,0,0"
                                         Focusable="false"
                                         HorizontalScrollBarVisibility="Hidden"
                                         VerticalScrollBarVisibility="Hidden" />
@@ -78,8 +73,6 @@
                             <Border
                                 x:Name="Glow"
                                 Margin="-4"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="0"
                                 CornerRadius="14" />
                         </Grid>
 

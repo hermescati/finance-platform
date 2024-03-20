@@ -254,6 +254,7 @@
                             <Border
                                 Grid.Column="0"
                                 Padding="24,16"
+                                HorizontalAlignment="Stretch"
                                 Background="{StaticResource BackgroundGradient}"
                                 CornerRadius="16"
                                 DataContext="{Binding MonthlyExpensesViewModel}"
@@ -303,10 +304,10 @@
                             <Border
                                 Grid.Column="2"
                                 Padding="24,16"
+                                HorizontalAlignment="Stretch"
                                 Background="{StaticResource BackgroundGradient}"
                                 CornerRadius="16"
-                                DataContext="{Binding PredictionsViewModel}"
-                                Visibility="{Binding CorrectData, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                DataContext="{Binding PredictionsViewModel}">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -322,11 +323,24 @@
                                         Style="{StaticResource MediumText}"
                                         Text="Projected total" />
 
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        MaxWidth="136"
+                                        Margin="0,-4,0,0"
+                                        FontWeight="Regular"
+                                        Foreground="{StaticResource ForegroundShade}"
+                                        Style="{StaticResource VerySmallText}"
+                                        Text="Add more data to see your end of month expenditure."
+                                        TextWrapping="Wrap"
+                                        Visibility="{Binding CorrectData, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
+
                                     <StackPanel
                                         Grid.Row="2"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Orientation="Horizontal">
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding CorrectData, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                                         <TextBlock
                                             Grid.Column="0"
