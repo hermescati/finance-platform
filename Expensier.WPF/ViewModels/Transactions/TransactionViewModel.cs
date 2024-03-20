@@ -1,5 +1,4 @@
 ﻿using Expensier.Domain.Services.Transactions;
-using Expensier.WPF.Controls;
 using Expensier.WPF.DataObjects;
 using Expensier.WPF.Enums;
 using Expensier.WPF.State.Accounts;
@@ -130,7 +129,7 @@ namespace Expensier.WPF.ViewModels.Expenses
         }
 
 
-        public void FilterTransactions( string query )
+        private void FilterTransactions( string query )
         {
             IEnumerable<TransactionModel> filteredTransactions = new List<TransactionModel>( _transactions );
 
@@ -145,7 +144,7 @@ namespace Expensier.WPF.ViewModels.Expenses
         }
 
 
-        public void SortTransactions()
+        private void SortTransactions()
         {
             IEnumerable<TransactionModel> sortedTransactions = new List<TransactionModel>( _transactions );
 

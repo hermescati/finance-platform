@@ -104,6 +104,7 @@
 
                         <controls:SearchBar
                             Grid.Column="4"
+                            Height="44"
                             Text="{Binding SearchQuery}"
                             Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
@@ -229,17 +230,18 @@
                     <!--#endregion-->
 
                     <!--#region Predictions-->
-                    <Grid
-                        Grid.Row="2"
-                        DataContext="{Binding MonthlyExpensesViewModel}"
-                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <charts:BarChart Grid.Row="0" Height="200" />
+                        <!--  Monthly Expenses Chart  -->
+                        <charts:BarChart
+                            Grid.Row="0"
+                            Height="192"
+                            DataContext="{Binding MonthlyExpensesViewModel}" />
 
                         <!--#region Forecasted Values-->
                         <Grid Grid.Row="2" DataContext="{Binding PredictionsViewModel}">

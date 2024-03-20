@@ -17,10 +17,9 @@
         <Style x:Key="SearchBarTemplate" TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource MenuShade}" />
             <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
-            <Setter Property="BorderBrush" Value="{StaticResource Secondary}" />
-            <Setter Property="Width" Value="Auto" />
-            <Setter Property="Height" Value="44" />
-            <Setter Property="Padding" Value="0" />
+            <Setter Property="BorderBrush" Value="{StaticResource MenuShade}" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="Padding" Value="16,8" />
             <Setter Property="FontFamily" Value="{StaticResource Lato}" />
             <Setter Property="FontWeight" Value="Regular" />
             <Setter Property="FontSize" Value="14" />
@@ -31,38 +30,31 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border
-                            x:Name="Glow"
-                            Margin="-4"
-                            CornerRadius="14">
+                        <Grid>
                             <Border
                                 x:Name="Stroke"
-                                Width="{TemplateBinding Width}"
-                                Height="{TemplateBinding Height}"
                                 Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
-                                BorderBrush="{DynamicResource MenuShade}"
-                                BorderThickness="1.5"
-                                CornerRadius="12"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                 UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="16" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="16" />
                                         <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="24" />
                                     </Grid.ColumnDefinitions>
                                     <Image
                                         x:Name="Icon"
-                                        Grid.Column="1"
+                                        Grid.Column="0"
                                         Width="20"
                                         Height="20"
                                         Source="{DynamicResource SearchIcon}" />
                                     <TextBlock
                                         x:Name="Placeholder"
-                                        Grid.Column="3"
+                                        Grid.Column="2"
                                         Padding="0"
                                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                         VerticalAlignment="{TemplateBinding VerticalAlignment}"
@@ -74,7 +66,7 @@
                                         Visibility="Collapsed" />
                                     <ScrollViewer
                                         x:Name="PART_ContentHost"
-                                        Grid.Column="3"
+                                        Grid.Column="2"
                                         Padding="0"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
@@ -83,7 +75,14 @@
                                         VerticalScrollBarVisibility="Hidden" />
                                 </Grid>
                             </Border>
-                        </Border>
+                            <Border
+                                x:Name="Glow"
+                                Margin="-4"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0"
+                                CornerRadius="14" />
+                        </Grid>
+
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />

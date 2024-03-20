@@ -14,7 +14,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         public SubscriptionsViewModel SubscriptionViewModel { get; }
 
 
-        private readonly ObservableCollection<SubscriptionModel> _subscriptions;
+        private readonly IEnumerable<SubscriptionModel> _subscriptions;
         public IEnumerable<SubscriptionModel> Subscriptions => _subscriptions;
 
 
@@ -30,7 +30,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
                 .OrderBy( s => s.DueDate )
                 .Take( 3 ) );
 
-            _subscriptions = (ObservableCollection<SubscriptionModel>) SubscriptionViewModel.Subscriptions;
+            _subscriptions = SubscriptionViewModel.Subscriptions;
         }
     }
 }

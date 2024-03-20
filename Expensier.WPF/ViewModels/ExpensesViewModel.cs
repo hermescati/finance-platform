@@ -9,6 +9,7 @@ using Expensier.WPF.ViewModels.Charts;
 using Expensier.WPF.ViewModels.Expenses;
 using Expensier.WPF.ViewModels.Modals;
 using Expensier.WPF.ViewModels.Subscriptions;
+using Expensier.WPF.ViewModels.Transactions;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Expensier.WPF.ViewModels
             SubscriptionModalViewModel subscriptionModalViewModel,
             ExportModalViewModel exportModalViewModel,
             MonthlyExpensesViewModel monthlyExpensesViewModel,
-            //PredictionsViewModel predictionsViewModel,
+            PredictionsViewModel predictionsViewModel,
             ITransactionService transactionService,
             ISubscriptionService subscriptionService,
             AccountStore accountStore,
@@ -48,7 +49,7 @@ namespace Expensier.WPF.ViewModels
             SubscriptionViewModel = new SubscriptionsViewModel( accountStore, subscriptionStore, subscriptionService,  renavigator );
             ExportModalViewModel = new ExportModalViewModel( transactionService, accountStore, renavigator );
             MonthlyExpensesViewModel = monthlyExpensesViewModel;
-            //PredictionsViewModel = predictionsViewModel;
+            PredictionsViewModel = predictionsViewModel;
             TransactionModalViewModel = transactionModalViewModel;
             SubscriptionModalViewModel = subscriptionModalViewModel;
         }

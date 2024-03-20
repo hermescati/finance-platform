@@ -19,9 +19,12 @@ namespace Expensier.WPF.Models
 
         public void Fit(double[] x, double[] y)
         {
-            if (x.Length != y.Length)
+            if (x.Length != y.Length || x.Length < 2)
             {
-                throw new ArgumentException("Input arrays must have the same length!");
+                _slope = 0.0;
+                _intercept = 0.0;
+
+                return;
             }
 
             int arrayLength = x.Length;
@@ -43,6 +46,14 @@ namespace Expensier.WPF.Models
 
             double numerator = (arrayLength * sumXY) - (sumX * sumY);
             double denominator = (arrayLength * sumX2) - Math.Pow(sumX, 2);
+
+            if (denominator == 0)
+            {
+                _slope = 0.0;
+                _intercept = 0.0;
+
+                return;
+            }
 
             _slope = numerator / denominator;
             _intercept = meanY - (_slope * meanX);

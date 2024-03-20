@@ -17,6 +17,7 @@ namespace Expensier.WPF.ViewModels.Expenses
         private readonly IEnumerable<TransactionModel> _transactions;
         public IEnumerable<TransactionModel> Transactions => _transactions;
 
+
         public RecentExpensesViewModel( TransactionStore transactionStore )
         {
             _transactionStore = transactionStore;

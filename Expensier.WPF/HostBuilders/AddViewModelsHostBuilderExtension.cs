@@ -19,11 +19,11 @@ using Expensier.WPF.ViewModels.Modals;
 using Expensier.Domain.Services.Subscriptions;
 using Expensier.WPF.Controls.Modals;
 using Expensier.WPF.ViewModels.Charts;
-using Expensier.WPF.ViewModels;
 using Expensier.Domain.Services.Authentication;
 using Expensier.Domain.Services;
 using Expensier.WPF.State.Crypto;
 using Expensier.WPF.ViewModels.Cryptos;
+using Expensier.WPF.ViewModels.Transactions;
 
 namespace Expensier.WPF.HostBuilders
 {
@@ -95,7 +95,7 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<SubscriptionModalViewModel>(),
                 services.GetRequiredService<ExportModalViewModel>(),
                 services.GetRequiredService<MonthlyExpensesViewModel>(),
-                //services.GetRequiredService<PredictionsViewModel>(),
+                services.GetRequiredService<PredictionsViewModel>(),
                 services.GetRequiredService<ITransactionService>(),
                 services.GetRequiredService<ISubscriptionService>(),
                 services.GetRequiredService<AccountStore>(),
