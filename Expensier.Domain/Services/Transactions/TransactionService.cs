@@ -1,10 +1,6 @@
 ﻿using Expensier.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Expensier.Domain.Models.Transaction;
+
 
 namespace Expensier.Domain.Services.Transactions
 {
@@ -14,18 +10,20 @@ namespace Expensier.Domain.Services.Transactions
         private readonly IDataService<Transaction> _transactionService;
 
 
-        public TransactionService( IDataService<Account> accountService, IDataService<Transaction> transactionService )
+        public TransactionService(
+            IDataService<Account> accountService,
+            IDataService<Transaction> transactionService )
         {
             _accountService = accountService;
             _transactionService = transactionService;
         }
 
 
-        public async Task<Account> AddTransaction( 
-            Account currentAccount, 
-            string transactionName, 
-            TransactionCategory transactionCategory, 
-            double amount, 
+        public async Task<Account> AddTransaction(
+            Account currentAccount,
+            string transactionName,
+            TransactionCategory transactionCategory,
+            double amount,
             DateTime processedDate )
         {
             bool isCredit = transactionCategory != TransactionCategory.Income;
@@ -35,34 +33,46 @@ namespace Expensier.Domain.Services.Transactions
                 User = currentAccount,
                 Name = transactionName,
                 Amount = amount,
-                Category = transactionCategory.ToString(),
+                Category = transactionCategory,
                 IsCredit = isCredit,
                 ProcessedDate = processedDate,
             };
 
             currentAccount.TransactionList?.Add( newTransaction );
-
             await _accountService.Update( currentAccount.ID, currentAccount );
 
             return currentAccount;
         }
+
+
+        public Transaction GetTransactionByID( Account currentAccount, Guid transactionID ) => currentAccount.TransactionList
+            .Single( ( transaction ) => transaction.ID == transactionID );
 
 
         public async Task<Account> DeleteTransaction( Account currentAccount, Guid transactionID )
         {
-            currentAccount.TransactionList
-                .Remove( currentAccount.TransactionList.FirstOrDefault( ( transaction ) => transaction.ID == transactionID ) );
+            Transaction transactionToDelete = GetTransactionByID( currentAccount, transactionID );
 
-            await _accountService.Update( currentAccount.ID, currentAccount );
-            await _transactionService.Delete( transactionID );
+            if ( transactionToDelete != null )
+            {
+                currentAccount.TransactionList?.Remove( transactionToDelete );
+
+                await _accountService.Update( currentAccount.ID, currentAccount );
+                await _transactionService.Delete( transactionID );
+            }
 
             return currentAccount;
         }
 
 
-        public async Task ExportTransactionData( Account currentAccount, string filePath )
+        public async Task ExportTransactions( Account currentAccount, string filePath )
         {
-            IEnumerable<Transaction> transactionList = currentAccount.TransactionList;
+            IEnumerable<Transaction>? transactionList = currentAccount.TransactionList;
+
+            if (transactionList == null)
+            {
+                return;
+            }
 
             using ( StreamWriter writer = new StreamWriter( filePath ) )
             {

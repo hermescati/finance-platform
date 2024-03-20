@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.WPF.Models
 {
@@ -11,17 +8,22 @@ namespace Expensier.WPF.Models
         private double _slope;
         private double _intercept;
 
+
         public LinearRegression()
         {
             _slope = 0.0;
             _intercept = 0.0;
         }
 
+
         public void Fit(double[] x, double[] y)
         {
-            if (x.Length != y.Length)
+            if (x.Length != y.Length || x.Length < 2)
             {
-                throw new ArgumentException("Input arrays must have the same length!");
+                _slope = 0.0;
+                _intercept = 0.0;
+
+                return;
             }
 
             int arrayLength = x.Length;
@@ -44,14 +46,24 @@ namespace Expensier.WPF.Models
             double numerator = (arrayLength * sumXY) - (sumX * sumY);
             double denominator = (arrayLength * sumX2) - Math.Pow(sumX, 2);
 
+            if (denominator == 0)
+            {
+                _slope = 0.0;
+                _intercept = 0.0;
+
+                return;
+            }
+
             _slope = numerator / denominator;
             _intercept = meanY - (_slope * meanX);
         }
+
 
         public double Predict(double x)
         {
             return _slope * x + _intercept;
         }
+
 
         public double MeanAbsoluteError(double[] trainX, double[] trainY)
         {

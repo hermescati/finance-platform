@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.WPF.Models
 {
@@ -14,16 +11,19 @@ namespace Expensier.WPF.Models
         private double[] _trainingLabels;
         private double[] _distances;
 
+
         public KNNRegression(int k)
         {
             _k = k;
         }
+
 
         public void Fit(double[] X, double[] y)
         {
             _trainingData = X;
             _trainingLabels = y;
         }
+
 
         public double Predict(double[] x)
         {
@@ -44,6 +44,7 @@ namespace Expensier.WPF.Models
             return sum / nearestNeighbors.Length;
         }
 
+
         private int[] GetNeareastNeighbors(double[] distances, int k)
         {
             int[] neighbors = Enumerable.Range(0, distances.Length).ToArray();
@@ -54,6 +55,7 @@ namespace Expensier.WPF.Models
 
             return nearestNeighbors;
         }
+
 
         private double EuclideanDistance(double[] x1, double x2)
         {

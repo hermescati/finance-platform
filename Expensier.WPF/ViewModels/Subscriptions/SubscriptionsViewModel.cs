@@ -114,13 +114,12 @@ namespace Expensier.WPF.ViewModels.Subscriptions
 
         private void ResetSubscriptions()
         {
-            _subscriptions.Clear();
-
             IEnumerable<SubscriptionModel> filteredSubscriptions = _subscriptionStore.SubscriptionList
                 .Select( s => new SubscriptionModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.Status, s.DueDate, _accountStore, _subscriptionService, _renavigator ) )
                 .Where( s => _showCancelled ? s.Status == SubscriptionStatus.Cancelled : s.Status == SubscriptionStatus.Active )
                 .OrderBy( s => s.DueDate );
 
+            _subscriptions.Clear();
             foreach ( SubscriptionModel subscription in filteredSubscriptions )
             {
                 _subscriptions.Add( subscription );

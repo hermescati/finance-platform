@@ -33,14 +33,14 @@ namespace Expensier.WPF.Converters
 
         public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
         {
-            if ( value == null || !(value is string) )
+            if ( value == null || !( value is TransactionCategory ) )
             {
                 return null;
             }
 
-            string categoryStr = (string) value;
+            TransactionCategory category = ( TransactionCategory ) value;
 
-            if ( Enum.TryParse( categoryStr, out TransactionCategory category ) && categoryIconMap.ContainsKey( category ) )
+            if ( categoryIconMap.ContainsKey( category ) )
             {
                 return categoryIconMap[category];
             }

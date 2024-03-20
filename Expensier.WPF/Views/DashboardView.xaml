@@ -21,7 +21,8 @@
 
 
     <UserControl.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" />
     </UserControl.Resources>
 
 
@@ -71,7 +72,7 @@
                             Height="40"
                             ItemsSource="{Binding Frequency}"
                             SelectedItem="{Binding SelectedItem}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
@@ -88,10 +89,10 @@
                         Height="280"
                         Body="Add a new expense to see your spending summary chart!"
                         Icon="{StaticResource GraphPlaceholderImage}"
-                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     <!--  Line Chart  -->
-                    <charts:LineChart Grid.Row="1" Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <charts:LineChart Grid.Row="1" Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                 </Grid>
                 <!--#endregion-->
@@ -122,7 +123,7 @@
                             Height="40"
                             ItemsSource="{Binding Frequency}"
                             SelectedItem="{Binding SelectedItem}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
@@ -139,10 +140,10 @@
                         Height="280"
                         Body="Add a new expense to see your expenditure chart!"
                         Icon="{StaticResource GraphPlaceholderImage}"
-                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     <!--  Pie Chart  -->
-                    <charts:PieChart Grid.Row="2" Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <charts:PieChart Grid.Row="2" Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                 </Grid>
                 <!--#endregion-->
 
@@ -174,10 +175,10 @@
                         Grid.Row="2"
                         Body="Add a new expense to see your latest transactions!"
                         Icon="{StaticResource TransactionPlaceholderImage}"
-                        Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     <!--  Top Expenses  -->
-                    <transactions:RecentExpenses Grid.Row="2" Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <transactions:RecentExpenses Grid.Row="2" Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                 </Grid>
                 <!--#endregion-->
 
@@ -214,7 +215,7 @@
                         </Grid>
 
                         <!--  Top Subscriptions  -->
-                        <subscriptions:TopSubscriptions Grid.Row="2" Visibility="{Binding SubscriptionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" />
+                        <subscriptions:TopSubscriptions Grid.Row="2" Visibility="{Binding SubscriptionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                     </Grid>
                     <!--#endregion-->
 

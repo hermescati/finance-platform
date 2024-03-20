@@ -81,7 +81,7 @@
 
                         <TextBlock
                             Grid.Column="0"
-                            Opacity="0.6"
+                            Opacity="0.65"
                             Style="{StaticResource BaseText}"
                             Text="{Binding SeriesLabel}" />
 

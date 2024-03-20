@@ -17,7 +17,8 @@
 
 
     <UserControl.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" />
     </UserControl.Resources>
 
 
@@ -60,7 +61,7 @@
 
                     <TextBlock
                         Grid.Row="0"
-                        Style="{StaticResource Header4}"
+                        Style="{StaticResource Header5}"
                         Text="Expenses" />
 
                     <!--  Navigation  -->
@@ -92,7 +93,7 @@
                             IsReadOnly="True"
                             ItemsSource="{Binding Sort}"
                             SelectedItem="{Binding SelectedItem}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
@@ -102,10 +103,10 @@
                         </ComboBox>
 
                         <controls:SearchBar
-                            x:Name="SearchBar"
                             Grid.Column="4"
-                            Text="{Binding SearchBar}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            Height="44"
+                            Text="{Binding SearchQuery}"
+                            Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                         <Button
                             Grid.Column="6"
@@ -115,7 +116,7 @@
                             Click="ExportTransactions"
                             Content="Export data"
                             Style="{StaticResource IconButton}"
-                            Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                             <Button.Tag>
                                 <x:Array Type="DrawingImage">
                                     <DrawingImage Drawing="{StaticResource ExportVector}" />
@@ -134,14 +135,14 @@
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     <!--  Expenses List  -->
-                    <transactions:TransactionsList Grid.Row="4" Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <transactions:TransactionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                 </Grid>
                 <!--#endregion-->
 
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="24" />
+                        <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -203,7 +204,7 @@
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Sort}"
                                 SelectedItem="{Binding SelectedItem}"
-                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
+                                Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox">
                                         <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
@@ -223,38 +224,41 @@
                             Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <!--  Subscriptions  -->
-                        <subscription:SubscriptionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}" />
+                        <subscription:SubscriptionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                     </Grid>
                     <!--#endregion-->
 
-                    <!--#region Predictions-->
-                    <Grid
-                        Grid.Row="2"
-                        DataContext="{Binding MonthlyExpensesViewModel}"
-                        Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="8" />
+                            <RowDefinition Height="12" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <charts:BarChart Grid.Row="0" Height="200" />
+                        <!--  Monthly Expenses  -->
+                        <charts:BarChart
+                            Grid.Row="0"
+                            Height="200"
+                            DataContext="{Binding MonthlyExpensesViewModel}"
+                            Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
-                        <!--#region Forecasted Values-->
-                        <Grid Grid.Row="2" DataContext="{Binding PredictionsViewModel}">
+                        <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="24" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <!--  KNN Values  -->
+                            <!--  Previous Expenditure  -->
                             <Border
                                 Grid.Column="0"
                                 Padding="24,16"
+                                HorizontalAlignment="Stretch"
                                 Background="{StaticResource BackgroundGradient}"
-                                CornerRadius="16">
+                                CornerRadius="16"
+                                DataContext="{Binding MonthlyExpensesViewModel}"
+                                Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
 
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -265,10 +269,11 @@
 
                                     <TextBlock
                                         Grid.Row="0"
-                                        FontWeight="SemiBold"
-                                        Foreground="{StaticResource ForegroundShade}"
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource Foreground}"
+                                        Opacity="0.75"
                                         Style="{StaticResource MediumText}"
-                                        Text="KNN Forecast" />
+                                        Text="Total spent" />
 
                                     <StackPanel
                                         Grid.Row="2"
@@ -278,29 +283,31 @@
 
                                         <TextBlock
                                             Grid.Column="0"
-                                            Margin="0,0,2,0"
-                                            FontWeight="SemiBold"
-                                            Style="{StaticResource BodyText}"
-                                            Text="{Binding KnnResult, StringFormat='C0'}" />
+                                            Margin="0,0,4,0"
+                                            FontWeight="Black"
+                                            Style="{StaticResource BaseText}"
+                                            Text="{Binding TotalExpenditure, StringFormat='C0'}" />
 
                                         <TextBlock
                                             Grid.Column="2"
                                             VerticalAlignment="Bottom"
-                                            FontWeight="SemiBold"
+                                            FontWeight="Regular"
                                             Foreground="{StaticResource ForegroundShade}"
                                             Style="{StaticResource VerySmallText}"
-                                            Text="/ end of month" />
+                                            Text="/ last 6 months" />
 
                                     </StackPanel>
                                 </Grid>
                             </Border>
 
-                            <!--  Linear Values  -->
+                            <!--  Forecasted Expenditure  -->
                             <Border
                                 Grid.Column="2"
                                 Padding="24,16"
+                                HorizontalAlignment="Stretch"
                                 Background="{StaticResource BackgroundGradient}"
-                                CornerRadius="16">
+                                CornerRadius="16"
+                                DataContext="{Binding PredictionsViewModel}">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -310,28 +317,42 @@
 
                                     <TextBlock
                                         Grid.Row="0"
-                                        FontWeight="SemiBold"
-                                        Foreground="{StaticResource ForegroundShade}"
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource Foreground}"
+                                        Opacity="0.75"
                                         Style="{StaticResource MediumText}"
-                                        Text="Linear Forecast" />
+                                        Text="Projected total" />
+
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        MaxWidth="136"
+                                        Margin="0,-4,0,0"
+                                        FontWeight="Regular"
+                                        Foreground="{StaticResource ForegroundShade}"
+                                        Style="{StaticResource VerySmallText}"
+                                        Text="Add more data to see your end of month expenditure."
+                                        TextWrapping="Wrap"
+                                        Visibility="{Binding CorrectData, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
 
                                     <StackPanel
                                         Grid.Row="2"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Orientation="Horizontal">
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding CorrectData, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                                         <TextBlock
                                             Grid.Column="0"
-                                            Margin="0,0,2,0"
-                                            FontWeight="SemiBold"
-                                            Style="{StaticResource BodyText}"
-                                            Text="{Binding LinearResult, StringFormat='C0'}" />
+                                            Margin="0,0,4,0"
+                                            FontWeight="Black"
+                                            Style="{StaticResource BaseText}"
+                                            Text="{Binding ForecastedResult, StringFormat='C0'}" />
 
                                         <TextBlock
                                             Grid.Column="2"
                                             VerticalAlignment="Bottom"
-                                            FontWeight="SemiBold"
+                                            FontWeight="Regular"
                                             Foreground="{StaticResource ForegroundShade}"
                                             Style="{StaticResource VerySmallText}"
                                             Text="/ end of month" />
@@ -341,10 +362,8 @@
                             </Border>
 
                         </Grid>
-                        <!--#endregion-->
 
                     </Grid>
-                    <!--#endregion-->
 
                 </Grid>
             </Grid>

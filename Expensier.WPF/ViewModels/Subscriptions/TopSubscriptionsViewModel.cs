@@ -14,7 +14,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         public SubscriptionsViewModel SubscriptionViewModel { get; }
 
 
-        private readonly ObservableCollection<SubscriptionModel> _subscriptions;
+        private readonly IEnumerable<SubscriptionModel> _subscriptions;
         public IEnumerable<SubscriptionModel> Subscriptions => _subscriptions;
 
 
@@ -23,13 +23,12 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             _subscriptionStore = subscriptionStore;
             _subscriptions = new ObservableCollection<SubscriptionModel>();
 
-            SubscriptionViewModel = new SubscriptionsViewModel( 
-                subscriptionStore,
-                subscriptions => subscriptions.Where( s => s.Status == SubscriptionStatus.Active )
-                .OrderBy( s => s.DueDate )
-                .Take( 3 ) );
+            SubscriptionViewModel = new SubscriptionsViewModel( subscriptionStore, subscriptions => subscriptions );
 
-            _subscriptions = (ObservableCollection<SubscriptionModel>) SubscriptionViewModel.Subscriptions;
+            _subscriptions = SubscriptionViewModel.Subscriptions
+                .Where( s => s.Status == SubscriptionStatus.Active )
+                .OrderBy( s => s.DueDate )
+                .Take( 3 );
         }
     }
 }
