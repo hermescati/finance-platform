@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
 
 
 namespace Expensier.WPF.ViewModels.Expenses
@@ -22,9 +23,11 @@ namespace Expensier.WPF.ViewModels.Expenses
         private readonly IRenavigator _renavigator;
         private readonly Func<IEnumerable<TransactionModel>, IEnumerable<TransactionModel>> _filterTransaction;
 
-
-        private readonly ObservableCollection<TransactionModel> _transactions;
+        private ObservableCollection<TransactionModel> _transactions;
         public IEnumerable<TransactionModel> Transactions => _transactions;
+
+        private readonly ObservableCollection<TransactionModel> _paginatedResult;
+        public IEnumerable<TransactionModel> PaginatedResult => _paginatedResult;
 
 
         private bool _listEmpty;
@@ -49,7 +52,6 @@ namespace Expensier.WPF.ViewModels.Expenses
             }
         }
 
-
         private SortOptions _selectedItem;
         public SortOptions SelectedItem
         {
@@ -58,10 +60,82 @@ namespace Expensier.WPF.ViewModels.Expenses
             {
                 _selectedItem = value;
                 OnPropertyChanged( nameof( SelectedItem ) );
+                SortTransactions();
             }
         }
         public IEnumerable<SortOptions> Sort => Enum.GetValues( typeof( SortOptions ) )
             .Cast<SortOptions>();
+
+
+        private readonly int _itemsPerPage = 9;
+
+        private int _currentPage = 1;
+        public int CurrentPage
+        {
+            get => _currentPage;
+            set
+            {
+                _currentPage = value;
+                OnPropertyChanged( nameof( CurrentPage ) );
+                ApplyPagination();
+            }
+        }
+
+        private int _totalPages;
+        public int TotalPages
+        {
+            get => _totalPages;
+            set
+            {
+                _totalPages = value;
+                OnPropertyChanged( nameof( TotalPages ) );
+            }
+        }
+
+        private IEnumerable<int> _pages;
+        public IEnumerable<int> Pages
+        {
+            get => _pages;
+            set
+            {
+                _pages = value;
+                OnPropertyChanged( nameof( Pages ) );
+            }
+        }
+
+
+        private int _startIndex;
+        public int StartIndex
+        {
+            get => _startIndex;
+            set
+            {
+                _startIndex = value;
+                OnPropertyChanged( nameof( StartIndex ) );
+            }
+        }
+
+        private int _endIndex;
+        public int EndIndex
+        {
+            get => _endIndex;
+            set
+            {
+                _endIndex = value;
+                OnPropertyChanged( nameof( EndIndex ) );
+            }
+        }
+
+
+        public ICommand PreviousPage => new RelayCommand(
+            _ => CurrentPage--,
+            _ => CurrentPage > 1 );
+        public ICommand NextPage => new RelayCommand(
+            _ => CurrentPage++,
+            _ => CurrentPage < TotalPages );
+        public ICommand GoToPage => new RelayCommand(
+            page => CurrentPage = Math.Min( Math.Max( (int) page, 1 ), TotalPages ),
+            page => page != null && (int) page >= 1 && (int) page <= TotalPages );
 
 
         public TransactionViewModel(
@@ -91,9 +165,11 @@ namespace Expensier.WPF.ViewModels.Expenses
             _filterTransaction = filterTransactions;
 
             _transactions = new ObservableCollection<TransactionModel>();
-            _transactionStore.StateChanged += Transaction_StateChanged;
+            _paginatedResult = new ObservableCollection<TransactionModel>();
+            _transactionStore.StateChanged += FetchTransactions;
 
-            ResetTransactions();
+            FetchTransactions();
+            ApplyPagination();
         }
 
 
@@ -105,20 +181,20 @@ namespace Expensier.WPF.ViewModels.Expenses
             _filterTransaction = filterTransactions;
 
             _transactions = new ObservableCollection<TransactionModel>();
-            _transactionStore.StateChanged += Transaction_StateChanged;
+            _transactionStore.StateChanged += FetchTransactions;
 
-            ResetTransactions();
+            FetchTransactions();
         }
 
 
-        private void ResetTransactions()
+        private void FetchTransactions()
         {
-            IEnumerable<TransactionModel> filteredTransactions = _transactionStore.TransactionList
+            IEnumerable<TransactionModel> transactions = _transactionStore.TransactionList
                 .Select( t => new TransactionModel( t.ID, t.Name, t.Category, t.Amount, t.IsCredit, t.ProcessedDate, _accountStore, _transactionService, _renavigator ) )
                 .OrderByDescending( o => o.ProcessedDate );
 
             _transactions.Clear();
-            foreach ( TransactionModel transaction in filteredTransactions )
+            foreach ( TransactionModel transaction in transactions )
             {
                 _transactions.Add( transaction );
             }
@@ -129,38 +205,65 @@ namespace Expensier.WPF.ViewModels.Expenses
         }
 
 
+        private void ApplyPagination()
+        {
+            int startIndex = (CurrentPage - 1) * _itemsPerPage;
+            int endIndex = Math.Min( startIndex + _itemsPerPage, _transactions.Count );
+
+            TotalPages = (int) Math.Ceiling( (double) _transactions.Count / _itemsPerPage );
+            Pages = Enumerable.Range( 1, TotalPages );
+
+            IEnumerable<TransactionModel> transactionsToDisplay = _transactions
+                .Skip( startIndex )
+                .Take( endIndex - startIndex );
+
+            _paginatedResult.Clear();
+            foreach ( TransactionModel transaction in transactionsToDisplay )
+            {
+                _paginatedResult.Add( transaction );
+            }
+
+            StartIndex = endIndex;
+            EndIndex = _transactions.Count;
+        }
+
+
         private void FilterTransactions( string query )
         {
-            IEnumerable<TransactionModel> filteredTransactions = new List<TransactionModel>( _transactions );
+            _transactions = new ObservableCollection<TransactionModel>( _transactions
+                .Where( t => t.Name.ToLower().Contains( query.ToLower() ) ) );
 
-            filteredTransactions = filteredTransactions
-                .Where( t => t.Name.ToLower().Contains( query.ToLower() ) );
-
-            _transactions.Clear();
-            foreach ( TransactionModel transaction in filteredTransactions )
-            {
-                _transactions.Add( transaction );
-            }
+            ApplyPagination();
         }
 
 
         private void SortTransactions()
         {
-            IEnumerable<TransactionModel> sortedTransactions = new List<TransactionModel>( _transactions );
-
-            sortedTransactions = _selectedItem switch
+            switch ( _selectedItem )
             {
-                SortOptions.Asceding => sortedTransactions.OrderBy( t => t.Name ),
-                SortOptions.Descending => sortedTransactions.OrderByDescending( t => t.Name ),
-                SortOptions.Amount => sortedTransactions.OrderByDescending( t => t.Amount ),
-                _ => sortedTransactions.OrderBy( s => s.ProcessedDate )
-            };
-
-            _transactions.Clear();
-            foreach ( TransactionModel transaction in sortedTransactions )
-            {
-                _transactions.Add( transaction );
+                case SortOptions.Asceding:
+                    _transactions = new ObservableCollection<TransactionModel>( _transactions
+                        .OrderBy( t => t.Name ) );
+                    break;
+                case SortOptions.Descending:
+                    _transactions = new ObservableCollection<TransactionModel>( _transactions
+                        .OrderByDescending( t => t.Name ) );
+                    break;
+                case SortOptions.Amount:
+                    _transactions = new ObservableCollection<TransactionModel>( _transactions
+                        .OrderByDescending( t => t.Amount ) );
+                    break;
+                case SortOptions.Date:
+                    _transactions = new ObservableCollection<TransactionModel>( _transactions
+                        .OrderBy( s => s.ProcessedDate ) );
+                    break;
+                default:
+                    _transactions = new ObservableCollection<TransactionModel>( _transactions
+                        .OrderByDescending( s => s.ProcessedDate ) );
+                    break;
             }
+
+            ApplyPagination();
         }
 
 
@@ -170,23 +273,19 @@ namespace Expensier.WPF.ViewModels.Expenses
             {
                 SortTransactions();
             }
+
             if ( e.PropertyName == nameof( SearchQuery ) )
             {
                 if ( SearchQuery.IsNullOrEmpty() )
                 {
-                    ResetTransactions();
+                    FetchTransactions();
+                    ApplyPagination();
                 }
                 else
                 {
                     FilterTransactions( SearchQuery );
                 }
             }
-        }
-
-
-        private void Transaction_StateChanged()
-        {
-            ResetTransactions();
         }
     }
 }

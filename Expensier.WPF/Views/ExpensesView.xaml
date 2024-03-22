@@ -57,11 +57,13 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock
                         Grid.Row="0"
-                        Style="{StaticResource Header5}"
+                        Style="{StaticResource Header3}"
                         Text="Expenses" />
 
                     <!--  Navigation  -->
@@ -136,6 +138,9 @@
 
                     <!--  Expenses List  -->
                     <transactions:TransactionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
+                    <!--  Pagination  -->
+                    <controls:Pagination Grid.Row="6" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                 </Grid>
                 <!--#endregion-->
 
@@ -159,7 +164,7 @@
                         <!--  Header  -->
                         <TextBlock
                             Grid.Row="0"
-                            Style="{StaticResource Header5}"
+                            Style="{StaticResource Header3}"
                             Text="Subscriptions" />
 
                         <!--  Navigation  -->
@@ -263,7 +268,7 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="8" />
+                                        <RowDefinition Height="12" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
@@ -311,7 +316,7 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="8" />
+                                        <RowDefinition Height="12" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
