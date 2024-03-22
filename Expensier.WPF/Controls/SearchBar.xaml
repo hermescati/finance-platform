@@ -80,7 +80,7 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
                             </Trigger>
-                            <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Trigger Property="IsFocused" Value="True">
                                 <Setter TargetName="Icon" Property="Image.Source" Value="{StaticResource SearchSelectedIcon}" />
                                 <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
                                 <Setter TargetName="Glow" Property="BorderThickness" Value="4" />
@@ -101,6 +101,7 @@
     <TextBox
         x:Name="searchBar"
         HorizontalAlignment="Stretch"
+        KeyUp="searchBar_KeyUp"
         Style="{DynamicResource SearchBarTemplate}"
-        TextChanged="SeachBar_PasswordChanged" />
+        TextChanged="searchBar_TextChanged" />
 </UserControl>
