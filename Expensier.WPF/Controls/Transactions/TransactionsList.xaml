@@ -44,9 +44,9 @@
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
 
                                 <Button
-                                    x:Name="DeleteButton"
+                                    x:Name="CTA"
                                     Grid.Column="1"
-                                    Background="Transparent"
+                                    Width="0"
                                     Command="{Binding DeleteCommand}"
                                     Opacity="0"
                                     Style="{StaticResource InlineButton}"
@@ -69,16 +69,22 @@
                                             To="16"
                                             Duration="0:0:0.15" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTA"
                                             Storyboard.TargetProperty="Opacity"
                                             From="0"
                                             To="1"
                                             Duration="0:0:0.2" />
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTA"
                                             Storyboard.TargetProperty="Margin"
                                             From="0"
-                                            To="32, 0, 16, 0"
+                                            To="40, 0, 16, 0"
+                                            Duration="0:0:0.2" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="CTA"
+                                            Storyboard.TargetProperty="Width"
+                                            From="0"
+                                            To="24"
                                             Duration="0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -87,14 +93,20 @@
                             <EventTrigger RoutedEvent="Border.MouseLeave">
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="CTA"
+                                            Storyboard.TargetProperty="Width"
+                                            From="24"
+                                            To="0"
+                                            Duration="0:0:0.2" />
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTA"
                                             Storyboard.TargetProperty="Margin"
-                                            From="32, 0, 16, 0"
+                                            From="40, 0, 16, 0"
                                             To="0"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="DeleteButton"
+                                            Storyboard.TargetName="CTA"
                                             Storyboard.TargetProperty="Opacity"
                                             From="1"
                                             To="0"
@@ -125,7 +137,8 @@
         ItemContainerStyle="{DynamicResource TransactionViewItem}"
         ItemsSource="{Binding PaginatedResult}"
         ScrollViewer.CanContentScroll="False"
-        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
         <ListView.ItemTemplate>
             <DataTemplate>
@@ -136,19 +149,18 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!--#region Icon-->
+                    <!--  Icon  -->
                     <Image
                         Grid.Column="0"
                         Width="34"
                         Height="34"
                         Source="{Binding Category, Converter={StaticResource CategoryToIconConverter}}" />
-                    <!--#endregion-->
 
-                    <!--#region Transaction-->
+                    <!--#region Details-->
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -202,15 +214,15 @@
                         <!--  Amount  -->
                         <StackPanel Grid.Column="6" MinWidth="80">
                             <TextBlock
+                                HorizontalAlignment="Right"
                                 Foreground="{StaticResource ForegroundShade}"
                                 Style="{StaticResource SmallText}"
                                 Text="Amount" />
 
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource Header6}" Text="{Binding IsCredit, Converter={StaticResource BoolToSymbolConverter}}" />
-
-                                <TextBlock Style="{StaticResource Header6}" Text="{Binding Amount, StringFormat='c'}" />
-                            </StackPanel>
+                            <TextBlock HorizontalAlignment="Right" Style="{StaticResource Header6}">
+                                <Run Text="{Binding IsCredit, Mode=OneWay, Converter={StaticResource BoolToSymbolConverter}}" />
+                                <Run Text="{Binding Amount, StringFormat='c'}" />
+                            </TextBlock>
                         </StackPanel>
 
                     </Grid>
