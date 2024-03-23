@@ -57,57 +57,65 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="16" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
+                    <!--  Header  -->
                     <TextBlock
                         Grid.Row="0"
-                        Style="{StaticResource Header5}"
+                        Style="{StaticResource Header4}"
                         Text="Expenses" />
 
                     <!--  Navigation  -->
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="12" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="8" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
+                        <!--  Add new  -->
                         <Button
                             Grid.Column="0"
-                            Width="128"
+                            Width="120"
                             Height="44"
                             Click="AddNewTransaction"
                             Content="Add new"
                             Style="{StaticResource SquareButton}"
                             Tag="{StaticResource AddSelectedIcon}" />
 
-                        <ComboBox
-                            Grid.Column="2"
-                            Width="120"
-                            Height="44"
-                            IsEditable="True"
-                            IsReadOnly="True"
-                            ItemsSource="{Binding Sort}"
-                            SelectedItem="{Binding SelectedItem}"
-                            Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
-                            <ComboBox.Style>
-                                <Style TargetType="ComboBox">
-                                    <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
-                                    <Setter Property="ItemContainerStyle" Value="{StaticResource SortingDropdownItemsTemplate}" />
-                                </Style>
-                            </ComboBox.Style>
-                        </ComboBox>
-
+                        <!--  Search bar  -->
                         <controls:SearchBar
-                            Grid.Column="4"
+                            Grid.Column="2"
                             Height="44"
                             Text="{Binding SearchQuery}"
                             Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
+                        <!--  Sort menu  -->
+                        <ComboBox
+                            Grid.Column="4"
+                            Width="144"
+                            Height="44"
+                            DisplayMemberPath="Name"
+                            IsEditable="True"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding SortItems}"
+                            SelectedItem="{Binding SelectedOption}"
+                            Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="Template" Value="{StaticResource SortDropdownTemplate}" />
+                                    <Setter Property="ItemContainerStyle" Value="{StaticResource SortItemTemplate}" />
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
+
+                        <!--  Export  -->
                         <Button
                             Grid.Column="6"
                             Width="44"
@@ -136,6 +144,10 @@
 
                     <!--  Expenses List  -->
                     <transactions:TransactionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
+                    <!--  Pagination  -->
+                    <controls:Pagination Grid.Row="6" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
                 </Grid>
                 <!--#endregion-->
 
@@ -159,56 +171,57 @@
                         <!--  Header  -->
                         <TextBlock
                             Grid.Row="0"
-                            Style="{StaticResource Header5}"
+                            Style="{StaticResource Header4}"
                             Text="Subscriptions" />
 
                         <!--  Navigation  -->
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="8" />
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="8" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <!--  Add New  -->
                             <Button
                                 Grid.Column="0"
-                                Width="128"
+                                Width="120"
                                 Height="44"
                                 Click="AddNewSubscription"
                                 Content="Add new"
                                 Style="{StaticResource SquareButton}"
                                 Tag="{StaticResource AddSelectedIcon}" />
 
-                            <!--  Show Cancelled  -->
+                            <!--  Canceled  -->
                             <ToggleButton
                                 Grid.Column="2"
-                                Width="128"
+                                Width="120"
                                 Height="44"
                                 Padding="0"
                                 Background="{StaticResource MenuShade}"
-                                Content="Cancelled"
+                                Content="Canceled"
                                 Foreground="{StaticResource ForegroundShade}"
-                                IsChecked="{Binding ShowCancelled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsChecked="{Binding ShowCanceled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource ToggleButton}"
                                 Tag="{StaticResource CancelIcon}" />
 
-                            <!--  Sorting  -->
+                            <!--  Sort menu  -->
                             <ComboBox
                                 Grid.Column="4"
-                                Width="120"
+                                Width="144"
                                 Height="44"
+                                DisplayMemberPath="Name"
                                 IsEditable="True"
                                 IsReadOnly="True"
-                                ItemsSource="{Binding Sort}"
-                                SelectedItem="{Binding SelectedItem}"
+                                ItemsSource="{Binding SortItems}"
+                                SelectedItem="{Binding SelectedOption}"
                                 Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox">
-                                        <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
-                                        <Setter Property="ItemContainerStyle" Value="{StaticResource SortingDropdownItemsTemplate}" />
+                                        <Setter Property="Template" Value="{StaticResource SortDropdownTemplate}" />
+                                        <Setter Property="ItemContainerStyle" Value="{StaticResource SortItemTemplate}" />
                                     </Style>
                                 </ComboBox.Style>
                             </ComboBox>
@@ -232,7 +245,7 @@
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="12" />
+                            <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -246,7 +259,7 @@
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="16" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 

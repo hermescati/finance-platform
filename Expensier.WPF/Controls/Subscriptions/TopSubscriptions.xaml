@@ -35,13 +35,13 @@
 
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Border Padding="0,12,34,12">
+                <Border Padding="0,12,48,12">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="16" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="32" />
+                            <ColumnDefinition Width="44" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 

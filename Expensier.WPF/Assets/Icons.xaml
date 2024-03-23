@@ -311,6 +311,128 @@
     <!--#endregion-->
 
 
+    <!--#region Date Sort-->
+    <Geometry x:Key="DateVector1">F1 M24,24z M0,0z M12.0001,22C14.2995,22 16.5048,21.0866 18.1307,19.4606 19.7566,17.8347 20.6701,15.6295 20.6701,13.33 20.6701,11.0306 19.7566,8.82536 18.1307,7.19942 16.5048,5.57348 14.2995,4.66003 12.0001,4.66003 9.70065,4.66003 7.4954,5.57348 5.86946,7.19942 4.24352,8.82536 3.33008,11.0306 3.33008,13.33 3.33008,15.6295 4.24352,17.8347 5.86946,19.4606 7.4954,21.0866 9.70065,22 12.0001,22z</Geometry>
+    <Geometry x:Key="DateVector2">F1 M24,24z M0,0z M11.9999,13.75C11.5899,13.75,11.2499,13.41,11.2499,13L11.2499,8C11.2499,7.59 11.5899,7.25 11.9999,7.25 12.4099,7.25 12.7499,7.59 12.7499,8L12.7499,13C12.7499,13.41,12.4099,13.75,11.9999,13.75z M14.8899,3.45L9.10989,3.45C8.70989,3.45 8.38989,3.13 8.38989,2.73 8.38989,2.33 8.70989,2 9.10989,2L14.8899,2C15.2899,2 15.6099,2.32 15.6099,2.72 15.6099,3.12 15.2899,3.45 14.8899,3.45z</Geometry>
+
+    <!--  Default  -->
+    <DrawingGroup x:Key="DateVector" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource DateVector1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="{StaticResource ForegroundColor}" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource Foreground}" Geometry="{StaticResource DateVector2}" />
+    </DrawingGroup>
+
+    <!--  Selected  -->
+    <DrawingGroup x:Key="DateSelectedVector" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource DateVector1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="{StaticResource SecondaryColor}" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource Secondary}" Geometry="{StaticResource DateVector2}" />
+    </DrawingGroup>
+
+    <DrawingImage x:Key="DateIcon" Drawing="{StaticResource DateVector}" />
+    <DrawingImage x:Key="DateSelectedIcon" Drawing="{StaticResource DateSelectedVector}" />
+    <!--#endregion-->
+
+
+    <!--#region Amount Sort-->
+    <Geometry x:Key="AmountVector1">F1 M24,24z M0,0z M9.99,17.98C12.1091,17.98 14.1414,17.1382 15.6398,15.6398 17.1382,14.1414 17.98,12.1091 17.98,9.99 17.98,7.87092 17.1382,5.83863 15.6398,4.34022 14.1414,2.8418 12.1091,2 9.99,2 7.87092,2 5.83863,2.8418 4.34022,4.34022 2.8418,5.83863 2,7.87092 2,9.99 2,12.1091 2.8418,14.1414 4.34022,15.6398 5.83863,17.1382 7.87092,17.98 9.99,17.98z</Geometry>
+    <Geometry x:Key="AmountVector2">F1 M24,24z M0,0z M21.968,15.988C21.968,19.288 19.288,21.968 15.988,21.968 15.0228,21.9685 14.0719,21.7349 13.2167,21.2873 12.3616,20.8397 11.6277,20.1914 11.078,19.398 13.2007,19.1548 15.1785,18.2001 16.6893,16.6893 18.2001,15.1785 19.1548,13.2007 19.398,11.078 20.1914,11.6277 20.8397,12.3616 21.2873,13.2168 21.7349,14.0719 21.9684,15.0228 21.968,15.988z M11.45,9.71003L9.05,8.87003C8.81,8.79003 8.76,8.77003 8.76,8.42003 8.76,8.16003 8.94,7.95003 9.17,7.95003L10.67,7.95003C10.99,7.95003 11.25,8.24003 11.25,8.60003 11.25,9.01003 11.59,9.35003 12,9.35003 12.41,9.35003 12.75,9.01003 12.75,8.60003 12.75,7.45003 11.86,6.51003 10.75,6.46003L10.75,6.41003C10.75,6.21112 10.671,6.02036 10.5303,5.8797 10.3897,5.73905 10.1989,5.66003 10,5.66003 9.80109,5.66003 9.61032,5.73905 9.46967,5.8797 9.32902,6.02036 9.25,6.21112 9.25,6.41003L9.25,6.46003 9.16,6.46003C8.11,6.46003 7.25,7.34003 7.25,8.43003 7.25,9.38003 7.67,9.99003 8.54,10.29L10.95,11.13C11.19,11.21 11.24,11.23 11.24,11.58 11.24,11.84 11.06,12.05 10.83,12.05L9.33,12.05C9.01,12.05 8.75,11.76 8.75,11.4 8.75,10.99 8.41,10.65 8,10.65 7.59,10.65 7.25,10.99 7.25,11.4 7.25,12.55 8.14,13.49 9.25,13.54L9.25,13.6C9.25,14.01 9.59,14.35 10,14.35 10.41,14.35 10.75,14.01 10.75,13.6L10.75,13.55 10.84,13.55C11.89,13.55 12.75,12.67 12.75,11.58 12.75,10.63 12.32,10.02 11.45,9.71003z</Geometry>
+
+    <!--  Default  -->
+    <DrawingGroup x:Key="AmountVector" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource AmountVector1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="{StaticResource ForegroundColor}" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource Foreground}" Geometry="{StaticResource AmountVector2}" />
+    </DrawingGroup>
+
+    <!--  Selected  -->
+    <DrawingGroup x:Key="AmountSelectedVector" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource AmountVector1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="{StaticResource SecondaryColor}" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource Secondary}" Geometry="{StaticResource AmountVector2}" />
+    </DrawingGroup>
+
+    <DrawingImage x:Key="AmountIcon" Drawing="{StaticResource AmountVector}" />
+    <DrawingImage x:Key="AmountSelectedIcon" Drawing="{StaticResource AmountSelectedVector}" />
+    <!--#endregion-->
+
+
+    <!--#region Alphabetical Asc. Sort-->
+    <Geometry x:Key="AlphAscVector1">F1 M24,24z M0,0z M13.0201,7.25C13.1612,7.38948 13.3516,7.4677 13.5501,7.4677 13.7485,7.4677 13.9389,7.38948 14.0801,7.25L16.5301,4.8 16.5301,21C16.5301,21.41 16.8701,21.75 17.2801,21.75 17.6901,21.75 18.0301,21.41 18.0301,21L18.0301,4.81 20.4701,7.25C20.6112,7.38948 20.8016,7.4677 21.0001,7.4677 21.1985,7.4677 21.3889,7.38948 21.5301,7.25 21.8201,6.96 21.8201,6.48 21.5301,6.19L17.8201,2.48C17.7501,2.41 17.6601,2.35 17.5601,2.31 17.5501,2.31 17.5401,2.31 17.5301,2.3 17.4501,2.27 17.3601,2.25 17.2701,2.25 17.0701,2.25 16.8801,2.33 16.7401,2.47L13.0201,6.19C12.7301,6.49,12.7301,6.96,13.0201,7.25z</Geometry>
+    <Geometry x:Key="AlphAscVector2">F1 M24,24z M0,0z M4.10938,10L6.07812,4.36328 7.46484,4.36328 9.42969,10 8.19141,10 7.76562,8.63281 5.77344,8.63281 5.34766,10 4.10938,10z M6.75781,5.45703L6.04688,7.75 7.49219,7.75 6.78125,5.45703 6.75781,5.45703z</Geometry>
+    <Geometry x:Key="AlphAscVector3">F1 M24,24z M0,0z M4.34766,20L4.34766,19.2305 7.21484,15.3594 7.21484,15.3359 4.41406,15.3359 4.41406,14.3633 8.62109,14.3633 8.62109,15.1289 5.76562,19.0039 5.76562,19.0273 8.69922,19.0273 8.69922,20 4.34766,20z</Geometry>
+
+    <!--  Default  -->
+    <DrawingGroup x:Key="AlphAscVector" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource AlphAscVector1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="{StaticResource ForegroundColor}" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource Foreground}" Geometry="{StaticResource AlphAscVector2}" />
+        <GeometryDrawing Brush="{StaticResource Foreground}" Geometry="{StaticResource AlphAscVector3}" />
+    </DrawingGroup>
+
+    <!--  Selected  -->
+    <DrawingGroup x:Key="AlphAscSelectedVector" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource AlphAscVector1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="{StaticResource SecondaryColor}" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource Secondary}" Geometry="{StaticResource AlphAscVector2}" />
+        <GeometryDrawing Brush="{StaticResource Secondary}" Geometry="{StaticResource AlphAscVector3}" />
+    </DrawingGroup>
+
+    <DrawingImage x:Key="AlphAscIcon" Drawing="{StaticResource AlphAscVector}" />
+    <DrawingImage x:Key="AlphAscSelectedIcon" Drawing="{StaticResource AlphAscSelectedVector}" />
+    <!--#endregion-->
+
+
+    <!--#region Alphabetical Desc. Sort-->
+    <Geometry x:Key="AlphDescVector1">F1 M24,24z M0,0z M21.53,16.75C21.3889,16.6105 21.1984,16.5323 21,16.5323 20.8016,16.5323 20.6111,16.6105 20.47,16.75L18.02,19.2 18.02,3C18.02,2.59 17.68,2.25 17.27,2.25 16.86,2.25 16.52,2.59 16.52,3L16.52,19.19 14.08,16.75C13.9389,16.6105 13.7484,16.5323 13.55,16.5323 13.3516,16.5323 13.1611,16.6105 13.02,16.75 12.73,17.04 12.73,17.52 13.02,17.81L16.73,21.52C16.8,21.59 16.89,21.65 16.99,21.69 17,21.69 17.01,21.69 17.02,21.7 17.1,21.73 17.19,21.75 17.28,21.75 17.48,21.75 17.67,21.67 17.81,21.53L21.53,17.81C21.82,17.51,21.82,17.04,21.53,16.75z</Geometry>
+    <Geometry x:Key="AlphDescVector2">F1 M24,24z M0,0z M4.10938,10L6.07812,4.36328 7.46484,4.36328 9.42969,10 8.19141,10 7.76562,8.63281 5.77344,8.63281 5.34766,10 4.10938,10z M6.75781,5.45703L6.04688,7.75 7.49219,7.75 6.78125,5.45703 6.75781,5.45703z</Geometry>
+    <Geometry x:Key="AlphDescVector3">F1 M24,24z M0,0z M4.34766,20L4.34766,19.2305 7.21484,15.3594 7.21484,15.3359 4.41406,15.3359 4.41406,14.3633 8.62109,14.3633 8.62109,15.1289 5.76562,19.0039 5.76562,19.0273 8.69922,19.0273 8.69922,20 4.34766,20z</Geometry>
+
+    <!--  Default  -->
+    <DrawingGroup x:Key="AlphDescVector" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource AlphDescVector1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="{StaticResource ForegroundColor}" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource Foreground}" Geometry="{StaticResource AlphDescVector2}" />
+        <GeometryDrawing Brush="{StaticResource Foreground}" Geometry="{StaticResource AlphDescVector3}" />
+    </DrawingGroup>
+
+    <!--  Selected  -->
+    <DrawingGroup x:Key="AlphDescSelectedVector" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Geometry="{StaticResource AlphDescVector1}">
+            <GeometryDrawing.Brush>
+                <SolidColorBrush Opacity="0.4" Color="{StaticResource SecondaryColor}" />
+            </GeometryDrawing.Brush>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource Secondary}" Geometry="{StaticResource AlphDescVector2}" />
+        <GeometryDrawing Brush="{StaticResource Secondary}" Geometry="{StaticResource AlphDescVector3}" />
+    </DrawingGroup>
+
+    <DrawingImage x:Key="AlphDescIcon" Drawing="{StaticResource AlphDescVector}" />
+    <DrawingImage x:Key="AlphDescSelectedIcon" Drawing="{StaticResource AlphDescSelectedVector}" />
+    <!--#endregion-->
+
+
     <!--#region Calendar Icon-->
     <Geometry x:Key="CalendarVector1">F1 M16,16z M0,0z M11.1667,2.37333L11.1667,1.33333C11.1667,1.05999 10.94,0.833328 10.6667,0.833328 10.3933,0.833328 10.1667,1.05999 10.1667,1.33333L10.1667,2.33333 5.83332,2.33333 5.83332,1.33333C5.83332,1.05999 5.60666,0.833328 5.33332,0.833328 5.05999,0.833328 4.83332,1.05999 4.83332,1.33333L4.83332,2.37333C3.03332,2.53999 2.15999,3.61333 2.02666,5.20666 2.01332,5.39999 2.17332,5.55999 2.35999,5.55999L13.64,5.55999C13.8333,5.55999 13.9933,5.39333 13.9733,5.20666 13.84,3.61333 12.9667,2.53999 11.1667,2.37333z</Geometry>
     <Geometry x:Key="CalendarVector2">F1 M16,16z M0,0z M13.3333,6.56C13.7,6.56,14,6.86,14,7.22666L14,11.3333C14,13.3333,13,14.6667,10.6667,14.6667L5.33333,14.6667C3,14.6667,2,13.3333,2,11.3333L2,7.22666C2,6.86,2.3,6.56,2.66667,6.56L13.3333,6.56z</Geometry>

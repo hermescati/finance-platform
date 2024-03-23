@@ -61,15 +61,17 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
+                        <!--  Header  -->
                         <TextBlock
                             Grid.Column="0"
                             Style="{StaticResource Header4}"
                             Text="Spending summary" />
 
+                        <!--  Dropdown  -->
                         <ComboBox
                             Grid.Column="2"
                             Width="140"
-                            Height="40"
+                            Height="44"
                             ItemsSource="{Binding Frequency}"
                             SelectedItem="{Binding SelectedItem}"
                             Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
@@ -80,6 +82,7 @@
                                 </Style>
                             </ComboBox.Style>
                         </ComboBox>
+
                     </Grid>
 
                     <!--  Placeholder  -->
@@ -112,15 +115,17 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
+                        <!--  Header  -->
                         <TextBlock
                             Grid.Column="0"
                             Style="{StaticResource Header4}"
                             Text="Expenditure" />
 
+                        <!--  Dropdown  -->
                         <ComboBox
                             Grid.Column="2"
                             Width="140"
-                            Height="40"
+                            Height="44"
                             ItemsSource="{Binding Frequency}"
                             SelectedItem="{Binding SelectedItem}"
                             Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
@@ -131,6 +136,7 @@
                                 </Style>
                             </ComboBox.Style>
                         </ComboBox>
+
                     </Grid>
 
                     <!--  Placeholder  -->
@@ -144,6 +150,7 @@
 
                     <!--  Pie Chart  -->
                     <charts:PieChart Grid.Row="2" Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
                 </Grid>
                 <!--#endregion-->
 
@@ -151,9 +158,9 @@
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2.5*" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="5.5*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="64" />
+                    <ColumnDefinition Width="5*" />
                 </Grid.ColumnDefinitions>
 
                 <!--#region Expenses-->
@@ -164,6 +171,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
+                    <!--  Header  -->
                     <TextBlock
                         Grid.Row="0"
                         Style="{StaticResource Header4}"
@@ -179,6 +187,7 @@
 
                     <!--  Top Expenses  -->
                     <transactions:RecentExpenses Grid.Row="2" Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
                 </Grid>
                 <!--#endregion-->
 
@@ -216,6 +225,7 @@
 
                         <!--  Top Subscriptions  -->
                         <subscriptions:TopSubscriptions Grid.Row="2" Visibility="{Binding SubscriptionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
                     </Grid>
                     <!--#endregion-->
 

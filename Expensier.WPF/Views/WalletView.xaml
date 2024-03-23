@@ -288,8 +288,8 @@
                                     SelectedItem="{Binding SelectedItem}">
                                     <ComboBox.Style>
                                         <Style TargetType="ComboBox">
-                                            <Setter Property="Template" Value="{StaticResource SortingDropdownTemplate}" />
-                                            <Setter Property="ItemContainerStyle" Value="{StaticResource SortingDropdownItemsTemplate}" />
+                                            <Setter Property="Template" Value="{StaticResource SortDropdownTemplate}" />
+                                            <Setter Property="ItemContainerStyle" Value="{StaticResource SortItemTemplate}" />
                                         </Style>
                                     </ComboBox.Style>
                                 </ComboBox>

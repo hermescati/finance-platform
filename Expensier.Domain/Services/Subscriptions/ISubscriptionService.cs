@@ -66,9 +66,9 @@ namespace Expensier.Domain.Services.Subscriptions
         /// Cancels a subscription for the provided user account without deleting it. This way the user can
         /// renew the subscription without having the need to create it from the beginning.
         /// </summary>
-        /// <param name="currentAccount">The account for which the subscription will be cancelled.</param>
+        /// <param name="currentAccount">The account for which the subscription will be canceled.</param>
         /// <param name="subscriptionID">The ID of the subscription to cancel.</param>
-        /// <returns>The updated account after the subscription has been cancelled.</returns>
+        /// <returns>The updated account after the subscription has been canceled.</returns>
         Task<Account> CancelSubscription(
             Account currentAccount,
             Guid subscriptionID );

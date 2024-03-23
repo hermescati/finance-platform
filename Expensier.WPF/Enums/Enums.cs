@@ -1,10 +1,11 @@
-﻿namespace Expensier.WPF.Enums
+﻿using System.Windows.Media;
+
+namespace Expensier.WPF.Enums
 {
-    public enum SortOptions
+
+    public enum SortDirection
     {
-        Date,
-        Amount,
-        Asceding,
+        Ascending,
         Descending
     }
 
