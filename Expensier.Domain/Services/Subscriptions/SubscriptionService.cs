@@ -109,7 +109,7 @@ namespace Expensier.Domain.Services.Subscriptions
 
             if ( subscriptionToCancel != null )
             {
-                subscriptionToCancel.Status = SubscriptionStatus.Cancelled;
+                subscriptionToCancel.Status = SubscriptionStatus.Canceled;
                 subscriptionToCancel.DueDate = null;
 
                 await _accountService.Update( currentAccount.ID, currentAccount );

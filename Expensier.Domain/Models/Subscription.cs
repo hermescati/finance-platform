@@ -8,7 +8,7 @@ namespace Expensier.Domain.Models
         public enum SubscriptionStatus
         {
             Active,
-            Cancelled
+            Canceled
         }
 
         public enum SubscriptionFrequency

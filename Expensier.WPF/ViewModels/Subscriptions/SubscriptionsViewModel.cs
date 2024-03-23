@@ -41,14 +41,14 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             }
         }
 
-        private bool _showCancelled;
-        public bool ShowCancelled
+        private bool _showCanceled;
+        public bool ShowCanceled
         {
-            get => _showCancelled;
+            get => _showCanceled;
             set
             {
-                _showCancelled = value;
-                OnPropertyChanged( nameof( ShowCancelled ) );
+                _showCanceled = value;
+                OnPropertyChanged( nameof( ShowCanceled ) );
             }
         }
 
@@ -117,7 +117,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         {
             IEnumerable<SubscriptionModel> subscriptions = _subscriptionStore.SubscriptionList
                 .Select( s => new SubscriptionModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.Status, s.DueDate, _accountStore, _subscriptionService, _renavigator ) )
-                .Where( s => _showCancelled ? s.Status == SubscriptionStatus.Cancelled : s.Status == SubscriptionStatus.Active )
+                .Where( s => _showCanceled ? s.Status == SubscriptionStatus.Canceled : s.Status == SubscriptionStatus.Active )
                 .OrderBy( s => s.DueDate );
 
             _subscriptions.Clear();
@@ -160,7 +160,7 @@ namespace Expensier.WPF.ViewModels.Subscriptions
                 SortSubscriptions( SelectedOption );
 
 
-            if ( e.PropertyName == nameof( ShowCancelled ) )
+            if ( e.PropertyName == nameof( ShowCanceled ) )
                 FetchSubscriptions();
         }
     }

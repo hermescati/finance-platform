@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <converters:CompanyNameToLogoConverter x:Key="CompanyNameToLogoConverter" />
         <converters:StatusToVisibilityConverter x:Key="ActiveStatusToVisibilityConverter" />
-        <converters:StatusToVisibilityConverter x:Key="CancelledStatusToVisibilityConverter" />
+        <converters:StatusToVisibilityConverter x:Key="CanceledStatusToVisibilityConverter" />
 
 
         <Style x:Key="SubscriptionsViewItem" TargetType="{x:Type ListViewItem}">
@@ -59,14 +59,14 @@
                                         Command="{Binding ActivateCommand}"
                                         Style="{StaticResource InlineButton}"
                                         Tag="{StaticResource ActivateIcon}"
-                                        Visibility="{Binding Status, Converter={StaticResource ActiveStatusToVisibilityConverter}, ConverterParameter=Cancelled}" />
+                                        Visibility="{Binding Status, Converter={StaticResource ActiveStatusToVisibilityConverter}, ConverterParameter=Canceled}" />
 
                                     <Button
                                         Grid.Column="1"
                                         Command="{Binding CancelCommand}"
                                         Style="{StaticResource InlineButton}"
                                         Tag="{StaticResource CancelIcon}"
-                                        Visibility="{Binding Status, Converter={StaticResource CancelledStatusToVisibilityConverter}, ConverterParameter=Active}" />
+                                        Visibility="{Binding Status, Converter={StaticResource CanceledStatusToVisibilityConverter}, ConverterParameter=Active}" />
 
                                     <Button
                                         Grid.Column="3"

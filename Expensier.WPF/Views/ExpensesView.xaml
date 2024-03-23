@@ -203,7 +203,7 @@
                                 Background="{StaticResource MenuShade}"
                                 Content="Canceled"
                                 Foreground="{StaticResource ForegroundShade}"
-                                IsChecked="{Binding ShowCancelled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsChecked="{Binding ShowCanceled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource ToggleButton}"
                                 Tag="{StaticResource CancelIcon}" />
 

@@ -16,7 +16,7 @@ namespace Expensier.WPF.Converters
                 return Visibility.Collapsed;
 
             if ( (status == SubscriptionStatus.Active && (string) parameter == "Active") ||
-                (status == SubscriptionStatus.Cancelled && (string) parameter == "Cancelled") )
+                (status == SubscriptionStatus.Canceled && (string) parameter == "Canceled") )
             {
                 return Visibility.Visible;
             }
