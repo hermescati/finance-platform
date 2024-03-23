@@ -30,7 +30,7 @@
                         Background="{StaticResource Primary}"
                         BorderBrush="{StaticResource Transparent}"
                         BorderThickness="1.5"
-                        CornerRadius="10">
+                        CornerRadius="12">
                         <ScrollViewer x:Name="DropDownScrollViewer">
                             <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                                 <Canvas
@@ -105,12 +105,13 @@
     </ControlTemplate>
 
     <Style x:Key="DropDownButtonTemplate" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="ClickMode" Value="Release" />
-        <Setter Property="Width" Value="Auto" />
-        <Setter Property="Height" Value="Auto" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -123,6 +124,7 @@
                             x:Name="Stroke"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
+                            Padding="{TemplateBinding Padding}"
                             Background="{StaticResource MenuShade}"
                             BorderBrush="{StaticResource MenuShade}"
                             BorderThickness="1.5"
@@ -131,15 +133,13 @@
                             UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1" />
-                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="16" />
                                 </Grid.ColumnDefinitions>
                                 <ContentPresenter
                                     x:Name="Content"
-                                    Grid.Column="1"
+                                    Grid.Column="0"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="Center"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
@@ -147,9 +147,9 @@
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
                                 <Image
                                     x:Name="Icon"
-                                    Grid.Column="3"
-                                    Width="14"
-                                    Height="14"
+                                    Grid.Column="2"
+                                    Width="10"
+                                    Height="10"
                                     Opacity="0.75"
                                     Source="{Binding Tag[0], RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
@@ -258,6 +258,7 @@
                     Color="Transparent">
                     <Border
                         x:Name="dropDownBorder"
+                        Margin="0,8,0,0"
                         Padding="4"
                         Background="{StaticResource Primary}"
                         BorderBrush="{StaticResource Transparent}"
@@ -337,12 +338,12 @@
 
     <Style x:Key="SortButtonTemplate" TargetType="{x:Type ToggleButton}">
         <Setter Property="Padding" Value="16,8" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="Auto" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="ClickMode" Value="Release" />
-        <Setter Property="Width" Value="Auto" />
-        <Setter Property="Height" Value="Auto" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -385,6 +386,7 @@
                                     Grid.Column="2"
                                     Width="10"
                                     Height="10"
+                                    Opacity="0.75"
                                     Source="{Binding Tag[0], RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
                         </Border>

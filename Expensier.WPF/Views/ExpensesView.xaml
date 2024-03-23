@@ -64,25 +64,25 @@
                     <!--  Header  -->
                     <TextBlock
                         Grid.Row="0"
-                        Style="{StaticResource Header3}"
+                        Style="{StaticResource Header4}"
                         Text="Expenses" />
 
                     <!--  Navigation  -->
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <!--  Add new  -->
                         <Button
                             Grid.Column="0"
-                            Width="128"
+                            Width="120"
                             Height="44"
                             Click="AddNewTransaction"
                             Content="Add new"
@@ -171,23 +171,23 @@
                         <!--  Header  -->
                         <TextBlock
                             Grid.Row="0"
-                            Style="{StaticResource Header3}"
+                            Style="{StaticResource Header4}"
                             Text="Subscriptions" />
 
                         <!--  Navigation  -->
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="8" />
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="8" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <!--  Add New  -->
                             <Button
                                 Grid.Column="0"
-                                Width="128"
+                                Width="120"
                                 Height="44"
                                 Click="AddNewSubscription"
                                 Content="Add new"
@@ -197,7 +197,7 @@
                             <!--  Canceled  -->
                             <ToggleButton
                                 Grid.Column="2"
-                                Width="128"
+                                Width="120"
                                 Height="44"
                                 Padding="0"
                                 Background="{StaticResource MenuShade}"
@@ -245,7 +245,7 @@
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="12" />
+                            <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -259,7 +259,7 @@
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="16" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
@@ -276,7 +276,7 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="12" />
+                                        <RowDefinition Height="8" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
@@ -324,7 +324,7 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="12" />
+                                        <RowDefinition Height="8" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
