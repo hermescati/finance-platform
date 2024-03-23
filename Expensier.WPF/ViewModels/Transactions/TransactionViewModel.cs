@@ -4,12 +4,14 @@ using Expensier.WPF.Enums;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Expenses;
 using Expensier.WPF.State.Navigators;
+using Expensier.WPF.Utils;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Input;
 
 
@@ -22,6 +24,7 @@ namespace Expensier.WPF.ViewModels.Expenses
         private readonly ITransactionService _transactionService;
         private readonly IRenavigator _renavigator;
         private readonly Func<IEnumerable<TransactionModel>, IEnumerable<TransactionModel>> _filterTransaction;
+
 
         private ObservableCollection<TransactionModel> _transactions;
         public IEnumerable<TransactionModel> Transactions => _transactions;
@@ -52,19 +55,18 @@ namespace Expensier.WPF.ViewModels.Expenses
             }
         }
 
-        private SortOptions _selectedItem;
-        public SortOptions SelectedItem
+        private SortOptions _selectedOption;
+        public SortOptions SelectedOption
         {
-            get => _selectedItem;
+            get => _selectedOption;
             set
             {
-                _selectedItem = value;
-                OnPropertyChanged( nameof( SelectedItem ) );
-                SortTransactions();
+                _selectedOption = value;
+                OnPropertyChanged( nameof( SelectedOption ) );
+                SortTransactions( SelectedOption );
             }
         }
-        public IEnumerable<SortOptions> Sort => Enum.GetValues( typeof( SortOptions ) )
-            .Cast<SortOptions>();
+        public IEnumerable<SortOptions> SortItems { get; } = SortOptions.TransactionOptions();
 
 
         private readonly int _itemsPerPage = 9;
@@ -228,7 +230,7 @@ namespace Expensier.WPF.ViewModels.Expenses
         }
 
 
-        private void FilterTransactions( string query )
+        private void QueryTransactions( string query )
         {
             _transactions = new ObservableCollection<TransactionModel>( _transactions
                 .Where( t => t.Name.ToLower().Contains( query.ToLower() ) ) );
@@ -237,31 +239,18 @@ namespace Expensier.WPF.ViewModels.Expenses
         }
 
 
-        private void SortTransactions()
+        private void SortTransactions( SortOptions selectedOption )
         {
-            switch ( _selectedItem )
-            {
-                case SortOptions.Asceding:
-                    _transactions = new ObservableCollection<TransactionModel>( _transactions
-                        .OrderBy( t => t.Name ) );
-                    break;
-                case SortOptions.Descending:
-                    _transactions = new ObservableCollection<TransactionModel>( _transactions
-                        .OrderByDescending( t => t.Name ) );
-                    break;
-                case SortOptions.Amount:
-                    _transactions = new ObservableCollection<TransactionModel>( _transactions
-                        .OrderByDescending( t => t.Amount ) );
-                    break;
-                case SortOptions.Date:
-                    _transactions = new ObservableCollection<TransactionModel>( _transactions
-                        .OrderBy( s => s.ProcessedDate ) );
-                    break;
-                default:
-                    _transactions = new ObservableCollection<TransactionModel>( _transactions
-                        .OrderByDescending( s => s.ProcessedDate ) );
-                    break;
-            }
+            Type type = typeof( TransactionModel );
+            PropertyInfo? property = type.GetProperty( selectedOption.Property );
+
+            if ( property == null )
+                return;
+
+            _transactions = new ObservableCollection<TransactionModel>(
+                    selectedOption.Direction == SortDirection.Ascending
+                        ? _transactions.OrderBy( t => property.GetValue( t ) )
+                        : _transactions.OrderByDescending( t => property.GetValue( t ) ) );
 
             ApplyPagination();
         }
@@ -269,10 +258,9 @@ namespace Expensier.WPF.ViewModels.Expenses
 
         private void PropertyChangedEventHandler( object sender, PropertyChangedEventArgs e )
         {
-            if ( e.PropertyName == nameof( SelectedItem ) )
-            {
-                SortTransactions();
-            }
+            if ( e.PropertyName == nameof( SelectedOption ) )
+                SortTransactions( SelectedOption );
+
 
             if ( e.PropertyName == nameof( SearchQuery ) )
             {
@@ -282,9 +270,7 @@ namespace Expensier.WPF.ViewModels.Expenses
                     ApplyPagination();
                 }
                 else
-                {
-                    FilterTransactions( SearchQuery );
-                }
+                    QueryTransactions( SearchQuery );
             }
         }
     }

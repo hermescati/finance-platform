@@ -4,12 +4,14 @@ using Expensier.WPF.Enums;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.State.Subscriptions;
+using Expensier.WPF.Utils;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using static Expensier.Domain.Models.Subscription;
 
 
@@ -50,19 +52,18 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             }
         }
 
-
-        private SortOptions _selectedItem;
-        public SortOptions SelectedItem
+        private SortOptions _selectedOption;
+        public SortOptions SelectedOption
         {
-            get => _selectedItem;
+            get => _selectedOption;
             set
             {
-                _selectedItem = value;
-                OnPropertyChanged( nameof( SelectedItem ) );
+                _selectedOption = value;
+                OnPropertyChanged( nameof( SelectedOption ) );
+                SortSubscriptions( SelectedOption );
             }
         }
-        public IEnumerable<SortOptions> Sort => Enum.GetValues( typeof( SortOptions ) )
-            .Cast<SortOptions>();
+        public IEnumerable<SortOptions> SortItems { get; } = SortOptions.SubscriptionOptions();
 
 
         public SubscriptionsViewModel(
@@ -92,9 +93,9 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             _filteredSubscriptions = filteredSubscriptions;
 
             _subscriptions = new ObservableCollection<SubscriptionModel>();
-            _subscriptionStore.StateChanged += Subscription_StateChanged;
+            _subscriptionStore.StateChanged += FetchSubscriptions;
 
-            ResetSubscriptions();
+            FetchSubscriptions();
         }
 
 
@@ -106,21 +107,21 @@ namespace Expensier.WPF.ViewModels.Subscriptions
             _filteredSubscriptions = filteredSubscriptions;
 
             _subscriptions = new ObservableCollection<SubscriptionModel>();
-            _subscriptionStore.StateChanged += Subscription_StateChanged;
+            _subscriptionStore.StateChanged += FetchSubscriptions;
 
-            ResetSubscriptions();
+            FetchSubscriptions();
         }
 
 
-        private void ResetSubscriptions()
+        private void FetchSubscriptions()
         {
-            IEnumerable<SubscriptionModel> filteredSubscriptions = _subscriptionStore.SubscriptionList
+            IEnumerable<SubscriptionModel> subscriptions = _subscriptionStore.SubscriptionList
                 .Select( s => new SubscriptionModel( s.ID, s.Name, s.Plan, s.Amount, s.Frequency, s.Status, s.DueDate, _accountStore, _subscriptionService, _renavigator ) )
                 .Where( s => _showCancelled ? s.Status == SubscriptionStatus.Cancelled : s.Status == SubscriptionStatus.Active )
                 .OrderBy( s => s.DueDate );
 
             _subscriptions.Clear();
-            foreach ( SubscriptionModel subscription in filteredSubscriptions )
+            foreach ( SubscriptionModel subscription in subscriptions )
             {
                 _subscriptions.Add( subscription );
             }
@@ -131,20 +132,22 @@ namespace Expensier.WPF.ViewModels.Subscriptions
         }
 
 
-        private void SortSubscriptions()
+        private void SortSubscriptions( SortOptions selectedOption )
         {
-            IEnumerable<SubscriptionModel> sortedSubscriptions = new List<SubscriptionModel>(_subscriptions);
+            Type type = typeof( SubscriptionModel );
+            PropertyInfo? property = type.GetProperty( selectedOption.Property );
 
-            sortedSubscriptions = _selectedItem switch
-            {
-                SortOptions.Asceding => sortedSubscriptions.OrderBy( s => s.Name ),
-                SortOptions.Descending => sortedSubscriptions.OrderByDescending( s => s.Name ),
-                SortOptions.Amount => sortedSubscriptions.OrderByDescending( s => s.Amount ),
-                _ => sortedSubscriptions.OrderBy( s => s.DueDate )
-            };
+            if ( property == null )
+                return;
+
+            IEnumerable<SubscriptionModel> sortedSubscriptions = new ObservableCollection<SubscriptionModel>( _subscriptions );
+
+            sortedSubscriptions = selectedOption.Direction == SortDirection.Ascending
+                ? sortedSubscriptions.OrderBy( s => property.GetValue( s ) )
+                : sortedSubscriptions.OrderByDescending( s => property.GetValue( s ) );
 
             _subscriptions.Clear();
-            foreach ( SubscriptionModel subscription in sortedSubscriptions )
+            foreach ( var subscription in sortedSubscriptions )
             {
                 _subscriptions.Add( subscription );
             }
@@ -153,21 +156,12 @@ namespace Expensier.WPF.ViewModels.Subscriptions
 
         private void PropertyChangedEventHandler( object sender, PropertyChangedEventArgs e )
         {
-            if ( e.PropertyName == nameof( SelectedItem ) )
-            {
-                SortSubscriptions();
-            }
-            else if ( e.PropertyName == nameof( ShowCancelled ) )
-            {
-                ResetSubscriptions();
-            }
-
-        }
+            if ( e.PropertyName == nameof( SelectedOption ) )
+                SortSubscriptions( SelectedOption );
 
 
-        private void Subscription_StateChanged()
-        {
-            ResetSubscriptions();
+            if ( e.PropertyName == nameof( ShowCancelled ) )
+                FetchSubscriptions();
         }
     }
 }

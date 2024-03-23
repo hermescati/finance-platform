@@ -238,7 +238,7 @@
 
 
     <!--#region Sort Menu-->
-    <ControlTemplate x:Key="SortingDropdownTemplate" TargetType="{x:Type ComboBox}">
+    <ControlTemplate x:Key="SortDropdownTemplate" TargetType="{x:Type ComboBox}">
         <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -291,11 +291,11 @@
                 Grid.ColumnSpan="2"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                Style="{DynamicResource SortingDropdownButtonTemplate}">
+                Style="{DynamicResource SortButtonTemplate}">
                 <ToggleButton.Tag>
                     <x:Array Type="DrawingImage">
-                        <DrawingImage Drawing="{StaticResource SortVector}" />
-                        <DrawingImage Drawing="{StaticResource SortSelectedVector}" />
+                        <DrawingImage Drawing="{StaticResource ChevronDownVector}" />
+                        <DrawingImage Drawing="{StaticResource ChevronUpVector}" />
                     </x:Array>
                 </ToggleButton.Tag>
             </ToggleButton>
@@ -335,7 +335,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="SortingDropdownButtonTemplate" TargetType="{x:Type ToggleButton}">
+    <Style x:Key="SortButtonTemplate" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Padding" Value="16,8" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Focusable" Value="False" />
@@ -354,6 +355,7 @@
                             x:Name="Stroke"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
+                            Padding="{TemplateBinding Padding}"
                             Background="{StaticResource MenuShade}"
                             BorderBrush="{StaticResource MenuShade}"
                             BorderThickness="1.5"
@@ -362,30 +364,28 @@
                             UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                             <Grid VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="16" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="12" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="16" />
                                 </Grid.ColumnDefinitions>
-                                <Image
-                                    x:Name="Icon"
-                                    Grid.Column="1"
-                                    Width="20"
-                                    Height="20"
-                                    Source="{Binding Tag[0], RelativeSource={RelativeSource TemplatedParent}}" />
                                 <ContentPresenter
                                     x:Name="Content"
-                                    Grid.Column="3"
+                                    Grid.Column="0"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="Center"
-                                    Content="Sort by"
+                                    Content="{Binding Path=SelectedItem.Name, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                     TextElement.FontFamily="{StaticResource Lato}"
-                                    TextElement.FontSize="15"
-                                    TextElement.FontWeight="Bold"
+                                    TextElement.FontSize="14"
+                                    TextElement.FontWeight="Regular"
                                     TextElement.Foreground="{StaticResource ForegroundShade}"
                                     UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                                <Image
+                                    x:Name="Icon"
+                                    Grid.Column="2"
+                                    Width="10"
+                                    Height="10"
+                                    Source="{Binding Tag[0], RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
                         </Border>
                     </Border>
@@ -395,44 +395,68 @@
                             <Setter TargetName="Glow" Property="BorderBrush" Value="{StaticResource SecondaryShade}" />
                             <Setter TargetName="Stroke" Property="Background" Value="{StaticResource Primary}" />
                             <Setter TargetName="Stroke" Property="BorderBrush" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Content" Property="Content" Value="{Binding Path=SelectedItem.Name, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" />
                             <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
                         </Trigger>
+                        <DataTrigger Binding="{Binding Path=SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="{x:Null}">
+                            <Setter TargetName="Content" Property="Content" Value="Sort by" />
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style x:Key="SortingDropdownItemsTemplate" TargetType="{x:Type ComboBoxItem}">
+    <Style x:Key="SortItemTemplate" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Background" Value="{StaticResource Primary}" />
         <Setter Property="FontFamily" Value="{StaticResource Lato}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Regular" />
-        <Setter Property="Foreground" Value="{StaticResource Foreground}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundShade}" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Border
                         x:Name="Border"
-                        Padding="8"
-                        Background="{StaticResource Primary}"
-                        CornerRadius="8">
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="8"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                        UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="8" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <ContentPresenter Grid.Column="0" />
+                            <Image
+                                x:Name="Icon"
+                                Grid.Column="0"
+                                Width="16"
+                                Height="16"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Source="{Binding Icon[0]}" />
+                            <ContentPresenter
+                                x:Name="Content"
+                                Grid.Column="2"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{StaticResource SecondaryShade}" />
-                            <Setter TargetName="Border" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
                         </Trigger>
                         <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                            <Setter Property="Cursor" Value="Arrow" />
                             <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary}" />
-                            <Setter TargetName="Border" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Content" Property="TextElement.Foreground" Value="{StaticResource Secondary}" />
+                            <Setter TargetName="Icon" Property="Source" Value="{Binding Icon[1]}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
