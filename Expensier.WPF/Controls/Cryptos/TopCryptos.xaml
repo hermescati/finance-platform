@@ -97,14 +97,15 @@
                             Grid.Row="0"
                             FontWeight="SemiBold"
                             Style="{StaticResource BodyText}"
-                            Text="{Binding Crypto.Symbol, Converter={StaticResource CryptoNameConverter}, ConverterParameter='USD'}" />
+                            Text="{Binding Asset.Symbol}"
+                            Typography.Capitals="AllPetiteCaps" />
 
                         <!--  Name  -->
                         <TextBlock
                             Grid.Row="1"
                             Foreground="{StaticResource ForegroundShade}"
                             Style="{StaticResource VerySmallText}"
-                            Text="{Binding Crypto.Name, Converter={StaticResource CryptoNameConverter}, ConverterParameter=' USD'}" />
+                            Text="{Binding Asset.Name}" />
                     </StackPanel>
 
                     <Grid Grid.Row="2">
@@ -120,7 +121,7 @@
                             Padding="8,4"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Background="{Binding Crypto.ChangesPercentage, Converter={StaticResource DoubleToColorConverter}}"
+                            Background="{Binding Asset.PercentageChange, Converter={StaticResource DoubleToColorConverter}}"
                             CornerRadius="10">
 
                             <TextBlock
@@ -129,7 +130,7 @@
                                 FontWeight="SemiBold"
                                 Foreground="{StaticResource Primary}"
                                 Style="{StaticResource VerySmallText}"
-                                Text="{Binding Crypto.ChangesPercentage, StringFormat={}{0:#0.00'%'}}" />
+                                Text="{Binding Asset.PercentageChange, StringFormat={}{0:#0.00'%'}}" />
                         </Border>
 
                         <!--  Chart  -->
@@ -155,7 +156,7 @@
                             Width="16"
                             Height="16"
                             VerticalAlignment="Center"
-                            Source="{StaticResource AppIcon}" />
+                            Source="{Binding Asset.Image}" />
 
                         <!--  Current Price  -->
                         <TextBlock
@@ -164,7 +165,7 @@
                             FontWeight="SemiBold"
                             Foreground="{StaticResource ForegroundShade}"
                             Style="{StaticResource VerySmallText}"
-                            Text="{Binding Crypto.Price, StringFormat='${0:#,##0.###}'}" />
+                            Text="{Binding Asset.CurrentPrice, StringFormat='${0:#,##0.###}'}" />
                     </Grid>
                 </Grid>
             </DataTemplate>

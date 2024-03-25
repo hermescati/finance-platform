@@ -1,4 +1,5 @@
 ﻿using Expensier.Domain.Services;
+using Expensier.WPF.DataObjects;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Crypto;
 using Expensier.WPF.State.Navigators;
@@ -7,19 +8,22 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.WPF.ViewModels.Cryptos
 {
     public class CryptoViewModel : ViewModelBase
     {
-        private readonly IAssetService _cryptoService;
         private readonly AccountStore _accountStore;
-        private readonly IRenavigator _renavigator;
         private readonly CryptoStore _cryptoStore;
-        private readonly Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> _filterCryptos;
-        private readonly ObservableCollection<CryptoDataModel> _cryptos;
+        private readonly IAssetService _assetService;
+        private readonly IRenavigator _renavigator;
+        private readonly Func<IEnumerable<AssetModel>, IEnumerable<AssetModel>> _filterAssets;
+
+
+        private readonly ObservableCollection<AssetModel> _assets;
+        public IEnumerable<AssetModel> Assets => _assets;
+
 
 
         private bool _listEmpty;
@@ -51,7 +55,6 @@ namespace Expensier.WPF.ViewModels.Cryptos
         }
 
 
-        public IEnumerable<CryptoDataModel> Cryptos => _cryptos;
 
         public CryptoViewModel(
             CryptoStore cryptoStore,
@@ -62,17 +65,17 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
         public CryptoViewModel(
             CryptoStore cryptoStore, 
-            Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos,
+            Func<IEnumerable<AssetModel>, IEnumerable<AssetModel>> filterCryptos,
             IAssetService cryptoService,
             AccountStore accountStore, 
             IRenavigator renavigator)
         {
             _cryptoStore = cryptoStore;
-            _cryptoService = cryptoService;
+            _assetService = cryptoService;
             _accountStore = accountStore;
             _renavigator = renavigator;
-            _filterCryptos = filterCryptos;
-            _cryptos = new ObservableCollection<CryptoDataModel>();
+            _filterAssets = filterCryptos;
+            _assets = new ObservableCollection<AssetModel>();
 
             _cryptoStore.StateChanged += CryptoList_StateChanged;
 
@@ -81,13 +84,13 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
         public CryptoViewModel(
             CryptoStore cryptoStore, 
-            Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos,
+            Func<IEnumerable<AssetModel>, IEnumerable<AssetModel>> filterCryptos,
             IAssetService cryptoService)
         {
             _cryptoStore = cryptoStore;
-            _cryptoService = cryptoService;
-            _filterCryptos = filterCryptos;
-            _cryptos = new ObservableCollection<CryptoDataModel>();
+            _assetService = cryptoService;
+            _filterAssets = filterCryptos;
+            _assets = new ObservableCollection<AssetModel>();
 
             _cryptoStore.StateChanged += CryptoWatchlist_StateChanged;
 
@@ -95,11 +98,11 @@ namespace Expensier.WPF.ViewModels.Cryptos
         }
 
 
-        public CryptoViewModel(CryptoStore cryptoStore, Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos)
+        public CryptoViewModel(CryptoStore cryptoStore, Func<IEnumerable<AssetModel>, IEnumerable<AssetModel>> filterCryptos)
         {
             _cryptoStore = cryptoStore;
-            _filterCryptos = filterCryptos;
-            _cryptos = new ObservableCollection<CryptoDataModel>();
+            _filterAssets = filterCryptos;
+            _assets = new ObservableCollection<AssetModel>();
 
             _cryptoStore.StateChanged += CryptoList_StateChanged;
 
@@ -109,32 +112,32 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
         private void ResetCryptosList()
         {
-            IEnumerable<CryptoDataModel> cryptoDataModel = _cryptoStore.CryptoAssetList
-                .Select(c => new CryptoDataModel(c.ID, c.Asset, c.PurchasePrice, c.QuantityOwned, _cryptoService, _accountStore, _renavigator));
+            IEnumerable<AssetModel> cryptoDataModel = _cryptoStore.CryptoAssetList
+                .Select(c => new AssetModel(c.ID, c.Asset, c.PurchasePrice, c.QuantityOwned, c.Category, c.PurchaseDate,_accountStore, _assetService, _renavigator));
             
             cryptoDataModel = AddCryptoToList(cryptoDataModel);
         }
 
         private void ResetCryptosWatchlist()
         {
-            IEnumerable<CryptoDataModel> cryptoDataModel = _cryptoStore.CryptoAssetList
-                .Select(c => new CryptoDataModel(c.Asset, _cryptoService));
+            IEnumerable<AssetModel> cryptoDataModel = _cryptoStore.CryptoAssetList
+                .Select(c => new AssetModel(c.Asset, _assetService));
 
             cryptoDataModel = AddCryptoToList(cryptoDataModel);
         }
 
 
-        private IEnumerable<CryptoDataModel> AddCryptoToList(IEnumerable<CryptoDataModel> cryptoDataModel)
+        private IEnumerable<AssetModel> AddCryptoToList(IEnumerable<AssetModel> cryptoDataModel)
         {
-            cryptoDataModel = _filterCryptos(cryptoDataModel);
+            cryptoDataModel = _filterAssets(cryptoDataModel);
 
-            _cryptos.Clear();
-            foreach (CryptoDataModel dataModel in cryptoDataModel)
+            _assets.Clear();
+            foreach (AssetModel dataModel in cryptoDataModel)
             {
-                _cryptos.Add(dataModel);
+                _assets.Add(dataModel);
             }
 
-            if (_cryptos.IsNullOrEmpty())
+            if (_assets.IsNullOrEmpty())
             {
                 _listEmpty = true;
                 _listNotEmpty = false;

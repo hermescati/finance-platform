@@ -20,7 +20,7 @@ namespace Expensier.Domain.Services
             Guid assetID );
 
 
-        Asset GetAssetBySymbol(
+        AssetTransaction GetAssetBySymbol(
             Account currentAccount,
             string symbol );
 
@@ -30,18 +30,13 @@ namespace Expensier.Domain.Services
             Guid assetID );
 
 
-        Task<Asset> GetCrypto( string symbol );
+        Task<Asset> FetchCryptoAsset( string cryptoSymbol );
+
 
         Task<IEnumerable<PriceData>> GetHistoricalPrices( string symbol );
 
         public double GetMarketValue( double? price, double coins );
 
         Task<double> GetCryptoReturns( AssetTransaction currentCrypto );
-
-        Task<Account> AddCrypto(
-    Account currentAccount,
-    Asset currentCrypto,
-    double purchasePrice,
-    double amount );
     }
 }

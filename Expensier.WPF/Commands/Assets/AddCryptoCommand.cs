@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Expensier.Domain.Models.AssetTransaction;
 
 namespace Expensier.WPF.Commands.Assets
 {
@@ -19,7 +20,7 @@ namespace Expensier.WPF.Commands.Assets
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
-        public AddCryptoCommand(CryptoModalViewModel cryptoModalViewModel, IAssetService cryptoService, AccountStore accountStore, IRenavigator renavigator)
+        public AddCryptoCommand( CryptoModalViewModel cryptoModalViewModel, IAssetService cryptoService, AccountStore accountStore, IRenavigator renavigator )
         {
             _cryptoModalViewModel = cryptoModalViewModel;
             _cryptoService = cryptoService;
@@ -29,20 +30,22 @@ namespace Expensier.WPF.Commands.Assets
             _cryptoModalViewModel.PropertyChanged += CryptoModalViewModel_PropertyChanged;
         }
 
-        public override bool CanExecute(object parameter)
+        public override bool CanExecute( object parameter )
         {
-            return _cryptoModalViewModel.CanAdd && base.CanExecute(parameter);
+            return _cryptoModalViewModel.CanAdd && base.CanExecute( parameter );
         }
 
-        public override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync( object parameter )
         {
             try
             {
-                Account updatedAccount = await _cryptoService.AddCrypto(
+                Account updatedAccount = await _cryptoService.AddAsset(
                     _accountStore.CurrentAccount,
                     _cryptoModalViewModel.Crypto,
                     _cryptoModalViewModel.PurchasePrice,
-                    _cryptoModalViewModel.Coins);
+                    _cryptoModalViewModel.Coins,
+                    AssetType.Cryptocurrency,
+                    DateTime.Now );
 
                 _accountStore.CurrentAccount = updatedAccount;
                 _cryptoModalViewModel.CryptoSymbol = string.Empty;
@@ -51,15 +54,15 @@ namespace Expensier.WPF.Commands.Assets
                 _cryptoModalViewModel.Coins = 0.0;
                 _renavigator.Renavigate();
             }
-            catch (Exception)
+            catch ( Exception )
             {
                 throw;
             }
         }
 
-        private void CryptoModalViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void CryptoModalViewModel_PropertyChanged( object? sender, PropertyChangedEventArgs e )
         {
-            if (e.PropertyName == nameof(CryptoModalViewModel.CanAdd))
+            if ( e.PropertyName == nameof( CryptoModalViewModel.CanAdd ) )
             {
                 OnCallExecuteChanged();
             }

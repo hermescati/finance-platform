@@ -1,4 +1,5 @@
 ﻿using Expensier.Domain.Services;
+using Expensier.WPF.DataObjects;
 using Expensier.WPF.State.Crypto;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -15,7 +16,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         private readonly CryptoStore _cryptoStore;
         private readonly IAssetService _cryptoService;
         public CryptoViewModel CryptoViewModel { get; }
-        private readonly ObservableCollection<CryptoDataModel> _cryptos;
+        private readonly ObservableCollection<AssetModel> _cryptos;
 
         private bool _listEmpty;
         public bool ListEmpty
@@ -45,20 +46,20 @@ namespace Expensier.WPF.ViewModels.Cryptos
             }
         }
 
-        public IEnumerable<CryptoDataModel> Cryptos => _cryptos;
+        public IEnumerable<AssetModel> Cryptos => _cryptos;
 
         public CryptoWatchlistBaseViewModel(
             CryptoStore cryptoStore, 
             IAssetService cryptoService, 
-            Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos)
+            Func<IEnumerable<AssetModel>, IEnumerable<AssetModel>> filterCryptos)
         {
-            _cryptos = new ObservableCollection<CryptoDataModel>();
+            _cryptos = new ObservableCollection<AssetModel>();
             _cryptoStore = cryptoStore;
             _cryptoService = cryptoService;
 
             CryptoViewModel = new CryptoViewModel(cryptoStore, filterCryptos, cryptoService);
 
-            _cryptos = (ObservableCollection<CryptoDataModel>)CryptoViewModel.Cryptos;
+            _cryptos = (ObservableCollection<AssetModel>)CryptoViewModel.Assets;
 
             if (_cryptos.IsNullOrEmpty())
             {

@@ -32,7 +32,7 @@ namespace Expensier.API.Services
             AssetType category,
             DateTime purchaseDate )
         {
-            Asset existingAsset = GetAssetBySymbol( currentAccount, asset.Symbol );
+            AssetTransaction? existingAsset = GetAssetBySymbol( currentAccount, asset.Symbol );
 
             if ( existingAsset == null )
             {
@@ -58,8 +58,8 @@ namespace Expensier.API.Services
             .Single( ( a ) => a.ID == assetID );
 
 
-        public Asset GetAssetBySymbol( Account currentAccount, string symbol ) => currentAccount.AssetList
-            .FirstOrDefault( ( a ) => a.Asset.Symbol == symbol ).Asset;
+        public AssetTransaction? GetAssetBySymbol( Account currentAccount, string symbol ) => currentAccount?.AssetList
+            .FirstOrDefault( ( a ) => a.Asset.Symbol == symbol );
 
 
         public async Task<Account> DeleteAsset( Account currentAccount, Guid assetID )
@@ -78,24 +78,17 @@ namespace Expensier.API.Services
         }
 
 
-        /// <summary>
-        /// API call to retrieve market data for the provided crypto asset.
-        /// </summary>
-        /// <param name="symbol">The symbol of the crypto asset (symbolUSD)</param>
-        /// <returns>The crypto asset with market data</returns>
-        /// <exception cref="InvalidSymbolException">Thrown if the provided symbol does not belong to any crypto asset.</exception>
-        public async Task<Asset> GetCrypto( string symbol )
+        public async Task<Asset> FetchCryptoAsset( string cryptoSymbol )
         {
-            var uri = "quote/" + symbol;
-            Asset crypto = await _client.DeserializeResponse<Asset>( uri );
+            string URI = $"coins/{cryptoSymbol}"; ;
+            Asset cryptoAsset = await _client.GetCryptoAsset( URI );
 
-            if ( crypto == null || crypto.CurrentPrice == 0 )
-            {
-                throw new InvalidSymbolException( symbol );
-            }
+            if ( cryptoAsset == null || cryptoAsset.CurrentPrice == 0 )
+                throw new InvalidSymbolException( cryptoSymbol );
 
-            return crypto;
+            return cryptoAsset;
         }
+
 
         /// <summary>
         /// API call to retrieve historical prices of the provided crypto asset.
