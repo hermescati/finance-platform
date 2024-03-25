@@ -28,7 +28,7 @@ namespace Expensier.WPF.Commands.Assets
 
             try
             {
-                Crypto crypto = await _cryptoService.GetCrypto(_cryptoModalViewModel.CryptoSymbol + "USD");
+                Asset crypto = await _cryptoService.GetCrypto(_cryptoModalViewModel.CryptoSymbol + "USD");
                 _cryptoModalViewModel.Crypto = crypto;
                 _cryptoModalViewModel.ValidSymbol = true;
             }

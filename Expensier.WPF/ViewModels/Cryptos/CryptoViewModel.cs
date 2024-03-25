@@ -110,7 +110,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         private void ResetCryptosList()
         {
             IEnumerable<CryptoDataModel> cryptoDataModel = _cryptoStore.CryptoAssetList
-                .Select(c => new CryptoDataModel(c.ID, c.Asset, c.PurchasePrice, c.Coins, _cryptoService, _accountStore, _renavigator));
+                .Select(c => new CryptoDataModel(c.ID, c.Asset, c.PurchasePrice, c.QuantityOwned, _cryptoService, _accountStore, _renavigator));
             
             cryptoDataModel = AddCryptoToList(cryptoDataModel);
         }

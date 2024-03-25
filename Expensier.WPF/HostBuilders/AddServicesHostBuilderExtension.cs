@@ -29,7 +29,7 @@ namespace Expensier.WPF.HostBuilders
                 services.AddSingleton<IDataService<Account>, AccountDataService>();
                 services.AddSingleton<IDataService<Transaction>, GenericDataService<Transaction>>();
                 services.AddSingleton<IDataService<Subscription> , GenericDataService<Subscription>>();
-                services.AddSingleton<IDataService<CryptoAsset>, GenericDataService<CryptoAsset>>();    
+                services.AddSingleton<IDataService<AssetTransaction>, GenericDataService<AssetTransaction>>();    
                 services.AddSingleton<IAccountService, AccountDataService>();
                 services.AddSingleton<ITransactionService, TransactionService>();
                 services.AddSingleton<ISubscriptionService, SubscriptionService>();

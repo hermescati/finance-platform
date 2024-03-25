@@ -23,7 +23,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         private readonly IRenavigator _renavigator;
 
         public Guid Id { get; set; }
-        public Crypto Crypto { get; set; }
+        public Asset Crypto { get; set; }
         public double PurchasePrice { get; set; }
         public double Amount { get; set; }
         public double TotalValue { get; set; }
@@ -57,7 +57,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         /// <param name="renavigator"></param>
         public CryptoDataModel(
             Guid id,
-            Crypto crypto,
+            Asset crypto,
             double purchasePrice,
             double amount, 
             ICryptoService cryptoService,
@@ -69,7 +69,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
             PurchasePrice = purchasePrice;
             Amount = amount;
 
-            TotalValue = (double)(amount * Crypto.Price);
+            TotalValue = (double)(amount * Crypto.CurrentPrice);
 
             _cryptoService = cryptoService;
             _accountStore = accountStore;
@@ -83,7 +83,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         /// </summary>
         /// <param name="crypto"></param>
         /// <param name="cryptoService"></param>
-        public CryptoDataModel(Crypto crypto, ICryptoService cryptoService)
+        public CryptoDataModel(Asset crypto, ICryptoService cryptoService)
         {
             Crypto = crypto;
             _cryptoService = cryptoService;
@@ -92,7 +92,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
             SeriesColors = new ColorsCollection();
 
             ConstructSeries(_cryptoService, Crypto.Symbol);
-            AddChartColors(Crypto.ChangesPercentage);
+            AddChartColors(Crypto.PercentageChange);
         }
 
         private async Task ConstructSeries(ICryptoService cryptoService, string symbol)

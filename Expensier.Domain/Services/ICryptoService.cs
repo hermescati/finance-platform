@@ -9,17 +9,17 @@ namespace Expensier.Domain.Services
 {
     public interface ICryptoService
     {
-        Task<Crypto> GetCrypto(string symbol);
+        Task<Asset> GetCrypto(string symbol);
 
         Task<IEnumerable<PriceData>> GetHistoricalPrices(string symbol);
 
         public double GetMarketValue(double? price, double coins);
 
-        Task<double> GetCryptoReturns(CryptoAsset currentCrypto);
+        Task<double> GetCryptoReturns(AssetTransaction currentCrypto);
 
         Task<Account> AddCrypto(
             Account currentAccount,
-            Crypto currentCrypto,
+            Asset currentCrypto,
             double purchasePrice,
             double amount);
 

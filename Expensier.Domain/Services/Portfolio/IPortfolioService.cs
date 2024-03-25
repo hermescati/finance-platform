@@ -13,7 +13,7 @@ namespace Expensier.Domain.Services.Portfolio
 
         public double GetMarketValue(Account currentAccount);
 
-        public double GetCryptoWeight(Account currentAccount, CryptoAsset currentCrypto);
+        public double GetCryptoWeight(Account currentAccount, AssetTransaction currentCrypto);
 
         Task<Account> StoreReturns(Account currentAccount);
     }
