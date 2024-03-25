@@ -12,7 +12,7 @@ namespace Expensier.WPF.State.Crypto
     {
         private readonly AccountStore _accountStore;
 
-        public IEnumerable<CryptoAsset> CryptoAssetList => _accountStore.CurrentAccount?.CryptoAssetList ?? new List<CryptoAsset>();
+        public IEnumerable<AssetTransaction> CryptoAssetList => _accountStore.CurrentAccount?.AssetList ?? new List<AssetTransaction>();
 
         public event Action StateChanged;
 

@@ -44,7 +44,7 @@ namespace Expensier.EntityFramework.Services
                     .Include( holder => holder.User )
                     .Include( transaction => transaction.TransactionList )
                     .Include( subscription => subscription.SubscriptionList )
-                    .Include( crypto => crypto.CryptoAssetList )
+                    .Include( crypto => crypto.AssetList )
                     .Include( returns => returns.PortfolioReturn )
                     .SingleOrDefaultAsync( ( entity ) => entity.ID == id );
 
@@ -61,7 +61,7 @@ namespace Expensier.EntityFramework.Services
                     .Include( holder => holder.User )
                     .Include( transaction => transaction.TransactionList )
                     .Include( subscription => subscription.SubscriptionList )
-                    .Include( crypto => crypto.CryptoAssetList )
+                    .Include( crypto => crypto.AssetList )
                     .Include( returns => returns.PortfolioReturn )
                     .SingleOrDefaultAsync( ( entity ) => entity.User.Email == email );
 
@@ -78,7 +78,7 @@ namespace Expensier.EntityFramework.Services
                     .Include( holder => holder.User )
                     .Include( transaction => transaction.TransactionList )
                     .Include( subscription => subscription.SubscriptionList )
-                    .Include( crypto => crypto.CryptoAssetList )
+                    .Include( crypto => crypto.AssetList )
                     .Include( returns => returns.PortfolioReturn )
                     .ToListAsync();
 

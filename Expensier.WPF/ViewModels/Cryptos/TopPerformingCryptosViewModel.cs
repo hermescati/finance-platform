@@ -17,6 +17,6 @@ namespace Expensier.WPF.ViewModels.Cryptos
     public class TopPerformingCryptosViewModel : CryptoWatchlistBaseViewModel
     {
         public TopPerformingCryptosViewModel(CryptoStore cryptoStore, ICryptoService cryptoService) 
-            : base(cryptoStore, cryptoService, cryptos => cryptos.OrderByDescending(c => c.Crypto.ChangesPercentage).Take(4)) { }
+            : base(cryptoStore, cryptoService, cryptos => cryptos.OrderByDescending(c => c.Crypto.PercentageChange).Take(4)) { }
     }
 }

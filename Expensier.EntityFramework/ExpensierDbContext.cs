@@ -10,7 +10,7 @@ namespace Expensier.EntityFramework
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<CryptoAsset> CryptoAssets { get; set; }
+        public DbSet<AssetTransaction> AssetTransactions { get; set; }
         public DbSet<PortfolioReturn> PortfolioReturns { get; set; }
 
 
@@ -19,7 +19,7 @@ namespace Expensier.EntityFramework
 
         protected override void OnModelCreating( ModelBuilder modelBuilder )
         {
-            modelBuilder.Entity<CryptoAsset>()
+            modelBuilder.Entity<AssetTransaction>()
                 .OwnsOne( c => c.Asset );
 
             modelBuilder.Entity<Subscription>()
@@ -32,6 +32,10 @@ namespace Expensier.EntityFramework
 
             modelBuilder.Entity<Transaction>()
                 .Property( t => t.Category )
+                .HasConversion<string>();
+
+            modelBuilder.Entity<AssetTransaction>()
+                .Property( a => a.Category )
                 .HasConversion<string>();
 
             base.OnModelCreating( modelBuilder );

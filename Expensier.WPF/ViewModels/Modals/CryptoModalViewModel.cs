@@ -85,8 +85,8 @@ namespace Expensier.WPF.ViewModels.Modals
             Coins > 0.0 && 
             PurchasePrice > 0.0;
 
-        private Crypto _crypto;
-        public Crypto Crypto
+        private Asset _crypto;
+        public Asset Crypto
         {
             get
             {

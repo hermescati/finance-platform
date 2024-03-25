@@ -11,7 +11,7 @@ namespace Expensier.Domain.Models
 
         public virtual ICollection<Transaction>? TransactionList { get; set; }
         public virtual ICollection<Subscription>? SubscriptionList { get; set; }
-        public virtual ICollection<CryptoAsset>? CryptoAssetList { get; set; }
+        public virtual ICollection<AssetTransaction>? AssetList { get; set; }
         public virtual ICollection<PortfolioReturn>? PortfolioReturn { get; set; }
     }
 }

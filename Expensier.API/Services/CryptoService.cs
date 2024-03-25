@@ -18,9 +18,9 @@ namespace Expensier.API.Services
     {
         private readonly APIClient _client;
         private readonly IDataService<Account> _accountService;
-        private readonly IDataService<CryptoAsset> _cryptoService;
+        private readonly IDataService<AssetTransaction> _cryptoService;
 
-        public CryptoService(APIClient client, IDataService<Account> accountService, IDataService<CryptoAsset> cryptoService)
+        public CryptoService(APIClient client, IDataService<Account> accountService, IDataService<AssetTransaction> cryptoService)
         {
             _client = client;
             _accountService = accountService;
@@ -33,12 +33,12 @@ namespace Expensier.API.Services
         /// <param name="symbol">The symbol of the crypto asset (symbolUSD)</param>
         /// <returns>The crypto asset with market data</returns>
         /// <exception cref="InvalidSymbolException">Thrown if the provided symbol does not belong to any crypto asset.</exception>
-        public async Task<Crypto> GetCrypto(string symbol)
+        public async Task<Asset> GetCrypto(string symbol)
         {
             var uri = "quote/" + symbol;
-            Crypto crypto = await _client.DeserializeResponse<Crypto>(uri);
+            Asset crypto = await _client.DeserializeResponse<Asset>(uri);
 
-            if (crypto == null || crypto.Price == 0) {
+            if (crypto == null || crypto.CurrentPrice == 0) {
                 throw new InvalidSymbolException(symbol);
             }
 
@@ -67,26 +67,26 @@ namespace Expensier.API.Services
             return cryptoPrices.Where(price => price.Date.Date == DateTime.Now.Date);
         }
 
-        public async Task<Account> AddCrypto(Account currentAccount, Crypto currentCrypto, double purchasePrice, double amount)
+        public async Task<Account> AddCrypto(Account currentAccount, Asset currentCrypto, double purchasePrice, double amount)
         {
             string symbol = currentCrypto.Symbol;
 
-            CryptoAsset cryptoInList = currentAccount.CryptoAssetList
+            AssetTransaction cryptoInList = currentAccount.AssetList
                 .FirstOrDefault((asset) => asset.Asset.Symbol == symbol);
 
             if (cryptoInList == null)
             {
-                CryptoAsset newCryptoAsset = new CryptoAsset()
+                AssetTransaction newCryptoAsset = new AssetTransaction()
                 {
-                    AccountHolder = currentAccount,
+                    User = currentAccount,
                     Asset = currentCrypto,
                     PurchasePrice = purchasePrice,
-                    Coins = amount
+                    QuantityOwned = amount
                 };
 
                 _cryptoService.GetByID(newCryptoAsset.ID);
 
-                currentAccount.CryptoAssetList.Add(newCryptoAsset);
+                currentAccount.AssetList.Add(newCryptoAsset);
 
                 await _accountService.Update(currentAccount.ID, currentAccount);
             }
@@ -96,8 +96,8 @@ namespace Expensier.API.Services
 
         public async Task<Account> DeleteCrypto(Account currentAccount, Guid cryptoID)
         {
-            currentAccount.CryptoAssetList
-                .Remove(currentAccount.CryptoAssetList
+            currentAccount.AssetList
+                .Remove(currentAccount.AssetList
                 .FirstOrDefault((crypto) => crypto.ID == cryptoID));
 
             await _accountService.Update(currentAccount.ID, currentAccount);
@@ -107,14 +107,14 @@ namespace Expensier.API.Services
             return currentAccount;
         }
 
-        public async Task<double> GetCryptoReturns(CryptoAsset currentCrypto)
+        public async Task<double> GetCryptoReturns(AssetTransaction currentCrypto)
         {
-            double oldPrice = (double)currentCrypto.Asset.Price;
+            double oldPrice = (double)currentCrypto.Asset.CurrentPrice;
 
-            Crypto updatedCrypto = await GetCrypto(currentCrypto.Asset.Symbol);
+            Asset updatedCrypto = await GetCrypto(currentCrypto.Asset.Symbol);
             currentCrypto.Asset = updatedCrypto;
 
-            double newPrice = (double)currentCrypto.Asset.Price;
+            double newPrice = (double)currentCrypto.Asset.CurrentPrice;
 
             return (newPrice / oldPrice) - 1;
         }
