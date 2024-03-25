@@ -12,7 +12,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 {
     public class CryptoWatchlistViewModel : CryptoWatchlistBaseViewModel
     {
-        public CryptoWatchlistViewModel(CryptoStore cryptoStore, ICryptoService cryptoService)
+        public CryptoWatchlistViewModel(CryptoStore cryptoStore, IAssetService cryptoService)
             : base(cryptoStore, cryptoService, cryptos => cryptos.OrderByDescending(c => c.Crypto.PercentageChange)) { }
     }
 }

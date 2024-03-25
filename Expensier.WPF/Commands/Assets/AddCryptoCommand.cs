@@ -15,11 +15,11 @@ namespace Expensier.WPF.Commands.Assets
     public class AddCryptoCommand : AsyncCommandBase
     {
         private readonly CryptoModalViewModel _cryptoModalViewModel;
-        private readonly ICryptoService _cryptoService;
+        private readonly IAssetService _cryptoService;
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
-        public AddCryptoCommand(CryptoModalViewModel cryptoModalViewModel, ICryptoService cryptoService, AccountStore accountStore, IRenavigator renavigator)
+        public AddCryptoCommand(CryptoModalViewModel cryptoModalViewModel, IAssetService cryptoService, AccountStore accountStore, IRenavigator renavigator)
         {
             _cryptoModalViewModel = cryptoModalViewModel;
             _cryptoService = cryptoService;

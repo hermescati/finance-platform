@@ -13,7 +13,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
     public abstract class CryptoWatchlistBaseViewModel : ViewModelBase
     {
         private readonly CryptoStore _cryptoStore;
-        private readonly ICryptoService _cryptoService;
+        private readonly IAssetService _cryptoService;
         public CryptoViewModel CryptoViewModel { get; }
         private readonly ObservableCollection<CryptoDataModel> _cryptos;
 
@@ -49,7 +49,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
         public CryptoWatchlistBaseViewModel(
             CryptoStore cryptoStore, 
-            ICryptoService cryptoService, 
+            IAssetService cryptoService, 
             Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos)
         {
             _cryptos = new ObservableCollection<CryptoDataModel>();

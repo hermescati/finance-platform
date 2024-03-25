@@ -14,7 +14,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 {
     public class CryptoViewModel : ViewModelBase
     {
-        private readonly ICryptoService _cryptoService;
+        private readonly IAssetService _cryptoService;
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
         private readonly CryptoStore _cryptoStore;
@@ -55,7 +55,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
         public CryptoViewModel(
             CryptoStore cryptoStore,
-            ICryptoService cryptoService,
+            IAssetService cryptoService,
             AccountStore accountStore,
             IRenavigator renavigator) : this(cryptoStore, cryptos => cryptos, cryptoService, accountStore, renavigator) { }
 
@@ -63,7 +63,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         public CryptoViewModel(
             CryptoStore cryptoStore, 
             Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos,
-            ICryptoService cryptoService,
+            IAssetService cryptoService,
             AccountStore accountStore, 
             IRenavigator renavigator)
         {
@@ -82,7 +82,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         public CryptoViewModel(
             CryptoStore cryptoStore, 
             Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos,
-            ICryptoService cryptoService)
+            IAssetService cryptoService)
         {
             _cryptoStore = cryptoStore;
             _cryptoService = cryptoService;

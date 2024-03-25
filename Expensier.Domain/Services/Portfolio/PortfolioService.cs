@@ -10,9 +10,9 @@ namespace Expensier.Domain.Services.Portfolio
     public class PortfolioService : IPortfolioService
     {
         private readonly IDataService<Account> _accountService;
-        private readonly ICryptoService _cryptoService;
+        private readonly IAssetService _cryptoService;
 
-        public PortfolioService(IDataService<Account> accountService, ICryptoService cryptoService)
+        public PortfolioService(IDataService<Account> accountService, IAssetService cryptoService)
         {
             _accountService = accountService;
             _cryptoService = cryptoService;

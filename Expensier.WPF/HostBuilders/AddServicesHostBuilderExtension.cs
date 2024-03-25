@@ -33,7 +33,7 @@ namespace Expensier.WPF.HostBuilders
                 services.AddSingleton<IAccountService, AccountDataService>();
                 services.AddSingleton<ITransactionService, TransactionService>();
                 services.AddSingleton<ISubscriptionService, SubscriptionService>();
-                services.AddSingleton<ICryptoService, CryptoService>();
+                services.AddSingleton<IAssetService, AssetService>();
                 services.AddSingleton<IPortfolioService, PortfolioService>();
                 services.AddSingleton<IPasswordHasher, PasswordHasher>();
             });

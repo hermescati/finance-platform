@@ -111,7 +111,7 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<PortfolioPerformanceViewModel>(),
                 services.GetRequiredService<CryptoStore>(),
                 services.GetRequiredService<CryptoModalViewModel>(),
-                services.GetRequiredService<ICryptoService>(),
+                services.GetRequiredService<IAssetService>(),
                 services.GetRequiredService<AccountStore>(),
                 services.GetRequiredService<DelegateRenavigator<WalletViewModel>>() );
         }
@@ -160,7 +160,7 @@ namespace Expensier.WPF.HostBuilders
         private static CryptoModalViewModel CreateCryptoModalViewModel( IServiceProvider services )
         {
             return new CryptoModalViewModel(
-                services.GetRequiredService<ICryptoService>(),
+                services.GetRequiredService<IAssetService>(),
                 services.GetRequiredService<AccountStore>(),
                 services.GetRequiredService<DelegateRenavigator<WalletViewModel>>() );
         }

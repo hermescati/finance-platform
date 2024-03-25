@@ -14,9 +14,9 @@ namespace Expensier.WPF.Commands.Assets
     public class SearchCryptoCommand : AsyncCommandBase
     {
         private CryptoModalViewModel _cryptoModalViewModel;
-        private readonly ICryptoService _cryptoService;
+        private readonly IAssetService _cryptoService;
 
-        public SearchCryptoCommand(CryptoModalViewModel cryptoModalViewModel, ICryptoService cryptoService)
+        public SearchCryptoCommand(CryptoModalViewModel cryptoModalViewModel, IAssetService cryptoService)
         {
             _cryptoModalViewModel = cryptoModalViewModel;
             _cryptoService = cryptoService;

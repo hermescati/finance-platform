@@ -14,11 +14,11 @@ namespace Expensier.WPF.Commands.Assets
     public class DeleteCryptoCommand : AsyncCommandBase
     {
         private readonly CryptoDataModel _cryptoDataModel;
-        private readonly ICryptoService _cryptoService;
+        private readonly IAssetService _cryptoService;
         private readonly AccountStore _accountStore;
         private readonly IRenavigator _renavigator;
 
-        public DeleteCryptoCommand(CryptoDataModel cryptoDataModel, ICryptoService cryptoService, AccountStore accountStore, IRenavigator renavigator)
+        public DeleteCryptoCommand(CryptoDataModel cryptoDataModel, IAssetService cryptoService, AccountStore accountStore, IRenavigator renavigator)
         {
             _cryptoDataModel = cryptoDataModel;
             _cryptoService = cryptoService;
@@ -30,7 +30,7 @@ namespace Expensier.WPF.Commands.Assets
         {
             try
             {
-                Account updatedAccount = await _cryptoService.DeleteCrypto(
+                Account updatedAccount = await _cryptoService.DeleteAsset(
                     _accountStore.CurrentAccount,
                     _cryptoDataModel.Id);
 

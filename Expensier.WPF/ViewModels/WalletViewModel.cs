@@ -30,7 +30,7 @@ namespace Expensier.WPF.ViewModels
             PortfolioPerformanceViewModel portfolioPerformanceViewModel,
             CryptoStore cryptoStore,
             CryptoModalViewModel cryptoModalViewModel,
-            ICryptoService cryptoService,
+            IAssetService cryptoService,
             AccountStore accountStore,
             IRenavigator renavigator )
         {

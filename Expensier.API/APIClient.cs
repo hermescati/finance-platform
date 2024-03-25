@@ -1,11 +1,7 @@
 ﻿using Expensier.API.Models;
 using Expensier.Domain.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.API
 {
