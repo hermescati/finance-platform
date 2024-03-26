@@ -272,7 +272,7 @@
                                     Height="44"
                                     Command="{Binding NavigateToWatchlist}"
                                     Content="See all"
-                                    Visibility="{Binding TopPerformingCryptosViewModel.ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding TopPerformingCryptosViewModel.AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                                 <Button
                                     Grid.Row="3"
@@ -280,7 +280,7 @@
                                     Height="44"
                                     Command="{Binding NavigateToWatchlist}"
                                     Content="Add Assets"
-                                    Visibility="{Binding TopPerformingCryptosViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding TopPerformingCryptosViewModel.AssetViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </Grid>
 
                             <!--  Placeholder  -->
@@ -292,13 +292,13 @@
                                 Body="Add a new asset to see your cryptocurrency watchlist!"
                                 DataContext="{Binding TopPerformingCryptosViewModel}"
                                 Icon="{StaticResource CryptoPlaceholderImage}"
-                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <!--  Crypto Assets  -->
                             <cryptos:TopCryptos
                                 Grid.Column="2"
                                 DataContext="{Binding TopPerformingCryptosViewModel}"
-                                Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                         </Grid>
                     </Border>
                     <!--#endregion-->

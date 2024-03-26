@@ -79,7 +79,7 @@
         Background="{StaticResource Primary}"
         BorderThickness="0"
         ItemContainerStyle="{DynamicResource CryptoViewItem}"
-        ItemsSource="{Binding Cryptos}"
+        ItemsSource="{Binding Assets}"
         ScrollViewer.CanContentScroll="False"
         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
@@ -99,7 +99,10 @@
                         Grid.Column="0"
                         Width="40"
                         Height="40"
-                        Source="{StaticResource DebitTransactionIcon}" />
+                        VerticalAlignment="Center"
+                        SnapsToDevicePixels="True"
+                        Source="{Binding Asset.Image}"
+                        UseLayoutRounding="True" />
                     <!--#endregion-->
 
                     <!--#region Crypto Asset-->
@@ -120,7 +123,7 @@
                             Width="88"
                             VerticalAlignment="Center"
                             Style="{StaticResource Header6}"
-                            Text="{Binding Crypto.Name, Converter={StaticResource CryptoNameConverter}, ConverterParameter=' USD'}" />
+                            Text="{Binding Asset.Name, Converter={StaticResource CryptoNameConverter}, ConverterParameter=' USD'}" />
 
                         <!--  Current Price  -->
                         <StackPanel Grid.Column="2" Width="120">
@@ -130,7 +133,7 @@
                                 Style="{StaticResource SmallText}"
                                 Text="Current Price" />
 
-                            <TextBlock Style="{StaticResource Header6}" Text="{Binding Crypto.Price, StringFormat='c'}" />
+                            <TextBlock Style="{StaticResource Header6}" Text="{Binding Asset.CurrentPrice, StringFormat='c'}" />
                         </StackPanel>
 
                         <!--  Amount  -->
@@ -141,7 +144,7 @@
                                 Style="{StaticResource SmallText}"
                                 Text="Amount" />
 
-                            <TextBlock Style="{StaticResource Header6}" Text="{Binding Amount}" />
+                            <TextBlock Style="{StaticResource Header6}" Text="{Binding QuantityOwned}" />
                         </StackPanel>
 
                         <!--  Total Value  -->

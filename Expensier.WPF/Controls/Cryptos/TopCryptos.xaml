@@ -10,7 +10,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
-    DataContext="{Binding TopPerformingCryptosViewModel}"
     mc:Ignorable="d">
 
 
@@ -66,7 +65,7 @@
         Background="Transparent"
         BorderThickness="0"
         ItemContainerStyle="{DynamicResource TopPerformingCrypto}"
-        ItemsSource="{Binding Cryptos}"
+        ItemsSource="{Binding Assets}"
         ScrollViewer.CanContentScroll="False"
         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
         ScrollViewer.VerticalScrollBarVisibility="Disabled">

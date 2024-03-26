@@ -31,12 +31,5 @@ namespace Expensier.Domain.Services
 
 
         Task<Asset> FetchCryptoAsset( string cryptoSymbol );
-
-
-        Task<IEnumerable<PriceData>> GetHistoricalPrices( string symbol );
-
-        public double GetMarketValue( double? price, double coins );
-
-        Task<double> GetCryptoReturns( AssetTransaction currentCrypto );
     }
 }

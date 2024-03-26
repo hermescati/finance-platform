@@ -88,43 +88,5 @@ namespace Expensier.API.Services
 
             return cryptoAsset;
         }
-
-
-        /// <summary>
-        /// API call to retrieve historical prices of the provided crypto asset.
-        /// </summary>
-        /// <param name="symbol"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidSymbolException"></exception>
-        public async Task<IEnumerable<PriceData>> GetHistoricalPrices( string symbol )
-        {
-            var uri = "historical-chart/1hour/" + symbol;
-            var cryptoPrices = await _client.DeserializeHistoricalPrices( uri );
-
-            foreach ( PriceData crypto in cryptoPrices )
-            {
-                if ( crypto.Close == 0 )
-                {
-                    throw new InvalidSymbolException( symbol );
-                }
-            }
-
-            return cryptoPrices.Where( price => price.Date.Date == DateTime.Now.Date );
-        }
-
-        public double GetMarketValue( double? price, double coins )
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<double> GetCryptoReturns( AssetTransaction currentCrypto )
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Account> AddCrypto( Account currentAccount, Asset currentCrypto, double purchasePrice, double amount )
-        {
-            throw new NotImplementedException();
-        }
     }
 }

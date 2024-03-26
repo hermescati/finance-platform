@@ -10,7 +10,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
-    DataContext="{Binding TopPerformingCryptosViewModel}"
     mc:Ignorable="d">
 
 
@@ -67,7 +66,7 @@
         Background="Transparent"
         BorderThickness="0"
         ItemContainerStyle="{DynamicResource CryptoWatchlist}"
-        ItemsSource="{Binding Cryptos}"
+        ItemsSource="{Binding Assets}"
         PreviewMouseWheel="ListView_PreviewMouseWheel"
         ScrollViewer.CanContentScroll="False"
         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -94,7 +93,10 @@
                         Grid.Column="0"
                         Width="32"
                         Height="32"
-                        Source="{DynamicResource AppIcon}" />
+                        VerticalAlignment="Center"
+                        SnapsToDevicePixels="True"
+                        Source="{Binding Asset.Image}"
+                        UseLayoutRounding="True" />
 
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
@@ -108,7 +110,7 @@
                             <TextBlock
                                 FontWeight="SemiBold"
                                 Style="{StaticResource BodyText}"
-                                Text="{Binding Crypto.Price, StringFormat='${0:#,##0.###}'}" />
+                                Text="{Binding Asset.CurrentPrice, StringFormat='${0:#,##0.###}'}" />
 
                             <!--  Symbol  -->
                             <TextBlock
@@ -116,7 +118,7 @@
                                 FontWeight="Medium"
                                 Foreground="{StaticResource ForegroundShade}"
                                 Style="{StaticResource SmallText}"
-                                Text="{Binding Crypto.Symbol, Converter={StaticResource CryptoNameConverter}, ConverterParameter='USD'}" />
+                                Text="{Binding Asset.Symbol}" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" VerticalAlignment="Center">
@@ -124,9 +126,9 @@
                             <TextBlock
                                 HorizontalAlignment="Right"
                                 FontWeight="SemiBold"
-                                Foreground="{Binding Crypto.ChangesPercentage, Converter={StaticResource DoubleToColorConverter}}"
+                                Foreground="{Binding Asset.PercentageChange, Converter={StaticResource DoubleToColorConverter}}"
                                 Style="{StaticResource SmallText}"
-                                Text="{Binding Crypto.ChangesPercentage, StringFormat={}{0:#0.00'%'}}" />
+                                Text="{Binding Asset.PercentageChange, StringFormat={}{0:#0.00'%'}}" />
 
                             <!--  Chart  -->
                             <controls:CryptoChart

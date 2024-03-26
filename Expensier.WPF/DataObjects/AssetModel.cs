@@ -2,13 +2,7 @@
 using Expensier.Domain.Services;
 using Expensier.WPF.State.Accounts;
 using Expensier.WPF.State.Navigators;
-using LiveCharts;
-using LiveCharts.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Windows.Media;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Expensier.WPF.Commands.Assets;
 using Expensier.WPF.ViewModels;
@@ -55,61 +49,7 @@ namespace Expensier.WPF.DataObjects
             _assetService = assetService;
             _renavigator = renavigator;
 
-            DeleteCommand = new DeleteCryptoCommand( this, assetService, accountStore, renavigator );
-        }
-
-        /// <summary>
-        /// Crypto watch list item.
-        /// </summary>
-        /// <param name="crypto"></param>
-        /// <param name="cryptoService"></param>
-        public AssetModel( Asset crypto, IAssetService cryptoService )
-        {
-            Asset = crypto;
-            _assetService = cryptoService;
-
-            CryptoPerformance = new ChartValues<double>();
-            SeriesColors = new ColorsCollection();
-
-            ConstructSeries( _assetService, Asset.Symbol );
-            AddChartColors( Asset.PercentageChange );
-        }
-
-
-        private ChartValues<double> _cryptoPerformance;
-        public ChartValues<double> CryptoPerformance
-        {
-            get
-            {
-                return _cryptoPerformance;
-            }
-            set
-            {
-                _cryptoPerformance = value;
-                OnPropertyChanged( nameof( CryptoPerformance ) );
-            }
-        }
-
-        public ColorsCollection SeriesColors { get; }
-
-        private async Task ConstructSeries( IAssetService cryptoService, string symbol )
-        {
-            IEnumerable<PriceData> cryptoPrices = await cryptoService.GetHistoricalPrices( symbol );
-
-            CryptoPerformance = new ChartValues<double>( cryptoPrices
-                .Select( c => c.Close ) );
-        }
-
-        private void AddChartColors( double? changesPercentage )
-        {
-            SeriesColors.Clear();
-            SeriesColors.AddRange( new[]
-            {
-                changesPercentage >= 0 ? "#64927C" : "#D94E33"
-            }
-            .Select( ColorConverter.ConvertFromString )
-            .OfType<Color>()
-            .ToList() );
+            DeleteCommand = new DeleteCryptoCommand( this, _assetService, _accountStore, _renavigator );
         }
     }
 }

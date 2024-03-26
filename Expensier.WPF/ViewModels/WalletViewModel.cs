@@ -15,7 +15,7 @@ namespace Expensier.WPF.ViewModels
 {
     public class WalletViewModel : ViewModelBase
     {
-        public AssetViewModel CryptoViewModel { get; }
+        public AssetViewModel AssetViewModel { get; }
         public CryptoWatchlistViewModel CryptoWatchlistViewModel { get; }
         public PortfolioValueViewModel PortfolioValueViewModel { get; }
         public PortfolioPerformanceViewModel PortfolioPerformanceViewModel { get; }
@@ -38,7 +38,7 @@ namespace Expensier.WPF.ViewModels
             PortfolioValueViewModel = portfolioValueViewModel;
             AssetAllocationViewModel = assetAllocationViewModel;
             PortfolioPerformanceViewModel = portfolioPerformanceViewModel;
-            CryptoViewModel = new AssetViewModel( accountStore, assetStore, assetService, renavigator );
+            AssetViewModel = new AssetViewModel( accountStore, assetStore, assetService, renavigator );
             CryptoModalViewModel = cryptoModalViewModel;
         }
     }
