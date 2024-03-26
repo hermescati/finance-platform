@@ -1,5 +1,5 @@
 ﻿using Expensier.WPF.DataObjects;
-using Expensier.WPF.State.Crypto;
+using Expensier.WPF.State.Assets;
 using Expensier.WPF.ViewModels.Cryptos;
 using LiveCharts;
 using LiveCharts.Wpf;
@@ -16,7 +16,7 @@ namespace Expensier.WPF.ViewModels.Charts
 {
     public class AssetAllocationViewModel : ViewModelBase
     {
-        private readonly CryptoStore _cryptoStore;
+        private readonly AssetStore _cryptoStore;
         private readonly IEnumerable<AssetModel> _cryptos;
         public CryptoViewModel CryptoViewModel { get; }
         public IEnumerable<AssetModel> Cryptos => _cryptos;
@@ -52,7 +52,7 @@ namespace Expensier.WPF.ViewModels.Charts
         public SeriesCollection Series { get; }
         public ColorsCollection SeriesColors { get; }
 
-        public AssetAllocationViewModel(CryptoStore cryptoStore)
+        public AssetAllocationViewModel(AssetStore cryptoStore)
         {
             _cryptos = new ObservableCollection<AssetModel>();
 

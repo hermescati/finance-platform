@@ -1,6 +1,6 @@
 ﻿using Expensier.Domain.Services;
 using Expensier.WPF.State.Accounts;
-using Expensier.WPF.State.Crypto;
+using Expensier.WPF.State.Assets;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Charts;
 using Expensier.WPF.ViewModels.Cryptos;
@@ -28,7 +28,7 @@ namespace Expensier.WPF.ViewModels
             PortfolioValueViewModel portfolioValueViewModel,
             AssetAllocationViewModel assetAllocationViewModel,
             PortfolioPerformanceViewModel portfolioPerformanceViewModel,
-            CryptoStore cryptoStore,
+            AssetStore cryptoStore,
             CryptoModalViewModel cryptoModalViewModel,
             IAssetService cryptoService,
             AccountStore accountStore,

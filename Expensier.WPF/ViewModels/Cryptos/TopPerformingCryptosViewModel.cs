@@ -1,4 +1,4 @@
-﻿using Expensier.WPF.State.Crypto;
+﻿using Expensier.WPF.State.Assets;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using LiveCharts;
@@ -16,7 +16,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 {
     public class TopPerformingCryptosViewModel : CryptoWatchlistBaseViewModel
     {
-        public TopPerformingCryptosViewModel(CryptoStore cryptoStore, IAssetService cryptoService) 
+        public TopPerformingCryptosViewModel(AssetStore cryptoStore, IAssetService cryptoService) 
             : base(cryptoStore, cryptoService, cryptos => cryptos.OrderByDescending(c => c.Asset.PercentageChange).Take(4)) { }
     }
 }

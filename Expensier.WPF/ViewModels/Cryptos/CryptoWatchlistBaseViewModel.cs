@@ -1,6 +1,6 @@
 ﻿using Expensier.Domain.Services;
 using Expensier.WPF.DataObjects;
-using Expensier.WPF.State.Crypto;
+using Expensier.WPF.State.Assets;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 {
     public abstract class CryptoWatchlistBaseViewModel : ViewModelBase
     {
-        private readonly CryptoStore _cryptoStore;
+        private readonly AssetStore _cryptoStore;
         private readonly IAssetService _cryptoService;
         public CryptoViewModel CryptoViewModel { get; }
         private readonly ObservableCollection<AssetModel> _cryptos;
@@ -49,7 +49,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         public IEnumerable<AssetModel> Cryptos => _cryptos;
 
         public CryptoWatchlistBaseViewModel(
-            CryptoStore cryptoStore, 
+            AssetStore cryptoStore, 
             IAssetService cryptoService, 
             Func<IEnumerable<AssetModel>, IEnumerable<AssetModel>> filterCryptos)
         {
