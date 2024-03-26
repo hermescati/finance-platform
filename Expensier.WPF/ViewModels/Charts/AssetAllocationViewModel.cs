@@ -18,7 +18,7 @@ namespace Expensier.WPF.ViewModels.Charts
     {
         private readonly AssetStore _cryptoStore;
         private readonly IEnumerable<AssetModel> _cryptos;
-        public CryptoViewModel CryptoViewModel { get; }
+        public AssetViewModel CryptoViewModel { get; }
         public IEnumerable<AssetModel> Cryptos => _cryptos;
 
         private bool _listEmpty;
@@ -60,7 +60,7 @@ namespace Expensier.WPF.ViewModels.Charts
             SeriesColors = new ColorsCollection();
 
             _cryptoStore = cryptoStore;
-            CryptoViewModel = new CryptoViewModel(cryptoStore,
+            CryptoViewModel = new AssetViewModel(cryptoStore,
                 cryptos => cryptos
                 .OrderBy(c => c.PurchaseDate));
 
