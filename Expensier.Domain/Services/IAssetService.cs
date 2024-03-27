@@ -31,5 +31,7 @@ namespace Expensier.Domain.Services
 
 
         Task<Asset> FetchCryptoAsset( string cryptoSymbol );
+
+        Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData (string cryptoSymbol);
     }
 }

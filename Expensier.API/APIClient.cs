@@ -1,7 +1,7 @@
 ﻿using Expensier.API.Models;
 using Expensier.Domain.Models;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 
@@ -51,33 +51,39 @@ namespace Expensier.API
         }
 
 
-        public async Task<IEnumerable<PriceData>> DeserializeHistoricalPrices( string uri )
+        public async Task<IEnumerable<HistoricalData>> GetCrypoHistoricalData( string URI )
         {
+            ObservableCollection<HistoricalData> list = new ObservableCollection<HistoricalData>();
+
             try
             {
-                using var response = await _client.GetAsync( $"{uri}?apikey={_apiKey}", HttpCompletionOption.ResponseHeadersRead );
-                response.EnsureSuccessStatusCode();
+                HttpResponseMessage response = await _client.GetAsync( URI );
 
-                var responseStream = await response.Content.ReadAsStreamAsync();
-                using var streamReader = new StreamReader( responseStream );
-                using var jsonResponse = new JsonTextReader( streamReader );
+                if ( !response.IsSuccessStatusCode )
+                    return default;
 
-                JsonSerializer serializer = new JsonSerializer();
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                dynamic data = JObject.Parse( jsonResponse );
 
-                try
+                var historicalData = data.prices;
+
+                foreach ( var record in historicalData )
                 {
-                    return serializer.Deserialize<IEnumerable<PriceData>>( jsonResponse );
+                    HistoricalData newRecord = new HistoricalData()
+                    {
+                        Date = DateTimeOffset.FromUnixTimeMilliseconds( (long) record[0] ).DateTime,
+                        Price = (double) record[1]
+                    };
+
+                    list.Add( newRecord );
                 }
-                catch ( JsonReaderException )
-                {
-                    Console.WriteLine( "Invalid JSON!" );
-                    return Enumerable.Empty<PriceData>();
-                }
+
+                return list;
             }
-            catch ( Exception ex )
+            catch ( Exception e )
             {
-                Console.WriteLine( $"An error occurred: {ex.Message}" );
-                return Enumerable.Empty<PriceData>();
+                Trace.TraceError( e.Message );
+                return default;
             }
         }
     }

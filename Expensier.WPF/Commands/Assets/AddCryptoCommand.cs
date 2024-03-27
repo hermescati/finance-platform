@@ -47,6 +47,8 @@ namespace Expensier.WPF.Commands.Assets
                     AssetType.Cryptocurrency,
                     DateTime.Now );
 
+                IEnumerable<HistoricalData> prices = await _cryptoService.FetchCryptoHistoricalData( _cryptoModalViewModel.CryptoSymbol );
+
                 _accountStore.CurrentAccount = updatedAccount;
                 _cryptoModalViewModel.CryptoSymbol = string.Empty;
                 _cryptoModalViewModel.Crypto = null;

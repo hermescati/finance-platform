@@ -3,7 +3,6 @@ using Expensier.Domain.Exceptions;
 using Expensier.Domain.Models;
 using static Expensier.Domain.Models.AssetTransaction;
 
-
 namespace Expensier.API.Services
 {
     public class AssetService : IAssetService
@@ -87,6 +86,18 @@ namespace Expensier.API.Services
                 throw new InvalidSymbolException( cryptoSymbol );
 
             return cryptoAsset;
+        }
+
+
+        public async Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData( string cryptoSymbol )
+        {
+            string URI = $"coins/{cryptoSymbol}/market_chart?vs_currency={"usd"}&days={2}";
+            IEnumerable<HistoricalData> historicalData = await _client.GetCrypoHistoricalData( URI );
+
+            if ( historicalData == null )
+                return default;
+
+            return historicalData;
         }
     }
 }

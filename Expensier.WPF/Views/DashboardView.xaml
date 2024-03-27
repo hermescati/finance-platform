@@ -232,7 +232,8 @@
                     <!--#region Watchlist-->
                     <Border
                         Grid.Row="2"
-                        Padding="48,24,24,24"
+                        MinHeight="200"
+                        Padding="48,16,16,16"
                         Background="{StaticResource BackgroundGradient}"
                         CornerRadius="24">
 
