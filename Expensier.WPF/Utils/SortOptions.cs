@@ -65,7 +65,6 @@ namespace Expensier.WPF.Utils
             };
         }
 
-
         public static List<SortOptions> SubscriptionOptions()
         {
             return new List<SortOptions>
@@ -76,6 +75,17 @@ namespace Expensier.WPF.Utils
                 new(property: "Amount", name: "Amount (High)", direction: SortDirection.Descending, _amountIcons),
                 new(property: "Plan", name: "Name (A-Z)", direction: SortDirection.Ascending, _alphAscIcons),
                 new(property: "Plan", name: "Name (Z-A)", direction: SortDirection.Descending, _alphDescIcons),
+            };
+        }
+
+        public static List<SortOptions> AssetOptions()
+        {
+            return new List<SortOptions>
+            {
+                new(property: "PurchaseDate", name: "Oldest First", direction: SortDirection.Ascending, _dateIcons),
+                new(property: "PurchaseDate", name: "Newest First", direction: SortDirection.Descending, _dateIcons),
+                new(property: "QuantityOwned", name: "Holdings (Low)", direction: SortDirection.Ascending, _amountIcons),
+                new(property: "QuantityOwned", name: "Holdings (High)", direction: SortDirection.Descending, _amountIcons),
             };
         }
     }

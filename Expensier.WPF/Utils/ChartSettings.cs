@@ -28,6 +28,7 @@ namespace Expensier.WPF.Utils
         private static readonly int _cornerRadius = 8;
         private static readonly int _padding = 18;
         public static readonly LiveChartsCore.Measure.Margin DrawMargin = new LiveChartsCore.Measure.Margin( 0, -40, 0, 0 );
+        public static readonly LiveChartsCore.Measure.Margin AnotherMargin = new LiveChartsCore.Measure.Margin( 0 );
 
 
         public static readonly int outerRadiusOffset = 0;
@@ -56,6 +57,31 @@ namespace Expensier.WPF.Utils
                 YToolTipLabelFormatter = ( chartPoint ) => $"{chartPoint.Coordinate.PrimaryValue:C2}"
             };
         }
+
+
+        public static ISeries AssetLineSeries( bool negative = false )
+        {
+            return new LineSeries<double>
+            {
+                Values = new ObservableCollection<double>(),
+
+                Fill = new LinearGradientPaint(
+                    new[] {
+                        negative ? _accentColor.WithAlpha( 50 ) : _secondaryColor.WithAlpha( 50 ),
+                        negative ? _accentColor.WithAlpha( 0 ) : _secondaryColor.WithAlpha( 0 )
+                    },
+                    new SKPoint( 0.5f, 0 ),
+                    new SKPoint( 0.5f, 1 ) ),
+                Stroke = new SolidColorPaint( negative ? _accentColor : _secondaryColor ) { StrokeThickness = _strokeThickness },
+
+                GeometrySize = 0,
+                LineSmoothness = _lineSmoothness,
+
+                DataPadding = new LvcPoint( 0, 0.0f ),
+                IsHoverable = false,
+            };
+        }
+
 
         public static ISeries[] DefaultColumnSeries()
         {
@@ -93,11 +119,11 @@ namespace Expensier.WPF.Utils
         }
 
 
-        public static Axis DefaultXAxis()
+        public static Axis DefaultXAxis( bool showAxis = true )
         {
             return new Axis
             {
-                TextSize = _textSize,
+                TextSize = showAxis ? _textSize : 0,
                 LabelsPaint = new SolidColorPaint( _foregroundColor.WithAlpha( 170 ) ) { FontFamily = _fontFamily }
             };
         }

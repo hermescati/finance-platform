@@ -13,18 +13,18 @@ namespace Expensier.WPF.HostBuilders
 {
     public static class AddAPIHostBuilderExtension
     {
-        public static IHostBuilder AddAPI(this IHostBuilder host)
+        public static IHostBuilder AddAPI( this IHostBuilder host )
         {
-            host.ConfigureServices((context, services) =>
+            host.ConfigureServices( ( context, services ) =>
             {
-                string apiKey = context.Configuration.GetValue<string>("API_KEY");
-                services.AddSingleton(new APIKey(apiKey));
+                string apiKey = context.Configuration.GetValue<string>( "API_KEY" );
+                services.AddSingleton( new APIKey( apiKey ) );
 
-                services.AddHttpClient<APIClient>(configure =>
+                services.AddHttpClient<APIClient>( configure =>
                 {
-                    configure.BaseAddress = new Uri("https://financialmodelingprep.com/api/v3/"); ;
-                });
-            });
+                    configure.BaseAddress = new Uri( "https://api.coingecko.com/api/v3/" ); ;
+                } );
+            } );
 
             return host;
         }

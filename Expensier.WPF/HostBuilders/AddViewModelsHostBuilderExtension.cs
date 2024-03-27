@@ -21,7 +21,7 @@ using Expensier.WPF.Controls.Modals;
 using Expensier.WPF.ViewModels.Charts;
 using Expensier.Domain.Services.Authentication;
 using Expensier.Domain.Services;
-using Expensier.WPF.State.Crypto;
+using Expensier.WPF.State.Assets;
 using Expensier.WPF.ViewModels.Cryptos;
 using Expensier.WPF.ViewModels.Transactions;
 
@@ -109,9 +109,9 @@ namespace Expensier.WPF.HostBuilders
                 services.GetRequiredService<PortfolioValueViewModel>(),
                 services.GetRequiredService<AssetAllocationViewModel>(),
                 services.GetRequiredService<PortfolioPerformanceViewModel>(),
-                services.GetRequiredService<CryptoStore>(),
+                services.GetRequiredService<AssetStore>(),
                 services.GetRequiredService<CryptoModalViewModel>(),
-                services.GetRequiredService<ICryptoService>(),
+                services.GetRequiredService<IAssetService>(),
                 services.GetRequiredService<AccountStore>(),
                 services.GetRequiredService<DelegateRenavigator<WalletViewModel>>() );
         }
@@ -160,7 +160,7 @@ namespace Expensier.WPF.HostBuilders
         private static CryptoModalViewModel CreateCryptoModalViewModel( IServiceProvider services )
         {
             return new CryptoModalViewModel(
-                services.GetRequiredService<ICryptoService>(),
+                services.GetRequiredService<IAssetService>(),
                 services.GetRequiredService<AccountStore>(),
                 services.GetRequiredService<DelegateRenavigator<WalletViewModel>>() );
         }

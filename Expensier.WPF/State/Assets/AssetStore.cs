@@ -2,21 +2,19 @@
 using Expensier.WPF.State.Accounts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Expensier.WPF.State.Crypto
+
+namespace Expensier.WPF.State.Assets
 {
-    public class CryptoStore
+    public class AssetStore
     {
         private readonly AccountStore _accountStore;
 
-        public IEnumerable<AssetTransaction> CryptoAssetList => _accountStore.CurrentAccount?.AssetList ?? new List<AssetTransaction>();
+        public IEnumerable<AssetTransaction> AssetsList => _accountStore.CurrentAccount?.AssetList ?? new List<AssetTransaction>();
 
         public event Action StateChanged;
 
-        public CryptoStore(AccountStore accountStore)
+        public AssetStore(AccountStore accountStore)
         {
             _accountStore = accountStore;
 

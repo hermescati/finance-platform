@@ -12,6 +12,7 @@
     Background="Transparent"
     Icon="{StaticResource AppIcon}"
     ResizeMode="CanResize"
+    UseLayoutRounding="True"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">

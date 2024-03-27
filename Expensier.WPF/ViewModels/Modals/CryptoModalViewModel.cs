@@ -102,7 +102,7 @@ namespace Expensier.WPF.ViewModels.Modals
         public ICommand SearchSymbolCommand { get; }
         public ICommand AddCryptoCommand { get; }
 
-        public CryptoModalViewModel(ICryptoService cryptoService, AccountStore accountStore, IRenavigator renavigator)
+        public CryptoModalViewModel(IAssetService cryptoService, AccountStore accountStore, IRenavigator renavigator)
         {
             ErrorMessageViewModel = new MessageViewModel();
 

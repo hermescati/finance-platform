@@ -1,75 +1,42 @@
-﻿using Expensier.Domain.Services;
-using Expensier.WPF.State.Crypto;
-using Microsoft.IdentityModel.Tokens;
+﻿using Expensier.Domain.Models;
+using Expensier.Domain.Services;
+using Expensier.WPF.DataObjects;
+using Expensier.WPF.State.Assets;
+using Expensier.WPF.Utils;
+using Expensier.WPF.ViewModels.Charts;
+using LiveChartsCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Expensier.WPF.ViewModels.Cryptos
 {
     public abstract class CryptoWatchlistBaseViewModel : ViewModelBase
     {
-        private readonly CryptoStore _cryptoStore;
-        private readonly ICryptoService _cryptoService;
-        public CryptoViewModel CryptoViewModel { get; }
-        private readonly ObservableCollection<CryptoDataModel> _cryptos;
+        private readonly AssetStore _assetStore;
+        private readonly IAssetService _assetService;
+        public AssetViewModel AssetViewModel { get; }
 
-        private bool _listEmpty;
-        public bool ListEmpty
-        {
-            get
-            {
-                return _listEmpty;
-            }
-            set
-            {
-                _listEmpty = value;
-                OnPropertyChanged(nameof(ListEmpty));
-            }
-        }
 
-        private bool _listNotEmpty;
-        public bool ListNotEmpty
-        {
-            get
-            {
-                return _listNotEmpty;
-            }
-            set
-            {
-                _listNotEmpty = value;
-                OnPropertyChanged(nameof(ListNotEmpty));
-            }
-        }
+        private readonly ObservableCollection<AssetModel> _assets;
+        public IEnumerable<AssetModel> Assets => _assets;
 
-        public IEnumerable<CryptoDataModel> Cryptos => _cryptos;
 
         public CryptoWatchlistBaseViewModel(
-            CryptoStore cryptoStore, 
-            ICryptoService cryptoService, 
-            Func<IEnumerable<CryptoDataModel>, IEnumerable<CryptoDataModel>> filterCryptos)
+            AssetStore assetStore,
+            IAssetService assetService,
+            Func<IEnumerable<AssetModel>, IEnumerable<AssetModel>> filterAssets )
         {
-            _cryptos = new ObservableCollection<CryptoDataModel>();
-            _cryptoStore = cryptoStore;
-            _cryptoService = cryptoService;
+            _assetStore = assetStore;
+            _assetService = assetService;
+            _assets = new ObservableCollection<AssetModel>();
 
-            CryptoViewModel = new CryptoViewModel(cryptoStore, filterCryptos, cryptoService);
+            AssetViewModel = new AssetViewModel( _assetStore, _assetService, filterAssets );
 
-            _cryptos = (ObservableCollection<CryptoDataModel>)CryptoViewModel.Cryptos;
-
-            if (_cryptos.IsNullOrEmpty())
-            {
-                _listEmpty = true;
-                _listNotEmpty = false;
-            }
-            else
-            {
-                _listEmpty = false;
-                _listNotEmpty = true;
-            }
+            _assets = (ObservableCollection<AssetModel>) AssetViewModel.Assets;
         }
     }
 }

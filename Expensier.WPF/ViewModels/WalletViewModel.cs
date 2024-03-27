@@ -1,6 +1,6 @@
 ﻿using Expensier.Domain.Services;
 using Expensier.WPF.State.Accounts;
-using Expensier.WPF.State.Crypto;
+using Expensier.WPF.State.Assets;
 using Expensier.WPF.State.Navigators;
 using Expensier.WPF.ViewModels.Charts;
 using Expensier.WPF.ViewModels.Cryptos;
@@ -15,7 +15,7 @@ namespace Expensier.WPF.ViewModels
 {
     public class WalletViewModel : ViewModelBase
     {
-        public CryptoViewModel CryptoViewModel { get; }
+        public AssetViewModel AssetViewModel { get; }
         public CryptoWatchlistViewModel CryptoWatchlistViewModel { get; }
         public PortfolioValueViewModel PortfolioValueViewModel { get; }
         public PortfolioPerformanceViewModel PortfolioPerformanceViewModel { get; }
@@ -28,9 +28,9 @@ namespace Expensier.WPF.ViewModels
             PortfolioValueViewModel portfolioValueViewModel,
             AssetAllocationViewModel assetAllocationViewModel,
             PortfolioPerformanceViewModel portfolioPerformanceViewModel,
-            CryptoStore cryptoStore,
+            AssetStore assetStore,
             CryptoModalViewModel cryptoModalViewModel,
-            ICryptoService cryptoService,
+            IAssetService assetService,
             AccountStore accountStore,
             IRenavigator renavigator )
         {
@@ -38,7 +38,7 @@ namespace Expensier.WPF.ViewModels
             PortfolioValueViewModel = portfolioValueViewModel;
             AssetAllocationViewModel = assetAllocationViewModel;
             PortfolioPerformanceViewModel = portfolioPerformanceViewModel;
-            CryptoViewModel = new CryptoViewModel( cryptoStore, cryptoService, accountStore, renavigator );
+            AssetViewModel = new AssetViewModel( accountStore, assetStore, assetService, renavigator );
             CryptoModalViewModel = cryptoModalViewModel;
         }
     }

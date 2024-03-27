@@ -14,25 +14,25 @@ namespace Expensier.WPF.Commands.Assets
     public class SearchCryptoCommand : AsyncCommandBase
     {
         private CryptoModalViewModel _cryptoModalViewModel;
-        private readonly ICryptoService _cryptoService;
+        private readonly IAssetService _cryptoService;
 
-        public SearchCryptoCommand(CryptoModalViewModel cryptoModalViewModel, ICryptoService cryptoService)
+        public SearchCryptoCommand( CryptoModalViewModel cryptoModalViewModel, IAssetService cryptoService )
         {
             _cryptoModalViewModel = cryptoModalViewModel;
             _cryptoService = cryptoService;
         }
 
-        public override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync( object parameter )
         {
             _cryptoModalViewModel.ErrorMessage = string.Empty;
 
             try
             {
-                Asset crypto = await _cryptoService.GetCrypto(_cryptoModalViewModel.CryptoSymbol + "USD");
+                Asset crypto = await _cryptoService.FetchCryptoAsset( _cryptoModalViewModel.CryptoSymbol );
                 _cryptoModalViewModel.Crypto = crypto;
                 _cryptoModalViewModel.ValidSymbol = true;
             }
-            catch (InvalidSymbolException)
+            catch ( InvalidSymbolException )
             {
                 _cryptoModalViewModel.ErrorMessage = _cryptoModalViewModel.CryptoSymbol + " does not belong to any asset!";
             }
