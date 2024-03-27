@@ -34,6 +34,7 @@ namespace Expensier.API
 
                 Asset newAsset = new Asset()
                 {
+                    ID = data.id,
                     Symbol = data.symbol,
                     Name = data.name,
                     CurrentPrice = data.market_data.current_price.usd,

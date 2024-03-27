@@ -147,6 +147,9 @@ namespace Expensier.WPF.ViewModels.Cryptos
         {
             IEnumerable<HistoricalData> data = await _assetService.FetchCryptoHistoricalData( asset.Asset.Name.ToLower() );
 
+            if (data.IsNullOrEmpty())
+                return;
+
             asset.Series[0].Values = new ObservableCollection<double> ( data.Select( d => d.Price ) );
         }
 
