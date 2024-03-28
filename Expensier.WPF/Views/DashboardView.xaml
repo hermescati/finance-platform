@@ -240,8 +240,8 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="32" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition MinWidth="48" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <!--  Header  -->

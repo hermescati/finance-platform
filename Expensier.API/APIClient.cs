@@ -52,7 +52,7 @@ namespace Expensier.API
         }
 
 
-        public async Task<IEnumerable<HistoricalData>> GetCrypoHistoricalData( string URI )
+        public async Task<IEnumerable<HistoricalData>> GetCryptoHistoricalData( string URI )
         {
             ObservableCollection<HistoricalData> list = new ObservableCollection<HistoricalData>();
 

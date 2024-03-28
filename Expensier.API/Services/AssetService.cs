@@ -3,23 +3,24 @@ using Expensier.Domain.Exceptions;
 using Expensier.Domain.Models;
 using static Expensier.Domain.Models.AssetTransaction;
 
+
 namespace Expensier.API.Services
 {
     public class AssetService : IAssetService
     {
         private readonly APIClient _client;
         private readonly IDataService<Account> _accountService;
-        private readonly IDataService<AssetTransaction> _cryptoService;
+        private readonly IDataService<AssetTransaction> _assetService;
 
 
         public AssetService(
             APIClient client,
             IDataService<Account> accountService,
-            IDataService<AssetTransaction> cryptoService )
+            IDataService<AssetTransaction> assetService )
         {
             _client = client;
             _accountService = accountService;
-            _cryptoService = cryptoService;
+            _assetService = assetService;
         }
 
 
@@ -31,11 +32,11 @@ namespace Expensier.API.Services
             AssetType category,
             DateTime purchaseDate )
         {
-            AssetTransaction? existingAsset = GetAssetBySymbol( currentAccount, asset.Symbol );
+            AssetTransaction? existingAsset = GetAssetByID( currentAccount, asset.ID );
 
             if ( existingAsset == null )
             {
-                AssetTransaction newAsset = new AssetTransaction()
+                AssetTransaction newAsset = new()
                 {
                     User = currentAccount,
                     Asset = asset,
@@ -45,6 +46,7 @@ namespace Expensier.API.Services
                     PurchaseDate = purchaseDate
                 };
 
+                await _assetService.GetByID( newAsset.ID );
                 currentAccount.AssetList?.Add( newAsset );
                 await _accountService.Update( currentAccount.ID, currentAccount );
             }
@@ -53,46 +55,46 @@ namespace Expensier.API.Services
         }
 
 
-        public AssetTransaction GetAssetByID( Account currentAccount, Guid assetID ) => currentAccount.AssetList
-            .Single( ( a ) => a.ID == assetID );
+        public AssetTransaction GetAssetTransactionByID( Account currentAccount, Guid assetTransactionID ) => currentAccount.AssetList
+            .Single( ( a ) => a.ID == assetTransactionID );
 
 
-        public AssetTransaction? GetAssetBySymbol( Account currentAccount, string symbol ) => currentAccount?.AssetList
-            .FirstOrDefault( ( a ) => a.Asset.Symbol == symbol );
+        public AssetTransaction GetAssetByID( Account currentAccount, string assetID ) => currentAccount?.AssetList
+            .FirstOrDefault( ( a ) => a.Asset.Symbol == assetID );
 
 
-        public async Task<Account> DeleteAsset( Account currentAccount, Guid assetID )
+        public async Task<Account> DeleteAsset( Account currentAccount, Guid assetTransactionID )
         {
-            AssetTransaction assetToDelete = GetAssetByID( currentAccount, assetID );
+            AssetTransaction assetToDelete = GetAssetTransactionByID( currentAccount, assetTransactionID );
 
             if ( assetToDelete != null )
             {
                 currentAccount.AssetList?.Remove( assetToDelete );
 
                 await _accountService.Update( currentAccount.ID, currentAccount );
-                await _cryptoService.Delete( assetID );
+                await _assetService.Delete( assetTransactionID );
             }
 
             return currentAccount;
         }
 
 
-        public async Task<Asset> FetchCryptoAsset( string cryptoSymbol )
+        public async Task<Asset> FetchCryptoAsset( string cryptoID )
         {
-            string URI = $"coins/{cryptoSymbol}"; ;
+            string URI = $"coins/{cryptoID}";
             Asset cryptoAsset = await _client.GetCryptoAsset( URI );
 
             if ( cryptoAsset == null || cryptoAsset.CurrentPrice == 0 )
-                throw new InvalidSymbolException( cryptoSymbol );
+                throw new InvalidSymbolException( cryptoID );
 
             return cryptoAsset;
         }
 
 
-        public async Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData( string cryptoSymbol )
+        public async Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData( string cryptoID )
         {
-            string URI = $"coins/{cryptoSymbol}/market_chart?vs_currency={"usd"}&days={2}";
-            IEnumerable<HistoricalData> historicalData = await _client.GetCrypoHistoricalData( URI );
+            string URI = $"coins/{cryptoID}/market_chart?vs_currency=usd&days={2}";
+            IEnumerable<HistoricalData> historicalData = await _client.GetCryptoHistoricalData( URI );
 
             if ( historicalData == null )
                 return default;

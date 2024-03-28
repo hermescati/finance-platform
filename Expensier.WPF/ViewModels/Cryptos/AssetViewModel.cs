@@ -129,7 +129,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         }
 
 
-        private async void FetchAssetWatchlist()
+        private void FetchAssetWatchlist()
         {
             List<AssetModel> assetWatchlist = _assetStore.AssetsList
                 .Select( a => new AssetModel( a.Asset, _assetService ) )
@@ -137,7 +137,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
             foreach ( AssetModel asset in assetWatchlist )
             {
-                await ConstructSeries( asset );
+                ConstructSeries( asset );
             }
 
             assetWatchlist = AddAssetToList( assetWatchlist ).ToList();
@@ -145,12 +145,12 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
         private async Task ConstructSeries( AssetModel asset )
         {
-            IEnumerable<HistoricalData> data = await _assetService.FetchCryptoHistoricalData( asset.Asset.Name.ToLower() );
+            IEnumerable<HistoricalData> data = await _assetService.FetchCryptoHistoricalData( asset.Asset.ID );
 
-            if (data.IsNullOrEmpty())
+            if ( data.IsNullOrEmpty() )
                 return;
 
-            asset.Series[0].Values = new ObservableCollection<double> ( data.Select( d => d.Price ) );
+            asset.Series[0].Values = new ObservableCollection<double>( data.Select( d => d.Price ) );
         }
 
 
@@ -159,7 +159,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
             assets = _filteredAssets( assets );
 
             _assets.Clear();
-            foreach(AssetModel asset in assets)
+            foreach ( AssetModel asset in assets )
             {
                 _assets.Add( asset );
             }

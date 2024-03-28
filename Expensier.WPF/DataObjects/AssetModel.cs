@@ -7,14 +7,8 @@ using System.Windows.Input;
 using Expensier.WPF.Commands.Assets;
 using Expensier.WPF.ViewModels;
 using static Expensier.Domain.Models.AssetTransaction;
-using System.Collections.Generic;
 using LiveChartsCore;
 using Expensier.WPF.Utils;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Expensier.WPF.ViewModels.Charts;
-using System.Linq;
-using System.Collections.ObjectModel;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.Measure;
 

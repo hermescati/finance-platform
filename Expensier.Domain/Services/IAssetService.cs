@@ -15,23 +15,23 @@ namespace Expensier.Domain.Services
             DateTime purchaseDate );
 
 
+        AssetTransaction GetAssetTransactionByID(
+            Account currentAccount,
+            Guid assetTransactionID );
+
+
         AssetTransaction GetAssetByID(
             Account currentAccount,
-            Guid assetID );
-
-
-        AssetTransaction GetAssetBySymbol(
-            Account currentAccount,
-            string symbol );
+            string assetID );
 
 
         Task<Account> DeleteAsset(
             Account currentAccount,
-            Guid assetID );
+            Guid assetTransactionID );
 
 
-        Task<Asset> FetchCryptoAsset( string cryptoSymbol );
+        Task<Asset> FetchCryptoAsset( string cryptoID );
 
-        Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData (string cryptoSymbol);
+        Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData( string cryptoID );
     }
 }
