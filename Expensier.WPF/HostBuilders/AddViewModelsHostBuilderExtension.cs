@@ -21,8 +21,8 @@ using Expensier.WPF.Controls.Modals;
 using Expensier.WPF.ViewModels.Charts;
 using Expensier.Domain.Services.Authentication;
 using Expensier.Domain.Services;
-using Expensier.WPF.State.Crypto;
-using Expensier.WPF.ViewModels.Cryptos;
+using Expensier.WPF.State.Assets;
+using Expensier.WPF.ViewModels.Assets;
 using Expensier.WPF.ViewModels.Transactions;
 
 namespace Expensier.WPF.HostBuilders
@@ -42,14 +42,14 @@ namespace Expensier.WPF.HostBuilders
                 services.AddTransient<ExpenditureAllocationViewModel>();
                 services.AddTransient<MonthlyExpensesViewModel>();
                 services.AddTransient<PredictionsViewModel>();
-                services.AddSingleton<TopPerformingCryptosViewModel>();
+                services.AddSingleton<AssetsPerformanceViewModel>();
                 services.AddSingleton( CreateExpensesViewModel );
                 services.AddTransient( CreateTransactionModalViewModel );
                 services.AddTransient( CreateSubscriptionModalViewModel );
                 services.AddTransient( CreateCryptoModalViewModel );
                 services.AddTransient( CreateExportModalViewModel );
                 services.AddSingleton( CreateWalletViewModel );
-                services.AddSingleton<CryptoWatchlistViewModel>();
+                services.AddSingleton<AssetWatchlistViewModel>();
                 services.AddTransient<PortfolioValueViewModel>();
                 services.AddTransient<AssetAllocationViewModel>();
                 services.AddTransient<PortfolioPerformanceViewModel>();
@@ -78,11 +78,11 @@ namespace Expensier.WPF.HostBuilders
         private static DashboardViewModel CreateDashboardViewModel( IServiceProvider services )
         {
             return new DashboardViewModel(
-                services.GetRequiredService<RecentExpensesViewModel>(),
-                services.GetRequiredService<TopSubscriptionsViewModel>(),
-                services.GetRequiredService<TopPerformingCryptosViewModel>(),
                 services.GetRequiredService<SpendingSummaryViewModel>(),
                 services.GetRequiredService<ExpenditureAllocationViewModel>(),
+                services.GetRequiredService<RecentExpensesViewModel>(),
+                services.GetRequiredService<TopSubscriptionsViewModel>(),
+                services.GetRequiredService<AssetsPerformanceViewModel>(),
                 services.GetRequiredService<DelegateRenavigator<WalletViewModel>>() );
         }
 
@@ -105,13 +105,13 @@ namespace Expensier.WPF.HostBuilders
         private static WalletViewModel CreateWalletViewModel( IServiceProvider services )
         {
             return new WalletViewModel(
-                services.GetRequiredService<CryptoWatchlistViewModel>(),
+                services.GetRequiredService<AssetWatchlistViewModel>(),
                 services.GetRequiredService<PortfolioValueViewModel>(),
                 services.GetRequiredService<AssetAllocationViewModel>(),
                 services.GetRequiredService<PortfolioPerformanceViewModel>(),
-                services.GetRequiredService<CryptoStore>(),
+                services.GetRequiredService<AssetStore>(),
                 services.GetRequiredService<CryptoModalViewModel>(),
-                services.GetRequiredService<ICryptoService>(),
+                services.GetRequiredService<IAssetService>(),
                 services.GetRequiredService<AccountStore>(),
                 services.GetRequiredService<DelegateRenavigator<WalletViewModel>>() );
         }
@@ -160,7 +160,7 @@ namespace Expensier.WPF.HostBuilders
         private static CryptoModalViewModel CreateCryptoModalViewModel( IServiceProvider services )
         {
             return new CryptoModalViewModel(
-                services.GetRequiredService<ICryptoService>(),
+                services.GetRequiredService<IAssetService>(),
                 services.GetRequiredService<AccountStore>(),
                 services.GetRequiredService<DelegateRenavigator<WalletViewModel>>() );
         }

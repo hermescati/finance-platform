@@ -1,32 +1,26 @@
 ﻿<UserControl
-    x:Class="Expensier.WPF.Controls.Cryptos.TopCryptos"
+    x:Class="Expensier.WPF.Controls.Assets.AssetsPerformance"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:charts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-    xmlns:controls="clr-namespace:Expensier.WPF.Controls.Cryptos"
+    xmlns:charts="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
     xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Expensier.WPF.Controls.Subscriptions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
-    DataContext="{Binding TopPerformingCryptosViewModel}"
     mc:Ignorable="d">
 
 
     <UserControl.Resources>
-        <converters:CryptoNameConverter x:Key="CryptoNameConverter" />
-
-        <converters:DoubleToColorConverter
-            x:Key="DoubleToColorConverter"
-            NegativeColor="{StaticResource AccentColor}"
-            PositiveColor="{StaticResource SecondaryColor}" />
+        <converters:AssetCurrentPriceConverter x:Key="AssetCurrentPriceConverter" />
+        <converters:AssetChangePercentageConverter x:Key="AssetChangePercentageConverter" />
+        <converters:TextToUppercaseConverter x:Key="TextToUppercaseConverter" />
 
 
         <Style x:Key="TopPerformingCrypto" TargetType="{x:Type ListViewItem}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="UseLayoutRounding" Value="True" />
-            <Setter Property="Margin" Value="4,4,18,4" />
+            <Setter Property="Margin" Value="4,4,16,4" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -66,7 +60,7 @@
         Background="Transparent"
         BorderThickness="0"
         ItemContainerStyle="{DynamicResource TopPerformingCrypto}"
-        ItemsSource="{Binding Cryptos}"
+        ItemsSource="{Binding Assets}"
         ScrollViewer.CanContentScroll="False"
         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
         ScrollViewer.VerticalScrollBarVisibility="Disabled">
@@ -85,62 +79,68 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="8" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="12" />
+                        <RowDefinition Height="8" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0">
-                        <!--  Symbol  -->
-                        <TextBlock
-                            Grid.Row="0"
-                            FontWeight="SemiBold"
-                            Style="{StaticResource BodyText}"
-                            Text="{Binding Crypto.Symbol, Converter={StaticResource CryptoNameConverter}, ConverterParameter='USD'}" />
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                        <!--  Name  -->
-                        <TextBlock
-                            Grid.Row="1"
-                            Foreground="{StaticResource ForegroundShade}"
-                            Style="{StaticResource VerySmallText}"
-                            Text="{Binding Crypto.Name, Converter={StaticResource CryptoNameConverter}, ConverterParameter=' USD'}" />
-                    </StackPanel>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="16" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <!--  Percentage  -->
-                        <Border
-                            Grid.Row="0"
-                            Padding="8,4"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Background="{Binding Crypto.ChangesPercentage, Converter={StaticResource DoubleToColorConverter}}"
-                            CornerRadius="10">
-
+                            <!--  Symbol  -->
                             <TextBlock
                                 Grid.Row="0"
+                                Style="{StaticResource Header6}"
+                                Text="{Binding Asset.Symbol, Converter={StaticResource TextToUppercaseConverter}}" />
+
+                            <!--  Name  -->
+                            <TextBlock
+                                Grid.Row="2"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource ForegroundShade}"
+                                Style="{StaticResource VerySmallText}"
+                                Text="{Binding Asset.Name}" />
+
+                        </Grid>
+
+                        <!--  Percentage Change  -->
+                        <Border
+                            Grid.Column="2"
+                            Padding="8,4"
+                            VerticalAlignment="Top"
+                            Background="{Binding Asset.PercentageChange, Converter={StaticResource AssetChangePercentageConverter}}"
+                            CornerRadius="8">
+
+                            <TextBlock
                                 HorizontalAlignment="Center"
-                                FontWeight="SemiBold"
+                                FontWeight="Black"
                                 Foreground="{StaticResource Primary}"
                                 Style="{StaticResource VerySmallText}"
-                                Text="{Binding Crypto.ChangesPercentage, StringFormat={}{0:#0.00'%'}}" />
+                                Text="{Binding Asset.PercentageChange, StringFormat={}{0:#0.00'%'}}" />
                         </Border>
 
-                        <!--  Chart  -->
-                        <controls:CryptoChart
-                            Grid.Row="2"
-                            Width="96"
-                            Height="40"
-                            Margin="-4,0"
-                            HorizontalAlignment="Stretch" />
-
                     </Grid>
+
+                    <!--  Chart  -->
+                    <charts:CartesianChart
+                        Grid.Row="2"
+                        MinWidth="100"
+                        MinHeight="80"
+                        DrawMargin="{Binding Margin}"
+                        Series="{Binding Series}"
+                        XAxes="{Binding XAxis}"
+                        YAxes="{Binding YAxis}" />
 
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
@@ -149,22 +149,24 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <!--  Symbol Icon  -->
+                        <!--  Icon  -->
                         <Image
                             Grid.Column="0"
                             Width="16"
                             Height="16"
                             VerticalAlignment="Center"
-                            Source="{StaticResource AppIcon}" />
+                            SnapsToDevicePixels="True"
+                            Source="{Binding Asset.Image}"
+                            UseLayoutRounding="True" />
 
                         <!--  Current Price  -->
                         <TextBlock
                             Grid.Column="2"
                             VerticalAlignment="Center"
-                            FontWeight="SemiBold"
+                            FontWeight="Bold"
                             Foreground="{StaticResource ForegroundShade}"
-                            Style="{StaticResource VerySmallText}"
-                            Text="{Binding Crypto.Price, StringFormat='${0:#,##0.###}'}" />
+                            Style="{StaticResource SmallText}"
+                            Text="{Binding Asset.CurrentPrice, Converter={StaticResource AssetCurrentPriceConverter}}" />
                     </Grid>
                 </Grid>
             </DataTemplate>

@@ -111,6 +111,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
+        <!--  Results  -->
         <TextBlock
             Grid.Column="0"
             FontWeight="Bold"
@@ -133,12 +134,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
+            <!--  Previous Page  -->
             <Button
                 Grid.Column="0"
                 Command="{Binding PreviousPage}"
                 Style="{DynamicResource PaginationButton}"
                 Tag="{StaticResource ChevronLeftIcon}" />
 
+            <!--  Page Buttons  -->
             <ItemsControl Grid.Column="2" ItemsSource="{Binding Pages}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -173,6 +176,7 @@
                 </ItemsControl.Template>
             </ItemsControl>
 
+            <!--  Next Page  -->
             <Button
                 Grid.Column="4"
                 Command="{Binding NextPage}"

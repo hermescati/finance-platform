@@ -1,5 +1,6 @@
-﻿using Expensier.WPF.State.Crypto;
-using Expensier.WPF.ViewModels.Cryptos;
+﻿using Expensier.WPF.DataObjects;
+using Expensier.WPF.State.Assets;
+using Expensier.WPF.ViewModels.Assets;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Microsoft.IdentityModel.Tokens;
@@ -15,10 +16,10 @@ namespace Expensier.WPF.ViewModels.Charts
 {
     public class AssetAllocationViewModel : ViewModelBase
     {
-        private readonly CryptoStore _cryptoStore;
-        private readonly IEnumerable<CryptoDataModel> _cryptos;
-        public CryptoViewModel CryptoViewModel { get; }
-        public IEnumerable<CryptoDataModel> Cryptos => _cryptos;
+        private readonly AssetStore _cryptoStore;
+        private readonly IEnumerable<AssetModel> _cryptos;
+        public AssetViewModel CryptoViewModel { get; }
+        public IEnumerable<AssetModel> Cryptos => _cryptos;
 
         private bool _listEmpty;
         public bool ListEmpty
@@ -51,19 +52,19 @@ namespace Expensier.WPF.ViewModels.Charts
         public SeriesCollection Series { get; }
         public ColorsCollection SeriesColors { get; }
 
-        public AssetAllocationViewModel(CryptoStore cryptoStore)
+        public AssetAllocationViewModel(AssetStore cryptoStore)
         {
-            _cryptos = new ObservableCollection<CryptoDataModel>();
+            _cryptos = new ObservableCollection<AssetModel>();
 
             Series = new SeriesCollection();
             SeriesColors = new ColorsCollection();
 
             _cryptoStore = cryptoStore;
-            CryptoViewModel = new CryptoViewModel(cryptoStore,
+            CryptoViewModel = new AssetViewModel(cryptoStore,
                 cryptos => cryptos
-                .OrderBy(c => c.TotalValue));
+                .OrderBy(c => c.PurchaseDate));
 
-            _cryptos = CryptoViewModel.Cryptos;
+            _cryptos = CryptoViewModel.Assets;
 
             if (_cryptos.IsNullOrEmpty())
             {
@@ -79,17 +80,17 @@ namespace Expensier.WPF.ViewModels.Charts
             ConstructChart(_cryptos);
         }
 
-        private void ConstructChart(IEnumerable<CryptoDataModel> cryptos)
+        private void ConstructChart(IEnumerable<AssetModel> cryptos)
         {
             Series.Clear();
             Series.AddRange(cryptos
-                .GroupBy(c => c.Crypto.Symbol)
+                .GroupBy(c => c.Asset.Symbol)
                 .Select(g => new PieSeries
                 {
                     Title = g.Key.ToString(),
                     Values = new ChartValues<double>(new[]
                     {
-                        g.Sum(c => c.TotalValue)
+                        g.Sum(c => c.PurchasePrice)
                     }),
                     Stroke = new SolidColorBrush(Color.FromArgb(255, 27, 25, 27)),
                     StrokeThickness = 8

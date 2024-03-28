@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Expensier.WPF.Controls.Cryptos
+namespace Expensier.WPF.Controls.Assets
 {
     /// <summary>
-    /// Interaction logic for TopCryptos.xaml
+    /// Interaction logic for CryptoList.xaml
     /// </summary>
-    public partial class TopCryptos : UserControl
+    public partial class AssetsList : UserControl
     {
-        public TopCryptos()
+        public AssetsList()
         {
             InitializeComponent();
         }

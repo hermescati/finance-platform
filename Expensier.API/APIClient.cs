@@ -1,11 +1,9 @@
 ﻿using Expensier.API.Models;
 using Expensier.Domain.Models;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+
 
 namespace Expensier.API
 {
@@ -14,77 +12,79 @@ namespace Expensier.API
         private readonly HttpClient _client;
         private readonly string _apiKey;
 
-        public APIClient(HttpClient client, APIKey apiKey)
+
+        public APIClient( HttpClient client, APIKey apiKey )
         {
             _client = client;
             _apiKey = apiKey.Key;
         }
 
-        public async Task<T> DeserializeResponse<T>(string uri)
-        {
-            using var response = await _client.GetAsync($"{uri}?apikey={_apiKey}", HttpCompletionOption.ResponseHeadersRead);
-            response.EnsureSuccessStatusCode();
 
-            if (response.Content is object && response.Content.Headers.ContentType.MediaType == "application/json")
-            {
-                var responseStream = await response.Content.ReadAsStreamAsync();
-                using var streamReader = new StreamReader(responseStream);
-
-                var json = await streamReader.ReadToEndAsync();
-
-                if (string.IsNullOrWhiteSpace(json) || json.Trim() == "[]")
-                {
-                    Console.WriteLine("Empty JSON!");
-                    return default(T);
-                }
-
-                using var jsonResponse = new JsonTextReader(new StringReader(json));
-
-                JsonSerializer serializer = new JsonSerializer();
-
-                try
-                {
-                    return serializer.Deserialize<List<T>>(jsonResponse)[0];
-                }
-                catch (JsonReaderException)
-                {
-                    Console.WriteLine("Invalid JSON!");
-                }
-            }
-            else
-            {
-                Console.WriteLine("HTTP Response cannot be deserialized");
-            }
-            return default(T);
-        }
-
-        public async Task<IEnumerable<PriceData>> DeserializeHistoricalPrices(string uri)
+        public async Task<Asset> GetCryptoAsset( string URI )
         {
             try
             {
-                using var response = await _client.GetAsync($"{uri}?apikey={_apiKey}", HttpCompletionOption.ResponseHeadersRead);
-                response.EnsureSuccessStatusCode();
+                HttpResponseMessage response = await _client.GetAsync( URI );
 
-                var responseStream = await response.Content.ReadAsStreamAsync();
-                using var streamReader = new StreamReader(responseStream);
-                using var jsonResponse = new JsonTextReader(streamReader);
+                if ( !response.IsSuccessStatusCode )
+                    return default;
 
-                JsonSerializer serializer = new JsonSerializer();
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                dynamic data = JObject.Parse( jsonResponse );
 
-                try
+                Asset newAsset = new Asset()
                 {
-                    return serializer.Deserialize<IEnumerable<PriceData>>(jsonResponse);
-                }
-                catch (JsonReaderException)
-                {
-                    Console.WriteLine("Invalid JSON!");
-                    return Enumerable.Empty<PriceData>();
-                }
+                    ID = data.id,
+                    Symbol = data.symbol,
+                    Name = data.name,
+                    CurrentPrice = data.market_data.current_price.usd,
+                    PercentageChange = data.market_data.price_change_percentage_24h,
+                    Image = data.image.large
+                };
+
+                return newAsset;
             }
-            catch(Exception ex)
+            catch ( Exception e )
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-                return Enumerable.Empty<PriceData>();
+                Trace.TraceError( e.Message );
+                return default;
+            }
+        }
+
+
+        public async Task<IEnumerable<HistoricalData>> GetCryptoHistoricalData( string URI )
+        {
+            ObservableCollection<HistoricalData> list = new ObservableCollection<HistoricalData>();
+
+            try
+            {
+                HttpResponseMessage response = await _client.GetAsync( URI );
+
+                if ( !response.IsSuccessStatusCode )
+                    return default;
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                dynamic data = JObject.Parse( jsonResponse );
+
+                var historicalData = data.prices;
+
+                foreach ( var record in historicalData )
+                {
+                    HistoricalData newRecord = new HistoricalData()
+                    {
+                        Date = DateTimeOffset.FromUnixTimeMilliseconds( (long) record[0] ).DateTime,
+                        Price = (double) record[1]
+                    };
+
+                    list.Add( newRecord );
+                }
+
+                return list;
+            }
+            catch ( Exception e )
+            {
+                Trace.TraceError( e.Message );
+                return default;
             }
         }
     }

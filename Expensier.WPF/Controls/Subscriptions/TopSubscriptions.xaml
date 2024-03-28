@@ -52,7 +52,6 @@
                             Height="38"
                             Source="{Binding Name, Converter={StaticResource CompanyNameToLogoConverter}}" />
 
-                        <!--#region Details-->
                         <Grid Grid.Column="2" VerticalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -99,7 +98,6 @@
                             Style="{StaticResource Header6}"
                             Text="{Binding Amount, StringFormat='c'}" />
 
-                        <!--#endregion-->
                     </Grid>
                 </Border>
             </DataTemplate>

@@ -167,7 +167,6 @@
                         Height="40"
                         Source="{Binding Name, Converter={StaticResource CompanyNameToLogoConverter}}" />
 
-                    <!--#region Details-->
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -216,8 +215,6 @@
                             Text="{Binding Amount, StringFormat='c'}" />
 
                     </Grid>
-                    <!--#endregion-->
-
                 </Grid>
             </DataTemplate>
         </ListView.ItemTemplate>

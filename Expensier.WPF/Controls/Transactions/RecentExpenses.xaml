@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Expensier.WPF.Controls.Transactions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
@@ -52,7 +51,6 @@
                             Height="38"
                             Source="{Binding Category, Converter={StaticResource CategoryToIconConverter}}" />
 
-                        <!--  Transaction Details  -->
                         <Grid Grid.Column="2" VerticalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -60,11 +58,13 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
+                            <!--  Name  -->
                             <TextBlock
                                 Grid.Row="0"
                                 Style="{StaticResource Header6}"
                                 Text="{Binding Name}" />
 
+                            <!--  Date  -->
                             <StackPanel
                                 Grid.Row="2"
                                 VerticalAlignment="Center"
@@ -89,7 +89,7 @@
 
                         </Grid>
 
-                        <!--  Transaction Price  -->
+                        <!--  Price  -->
                         <TextBlock
                             Grid.Column="4"
                             VerticalAlignment="Center"
