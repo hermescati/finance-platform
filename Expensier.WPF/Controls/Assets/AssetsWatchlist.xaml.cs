@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Expensier.WPF.Controls.Cryptos
+namespace Expensier.WPF.Controls.Assets
 {
     /// <summary>
     /// Interaction logic for CryptoWatchlist.xaml
     /// </summary>
-    public partial class CryptoWatchlist : UserControl
+    public partial class AssetsWatchlist : UserControl
     {
-        public CryptoWatchlist()
+        public AssetsWatchlist()
         {
             InitializeComponent();
             listView.PreviewMouseWheel += ListView_PreviewMouseWheel;

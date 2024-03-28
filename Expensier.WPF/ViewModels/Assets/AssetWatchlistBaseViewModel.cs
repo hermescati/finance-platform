@@ -1,20 +1,14 @@
-﻿using Expensier.Domain.Models;
-using Expensier.Domain.Services;
+﻿using Expensier.Domain.Services;
 using Expensier.WPF.DataObjects;
 using Expensier.WPF.State.Assets;
-using Expensier.WPF.Utils;
-using Expensier.WPF.ViewModels.Charts;
-using LiveChartsCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 
-namespace Expensier.WPF.ViewModels.Cryptos
+namespace Expensier.WPF.ViewModels.Assets
 {
-    public abstract class CryptoWatchlistBaseViewModel : ViewModelBase
+    public abstract class AssetWatchlistBaseViewModel : ViewModelBase
     {
         private readonly AssetStore _assetStore;
         private readonly IAssetService _assetService;
@@ -25,7 +19,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
         public IEnumerable<AssetModel> Assets => _assets;
 
 
-        public CryptoWatchlistBaseViewModel(
+        public AssetWatchlistBaseViewModel(
             AssetStore assetStore,
             IAssetService assetService,
             Func<IEnumerable<AssetModel>, IEnumerable<AssetModel>> filterAssets )

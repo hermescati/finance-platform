@@ -1,6 +1,4 @@
-﻿using System.Windows.Media;
-
-namespace Expensier.WPF.Enums
+﻿namespace Expensier.WPF.Enums
 {
 
     public enum SortDirection

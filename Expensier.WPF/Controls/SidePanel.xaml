@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Expensier.WPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:navigator="clr-namespace:Expensier.WPF.State.Navigators"
     xmlns:vm="clr-namespace:Expensier.WPF.ViewModels"
@@ -82,9 +81,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!--#region Profile-->
             <StackPanel Grid.Row="0">
-                <!--  Picture  -->
                 <Border
                     Width="100"
                     Height="100"
@@ -98,6 +95,7 @@
                             Rect="0,0,100,100" />
                     </Border.Clip>
 
+                    <!--  Picture  -->
                     <Image
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -112,9 +110,7 @@
                     Style="{StaticResource Header6}"
                     Text="{Binding GreetingMessage}" />
             </StackPanel>
-            <!--#endregion-->
 
-            <!--#region Navigation-->
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -212,9 +208,8 @@
                     </RadioButton.Tag>
                 </RadioButton>
             </Grid>
-            <!--#endregion-->
 
-            <!--#region CTA-->
+            <!--  CTA  -->
             <Button
                 Grid.Row="4"
                 Width="144"
@@ -224,7 +219,6 @@
                 Content="Log out"
                 DataContext="{Binding SidePanelViewModel}"
                 Tag="{StaticResource LogoutSelectedIcon}" />
-            <!--#endregion-->
 
         </Grid>
     </Border>

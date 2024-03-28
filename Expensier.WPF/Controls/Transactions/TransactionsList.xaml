@@ -156,7 +156,6 @@
                         Height="34"
                         Source="{Binding Category, Converter={StaticResource CategoryToIconConverter}}" />
 
-                    <!--#region Details-->
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -226,11 +225,8 @@
                         </StackPanel>
 
                     </Grid>
-                    <!--#endregion-->
-
                 </Grid>
             </DataTemplate>
         </ListView.ItemTemplate>
-
     </ListView>
 </UserControl>

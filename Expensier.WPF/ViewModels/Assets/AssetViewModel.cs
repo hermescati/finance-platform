@@ -15,7 +15,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 
-namespace Expensier.WPF.ViewModels.Cryptos
+namespace Expensier.WPF.ViewModels.Assets
 {
     public class AssetViewModel : ViewModelBase
     {
@@ -28,7 +28,6 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
         private readonly ObservableCollection<AssetModel> _assets;
         public IEnumerable<AssetModel> Assets => _assets;
-
 
 
         private bool _listEmpty;
@@ -54,7 +53,6 @@ namespace Expensier.WPF.ViewModels.Cryptos
             }
         }
         public IEnumerable<SortOptions> SortItems { get; } = SortOptions.AssetOptions();
-
 
 
         public AssetViewModel(
@@ -142,6 +140,7 @@ namespace Expensier.WPF.ViewModels.Cryptos
 
             assetWatchlist = AddAssetToList( assetWatchlist ).ToList();
         }
+
 
         private async Task ConstructSeries( AssetModel asset )
         {

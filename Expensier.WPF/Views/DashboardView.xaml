@@ -2,10 +2,10 @@
     x:Class="Expensier.WPF.Views.DashboardView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:assets="clr-namespace:Expensier.WPF.Controls.Assets"
     xmlns:charts="clr-namespace:Expensier.WPF.Controls.Charts"
     xmlns:controls="clr-namespace:Expensier.WPF.Controls"
     xmlns:converters="clr-namespace:Expensier.WPF.Converters"
-    xmlns:cryptos="clr-namespace:Expensier.WPF.Controls.Cryptos"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:legend="clr-namespace:Expensier.WPF.ViewModels.Charts"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
@@ -273,7 +273,7 @@
                                     Height="44"
                                     Command="{Binding NavigateToWatchlist}"
                                     Content="See all"
-                                    Visibility="{Binding TopPerformingCryptosViewModel.AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding AssetsPerformanceViewModel.AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                                 <Button
                                     Grid.Row="3"
@@ -281,7 +281,7 @@
                                     Height="44"
                                     Command="{Binding NavigateToWatchlist}"
                                     Content="Add Assets"
-                                    Visibility="{Binding TopPerformingCryptosViewModel.AssetViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding AssetsPerformanceViewModel.AssetViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </Grid>
 
                             <!--  Placeholder  -->
@@ -291,14 +291,14 @@
                                 Width="480"
                                 Height="192"
                                 Body="Add a new asset to see your cryptocurrency watchlist!"
-                                DataContext="{Binding TopPerformingCryptosViewModel}"
+                                DataContext="{Binding AssetsPerformanceViewModel}"
                                 Icon="{StaticResource CryptoPlaceholderImage}"
                                 Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <!--  Crypto Assets  -->
-                            <cryptos:TopCryptos
+                            <assets:AssetsPerformance
                                 Grid.Column="2"
-                                DataContext="{Binding TopPerformingCryptosViewModel}"
+                                DataContext="{Binding AssetsPerformanceViewModel}"
                                 Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                         </Grid>
                     </Border>

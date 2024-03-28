@@ -62,7 +62,7 @@ namespace Expensier.WPF.DataObjects
             _assetService = assetService;
             _renavigator = renavigator;
 
-            DeleteCommand = new DeleteCryptoCommand( this, _assetService, _accountStore, _renavigator );
+            DeleteCommand = new DeleteAssetCommand( this, _assetService,  _renavigator, _accountStore );
         }
 
 

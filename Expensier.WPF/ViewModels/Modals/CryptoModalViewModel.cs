@@ -106,8 +106,8 @@ namespace Expensier.WPF.ViewModels.Modals
         {
             ErrorMessageViewModel = new MessageViewModel();
 
-            SearchSymbolCommand = new SearchCryptoCommand(this, cryptoService);
-            AddCryptoCommand = new AddCryptoCommand(this, cryptoService, accountStore, renavigator);
+            SearchSymbolCommand = new SearchAssetCommand(this, cryptoService);
+            AddCryptoCommand = new AddAssetCommand(this, cryptoService, renavigator, accountStore );
         }
     }
 }

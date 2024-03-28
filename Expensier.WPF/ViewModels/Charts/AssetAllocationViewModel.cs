@@ -1,6 +1,6 @@
 ﻿using Expensier.WPF.DataObjects;
 using Expensier.WPF.State.Assets;
-using Expensier.WPF.ViewModels.Cryptos;
+using Expensier.WPF.ViewModels.Assets;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Microsoft.IdentityModel.Tokens;

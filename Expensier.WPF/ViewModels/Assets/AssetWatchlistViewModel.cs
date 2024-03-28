@@ -3,11 +3,11 @@ using Expensier.WPF.State.Assets;
 using System.Linq;
 
 
-namespace Expensier.WPF.ViewModels.Cryptos
+namespace Expensier.WPF.ViewModels.Assets
 {
-    public class CryptoWatchlistViewModel : CryptoWatchlistBaseViewModel
+    public class AssetWatchlistViewModel : AssetWatchlistBaseViewModel
     {
-        public CryptoWatchlistViewModel( AssetStore assetStore, IAssetService assetService ) : base( 
+        public AssetWatchlistViewModel( AssetStore assetStore, IAssetService assetService ) : base( 
             assetStore, 
             assetService,
             assets => assets

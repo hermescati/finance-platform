@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Expensier.WPF.ViewModels.Cryptos
+namespace Expensier.WPF.ViewModels.Assets
 {
     public class PortfolioValueViewModel : ViewModelBase
     {

@@ -18,7 +18,6 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!--#region Total-->
         <Grid
             Grid.Column="0"
             HorizontalAlignment="Center"
@@ -29,32 +28,31 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+            <!--  Total Header  -->
             <TextBlock
                 Grid.Row="0"
                 HorizontalAlignment="Center"
                 Style="{StaticResource Header6}"
                 Text="Total" />
 
+            <!--  Total Value  -->
             <TextBlock
                 Grid.Row="2"
                 HorizontalAlignment="Center"
                 Style="{StaticResource Header4}"
                 Text="{Binding TotalExpenditure, StringFormat='C0'}" />
         </Grid>
-        <!--#endregion-->
 
-        <!--#region Chart-->
+        <!--  Chart  -->
         <charts:PieChart
             Grid.Column="0"
             Width="280"
             Height="280"
             InitialRotation="-90"
             Series="{Binding Series}" />
-        <!--#endregion-->
 
-        <!--#region Legend-->
+        <!--  Legend  -->
         <local:ChartLegend Grid.Column="2" />
-        <!--#endregion-->
 
     </Grid>
 
