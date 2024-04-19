@@ -101,5 +101,11 @@ namespace Expensier.API.Services
 
             return historicalData;
         }
+
+
+        public double GetAssetValue( double quantityOwned, double currentPrice )
+        {
+            return quantityOwned * currentPrice;
+        }
     }
 }

@@ -32,6 +32,10 @@ namespace Expensier.Domain.Services
 
         Task<Asset> FetchCryptoAsset( string cryptoID );
 
+
         Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData( string cryptoID );
+
+
+        double GetAssetValue( double quantityOwned, double currentPrice );
     }
 }

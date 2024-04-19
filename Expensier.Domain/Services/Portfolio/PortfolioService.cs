@@ -10,15 +10,15 @@ namespace Expensier.Domain.Services.Portfolio
     public class PortfolioService : IPortfolioService
     {
         private readonly IDataService<Account> _accountService;
-        private readonly IAssetService _cryptoService;
+        private readonly IAssetService _assetService;
 
-        public PortfolioService(IDataService<Account> accountService, IAssetService cryptoService)
+        public PortfolioService( IDataService<Account> accountService, IAssetService assetService )
         {
             _accountService = accountService;
-            _cryptoService = cryptoService;
+            _assetService = assetService;
         }
 
-        public async Task<double> GetPortfolioReturn(Account currentAccount)
+        public async Task<double> GetPortfolioReturn( Account currentAccount )
         {
             double portfolioReturn = 0;
             IEnumerable<AssetTransaction> cryptoAssets = currentAccount.AssetList;
@@ -34,30 +34,35 @@ namespace Expensier.Domain.Services.Portfolio
             return portfolioReturn;
         }
 
-        public double GetMarketValue(Account currentAccount)
+        public double GetPortfolioValue( Account currentAccount )
         {
             double marketValue = 0;
-            IEnumerable<AssetTransaction> cryptoAssets = currentAccount.AssetList;
-            
-            //foreach(AssetTransaction asset in cryptoAssets)
-            //{
-            //    marketValue += _cryptoService.GetMarketValue(asset.Asset.CurrentPrice, asset.QuantityOwned);
-            //}
+            IEnumerable<AssetTransaction>? assets = currentAccount.AssetList;
+
+            if ( assets?.Any() != true )
+            {
+                return marketValue;
+            }
+
+            foreach ( AssetTransaction asset in assets )
+            {
+                marketValue += _assetService.GetAssetValue( asset.QuantityOwned, asset.Asset.CurrentPrice );
+            }
 
             return marketValue;
         }
 
-        public double GetCryptoWeight(Account currentAccount, AssetTransaction currentCrypto)
+        public double GetCryptoWeight( Account currentAccount, AssetTransaction currentCrypto )
         {
-            double portfolioMarketValue = GetMarketValue(currentAccount);
+            double portfolioMarketValue = GetPortfolioValue( currentAccount );
             //double cryptoMarketValue = _cryptoService.GetMarketValue(currentCrypto.Asset.CurrentPrice, currentCrypto.QuantityOwned );
 
             return portfolioMarketValue;
         }
 
-        public async Task<Account> StoreReturns(Account currentAccount)
+        public async Task<Account> StoreReturns( Account currentAccount )
         {
-            double portfolioReturn = await GetPortfolioReturn(currentAccount);
+            double portfolioReturn = await GetPortfolioReturn( currentAccount );
 
             PortfolioReturn newReturn = new PortfolioReturn()
             {
@@ -66,9 +71,9 @@ namespace Expensier.Domain.Services.Portfolio
                 ReturnPercentage = portfolioReturn
             };
 
-            currentAccount.PortfolioReturn.Add(newReturn);
+            currentAccount.PortfolioReturn.Add( newReturn );
 
-            await _accountService.Update(currentAccount.ID, currentAccount);
+            await _accountService.Update( currentAccount.ID, currentAccount );
 
             return currentAccount;
         }

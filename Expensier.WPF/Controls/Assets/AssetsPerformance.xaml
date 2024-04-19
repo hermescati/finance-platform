@@ -28,14 +28,14 @@
                             x:Name="Glow"
                             Margin="-4"
                             BorderThickness="4"
-                            CornerRadius="18">
+                            CornerRadius="14">
                             <Border
                                 x:Name="Stroke"
                                 Padding="12"
                                 Background="{StaticResource Primary}"
                                 BorderBrush="{StaticResource Transparent}"
                                 BorderThickness="1.5"
-                                CornerRadius="16">
+                                CornerRadius="12">
                                 <ContentPresenter
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"

@@ -11,7 +11,7 @@ namespace Expensier.Domain.Services.Portfolio
     {
         Task<double> GetPortfolioReturn(Account currentAccount);
 
-        public double GetMarketValue(Account currentAccount);
+        public double GetPortfolioValue(Account currentAccount);
 
         public double GetCryptoWeight(Account currentAccount, AssetTransaction currentCrypto);
 
