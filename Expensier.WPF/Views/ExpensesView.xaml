@@ -49,7 +49,7 @@
                 </Popup>
                 <!--#endregion-->
 
-                <!--#region Expenses-->
+                <!--#region Tramsactions-->
                 <Grid Grid.Column="0" DataContext="{Binding TransactionViewModel}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -65,7 +65,7 @@
                     <TextBlock
                         Grid.Row="0"
                         Style="{StaticResource Header4}"
-                        Text="Expenses" />
+                        Text="Transactions" />
 
                     <!--  Navigation  -->
                     <Grid Grid.Row="2">
@@ -79,7 +79,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <!--  Add new  -->
+                        <!--  Add New  -->
                         <Button
                             Grid.Column="0"
                             Width="120"
@@ -89,14 +89,14 @@
                             Style="{StaticResource SquareButton}"
                             Tag="{StaticResource AddSelectedIcon}" />
 
-                        <!--  Search bar  -->
+                        <!--  Search Bar  -->
                         <controls:SearchBar
                             Grid.Column="2"
                             Height="44"
                             Text="{Binding SearchQuery}"
                             Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
-                        <!--  Sort menu  -->
+                        <!--  Sort Menu  -->
                         <ComboBox
                             Grid.Column="4"
                             Width="144"
@@ -115,7 +115,7 @@
                             </ComboBox.Style>
                         </ComboBox>
 
-                        <!--  Export  -->
+                        <!--  Export Button  -->
                         <Button
                             Grid.Column="6"
                             Width="44"
@@ -142,7 +142,7 @@
                         Icon="{StaticResource TransactionPlaceholderImage}"
                         Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                    <!--  Expenses List  -->
+                    <!--  Transactions  -->
                     <transactions:TransactionsList Grid.Row="4" Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                     <!--  Pagination  -->
@@ -194,7 +194,7 @@
                                 Style="{StaticResource SquareButton}"
                                 Tag="{StaticResource AddSelectedIcon}" />
 
-                            <!--  Canceled  -->
+                            <!--  Canceled Button  -->
                             <ToggleButton
                                 Grid.Column="2"
                                 Width="120"
@@ -207,7 +207,7 @@
                                 Style="{StaticResource ToggleButton}"
                                 Tag="{StaticResource CancelIcon}" />
 
-                            <!--  Sort menu  -->
+                            <!--  Sort Menu  -->
                             <ComboBox
                                 Grid.Column="4"
                                 Width="144"

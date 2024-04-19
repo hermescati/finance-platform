@@ -149,7 +149,10 @@
                         Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     <!--  Pie Chart  -->
-                    <charts:PieChart Grid.Row="2" Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+                    <charts:PieChart
+                        Grid.Row="2"
+                        TotalValue="{Binding TotalExpenditure}"
+                        Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                 </Grid>
                 <!--#endregion-->

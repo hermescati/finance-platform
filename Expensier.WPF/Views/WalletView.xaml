@@ -32,7 +32,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="32" />
+                    <RowDefinition Height="24" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
@@ -42,7 +42,6 @@
                 </Popup>
                 <!--#endregion-->
 
-                <!--#region Watchlist-->
                 <!--  Placeholder  -->
                 <TextBlock
                     Grid.Row="0"
@@ -59,19 +58,18 @@
                     Grid.Row="0"
                     DataContext="{Binding AssetWatchlistViewModel}"
                     Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
-                <!--#endregion-->
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="8*" />
+                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition Width="9*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="24" />
+                            <RowDefinition Height="16" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
@@ -178,7 +176,10 @@
                                 Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <!--  Pie Chart  -->
-                            <charts:PieChart Grid.Row="2" Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+                            <charts:PieChart
+                                Grid.Row="2"
+                                TotalValue="{Binding TotalValue}"
+                                Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                         </Grid>
                         <!--#endregion-->
 
@@ -190,8 +191,11 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="16" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="16" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
+                        <!--  Navigation  -->
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -199,23 +203,11 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock
-                                    Grid.Column="0"
-                                    Style="{StaticResource Header5}"
-                                    Text="Assets" />
-
-                                <TextBlock
-                                    Grid.Column="2"
-                                    Style="{StaticResource Header5}"
-                                    Text="Total value" />
-                            </Grid>
+                            <!--  Header  -->
+                            <TextBlock
+                                Grid.Row="0"
+                                Style="{StaticResource Header4}"
+                                Text="Assets" />
 
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
@@ -226,6 +218,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
+                                <!--  Add New  -->
                                 <Button
                                     Grid.Column="0"
                                     Width="120"
@@ -235,6 +228,7 @@
                                     Style="{StaticResource SquareButton}"
                                     Tag="{StaticResource AddSelectedIcon}" />
 
+                                <!--  Sort Menu  -->
                                 <ComboBox
                                     Grid.Column="2"
                                     Width="144"
@@ -252,13 +246,6 @@
                                         </Style>
                                     </ComboBox.Style>
                                 </ComboBox>
-
-                                <TextBlock
-                                    Grid.Column="4"
-                                    VerticalAlignment="Center"
-                                    DataContext="{Binding PortfolioValueViewModel}"
-                                    Style="{StaticResource Header4}"
-                                    Text="{Binding TotalValue, StringFormat='$ {0:#,##0.###}'}" />
                             </Grid>
                         </Grid>
 
@@ -271,9 +258,9 @@
                             Icon="{StaticResource CryptoPlaceholderImage}"
                             Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <!--  Asset List  -->
+                        <!--  Assets  -->
                         <assets:AssetsList
-                            Grid.Row="4"
+                            Grid.Row="2"
                             DataContext="{Binding AssetViewModel}"
                             Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                     </Grid>
