@@ -191,7 +191,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="16" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="16" />
+                            <RowDefinition Height="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -263,6 +263,74 @@
                             Grid.Row="2"
                             DataContext="{Binding AssetViewModel}"
                             Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
+                        <!--  Portfolio Details  -->
+                        <Grid Grid.Row="4" Height="144">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  Cryptocurrency Details  -->
+                            <Border
+                                Grid.Column="0"
+                                Padding="16"
+                                HorizontalAlignment="Stretch"
+                                Background="{StaticResource BackgroundGradient}"
+                                CornerRadius="16">
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="16" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image
+                                            Grid.Column="0"
+                                            Width="48"
+                                            Height="48"
+                                            Source="{StaticResource AppIcon}" />
+
+                                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                            <TextBlock
+                                                Margin="0,0,0,4"
+                                                Style="{StaticResource Header6}"
+                                                Text="Cryptocurrencies" />
+
+                                            <TextBlock Style="{StaticResource BodyText}" Text="Total Value: $646.00" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Style="{StaticResource BodyText}"
+                                        Text="Return from cryptos: ##.##%" />
+                                </Grid>
+                            </Border>
+
+                            <!--  Stocks Details  -->
+                            <Border
+                                Grid.Column="2"
+                                Padding="24,26"
+                                HorizontalAlignment="Stretch"
+                                Background="{StaticResource BackgroundGradient}"
+                                CornerRadius="16">
+                                <Image
+                                    Width="64"
+                                    Height="64"
+                                    Source="{StaticResource AppIcon}" />
+                            </Border>
+
+                        </Grid>
                     </Grid>
                     <!--#endregion-->
 
