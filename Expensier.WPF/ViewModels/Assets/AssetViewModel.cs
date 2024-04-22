@@ -144,7 +144,7 @@ namespace Expensier.WPF.ViewModels.Assets
 
         private async Task ConstructSeries( AssetModel asset )
         {
-            IEnumerable<HistoricalData> data = await _assetService.FetchCryptoHistoricalData( asset.Asset.ID );
+            IEnumerable<HistoricalData> data = await _assetService.GetHistoricalData( asset.Asset.ID );
 
             if ( data.IsNullOrEmpty() )
                 return;

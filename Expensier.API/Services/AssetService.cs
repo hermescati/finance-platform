@@ -79,10 +79,10 @@ namespace Expensier.API.Services
         }
 
 
-        public async Task<Asset> FetchCryptoAsset( string cryptoID )
+        public async Task<Asset> GetAsset( string cryptoID )
         {
             string URI = $"coins/{cryptoID}";
-            Asset cryptoAsset = await _client.GetCryptoAsset( URI );
+            Asset cryptoAsset = await _client.FetchCryptoAsset( URI );
 
             if ( cryptoAsset == null || cryptoAsset.CurrentPrice == 0 )
                 throw new InvalidSymbolException( cryptoID );
@@ -91,10 +91,10 @@ namespace Expensier.API.Services
         }
 
 
-        public async Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData( string cryptoID )
+        public async Task<IEnumerable<HistoricalData>> GetHistoricalData( string cryptoID )
         {
             string URI = $"coins/{cryptoID}/market_chart?vs_currency=usd&days={2}";
-            IEnumerable<HistoricalData> historicalData = await _client.GetCryptoHistoricalData( URI );
+            IEnumerable<HistoricalData> historicalData = await _client.FetchCryptoHistoricalData( URI );
 
             if ( historicalData == null )
                 return default;
@@ -103,9 +103,16 @@ namespace Expensier.API.Services
         }
 
 
-        public double GetAssetValue( double quantityOwned, double currentPrice )
+        public async Task<double> GetROI( AssetTransaction asset )
         {
-            return quantityOwned * currentPrice;
+            string? formattedDate = asset.PurchaseDate?.ToString( "dd-MM-yyyy" );
+            string URI = $"coins/{asset.Asset.ID}/history?date={formattedDate}&localization=false";
+            double historicalPrice = await _client.FetchCryptoHistoricalPrice( URI );
+
+            if ( historicalPrice == 0 )
+                return default;
+
+            return ( asset.Asset.CurrentPrice / historicalPrice - 1 );
         }
     }
 }

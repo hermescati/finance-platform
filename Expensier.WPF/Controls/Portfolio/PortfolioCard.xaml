@@ -104,7 +104,7 @@
                         Grid.Column="2"
                         FontWeight="Bold"
                         Style="{StaticResource MediumText}"
-                        Text="{Binding InvestmentReturn, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat='p2'}" />
+                        Text="{Binding InvestmentReturn, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat='p3'}" />
                 </Grid>
 
             </Grid>

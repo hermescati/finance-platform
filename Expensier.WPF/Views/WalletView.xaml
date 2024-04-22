@@ -266,7 +266,10 @@
                             Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                         <!--  Portfolio Details  -->
-                        <Grid Grid.Row="4" Height="144">
+                        <Grid
+                            Grid.Row="4"
+                            Height="144"
+                            DataContext="{Binding PortfolioValueViewModel}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="16" />
@@ -278,9 +281,9 @@
                                 Grid.Column="0"
                                 Header="Cryptocurrency"
                                 Icon="/Assets/Images/crypto_coin.png"
-                                InitialInvestment="200"
-                                InvestmentReturn="0.2"
-                                TotalValue="640" />
+                                InitialInvestment="{Binding CryptosInvestment}"
+                                InvestmentReturn="{Binding CryptosROI}"
+                                TotalValue="{Binding CryptosValue}" />
 
                             <!--  Stocks Details  -->
                             <controls:PortfolioCard

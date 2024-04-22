@@ -30,12 +30,12 @@ namespace Expensier.Domain.Services
             Guid assetTransactionID );
 
 
-        Task<Asset> FetchCryptoAsset( string cryptoID );
+        Task<Asset> GetAsset( string cryptoID );
 
 
-        Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData( string cryptoID );
+        Task<IEnumerable<HistoricalData>> GetHistoricalData( string cryptoID );
 
 
-        double GetAssetValue( double quantityOwned, double currentPrice );
+        Task<double> GetROI( AssetTransaction asset );
     }
 }
