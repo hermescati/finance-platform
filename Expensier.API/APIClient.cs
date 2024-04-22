@@ -3,6 +3,7 @@ using Expensier.Domain.Models;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using RestSharp;
 
 
 namespace Expensier.API
@@ -20,18 +21,24 @@ namespace Expensier.API
         }
 
 
-        public async Task<Asset> GetCryptoAsset( string URI )
+        public async Task<Asset> FetchCryptoAsset( string URI )
         {
             try
             {
-                HttpResponseMessage response = await _client.GetAsync( URI );
+                var uri = "https://api.coingecko.com/api/v3/" + URI;
+                var options = new RestClientOptions( uri );
+                var client = new RestClient( options );
+                var request = new RestRequest( "" );
 
-                if ( !response.IsSuccessStatusCode )
+                request.AddHeader( "accept", "application/json" );
+                request.AddHeader( "x-cg-demo-api-key", "CG-jfN74xRc93dnGykXBUqND1Cv\t" );
+
+                var response = await client.GetAsync( request );
+
+                if ( !response.IsSuccessful || response.Content == null )
                     return default;
 
-                string jsonResponse = await response.Content.ReadAsStringAsync();
-                dynamic data = JObject.Parse( jsonResponse );
-
+                dynamic data = JObject.Parse( response.Content );
                 Asset newAsset = new Asset()
                 {
                     ID = data.id,
@@ -52,34 +59,67 @@ namespace Expensier.API
         }
 
 
-        public async Task<IEnumerable<HistoricalData>> GetCryptoHistoricalData( string URI )
+        public async Task<IEnumerable<HistoricalData>> FetchCryptoHistoricalData( string URI )
         {
             ObservableCollection<HistoricalData> list = new ObservableCollection<HistoricalData>();
 
             try
             {
-                HttpResponseMessage response = await _client.GetAsync( URI );
+                var uri = "https://api.coingecko.com/api/v3/" + URI;
+                var options = new RestClientOptions( uri );
+                var client = new RestClient( options );
+                var request = new RestRequest( "" );
 
-                if ( !response.IsSuccessStatusCode )
+                request.AddHeader( "accept", "application/json" );
+                request.AddHeader( "x-cg-demo-api-key", "CG-jfN74xRc93dnGykXBUqND1Cv\t" );
+
+                var response = await client.GetAsync( request );
+
+                if ( !response.IsSuccessful || response.Content == null )
                     return default;
 
-                string jsonResponse = await response.Content.ReadAsStringAsync();
-                dynamic data = JObject.Parse( jsonResponse );
+                dynamic data = JObject.Parse( response.Content );
 
-                var historicalData = data.prices;
-
-                foreach ( var record in historicalData )
+                foreach ( var priceRecord in data.prices )
                 {
                     HistoricalData newRecord = new HistoricalData()
                     {
-                        Date = DateTimeOffset.FromUnixTimeMilliseconds( (long) record[0] ).DateTime,
-                        Price = (double) record[1]
+                        Date = DateTimeOffset.FromUnixTimeMilliseconds( ( long ) priceRecord[0] ).DateTime,
+                        Price = ( double ) priceRecord[1]
                     };
 
                     list.Add( newRecord );
                 }
 
                 return list;
+            }
+            catch ( Exception e )
+            {
+                Trace.TraceError( e.Message );
+                return default;
+            }
+        }
+
+
+        public async Task<double> FetchCryptoHistoricalPrice( string URI )
+        {
+            try
+            {
+                var uri = "https://api.coingecko.com/api/v3/" + URI;
+                var options = new RestClientOptions( uri );
+                var client = new RestClient( options );
+                var request = new RestRequest( "" );
+
+                request.AddHeader( "accept", "application/json" );
+                request.AddHeader( "x-cg-demo-api-key", "CG-jfN74xRc93dnGykXBUqND1Cv\t" );
+
+                var response = await client.GetAsync( request );
+
+                if ( !response.IsSuccessful || response.Content == null )
+                    return default;
+
+                dynamic data = JObject.Parse( response.Content );
+                return data.market_data.current_price.usd;
             }
             catch ( Exception e )
             {

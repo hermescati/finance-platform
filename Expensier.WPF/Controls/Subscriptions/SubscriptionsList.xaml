@@ -167,7 +167,7 @@
                         Height="40"
                         Source="{Binding Name, Converter={StaticResource CompanyNameToLogoConverter}}" />
 
-                    <Grid Grid.Column="2">
+                    <Grid Grid.Column="2" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />

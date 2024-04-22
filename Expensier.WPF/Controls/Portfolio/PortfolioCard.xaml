@@ -1,0 +1,142 @@
+﻿<UserControl
+    x:Class="Expensier.WPF.Controls.Portfolio.PortfolioCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:Expensier.WPF.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    mc:Ignorable="d">
+
+
+    <UserControl.Resources>
+        <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </UserControl.Resources>
+
+
+    <Border
+        Padding="12"
+        Background="{StaticResource BackgroundShade}"
+        CornerRadius="24">
+
+        <Grid>
+            <!--  Placeholder  -->
+            <StackPanel
+                Grid.RowSpan="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Visibility="{Binding TotalValue, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Inverse}">
+
+                <Image
+                    Width="64"
+                    Height="64"
+                    Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+                <TextBlock
+                    Margin="16,8"
+                    Foreground="{StaticResource ForegroundShade}"
+                    Style="{StaticResource BodyText}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap">
+                    <Run Text="Looks like you haven't added any" />
+                    <Run Text="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat='{}{0}'}" />
+                    <Run Text="to your portfolio yet!" />
+                </TextBlock>
+            </StackPanel>
+
+            <!--  Content  -->
+            <Grid Visibility="{Binding TotalValue, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource NullToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--  Header  -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="8" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Icon  -->
+                    <Image
+                        Grid.Column="0"
+                        Width="64"
+                        Height="64"
+                        Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                        <!--  Header  -->
+                        <TextBlock
+                            Margin="0,0,0,2"
+                            Style="{StaticResource Header5}"
+                            Text="{Binding Header, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+                        <!--  Total Value  -->
+                        <TextBlock Foreground="{StaticResource ForegroundShade}" Style="{StaticResource BodyText}">
+                            <Run Text="Total Value: " />
+                            <Run FontWeight="Black" Text="{Binding TotalValue, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat='c'}" />
+                        </TextBlock>
+                    </StackPanel>
+
+                </Grid>
+
+                <!--  Body  -->
+                <Grid Grid.Row="2" Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="4" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Initial Investment  -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Foreground="{StaticResource ForegroundShade}"
+                            Style="{StaticResource BodyText}"
+                            Text="Initial Investment" />
+
+                        <TextBlock
+                            Grid.Column="2"
+                            FontWeight="Black"
+                            Style="{StaticResource BodyText}"
+                            Text="{Binding InitialInvestment, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat='c'}" />
+                    </Grid>
+
+                    <!--  Return on Investment  -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Foreground="{StaticResource ForegroundShade}"
+                            Style="{StaticResource BodyText}"
+                            Text="Return on Investment (ROI)" />
+
+                        <TextBlock
+                            Grid.Column="2"
+                            FontWeight="Black"
+                            Style="{StaticResource BodyText}"
+                            Text="{Binding InvestmentReturn, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat='p2'}" />
+                    </Grid>
+
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Border>
+</UserControl>

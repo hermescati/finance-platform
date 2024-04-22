@@ -3,7 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:assets="clr-namespace:Expensier.WPF.Controls.Assets"
-    xmlns:charts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:charts="clr-namespace:Expensier.WPF.Controls.Charts"
+    xmlns:controls="clr-namespace:Expensier.WPF.Controls.Portfolio"
     xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
@@ -27,12 +28,12 @@
             Height="Auto"
             Padding="40"
             Background="{StaticResource Primary}"
-            CornerRadius="24">
+            CornerRadius="16">
 
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="32" />
+                    <RowDefinition Height="24" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
@@ -42,7 +43,6 @@
                 </Popup>
                 <!--#endregion-->
 
-                <!--#region Watchlist-->
                 <!--  Placeholder  -->
                 <TextBlock
                     Grid.Row="0"
@@ -59,23 +59,22 @@
                     Grid.Row="0"
                     DataContext="{Binding AssetWatchlistViewModel}"
                     Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
-                <!--#endregion-->
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="8*" />
+                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition Width="9*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="2*" />
-                            <RowDefinition Height="80" />
-                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="16" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <!--#region Portfolio-->
+                        <!--#region Performance-->
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -85,7 +84,7 @@
 
                             <TextBlock
                                 Grid.Row="0"
-                                Style="{StaticResource Header5}"
+                                Style="{StaticResource Header4}"
                                 Text="Portfolio performance" />
 
                             <!--  Placeholder  -->
@@ -157,7 +156,7 @@
                         <!--#endregion-->
 
                         <!--#region Asset Allocation-->
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="2" DataContext="{Binding AssetAllocationViewModel}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="8" />
@@ -166,7 +165,7 @@
 
                             <TextBlock
                                 Grid.Row="0"
-                                Style="{StaticResource Header5}"
+                                Style="{StaticResource Header4}"
                                 Text="Asset allocation" />
 
                             <!--  Placeholder  -->
@@ -174,49 +173,14 @@
                                 Title="It looks a bit empty here!"
                                 Grid.Row="2"
                                 Body="Add your first asset to have a better overview of your asset allocation!"
-                                DataContext="{Binding AssetAllocationViewModel}"
                                 Icon="{StaticResource GraphPlaceholderImage}"
-                                Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                            <!--  Asset Allocation Graph  -->
-                            <!--<charts:PieChart
+                            <!--  Pie Chart  -->
+                            <charts:PieChart
                                 Grid.Row="2"
-                                Width="477"
-                                Height="220"
-                                Margin="-24,0,0,0"
-                                DataContext="{Binding AssetAllocationViewModel}"
-                                InnerRadius="56"
-                                LegendLocation="Right"
-                                Series="{Binding Series}"
-                                SeriesColors="{Binding SeriesColors, Mode=OneWay}"
-                                Visibility="{Binding ListNotEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
-
-                                <charts:PieChart.ChartLegend>
-                                    <charts:DefaultLegend
-                                        Width="164"
-                                        Height="220"
-                                        Margin="48,0,0,0"
-                                        BulletSize="32"
-                                        FontFamily="SF Pro Display"
-                                        FontSize="15"
-                                        FontWeight="Medium"
-                                        Foreground="{StaticResource InactiveColor}" />
-                                </charts:PieChart.ChartLegend>
-
-                                <charts:PieChart.DataTooltip>
-                                    <charts:DefaultTooltip
-                                        Background="{StaticResource ForegroundColor}"
-                                        CornerRadius="8"
-                                        FontFamily="SF Pro Display"
-                                        FontSize="15"
-                                        FontWeight="Bold"
-                                        Foreground="{StaticResource SecondaryColor}"
-                                        SelectionMode="OnlySender"
-                                        ShowSeries="False"
-                                        ShowTitle="False" />
-                                </charts:PieChart.DataTooltip>
-
-                            </charts:PieChart>-->
+                                TotalValue="{Binding TotalValue}"
+                                Visibility="{Binding AssetViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
                         </Grid>
                         <!--#endregion-->
 
@@ -228,8 +192,11 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="16" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="8" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
+                        <!--  Navigation  -->
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -237,23 +204,11 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock
-                                    Grid.Column="0"
-                                    Style="{StaticResource Header5}"
-                                    Text="Assets" />
-
-                                <TextBlock
-                                    Grid.Column="2"
-                                    Style="{StaticResource Header5}"
-                                    Text="Total value" />
-                            </Grid>
+                            <!--  Header  -->
+                            <TextBlock
+                                Grid.Row="0"
+                                Style="{StaticResource Header4}"
+                                Text="Assets" />
 
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
@@ -264,6 +219,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
+                                <!--  Add New  -->
                                 <Button
                                     Grid.Column="0"
                                     Width="120"
@@ -273,6 +229,7 @@
                                     Style="{StaticResource SquareButton}"
                                     Tag="{StaticResource AddSelectedIcon}" />
 
+                                <!--  Sort Menu  -->
                                 <ComboBox
                                     Grid.Column="2"
                                     Width="144"
@@ -290,13 +247,6 @@
                                         </Style>
                                     </ComboBox.Style>
                                 </ComboBox>
-
-                                <TextBlock
-                                    Grid.Column="4"
-                                    VerticalAlignment="Center"
-                                    DataContext="{Binding PortfolioValueViewModel}"
-                                    Style="{StaticResource Header4}"
-                                    Text="{Binding TotalValue, StringFormat='$ {0:#,##0.###}'}" />
                             </Grid>
                         </Grid>
 
@@ -309,11 +259,38 @@
                             Icon="{StaticResource CryptoPlaceholderImage}"
                             Visibility="{Binding ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <!--  Asset List  -->
+                        <!--  Assets  -->
                         <assets:AssetsList
-                            Grid.Row="4"
+                            Grid.Row="2"
                             DataContext="{Binding AssetViewModel}"
                             Visibility="{Binding ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+
+                        <!--  Portfolio Details  -->
+                        <Grid Grid.Row="4" DataContext="{Binding PortfolioValueViewModel}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  Cryptocurrency Details  -->
+                            <controls:PortfolioCard
+                                Grid.Column="0"
+                                Header="Cryptos"
+                                Icon="/Assets/Images/crypto_coin.png"
+                                InitialInvestment="{Binding CryptosInvestment}"
+                                InvestmentReturn="{Binding CryptosROI}"
+                                TotalValue="{Binding CryptosValue}" />
+
+                            <!--  Stocks Details  -->
+                            <controls:PortfolioCard
+                                Grid.Column="2"
+                                Header="Stocks"
+                                Icon="/Assets/Images/fiat_coin.png"
+                                InitialInvestment="200"
+                                InvestmentReturn="0.3"
+                                TotalValue="0" />
+                        </Grid>
                     </Grid>
                     <!--#endregion-->
 

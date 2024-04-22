@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Expensier.WPF.Controls.Charts
 {
-    /// <summary>
-    /// Interaction logic for PieChart.xaml
-    /// </summary>
     public partial class PieChart : UserControl
     {
+        public static readonly DependencyProperty TotalValueProperty = 
+            DependencyProperty.Register(
+                "TotalValue", 
+                typeof( double ), 
+                typeof( PieChart ), 
+                new PropertyMetadata( default( double ) ) );
+
+        public double TotalValue
+        {
+            get => ( double ) GetValue( TotalValueProperty );
+            set => SetValue( TotalValueProperty, value );
+        }
+
+
         public PieChart()
         {
             InitializeComponent();

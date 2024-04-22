@@ -1,38 +1,66 @@
-﻿using Expensier.Domain.Services.Portfolio;
+﻿using Expensier.Domain.Models;
+using Expensier.Domain.Services.Portfolio;
 using Expensier.WPF.State.Accounts;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.WPF.ViewModels.Assets
 {
     public class PortfolioValueViewModel : ViewModelBase
     {
         private readonly IPortfolioService _portfolioService;
-        private readonly AccountStore _accountStore; 
+        private readonly AccountStore _accountStore;
+        private IEnumerable<AssetTransaction> _assets;
 
-        private double _totalValue;
-        public double TotalValue
+
+        private double _cryptosValue;
+        public double CryptosValue
         {
-            get
-            {
-                return _totalValue;
-            }
+            get => _cryptosValue;
             set
             {
-                _totalValue = value;
-                OnPropertyChanged(nameof(TotalValue));
+                _cryptosValue = value;
+                OnPropertyChanged( nameof( CryptosValue ) );
             }
         }
 
-        public PortfolioValueViewModel(IPortfolioService portfolioService, AccountStore accountStore)
+        private double _cryptosInvestment;
+        public double CryptosInvestment
         {
-            _portfolioService = portfolioService; 
-            _accountStore = accountStore;
+            get => _cryptosInvestment;
+            set
+            {
+                _cryptosInvestment = value;
+                OnPropertyChanged( nameof( CryptosInvestment ) );
+            }
+        }
 
-            TotalValue = _portfolioService.GetMarketValue(_accountStore.CurrentAccount);
+        private double _cryptosROI;
+        public double CryptosROI
+        {
+            get => _cryptosROI;
+            set
+            {
+                _cryptosROI = value;
+                OnPropertyChanged( nameof( CryptosROI ) );
+            }
+        }
+
+
+        public PortfolioValueViewModel( IPortfolioService portfolioService, AccountStore accountStore )
+        {
+            _portfolioService = portfolioService;
+            _accountStore = accountStore;
+            _assets = _accountStore.CurrentAccount.AssetList;
+
+            IEnumerable<AssetTransaction> cryptos = _assets.Where( a => a.Category == AssetTransaction.AssetType.Cryptocurrency );
+            
+            double portfolioValue = _portfolioService.FindTotalValue( _assets );
+
+            CryptosValue = _portfolioService.FindTotalValue( cryptos );
+            CryptosInvestment = _portfolioService.FindInitialInvestment( cryptos );
+            CryptosROI = CryptosValue / CryptosInvestment - 1;
         }
     }
 }

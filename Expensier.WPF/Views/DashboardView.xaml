@@ -31,7 +31,7 @@
         Height="Auto"
         Padding="40"
         Background="{StaticResource Primary}"
-        CornerRadius="24">
+        CornerRadius="16">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -149,7 +149,10 @@
                         Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     <!--  Pie Chart  -->
-                    <charts:PieChart Grid.Row="2" Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
+                    <charts:PieChart
+                        Grid.Row="2"
+                        TotalValue="{Binding TotalExpenditure}"
+                        Visibility="{Binding TransactionViewModel.ListEmpty, Converter={StaticResource ReverseBooleanToVisibilityConverter}}" />
 
                 </Grid>
                 <!--#endregion-->
@@ -233,9 +236,9 @@
                     <Border
                         Grid.Row="2"
                         MinHeight="200"
-                        Padding="48,16,16,16"
+                        Padding="16"
                         Background="{StaticResource BackgroundGradient}"
-                        CornerRadius="24">
+                        CornerRadius="16">
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -245,7 +248,10 @@
                             </Grid.ColumnDefinitions>
 
                             <!--  Header  -->
-                            <Grid Grid.Column="0" VerticalAlignment="Center">
+                            <Grid
+                                Grid.Column="0"
+                                Margin="32,0,0,0"
+                                VerticalAlignment="Center">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />

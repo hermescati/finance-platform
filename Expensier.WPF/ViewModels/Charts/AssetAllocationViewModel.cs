@@ -1,106 +1,128 @@
-﻿using Expensier.WPF.DataObjects;
+﻿using Expensier.Domain.Services;
+using Expensier.WPF.DataObjects;
 using Expensier.WPF.State.Assets;
+using Expensier.WPF.Utils;
 using Expensier.WPF.ViewModels.Assets;
-using LiveCharts;
-using LiveCharts.Wpf;
-using Microsoft.IdentityModel.Tokens;
-using System;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
+
 
 namespace Expensier.WPF.ViewModels.Charts
 {
     public class AssetAllocationViewModel : ViewModelBase
     {
-        private readonly AssetStore _cryptoStore;
-        private readonly IEnumerable<AssetModel> _cryptos;
-        public AssetViewModel CryptoViewModel { get; }
-        public IEnumerable<AssetModel> Cryptos => _cryptos;
+        private readonly AssetStore _assetStore;
+        public AssetViewModel AssetViewModel { get; }
 
-        private bool _listEmpty;
-        public bool ListEmpty
+
+        private readonly IEnumerable<AssetModel> _assets;
+        public IEnumerable<AssetModel> Assets => _assets;
+
+        private readonly ObservableCollection<ISeries> _series;
+        public IEnumerable<ISeries> Series => _series;
+
+        private readonly ObservableCollection<ChartModel> _legend;
+        public IEnumerable<ChartModel> Legend => _legend;
+
+
+        private double _totalValue;
+        public double TotalValue
         {
-            get
-            {
-                return _listEmpty;
-            }
+            get => _totalValue;
             set
             {
-                _listEmpty = value;
-                OnPropertyChanged(nameof(ListEmpty));
+                _totalValue = value;
+                OnPropertyChanged( nameof( TotalValue ) );
             }
         }
 
-        private bool _listNotEmpty;
-        public bool ListNotEmpty
+
+        public AssetAllocationViewModel( AssetStore assetStore )
         {
-            get
-            {
-                return _listNotEmpty;
-            }
-            set
-            {
-                _listNotEmpty = value;
-                OnPropertyChanged(nameof(ListNotEmpty));
-            }
+            _assetStore = assetStore;
+            _assets = new ObservableCollection<AssetModel>();
+            _series = new ObservableCollection<ISeries>();
+            _legend = new ObservableCollection<ChartModel>();
+
+            AssetViewModel = new AssetViewModel( assetStore,
+                assets => assets
+                .OrderBy( c => c.PurchaseDate ) );
+
+            _assets = AssetViewModel.Assets;
+
+            ConstructChart( _assets );
         }
 
-        public SeriesCollection Series { get; }
-        public ColorsCollection SeriesColors { get; }
 
-        public AssetAllocationViewModel(AssetStore cryptoStore)
+        private void ConstructChart( IEnumerable<AssetModel> assets )
         {
-            _cryptos = new ObservableCollection<AssetModel>();
+            _series.Clear();
 
-            Series = new SeriesCollection();
-            SeriesColors = new ColorsCollection();
+            List<ChartModel> grouppedAssets = assets
+                .GroupBy( a => a.Asset.Symbol )
+                .Select( g => new ChartModel(
+                    label: g.Key.ToString().ToUpper(),
+                    percentage: g.Sum( a => a.TotalValue ),
+                    detailedLabel: g.Select( a => a.Asset.Name ).FirstOrDefault() ) )
+                .OrderByDescending( g => g.SeriesValue )
+                .ToList();
 
-            _cryptoStore = cryptoStore;
-            CryptoViewModel = new AssetViewModel(cryptoStore,
-                cryptos => cryptos
-                .OrderBy(c => c.PurchaseDate));
-
-            _cryptos = CryptoViewModel.Assets;
-
-            if (_cryptos.IsNullOrEmpty())
+            if ( grouppedAssets.Count() > 5 )
             {
-                _listEmpty = true;
-                _listNotEmpty = false;
-            }
-            else
-            {
-                _listEmpty = false;
-                _listNotEmpty = true;
+                double otherAssetsValue = grouppedAssets.Skip( 5 ).Sum( g => g.SeriesValue );
+                grouppedAssets = grouppedAssets.Take( 5 ).ToList();
+                grouppedAssets.Add( new ChartModel( "Others", otherAssetsValue ) );
             }
 
-            ConstructChart(_cryptos);
-        }
+            TotalValue = grouppedAssets.Sum( a => a.SeriesValue );
 
-        private void ConstructChart(IEnumerable<AssetModel> cryptos)
-        {
-            Series.Clear();
-            Series.AddRange(cryptos
-                .GroupBy(c => c.Asset.Symbol)
-                .Select(g => new PieSeries
+            foreach ( ChartModel group in grouppedAssets )
+            {
+                int index = grouppedAssets.IndexOf( group );
+
+                ISeries pieSeries = new PieSeries<double>
                 {
-                    Title = g.Key.ToString(),
-                    Values = new ChartValues<double>(new[]
-                    {
-                        g.Sum(c => c.PurchasePrice)
-                    }),
-                    Stroke = new SolidColorBrush(Color.FromArgb(255, 27, 25, 27)),
-                    StrokeThickness = 8
-                }));
+                    Name = group.SeriesLabel == "Others" 
+                        ? group.SeriesLabel 
+                        : $"{group.DetailedLabel} ({group.SeriesLabel})",
+                    Values = new ObservableCollection<double> { group.SeriesValue },
+                    Fill = new SolidColorPaint( ChartSettings.ApplyPieChartColor( index ) ),
+                    OuterRadiusOffset = ChartSettings.outerRadiusOffset,
+                    MaxRadialColumnWidth = ChartSettings.maxRadialColumnWidth,
+                    ToolTipLabelFormatter = ( chartPoint ) => $"{group.SeriesValue:C2}",
+                };
 
-            SeriesColors.Clear();
-            SeriesColors.AddRange(new[] { "#FFA7DDBC", "#FF64927C", "#FF497F76", "#FF255F5B", "#FF3C5549", "#FF2C3E35" }
-                      .Select(ColorConverter.ConvertFromString)
-                      .OfType<Color>()
-                      .ToList());
+                _series.Add( pieSeries );
+
+                ConstructLegend( _series );
+            }
+        }
+
+
+        private void ConstructLegend( ObservableCollection<ISeries> seriesCollection )
+        {
+            _legend.Clear();
+
+            foreach ( ISeries series in seriesCollection )
+            {
+                int index = seriesCollection.IndexOf( series );
+
+                double assetValue = series.Values.Cast<double>().ToList()[0];
+                SKColor seriesColor = ChartSettings.ApplyPieChartColor( index );
+
+                ChartModel legendData = new ChartModel(
+                    label: series.Name,
+                    percentage: assetValue / TotalValue,
+                    color: new SolidColorBrush( Color.FromArgb( seriesColor.Alpha, seriesColor.Red, seriesColor.Green, seriesColor.Blue ) ) );
+
+                _legend.Add( legendData );
+            }
         }
     }
 }

@@ -1,20 +1,14 @@
 ﻿using Expensier.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Expensier.Domain.Services.Portfolio
 {
     public interface IPortfolioService
     {
-        Task<double> GetPortfolioReturn(Account currentAccount);
+        double FindTotalValue( IEnumerable<AssetTransaction> assets );
 
-        public double GetMarketValue(Account currentAccount);
+        double FindInitialInvestment( IEnumerable<AssetTransaction> assets );
 
-        public double GetCryptoWeight(Account currentAccount, AssetTransaction currentCrypto);
-
-        Task<Account> StoreReturns(Account currentAccount);
+        //Task<Account> StoreReturns( Account currentAccount );
     }
 }

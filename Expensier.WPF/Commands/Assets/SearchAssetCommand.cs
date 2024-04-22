@@ -26,7 +26,7 @@ namespace Expensier.WPF.Commands.Assets
 
             try
             {
-                Asset crypto = await _assetService.FetchCryptoAsset( _assetModalViewModel.CryptoSymbol );
+                Asset crypto = await _assetService.GetAsset( _assetModalViewModel.CryptoSymbol );
                 _assetModalViewModel.Crypto = crypto;
                 _assetModalViewModel.ValidSymbol = true;
             }

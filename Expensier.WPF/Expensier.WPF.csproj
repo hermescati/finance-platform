@@ -18,7 +18,9 @@
     <None Remove="Assets\Fonts\Lato-Regular.ttf" />
     <None Remove="Assets\Fonts\Lato-Thin.ttf" />
     <None Remove="Assets\Fonts\Lato-ThinItalic.ttf" />
+    <None Remove="Assets\Images\crypto_coin.png" />
     <None Remove="Assets\Images\default_profile_picture.png" />
+    <None Remove="Assets\Images\fiat_coin.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,7 +71,13 @@
     <Resource Include="Assets\Fonts\Lato-ThinItalic.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Images\crypto_coin.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Images\default_profile_picture.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\fiat_coin.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

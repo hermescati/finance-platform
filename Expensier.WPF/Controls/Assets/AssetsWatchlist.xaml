@@ -29,13 +29,13 @@
                             x:Name="Glow"
                             Margin="-4"
                             BorderThickness="4"
-                            CornerRadius="22">
+                            CornerRadius="18">
                             <Border
                                 x:Name="Stroke"
-                                Padding="16"
+                                Padding="16,12"
                                 Background="{StaticResource BackgroundGradient}"
                                 BorderThickness="1.5"
-                                CornerRadius="20">
+                                CornerRadius="16">
                                 <ContentPresenter
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -87,8 +87,8 @@
                     <!--  Icon  -->
                     <Image
                         Grid.Column="0"
-                        Width="32"
-                        Height="32"
+                        Width="28"
+                        Height="28"
                         VerticalAlignment="Center"
                         SnapsToDevicePixels="True"
                         Source="{Binding Asset.Image}"
@@ -104,20 +104,21 @@
                         <Grid Grid.Column="0" VerticalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="4" />
+                                <RowDefinition Height="2" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <!--  Current Price  -->
                             <TextBlock
                                 Grid.Row="0"
-                                FontWeight="Bold"
+                                FontWeight="Black"
                                 Style="{StaticResource MediumText}"
                                 Text="{Binding Asset.CurrentPrice, Converter={StaticResource AssetCurrentPriceConverter}}" />
 
                             <!--  Symbol  -->
                             <TextBlock
                                 Grid.Row="2"
+                                FontWeight="Bold"
                                 Foreground="{StaticResource ForegroundShade}"
                                 Style="{StaticResource SmallText}"
                                 Text="{Binding Asset.Symbol, Converter={StaticResource TextToUppercaseConverter}}" />
@@ -143,7 +144,7 @@
                             <!--  Chart  -->
                             <charts:CartesianChart
                                 Grid.Row="2"
-                                MinWidth="88"
+                                MinWidth="80"
                                 MinHeight="24"
                                 Margin="0,-4"
                                 DrawMargin="{Binding Margin}"
