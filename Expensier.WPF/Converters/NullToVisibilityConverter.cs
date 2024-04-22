@@ -8,36 +8,38 @@ namespace Expensier.WPF.Converters
 {
     public class NullToVisibilityConverter : IValueConverter
     {
-        public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
-        {
-            if ( value == null )
-                return Visibility.Collapsed;
-
-            if ( value is bool boolValue && !boolValue )
-                return Visibility.Collapsed;
-
-            if ( value is string stringValue && string.IsNullOrEmpty(stringValue) )
-                return Visibility.Collapsed;
-
-            if ( IsNumericType( value ) && ( double ) value == 0 )
-                return Visibility.Collapsed;
-
-            return Visibility.Visible;
-        }
-
-
-        public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
-        {
-            throw new NotImplementedException();
-        }
-
-
         private bool IsNumericType( object value )
         {
             return value is int ||
                    value is double ||
                    value is decimal ||
                    value is float;
+        }
+
+
+        public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
+        {
+            bool isInverse = parameter as string == "Inverse";
+
+            if ( value is null )
+                return isInverse ? Visibility.Visible : Visibility.Collapsed;
+
+            if ( value is bool boolValue )
+                return isInverse ? Visibility.Visible : Visibility.Collapsed;
+
+            if ( value is string stringValue && string.IsNullOrEmpty( stringValue ) )
+                return isInverse ? Visibility.Visible : Visibility.Collapsed;
+
+            if ( IsNumericType( value ) && (double) value == 0 )
+                return isInverse ? Visibility.Visible : Visibility.Collapsed;
+
+            return isInverse ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+
+        public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
+        {
+            throw new NotImplementedException();
         }
     }
 }

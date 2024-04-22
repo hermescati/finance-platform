@@ -9,10 +9,6 @@ namespace Expensier.Domain.Services.Portfolio
 
         double FindInitialInvestment( IEnumerable<AssetTransaction> assets );
 
-        Task<double> FindROI( IEnumerable<AssetTransaction> assets, double value );
-
-        //Task<Dictionary<string, double>> GetPorfolioDetails( Account currentAccount );
-
         //Task<Account> StoreReturns( Account currentAccount );
     }
 }

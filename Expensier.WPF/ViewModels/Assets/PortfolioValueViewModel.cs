@@ -3,7 +3,6 @@ using Expensier.Domain.Services.Portfolio;
 using Expensier.WPF.State.Accounts;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace Expensier.WPF.ViewModels.Assets
@@ -55,18 +54,13 @@ namespace Expensier.WPF.ViewModels.Assets
             _accountStore = accountStore;
             _assets = _accountStore.CurrentAccount.AssetList;
 
-            InitializeViewModelAsync();
-        }
-
-
-        private async Task InitializeViewModelAsync()
-        {
             IEnumerable<AssetTransaction> cryptos = _assets.Where( a => a.Category == AssetTransaction.AssetType.Cryptocurrency );
-            double totalValue = _portfolioService.FindTotalValue( _assets );
+            
+            double portfolioValue = _portfolioService.FindTotalValue( _assets );
 
             CryptosValue = _portfolioService.FindTotalValue( cryptos );
             CryptosInvestment = _portfolioService.FindInitialInvestment( cryptos );
-            CryptosROI = await _portfolioService.FindROI( cryptos, totalValue );
+            CryptosROI = CryptosValue / CryptosInvestment - 1;
         }
     }
 }
