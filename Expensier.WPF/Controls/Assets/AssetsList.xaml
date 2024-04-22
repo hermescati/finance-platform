@@ -2,7 +2,7 @@
     x:Class="Expensier.WPF.Controls.Assets.AssetsList"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:asses="clr-namespace:Expensier.WPF.Converters.Assets"
+    xmlns:assets="clr-namespace:Expensier.WPF.Converters.Assets"
     xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -14,10 +14,10 @@
     <UserControl.Resources>
         <converters:AssetCurrentPriceConverter x:Key="AssetCurrentPriceConverter" />
         <converters:TextToUppercaseConverter x:Key="TextToUppercaseConverter" />
-        <asses:QuantityOwnedFormatter x:Key="QuantityOwnedFormatted" />
+        <assets:QuantityOwnedFormatter x:Key="QuantityOwnedFormatted" />
 
 
-        <Style x:Key="CryptoViewItem" TargetType="{x:Type ListViewItem}">
+        <Style x:Key="AssetListItem" TargetType="{x:Type ListViewItem}">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="UseLayoutRounding" Value="True" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -25,38 +25,238 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
+
                         <Border
                             x:Name="Border"
                             Padding="0,16"
                             CornerRadius="16">
+
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                                <ContentPresenter
-                                    Grid.Column="0"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                    UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                                <!--  Visible Details  -->
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                <Button
-                                    x:Name="CTA"
-                                    Grid.Column="1"
-                                    Width="0"
-                                    Command="{Binding DeleteCommand}"
-                                    Opacity="0"
-                                    Style="{StaticResource InlineButton}"
-                                    Tag="{StaticResource DeleteIcon}" />
+                                    <Grid Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="16" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--  Icon  -->
+                                        <Image
+                                            Grid.Column="0"
+                                            Width="32"
+                                            Height="32"
+                                            Source="{Binding Asset.Image}" />
+
+                                        <Grid Grid.Column="2" VerticalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!--  Name  -->
+                                            <StackPanel Grid.Column="0" MinWidth="96">
+                                                <TextBlock
+                                                    Margin="0,0,0,2"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource Header6}"
+                                                    Text="{Binding Asset.Name}" />
+
+                                                <TextBlock
+                                                    Foreground="{StaticResource ForegroundShade}"
+                                                    Style="{StaticResource SmallText}"
+                                                    Text="{Binding Asset.Symbol, Converter={StaticResource TextToUppercaseConverter}}" />
+                                            </StackPanel>
+
+                                            <!--  Current Price  -->
+                                            <StackPanel Grid.Column="2" MinWidth="96">
+                                                <TextBlock
+                                                    Margin="0,0,0,2"
+                                                    Foreground="{StaticResource ForegroundShade}"
+                                                    Style="{StaticResource SmallText}"
+                                                    Text="Current Price" />
+
+                                                <TextBlock Style="{StaticResource Header6}" Text="{Binding Asset.CurrentPrice, Converter={StaticResource AssetCurrentPriceConverter}}" />
+                                            </StackPanel>
+
+                                            <!--  Quantity Owned  -->
+                                            <StackPanel Grid.Column="4" MinWidth="96">
+                                                <TextBlock
+                                                    Margin="0,0,0,2"
+                                                    Foreground="{StaticResource ForegroundShade}"
+                                                    Style="{StaticResource SmallText}"
+                                                    Text="Holdings" />
+
+                                                <TextBlock Style="{StaticResource Header6}" Text="{Binding QuantityOwned, Converter={StaticResource QuantityOwnedFormatted}}" />
+                                            </StackPanel>
+
+                                            <!--  Total Value  -->
+                                            <StackPanel Grid.Column="6" MinWidth="96">
+                                                <TextBlock
+                                                    Margin="0,0,0,2"
+                                                    HorizontalAlignment="Right"
+                                                    Foreground="{StaticResource ForegroundShade}"
+                                                    Style="{StaticResource SmallText}"
+                                                    Text="Total Value" />
+
+                                                <TextBlock
+                                                    HorizontalAlignment="Right"
+                                                    Style="{StaticResource Header6}"
+                                                    Text="{Binding TotalValue, StringFormat='c'}" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+
+                                    <!--  Show More Button  -->
+                                    <ToggleButton
+                                        x:Name="ShowMore"
+                                        Grid.Column="1"
+                                        Width="0"
+                                        Opacity="0"
+                                        Style="{StaticResource InlineButton}">
+                                        <ToggleButton.Tag>
+                                            <x:Array Type="DrawingImage">
+                                                <DrawingImage Drawing="{StaticResource ChevronDownVector}" />
+                                                <DrawingImage Drawing="{StaticResource ChevronUpVector}" />
+                                            </x:Array>
+                                        </ToggleButton.Tag>
+                                    </ToggleButton>
+                                </Grid>
+
+                                <!--  Hidden Details  -->
+                                <Grid
+                                    x:Name="HiddenDetails"
+                                    Grid.Row="2"
+                                    Margin="4,32,4,4"
+                                    Visibility="Collapsed">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--  Purchase Date  -->
+                                        <StackPanel Grid.Column="0" MinWidth="88">
+                                            <TextBlock
+                                                Margin="0,0,0,2"
+                                                Foreground="{StaticResource ForegroundShade}"
+                                                Style="{StaticResource SmallText}"
+                                                Text="Purchase Date" />
+
+                                            <TextBlock
+                                                FontWeight="Bold"
+                                                Style="{StaticResource BodyText}"
+                                                Text="{Binding PurchaseDate, StringFormat='{}{0:dd MMMM, yyyy}'}" />
+                                        </StackPanel>
+
+                                        <!--  Divider  -->
+                                        <Border
+                                            Grid.Column="1"
+                                            Margin="32,0"
+                                            HorizontalAlignment="Center"
+                                            BorderBrush="{StaticResource ForegroundShade}"
+                                            BorderThickness="0,0,1,0"
+                                            CornerRadius="1"
+                                            Opacity="0.5" />
+
+                                        <!--  Purchase Price  -->
+                                        <StackPanel Grid.Column="2" MinWidth="88">
+                                            <TextBlock
+                                                Margin="0,0,0,2"
+                                                Foreground="{StaticResource ForegroundShade}"
+                                                Style="{StaticResource SmallText}"
+                                                Text="Purchase Price" />
+
+                                            <TextBlock
+                                                FontWeight="Bold"
+                                                Style="{StaticResource BodyText}"
+                                                Text="{Binding PurchasePrice, Converter={StaticResource AssetCurrentPriceConverter}}" />
+                                        </StackPanel>
+
+                                    </Grid>
+
+                                    <Grid Grid.Column="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="16" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--  Edit Button  -->
+                                        <Button
+                                            Grid.Column="0"
+                                            Background="Transparent"
+                                            BorderBrush="{StaticResource ForegroundShade}"
+                                            BorderThickness="1.5"
+                                            Foreground="{StaticResource ForegroundShade}"
+                                            Style="{StaticResource SquareButton}"
+                                            Tag="{StaticResource AddIcon}">
+                                            Edit
+                                        </Button>
+
+                                        <!--  Delete Button  -->
+                                        <Button
+                                            Grid.Column="2"
+                                            Background="{StaticResource AccentShade}"
+                                            Command="{Binding DeleteCommand}"
+                                            Foreground="{StaticResource Accent}"
+                                            Style="{StaticResource SquareButton}"
+                                            Tag="{StaticResource DeleteIcon}">
+                                            Delete
+                                        </Button>
+
+                                    </Grid>
+
+                                </Grid>
                             </Grid>
                         </Border>
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#4D000000" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundShade}" />
                             </Trigger>
+
+                            <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="ShowMore">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HiddenDetails" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="ShowMore">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HiddenDetails" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Collapsed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
 
                             <EventTrigger RoutedEvent="Border.MouseEnter">
                                 <BeginStoryboard>
@@ -68,19 +268,19 @@
                                             To="16"
                                             Duration="0:0:0.15" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="CTA"
+                                            Storyboard.TargetName="ShowMore"
                                             Storyboard.TargetProperty="Opacity"
                                             From="0"
                                             To="1"
                                             Duration="0:0:0.2" />
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="CTA"
+                                            Storyboard.TargetName="ShowMore"
                                             Storyboard.TargetProperty="Margin"
                                             From="0"
-                                            To="40, 0, 16, 0"
+                                            To="48, 0, 16, 0"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="CTA"
+                                            Storyboard.TargetName="ShowMore"
                                             Storyboard.TargetProperty="Width"
                                             From="0"
                                             To="24"
@@ -93,19 +293,19 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="CTA"
+                                            Storyboard.TargetName="ShowMore"
                                             Storyboard.TargetProperty="Width"
                                             From="24"
                                             To="0"
                                             Duration="0:0:0.2" />
                                         <ThicknessAnimation
-                                            Storyboard.TargetName="CTA"
+                                            Storyboard.TargetName="ShowMore"
                                             Storyboard.TargetProperty="Margin"
                                             From="40, 0, 16, 0"
                                             To="0"
                                             Duration="0:0:0.2" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="CTA"
+                                            Storyboard.TargetName="ShowMore"
                                             Storyboard.TargetProperty="Opacity"
                                             From="1"
                                             To="0"
@@ -120,7 +320,6 @@
                                 </BeginStoryboard>
                             </EventTrigger>
                         </ControlTemplate.Triggers>
-
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -129,96 +328,11 @@
 
 
     <ListView
-        x:Name="ListView"
         VerticalContentAlignment="Top"
-        Background="{StaticResource Primary}"
+        Background="Transparent"
         BorderThickness="0"
-        ItemContainerStyle="{DynamicResource CryptoViewItem}"
+        ItemContainerStyle="{DynamicResource AssetListItem}"
         ItemsSource="{Binding Assets}"
         ScrollViewer.CanContentScroll="False"
-        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <!--  Icon  -->
-                    <Image
-                        Grid.Column="0"
-                        Width="34"
-                        Height="34"
-                        Source="{Binding Asset.Image}" />
-
-                    <Grid Grid.Column="2" VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <!--  Name  -->
-                        <StackPanel Grid.Column="0" MinWidth="120">
-                            <TextBlock
-                                Margin="0,0,0,2"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource Header6}"
-                                Text="{Binding Asset.Name}" />
-
-                            <TextBlock
-                                Foreground="{StaticResource ForegroundShade}"
-                                Style="{StaticResource SmallText}"
-                                Text="{Binding Asset.Symbol, Converter={StaticResource TextToUppercaseConverter}}" />
-                        </StackPanel>
-
-
-                        <!--  Current Price  -->
-                        <StackPanel Grid.Column="2" MinWidth="80">
-                            <TextBlock
-                                Margin="0,0,0,2"
-                                Foreground="{StaticResource ForegroundShade}"
-                                Style="{StaticResource SmallText}"
-                                Text="Current Price" />
-
-                            <TextBlock Style="{StaticResource Header6}" Text="{Binding Asset.CurrentPrice, Converter={StaticResource AssetCurrentPriceConverter}}" />
-                        </StackPanel>
-
-                        <!--  Quantity Owned  -->
-                        <StackPanel Grid.Column="4" MinWidth="88">
-                            <TextBlock
-                                Margin="0,0,0,2"
-                                Foreground="{StaticResource ForegroundShade}"
-                                Style="{StaticResource SmallText}"
-                                Text="Holdings" />
-
-                            <TextBlock Style="{StaticResource Header6}" Text="{Binding QuantityOwned, Converter={StaticResource QuantityOwnedFormatted}}" />
-                        </StackPanel>
-
-                        <!--  Total Value  -->
-                        <StackPanel Grid.Column="6" MinWidth="80">
-                            <TextBlock
-                                Margin="0,0,0,2"
-                                HorizontalAlignment="Right"
-                                Foreground="{StaticResource ForegroundShade}"
-                                Style="{StaticResource SmallText}"
-                                Text="Total Value" />
-
-                            <TextBlock
-                                HorizontalAlignment="Right"
-                                Style="{StaticResource Header6}"
-                                Text="{Binding TotalValue, StringFormat='c'}" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
 </UserControl>

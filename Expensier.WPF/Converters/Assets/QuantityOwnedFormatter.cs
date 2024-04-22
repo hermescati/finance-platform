@@ -19,7 +19,7 @@ namespace Expensier.WPF.Converters.Assets
             double quantity = ( double ) value;
 
             if ( quantity >= 1 )
-                return quantity.ToString( "#,0", CultureInfo.CurrentCulture );
+                return quantity.ToString( "#,0.00", CultureInfo.CurrentCulture );
 
             double roundedValue = Math.Round( quantity, 6 );
             return roundedValue.ToString( "0.######", CultureInfo.CurrentCulture );
