@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:assets="clr-namespace:Expensier.WPF.Controls.Assets"
     xmlns:charts="clr-namespace:Expensier.WPF.Controls.Charts"
+    xmlns:controls="clr-namespace:Expensier.WPF.Controls.Portfolio"
     xmlns:converters="clr-namespace:Expensier.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Expensier.WPF.Views"
@@ -273,63 +274,22 @@
                             </Grid.ColumnDefinitions>
 
                             <!--  Cryptocurrency Details  -->
-                            <Border
+                            <controls:PortfolioCard
                                 Grid.Column="0"
-                                Padding="16"
-                                HorizontalAlignment="Stretch"
-                                Background="{StaticResource BackgroundGradient}"
-                                CornerRadius="16">
-
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <Grid Grid.Row="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="16" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Image
-                                            Grid.Column="0"
-                                            Width="48"
-                                            Height="48"
-                                            Source="{StaticResource AppIcon}" />
-
-                                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                                            <TextBlock
-                                                Margin="0,0,0,4"
-                                                Style="{StaticResource Header6}"
-                                                Text="Cryptocurrencies" />
-
-                                            <TextBlock Style="{StaticResource BodyText}" Text="Total Value: $646.00" />
-                                        </StackPanel>
-                                    </Grid>
-
-                                    <TextBlock
-                                        Grid.Row="2"
-                                        Style="{StaticResource BodyText}"
-                                        Text="Return from cryptos: ##.##%" />
-                                </Grid>
-                            </Border>
+                                Header="Cryptocurrency"
+                                Icon="/Assets/Images/crypto_coin.png"
+                                InitialInvestment="200"
+                                InvestmentReturn="0.2"
+                                TotalValue="640" />
 
                             <!--  Stocks Details  -->
-                            <Border
+                            <controls:PortfolioCard
                                 Grid.Column="2"
-                                Padding="24,26"
-                                HorizontalAlignment="Stretch"
-                                Background="{StaticResource BackgroundGradient}"
-                                CornerRadius="16">
-                                <Image
-                                    Width="64"
-                                    Height="64"
-                                    Source="{StaticResource AppIcon}" />
-                            </Border>
-
+                                Header="Stocks"
+                                Icon="/Assets/Images/fiat_coin.png"
+                                InitialInvestment="200"
+                                InvestmentReturn="0.3"
+                                TotalValue="700" />
                         </Grid>
                     </Grid>
                     <!--#endregion-->
